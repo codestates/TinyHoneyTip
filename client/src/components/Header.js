@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import Signin from '../signin/Signin';
+import Signup from '../signup/Signup';
 
 export default function Header() {
     const [userInfo, setUserInfo] = useState({
@@ -43,7 +44,7 @@ export default function Header() {
             ) : (
                 <div className="header__btns">
                     <Signin userInfo={userInfo} />
-                    <button className="header__btn" /*onClick={모달}*/>sign up</button>
+                    <Signup />
                 </div>
             )}
         </div>

@@ -50,6 +50,7 @@ export default function Signup() {
             !ischeckPassword ||
             !isconfirm
         ) {
+            setIsOk(true);
             setMessage('모든 항목을 올바르게 입력하세요');
         } else {
             axios
@@ -140,12 +141,12 @@ export default function Signup() {
                     Sign Up
                 </button>
             )}
-            {!isOk ? (
+            {isOk ? (
                 <div className={styles.alert_container}>
                     <div className={styles.alert_box}>{message}</div>
                     <div>
                         <button className={styles.alert_btn} onClick={okHandler}>
-                            OK
+                            Close
                         </button>
                     </div>
                 </div>

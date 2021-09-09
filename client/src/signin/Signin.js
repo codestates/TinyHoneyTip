@@ -108,7 +108,7 @@ export default function Signin({ userInfo }) {
                     <div className={styles.alert_box}>{message}</div>
                     <div>
                         <button className={styles.alert_btn} onClick={okHandler}>
-                            OK
+                            Close
                         </button>
                     </div>
                 </div>

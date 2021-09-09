@@ -29,3 +29,5 @@ post.get('/scrap/:id', scrap);
 post.delete('/scrap/:id', cancelscrap);
 post.post('/comment/:id', comment);
 post.delete('/comment/:id', deletecomment);
+
+module.exports = post;

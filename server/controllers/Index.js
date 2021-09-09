@@ -1,12 +1,19 @@
-const { user } = require('../models');
+const { user, post_contailner } = require('../models');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
     mypage: require('./mypage/Index'),
-    user: require('./user/DeleteUser'),
     post: require('./post/Index'),
+    user: async (req, res) => {
+        const accessToken = req.cookies.accessToken;
+        const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
+        if (userinfo) {
+            user.destroy({ where: { email: userinfo.email } });
+            res.status(200).json({ message: 'byebye' });
+        }
+    },
     signin: async (req, res) => {
         const { email, password } = req.body;
         const findEmail = await user.findOne({
@@ -21,9 +28,9 @@ module.exports = {
             res.status(400).json({ message: 'rewrite email' });
         } else {
             delete finduser.dataValues.password;
-            const accesstoken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
+            const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
             res.status(200)
-                .cookie('access_token', accesstoken, {
+                .cookie('accessToken', accessToken, {
                     httpOnly: true,
                 })
                 .json({ message: 'login complete' });

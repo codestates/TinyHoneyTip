@@ -57,17 +57,35 @@
     border-radius: 10px;
 }
 .Modal_btn {
-    height: 3vw;
-    padding-left: 1.5vw;
-    padding-right: 1.5vw;
-    border-radius: 2vw;
+    width: 100px;
+    height: 20px;
     border: none;
-    outline: none;
-    font-size: 1vw;
-    font-weight: bold;
-    word-break: keep-all;
-    background-color: #ffe674;
-    transition: all 0.125s;
+    background-color: transparent;
+    font-family: 'Lobster', cursive;
+    font-size: 25px;
     cursor: pointer;
-    margin-right: 1.04vw;
+}
+.alert_container {
+    width: 300px;
+    height: 100px;
+    position: fixed;
+    top: 10vw;
+    left: 40vw;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: white;
+    color: black;
+    outline-color: black;
+    border-radius: 10px;
+}
+.alert_box {
+    position: relative;
+    top: 50px;
+}
+.alert_btn {
+    position: relative;
+    top: 50px;
+    outline: 0;
+    border: 3px;
+    background-color: #ffe674;
 }

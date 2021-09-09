@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Signin.module.css';
 
-export default function Login() {
+export default function Signin({ userInfo }) {
     const [isClick, setIsClick] = useState(false);
+    const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [loginInfo, setLoginInfo] = useState({
         email: '',
@@ -17,6 +18,9 @@ export default function Login() {
     };
     const closeModal = () => {
         setIsClick(false);
+    };
+    const okHandler = () => {
+        setIsOk(!isOk);
     };
 
     const loginRequestHandler = () => {
@@ -34,11 +38,14 @@ export default function Login() {
             )
             .then((res) => {
                 setMessage('로그인!');
-                // loginHandler() // 로그인 상태 변환 content에서
+                loginHandler();
                 return res.headers.cookies.accessToken;
             })
             .then((token) => {
-                // setAccessToken(token); accesstoken 상태 contnet에서?
+                setUserInfo({
+                    accessToken: { token },
+                });
+                okHandler();
             })
             .catch((err) => alert(err));
     };
@@ -77,15 +84,24 @@ export default function Login() {
                                     className={styles.kakaoLogo}
                                     src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
                                 />
-                                <div className={styles.kakaoText}>카카오 계정으로 로그인</div>
                             </button>
                         </div>
                     </div>
                 </div>
             ) : (
                 <button className={styles.Modal_btn} onClick={openModal}>
-                    로그인
+                    Sign In
                 </button>
+            )}
+            {!isOk ? null : (
+                <div className={styles.alert_container}>
+                    <div className={styles.alert_box}>{message}</div>
+                    <div>
+                        <button className={styles.alert_btn} onClick={okHandler}>
+                            OK
+                        </button>
+                    </div>
+                </div>
             )}
         </>
     );

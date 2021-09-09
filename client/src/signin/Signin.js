@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../../styles/Signin.module.css';
+import styles from '../../styles/Modal.module.css';
 
 export default function Signin({ userInfo }) {
     const [isClick, setIsClick] = useState(false);
@@ -59,32 +59,42 @@ export default function Signin({ userInfo }) {
                             X
                         </button>
                         <div className={styles.Modal_container}>
-                            <span className={styles.title}>로그인</span>
-                            <input
-                                className={styles.login_input}
-                                name="email"
-                                type="text"
-                                placeholder="email을 입력하세요"
-                                onChange={(e) => inputHandler(e)}
-                                value={loginInfo.email}
-                            />
-                            <input
-                                className={styles.login_input}
-                                name="password"
-                                type="password"
-                                placeholder="password를 입력하세요"
-                                onChange={(e) => inputHandler(e)}
-                                value={loginInfo.password}
-                            />
-                            <button className={styles.login_btn} onClick={loginRequestHandler}>
-                                로그인
-                            </button>
-                            <button className={styles.kakao_btn}>
-                                <img
-                                    className={styles.kakaoLogo}
-                                    src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
+                            <span className={styles.title}>Sign In</span>
+                            <div className={styles.input_container}>
+                                <div className={styles.label}>Email</div>
+                                <input
+                                    className={styles.signin_input}
+                                    name="email"
+                                    type="text"
+                                    placeholder="Email을 입력하세요"
+                                    onChange={(e) => inputHandler(e)}
+                                    value={loginInfo.email}
                                 />
-                            </button>
+                            </div>
+                            <div className={styles.input_container}>
+                                <div className={styles.label}>Password</div>
+                                <input
+                                    className={styles.signin_input}
+                                    name="password"
+                                    type="password"
+                                    placeholder="password를 입력하세요"
+                                    onChange={(e) => inputHandler(e)}
+                                    value={loginInfo.password}
+                                />
+                            </div>
+                            <img className={styles.modal_img} />
+                            <div className={styles.signin_line}>
+                                <button className={styles.signin_btn} onClick={loginRequestHandler}>
+                                    Sign In
+                                </button>
+                                <button className={styles.kakao_btn}>
+                                    카카오 로그인
+                                    <img
+                                        className={styles.kakaoLogo}
+                                        src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
+                                    />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +103,7 @@ export default function Signin({ userInfo }) {
                     Sign In
                 </button>
             )}
-            {!isOk ? null : (
+            {isOk ? (
                 <div className={styles.alert_container}>
                     <div className={styles.alert_box}>{message}</div>
                     <div>
@@ -102,7 +112,7 @@ export default function Signin({ userInfo }) {
                         </button>
                     </div>
                 </div>
-            )}
+            ) : null}
         </>
     );
 }

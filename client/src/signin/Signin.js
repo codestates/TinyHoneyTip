@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from '../../styles/Signin.module.css';
 
-function Login() {
+export default function Login() {
     const [isClick, setIsClick] = useState(false);
     const [message, setMessage] = useState('');
     const [loginInfo, setLoginInfo] = useState({
@@ -33,11 +34,11 @@ function Login() {
             )
             .then((res) => {
                 setMessage('로그인!');
-                // loginHandler() // 로그인 상태 변환
+                // loginHandler() // 로그인 상태 변환 content에서
                 return res.headers.cookies.accessToken;
             })
             .then((token) => {
-                setAccessToken(token);
+                // setAccessToken(token); accesstoken 상태 contnet에서?
             })
             .catch((err) => alert(err));
     };
@@ -45,13 +46,15 @@ function Login() {
     return (
         <>
             {isClick === true ? (
-                <div className="Modal_back">
-                    <div className="Modal">
-                        <button onClick={closeModal}>X</button>
-                        <div className="Modal_container">
-                            <span className="title">로그인</span>
+                <div className={styles.Modal_back}>
+                    <div className={styles.Modal}>
+                        <button className={styles.close_btn} onClick={closeModal}>
+                            X
+                        </button>
+                        <div className={styles.Modal_container}>
+                            <span className={styles.title}>로그인</span>
                             <input
-                                className="login_input"
+                                className={styles.login_input}
                                 name="email"
                                 type="text"
                                 placeholder="email을 입력하세요"
@@ -59,28 +62,31 @@ function Login() {
                                 value={loginInfo.email}
                             />
                             <input
-                                className="login_input"
+                                className={styles.login_input}
                                 name="password"
                                 type="password"
                                 placeholder="password를 입력하세요"
                                 onChange={(e) => inputHandler(e)}
                                 value={loginInfo.password}
                             />
-                            <button className="login_btn" onClick={loginRequestHandler}>
+                            <button className={styles.login_btn} onClick={loginRequestHandler}>
                                 로그인
                             </button>
-                            <button className="kakao_btn">
+                            <button className={styles.kakao_btn}>
                                 <img
-                                    className="kakaoLogo"
+                                    className={styles.kakaoLogo}
                                     src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
                                 />
-                                <div className="kakaoText">카카오 계정으로 로그인</div>
+                                <div className={styles.kakaoText}>카카오 계정으로 로그인</div>
                             </button>
                         </div>
                     </div>
                 </div>
-            ) : null}
+            ) : (
+                <button className={styles.Modal_btn} onClick={openModal}>
+                    로그인
+                </button>
+            )}
         </>
     );
 }
-export default Login;

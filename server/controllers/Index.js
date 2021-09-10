@@ -1,4 +1,4 @@
-const { user, post_contailner } = require('../models');
+const { user } = require('../models');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -12,6 +12,8 @@ module.exports = {
         if (userinfo) {
             user.destroy({ where: { email: userinfo.email } });
             res.status(200).json({ message: 'byebye' });
+        } else {
+            res.status(500).json({ message: 'error!!' });
         }
     },
     signin: async (req, res) => {

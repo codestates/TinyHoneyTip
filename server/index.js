@@ -18,9 +18,13 @@ app.use(
     }),
 );
 app.use(cookieParser());
-app.get('/', (req, res) => {
-    res.status(200).send('hello world');
-});
+app.use('/mypage', controllers.mypage);
+app.delete('/user', controllers.user);
+app.use('/post', controllers.post);
+
+app.post('/signin', controllers.user);
+app.post('/signup', controllers.user);
+app.get('signout', controllers.user);
 
 app.listen(port, () => {
     console.log(`서버가 ${port}번에서 작동중입니다.`);

@@ -240,7 +240,7 @@ html{
     .header__btn {
         width: 100px;
         height: 20px;
-        font-size: 25px;
+        font-size: 28px;
     }
     
     /*  footer */
@@ -340,7 +340,7 @@ html{
         bottom: 20px;
         border-radius: 50px;
         cursor: pointer;
-        z-index: 3;
+        z-index: 2;
     }
     
     .scroll-down::before,
@@ -352,7 +352,7 @@ html{
         border-top: transparent;
         border-left: transparent;
         animation: scroll-down 1s ease-in-out infinite;
-        z-index: 3;
+        z-index: 2;
     }
 
     .top-btn {

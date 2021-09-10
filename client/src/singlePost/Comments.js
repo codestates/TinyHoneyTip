@@ -3,7 +3,7 @@ import SingleComment from "./SingleComment"
 
 export default function Comments() {
 
-    return(
+    return (
         <div className='single-post__comment-area'>
             <div className='single-post__profile'>
                 <img className='single-post__profile__img' src='' />
@@ -14,6 +14,14 @@ export default function Comments() {
             <div className='single-post__comments'>
                 {/* overflow: auto 로 스크롤 생성 */}
                 {/* 데이터 받아서 map */}
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
                 <SingleComment />
             </div>
             <div className='single-post__comment-input'>

@@ -1,21 +1,21 @@
 
 export default function SingleComment() {
 
-    return(
+    return (
         <div className='single-comment'>
-            <div className='single-comment__profile'>
-                <img className='single-comment__profile__img' src='' />
-                <h1 className='single-comment__profile__username'>
-                    유저 이름
-                </h1>
-            </div>
+            <img className='single-comment__profile__img' src='' />
             <p className='single-comment__comment'>
-                댓글 내용
+                <span className='single-comment__profile__username'>
+                    유저이름
+                </span>
+                댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용
             </p>
-            <button className='single-comment__delete'>
-                {/* 본인 댓글인 경우만 보이도록 */}
-                삭제
-            </button>
+            <div className='single-comment__delete-space'>
+                <img
+                    className='single-comment__delete'
+                    src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-delete-multimedia-kiranshastry-solid-kiranshastry.png"
+                />
+            </div>
         </div>
     )
 }

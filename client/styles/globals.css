@@ -1,9 +1,19 @@
+@font-face {
+    font-family: 'BBTreeGB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Lobster&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Pacifico&family=Permanent+Marker&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'BBTreeGB', sans-serif;
 }
 
 a {
@@ -13,11 +23,8 @@ a {
 
 * {
   box-sizing: border-box;
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: 'BBTreeGB', sans-serif;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Lobster&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Pacifico&family=Permanent+Marker&family=Shadows+Into+Light&display=swap');
-
 
 /*  CSS 초기화! */
 
@@ -38,7 +45,15 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+    font-style: inherit;
+    font-variant-ligatures: inherit;
+    font-variant-caps: inherit;
+    font-variant-numeric: inherit;
+    font-variant-east-asian: inherit;
+    font-weight: inherit;
+    font-stretch: inherit;
+    font-size: 100%;
+    line-height: inherit;
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */

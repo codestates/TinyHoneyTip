@@ -4,3 +4,5 @@ const {} = require('./MypageApi');
 
 mypage.get('/');
 mypage.patch('/');
+
+module.exports = mypage;

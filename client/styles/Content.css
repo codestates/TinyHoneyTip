@@ -1,0 +1,27 @@
+.content {
+    position: relative;
+}
+.content_container {
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+}
+.best_container {
+    position: inherit;
+    top: 9vh;
+    width: 100%;
+    height: 50vh;
+    background-color: green;
+}
+.best_title {
+    position: absolute;
+    top: 10vh;
+    height: 10vh;
+}
+.postList_container {
+    position: inherit;
+    top: 50vh;
+    width: 100%;
+    height: 50vh;
+    background-color: white;
+}

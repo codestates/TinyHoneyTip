@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Modal.module.css';
 
-export default function Signin({ userInfo }) {
+export default function Signin({ userInfo, loginHandler }) {
     const [isClick, setIsClick] = useState(false);
     const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
@@ -13,6 +13,7 @@ export default function Signin({ userInfo }) {
     const inputHandler = (e) => {
         setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
     };
+
     const openModal = () => {
         setIsClick(true);
     };
@@ -21,6 +22,10 @@ export default function Signin({ userInfo }) {
     };
     const okHandler = () => {
         setIsOk(!isOk);
+    };
+
+    const responseFail = (err) => {
+        console.error(err);
     };
 
     const loginRequestHandler = () => {
@@ -49,7 +54,41 @@ export default function Signin({ userInfo }) {
             })
             .catch((err) => alert(err));
     };
-
+    function kakaoLogin() {
+        window.Kakao.Auth.loginForm({
+            success: (auth) => {
+                axios
+                    .post(
+                        process.env.REACT_APP_API_ENDPOINT + '/auth/signin/kakao',
+                        {},
+                        {
+                            headers: {
+                                Authorization: `Bearer ${auth.access_token}`,
+                                'Content-Type': 'application/json',
+                            },
+                            withCredentials: true,
+                        },
+                    )
+                    .then((res) => {
+                        const data = {
+                            email: res.data.email,
+                            userId: res.data.userId,
+                            accessToken: res.data.accessToken,
+                            provider: 'kakao',
+                            bookmarks: res.data.bookmarks,
+                        };
+                        dispatch(userSignIn(data));
+                        getRepliedPosts(data.userId, data.accessToken);
+                        props.closeModal();
+                        dispatch(setAlertOpen(true, `${res.data.email}님, 반가워요!`));
+                    })
+                    .catch((e) => console.log(e));
+            },
+            fail: (err) => {
+                console.log(err);
+            },
+        });
+    }
     return (
         <>
             {isClick === true ? (
@@ -87,13 +126,14 @@ export default function Signin({ userInfo }) {
                                 <button className={styles.signin_btn} onClick={loginRequestHandler}>
                                     Sign In
                                 </button>
-                                <button className={styles.kakao_btn}>
+                                <button onClick={kakaoLogin}>카카오</button>
+                                {/* <button className={styles.kakao_btn}>
                                     카카오 로그인
                                     <img
                                         className={styles.kakaoLogo}
                                         src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
                                     />
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </div>
@@ -108,7 +148,7 @@ export default function Signin({ userInfo }) {
                     <div className={styles.alert_box}>{message}</div>
                     <div>
                         <button className={styles.alert_btn} onClick={okHandler}>
-                            OK
+                            Close
                         </button>
                     </div>
                 </div>

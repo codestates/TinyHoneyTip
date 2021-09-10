@@ -3,6 +3,7 @@ import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
 
 export default function Home() {
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>;
     // 스크롤 제거
     // window.addEventListener("wheel", function(e){
     //   e.preventDefault();
@@ -13,6 +14,7 @@ export default function Home() {
     // })
 
     // section 개수에 맞게 수정
+
     const sectionCount = 5;
     const [currentSection, setCurrentSection] = useState(1);
 

@@ -18,6 +18,9 @@ app.use(
 );
 app.use(cookieParser());
 
+app.get('/', (req, res) => {
+    res.send('helloworld');
+});
 app.use('/mypage', controllers.mypage);
 app.use('/post', controllers.post);
 

@@ -1,4 +1,4 @@
-const { user } = require('../models');
+const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -41,10 +41,10 @@ module.exports = {
     signup: async (req, res) => {
         try {
             const { email, password, username } = req.body;
-            const emailCheck = await user.findOne({
+            const emailCheck = await User.findOne({
                 where: { email: email },
             });
-            const usernameCheck = await user.findOne({
+            const usernameCheck = await User.findOne({
                 where: { username: username },
             });
             if (emailCheck) {
@@ -52,11 +52,12 @@ module.exports = {
             } else if (usernameCheck) {
                 res.status(400).json({ message: 'already username exist' });
             } else {
-                await user.create({
+                await User.create({
                     email,
                     password,
                     username,
                 });
+                res.status(200).json({ messge: 'ok' });
             }
         } catch (err) {
             res.status(500).json({ message: 'unexpected error' });

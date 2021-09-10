@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const port = 80;
-nginx;
 
 const controllers = require('./controllers');
 

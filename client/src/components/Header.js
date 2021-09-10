@@ -43,7 +43,7 @@ export default function Header() {
                 </div>
             ) : (
                 <div className="header__btns">
-                    <Signin userInfo={userInfo} />
+                    <Signin userInfo={userInfo} loginHandle={loginHandler} />
                     <Signup />
                 </div>
             )}

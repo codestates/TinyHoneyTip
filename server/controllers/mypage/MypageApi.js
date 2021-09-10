@@ -1,6 +1,5 @@
 const { user, post_container, scrap } = require('../../models');
 const jwt = require('jsonwebtoken');
-const { isAuthorized } = require('../tokenFunctions');
 require('dotenv').config();
 
 module.exports = {

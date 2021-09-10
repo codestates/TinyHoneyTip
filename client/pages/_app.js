@@ -1,6 +1,9 @@
-import '../styles/globals.css';
-import '../styles/landing.css';
+
+import '../styles/globals.css'
+import '../styles/landing.css'
+import '../styles/singlePost.css'
 import '../styles/Content.css';
+
 
 function MyApp({ Component, pageProps }) {
     return (

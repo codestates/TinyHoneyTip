@@ -1,6 +1,5 @@
 const { user, post_container, scrap } = require('../../models');
 const jwt = require('jsonwebtoken');
-const { isAuthorized } = require('../tokenFunctions');
 require('dotenv').config();
 
 module.exports = {
@@ -52,6 +51,7 @@ module.exports = {
                         password,
                         profile_img,
                     });
+                    delete newInfo.password;
                     res.status(200).json({
                         message: 'ok',
                         data: {

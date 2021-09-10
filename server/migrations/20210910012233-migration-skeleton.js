@@ -2,10 +2,10 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.addConstraint('post_container', {
-            fields: ['userId'],
+        await queryInterface.addConstraint('post_containers', {
+            fields: ['user_id'],
             type: 'foreign key',
-            name: 'fk_user_id',
+            name: 'fk_post_containers_Users_id',
             references: {
                 table: 'Users',
                 field: 'id',
@@ -13,21 +13,21 @@ module.exports = {
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('post', {
-            fields: ['postId'],
+        await queryInterface.addConstraint('posts', {
+            fields: ['post_id'],
             type: 'foreign key',
-            name: 'fk_post_id',
+            name: 'fk_posts_post_containers_id',
             references: {
-                table: 'post_container',
+                table: 'post_containers',
                 field: 'id',
             },
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('like', {
-            fields: ['userId'],
+        await queryInterface.addConstraint('likes', {
+            fields: ['user_id'],
             type: 'foreign key',
-            name: 'fk_user_id',
+            name: 'fk_likes_Users_id',
             references: {
                 table: 'Users',
                 field: 'id',
@@ -35,21 +35,21 @@ module.exports = {
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('like', {
-            fields: ['postId'],
+        await queryInterface.addConstraint('likes', {
+            fields: ['post_id'],
             type: 'foreign key',
-            name: 'fk_post_id',
+            name: 'fk_likes_post_containers_id',
             references: {
-                table: 'post_container',
+                table: 'post_containers',
                 field: 'id',
             },
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('dislike', {
-            fields: ['userId'],
+        await queryInterface.addConstraint('dislikes', {
+            fields: ['user_id'],
             type: 'foreign key',
-            name: 'fk_user_id',
+            name: 'fk_dislikes_Users_id',
             references: {
                 table: 'Users',
                 field: 'id',
@@ -57,21 +57,21 @@ module.exports = {
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('dislike', {
-            fields: ['postId'],
+        await queryInterface.addConstraint('dislikes', {
+            fields: ['post_id'],
             type: 'foreign key',
-            name: 'fk_post_id',
+            name: 'fk_dislikes_post_containers_id',
             references: {
-                table: 'post_container',
+                table: 'post_containers',
                 field: 'id',
             },
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('comment', {
-            fields: ['userId'],
+        await queryInterface.addConstraint('comments', {
+            fields: ['user_id'],
             type: 'foreign key',
-            name: 'fk_user_id',
+            name: 'fk_comments_Users_id',
             references: {
                 table: 'Users',
                 field: 'id',
@@ -79,21 +79,21 @@ module.exports = {
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('comment', {
-            fields: ['postId'],
+        await queryInterface.addConstraint('comments', {
+            fields: ['post_id'],
             type: 'foreign key',
-            name: 'fk_post_id',
+            name: 'fk_comments_post_containers_id',
             references: {
-                table: 'post_container',
+                table: 'post_containers',
                 field: 'id',
             },
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('scrap', {
-            fields: ['userId'],
+        await queryInterface.addConstraint('scraps', {
+            fields: ['user_id'],
             type: 'foreign key',
-            name: 'fk_user_id',
+            name: 'fk_scraps_Users_id',
             references: {
                 table: 'Users',
                 field: 'id',
@@ -101,12 +101,12 @@ module.exports = {
             onDelete: 'cascade',
             onUpdate: 'cascade',
         });
-        await queryInterface.addConstraint('scrap', {
-            fields: ['postId'],
+        await queryInterface.addConstraint('scraps', {
+            fields: ['post_id'],
             type: 'foreign key',
-            name: 'fk_post_id',
+            name: 'fk_scraps_post_containers_id',
             references: {
-                table: 'post_container',
+                table: 'post_containers',
                 field: 'id',
             },
             onDelete: 'cascade',

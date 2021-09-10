@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../../styles/Signin.module.css';
+import styles from '../../styles/Modal.module.css';
 
-export default function Login() {
+export default function Signin({ userInfo, loginHandler }) {
     const [isClick, setIsClick] = useState(false);
+    const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [loginInfo, setLoginInfo] = useState({
         email: '',
@@ -12,11 +13,19 @@ export default function Login() {
     const inputHandler = (e) => {
         setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
     };
+
     const openModal = () => {
         setIsClick(true);
     };
     const closeModal = () => {
         setIsClick(false);
+    };
+    const okHandler = () => {
+        setIsOk(!isOk);
+    };
+
+    const responseFail = (err) => {
+        console.error(err);
     };
 
     const loginRequestHandler = () => {
@@ -34,15 +43,52 @@ export default function Login() {
             )
             .then((res) => {
                 setMessage('로그인!');
-                // loginHandler() // 로그인 상태 변환 content에서
+                loginHandler();
                 return res.headers.cookies.accessToken;
             })
             .then((token) => {
-                // setAccessToken(token); accesstoken 상태 contnet에서?
+                setUserInfo({
+                    accessToken: { token },
+                });
+                okHandler();
             })
             .catch((err) => alert(err));
     };
-
+    function kakaoLogin() {
+        window.Kakao.Auth.loginForm({
+            success: (auth) => {
+                axios
+                    .post(
+                        process.env.REACT_APP_API_ENDPOINT + '/auth/signin/kakao',
+                        {},
+                        {
+                            headers: {
+                                Authorization: `Bearer ${auth.access_token}`,
+                                'Content-Type': 'application/json',
+                            },
+                            withCredentials: true,
+                        },
+                    )
+                    .then((res) => {
+                        const data = {
+                            email: res.data.email,
+                            userId: res.data.userId,
+                            accessToken: res.data.accessToken,
+                            provider: 'kakao',
+                            bookmarks: res.data.bookmarks,
+                        };
+                        dispatch(userSignIn(data));
+                        getRepliedPosts(data.userId, data.accessToken);
+                        props.closeModal();
+                        dispatch(setAlertOpen(true, `${res.data.email}님, 반가워요!`));
+                    })
+                    .catch((e) => console.log(e));
+            },
+            fail: (err) => {
+                console.log(err);
+            },
+        });
+    }
     return (
         <>
             {isClick === true ? (
@@ -52,41 +98,61 @@ export default function Login() {
                             X
                         </button>
                         <div className={styles.Modal_container}>
-                            <span className={styles.title}>로그인</span>
-                            <input
-                                className={styles.login_input}
-                                name="email"
-                                type="text"
-                                placeholder="email을 입력하세요"
-                                onChange={(e) => inputHandler(e)}
-                                value={loginInfo.email}
-                            />
-                            <input
-                                className={styles.login_input}
-                                name="password"
-                                type="password"
-                                placeholder="password를 입력하세요"
-                                onChange={(e) => inputHandler(e)}
-                                value={loginInfo.password}
-                            />
-                            <button className={styles.login_btn} onClick={loginRequestHandler}>
-                                로그인
-                            </button>
-                            <button className={styles.kakao_btn}>
-                                <img
-                                    className={styles.kakaoLogo}
-                                    src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
+                            <span className={styles.title}>Sign In</span>
+                            <div className={styles.input_container}>
+                                <div className={styles.label}>Email</div>
+                                <input
+                                    className={styles.signin_input}
+                                    name="email"
+                                    type="text"
+                                    placeholder="Email을 입력하세요"
+                                    onChange={(e) => inputHandler(e)}
+                                    value={loginInfo.email}
                                 />
-                                <div className={styles.kakaoText}>카카오 계정으로 로그인</div>
-                            </button>
+                            </div>
+                            <div className={styles.input_container}>
+                                <div className={styles.label}>Password</div>
+                                <input
+                                    className={styles.signin_input}
+                                    name="password"
+                                    type="password"
+                                    placeholder="password를 입력하세요"
+                                    onChange={(e) => inputHandler(e)}
+                                    value={loginInfo.password}
+                                />
+                            </div>
+                            <img className={styles.modal_img} />
+                            <div className={styles.signin_line}>
+                                <button className={styles.signin_btn} onClick={loginRequestHandler}>
+                                    Sign In
+                                </button>
+                                <button onClick={kakaoLogin}>카카오</button>
+                                {/* <button className={styles.kakao_btn}>
+                                    카카오 로그인
+                                    <img
+                                        className={styles.kakaoLogo}
+                                        src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
+                                    />
+                                </button> */}
+                            </div>
                         </div>
                     </div>
                 </div>
             ) : (
                 <button className={styles.Modal_btn} onClick={openModal}>
-                    로그인
+                    Sign In
                 </button>
             )}
+            {isOk ? (
+                <div className={styles.alert_container}>
+                    <div className={styles.alert_box}>{message}</div>
+                    <div>
+                        <button className={styles.alert_btn} onClick={okHandler}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            ) : null}
         </>
     );
 }

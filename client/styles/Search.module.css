@@ -1,0 +1,9 @@
+.search_container {
+    position: absolute;
+    background-color: white;
+}
+.search_input {
+    position: absolute;
+    margin: 0vw 70vw;
+    width: 20vw;
+}

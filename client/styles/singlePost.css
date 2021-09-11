@@ -2,7 +2,7 @@
 
 .single-post-empty{
     width: 100%;
-    height: 8vh;
+    height: 60px;
 }
 
 .single-post-container {
@@ -20,38 +20,60 @@
 
 .single-post__post-area{
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     margin-bottom: 2vh;
 }
 
 .single-post__title{
-    width: 90vw;
+    width: 80vw;
     margin: 3vh 0 3vh 0;
     font-size: 20px;
 }
 
 .single-post__post{
+    width: 70vw;
+    overflow: hidden;
     position: relative;
+    margin-bottom: 2vh;
+}
+
+.single-post__post ul{
+    display: flex;
+    transition: 1s;
+}
+
+.single-post__post li{
+    position: relative;
+    height: 70vw;
+    background-color: rgba(242, 186, 44, 0.7);
 }
 
 .single-post__post__pic{
-    width: 80vw;
-    height: 80vw;
-    background-color: rgba(242, 186, 44, 1);
-    object-fit: cover;
-    margin-bottom: 2vh;
+    width: 100%;
+    height: 100%;
 }
 
 .single-post__post__text{
     position: absolute;
-    width: 80vw;
-    height: 80vw;
+    width: 100%;
+    height: 100%;
     top:0;
     left:0;
     padding: 10vw;
     font-size: 18px;
 }
+
+.single-post__post input{
+    display: none;
+}
+
+#pos1:checked ~ ul{margin-left:0;}
+#pos2:checked ~ ul{margin-left:-100%;}
+#pos3:checked ~ ul{margin-left:-200%;}
+#pos4:checked ~ ul{margin-left:-300%;}
+#pos5:checked ~ ul{margin-left:-400%;}
 
 .single-post__post__previous-page-btn,
 .single-post__post__next-page-btn{
@@ -62,16 +84,18 @@
 }
 
 .single-post__post__previous-page-btn{
-    left: -10vw;
+    left: -4vw;
+    top: 50vw;
 }
 
 .single-post__post__next-page-btn{
-    right: -10vw;
+    right: -4vw;
+    top: 50vw;
     transform: rotate(180deg);
 }
 
 .single-post__btns{
-    width: 80vw;
+    width: 70vw;
     display: flex;
     justify-content: space-between;
 }
@@ -97,14 +121,14 @@
 /* comments */
 
 .single-post__comment-area{
-    width: 80vw;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .single-post__profile{
-    width: 80vw;
+    width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 1vh;
@@ -123,22 +147,22 @@
 }
 
 .single-post__comments{
-    width: 80vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: 2vh;
 }
 
 .single-post__comment-input{
-    width: 80vw;
+    width: 70vw;
     display: flex;
     justify-content: space-between;
     margin-bottom: 3vh;
 }
 
 .single-post__comment-input__input{
-    width: 60vw;
-    height: 8vw;
+    width: 50vw;
+    height: 6vw;
     background-color: transparent;
     border: none;
     transition: all ease-in-out 0.3s;
@@ -152,7 +176,7 @@
 
 .single-post__comment-input__submit{
     width: 15vw;
-    height: 8vw;
+    height: 6vw;
     background-color: rgba(244, 193, 65, 0.8);
     transition: all ease-in-out 0.3s;
     border: none;
@@ -195,33 +219,44 @@
     height: 20px;
     position: absolute;
     top: 0;
-    right: -6vw;
+    right: -4vw;
 }
 
 @media screen and (min-width: 768px) {
 
     /* single-post */
+    
+    .single-post__post li{
+        position: relative;
+        height: 70vw;
+        background-color: rgba(242, 186, 44, 0.7);
+    }
 
     .single-post__title{
         width: 80vw;
         font-size: 28px;
     }
 
-    .single-post__post__pic{
+    .single-post__post{
         width: 70vw;
-        height: 70vw;
     }
 
     .single-post__post__text{
-        width: 70vw;
-        height: 70vw;
-        font-size: 25px;
-    }
+        font-size: 35px;
+    } 
 
     .single-post__post__previous-page-btn,
     .single-post__post__next-page-btn{
         width: 48px;
         height: auto;
+    }
+
+    .single-post__post__previous-page-btn{
+        top: 45vw;
+    }
+    
+    .single-post__post__next-page-btn{
+        top: 45vw;
     }
 
     .single-post__btns{
@@ -314,7 +349,24 @@
     }
 
     /* post-content */
-
+    
+    .single-post__post{
+        width: 500px;
+    }
+    
+    .single-post__post li{
+        height: 500px;
+    }
+    
+    .single-post__post__pic{
+        width: 100%;
+        height: 100%;
+    }
+    
+    .single-post__post__text{
+        padding: 60px;
+        font-size: 32px;
+    }
     .single-post__post-area{
         margin-right: 80px;
     }
@@ -323,24 +375,14 @@
         width: 600px;
     }
 
-    .single-post__post__pic{
-        width: 500px;
-        height: 500px;
-    }
-
-    .single-post__post__text{
-        width: 500px;
-        height: 500px;
-        padding: 60px;
-        font-size: 32px;
-    }
-
     .single-post__post__previous-page-btn{
-        left: -60px;
+        top: 300px;
+        left: -10px;
     }
     
     .single-post__post__next-page-btn{
-        right: -60px;
+        top: 300px;
+        right: -10px;
     }
 
     .single-post__btns{

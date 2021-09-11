@@ -105,13 +105,13 @@
 }
 .Modal_btn {
     white-space: nowrap;
-    width: 100px;
-    height: 20px;
+    width: 65px;
     border : none;
     background-color: transparent;
     font-family: 'Lobster', cursive;
-    font-size: 28px;
+    font-size: 24px;
     cursor: pointer;
+    margin-right: 20px;
 }
 .alert_container {
     width: 30vw;
@@ -136,11 +136,4 @@
     outline: 0;
     border: 0;
     background-color: #ffe674;
-}
-
-@media screen and (max-width: 320px) {
-    .Modal_btn {
-        width: 65px;
-        font-size: 18px;
-    }
 }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import Header from '../src/components/Header';
-import Footer from '../src/components/Footer';
-import PostContent from '../src/singlePost/PostContent';
-import Comments from '../src/singlePost/Comments';
+import Header from './Header';
+import Footer from './Footer';
+import PostContent from '../singlePost/PostContent';
+import Comments from '../singlePost/Comments';
 
 export default function Post({ post }) {
     console.log(post);

@@ -7,13 +7,13 @@
     align-items: center;
     width: 100%;
     background-color: rgba(244,193,65,0.8);
-    height: 8vh;
+    height: 60px;
     z-index: 3;
 }
 
 .header__logo {
     font-family: 'Lobster', cursive;
-    font-size: 25px;
+    font-size: 28px;
     margin-left: 15px;
     cursor: pointer;
     white-space: nowrap;
@@ -27,12 +27,12 @@
 .header__btn {
     white-space: nowrap;
     width: 65px;
-    height: 20px;
     border : none;
     background-color: transparent;
     font-family: 'Lobster', cursive;
     font-size: 18px;
     cursor: pointer;
+    margin-right: 20px;
 }
 
 /*  footer */
@@ -229,18 +229,12 @@ html{
     /*  header */
 
     .header__logo {
-        font-size: 50px;
+        font-size: 40px;
         margin-left: 25px;
     }
     
     .header__btns {
         margin-right: 50px;
-    }
-    
-    .header__btn {
-        width: 100px;
-        height: 20px;
-        font-size: 28px;
     }
     
     /*  footer */

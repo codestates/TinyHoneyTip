@@ -24,10 +24,6 @@ export default function Signin({ userInfo, loginHandler }) {
         setIsOk(!isOk);
     };
 
-    const responseFail = (err) => {
-        console.error(err);
-    };
-
     const loginRequestHandler = () => {
         if (loginInfo.email === '' && loginInfo.password === '') {
             setMessage('이메일과 비밀번호를 입력해주세요!');

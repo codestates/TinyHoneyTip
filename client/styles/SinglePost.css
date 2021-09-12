@@ -96,8 +96,16 @@
 
 .single-post__btns{
     width: 70vw;
+    position: relative;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+}
+
+.single-post__page{
+    position: absolute;
+    right: 50%;
+    top: -15px;
 }
 
 .single-post__btn__img{

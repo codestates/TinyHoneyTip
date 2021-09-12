@@ -18,11 +18,13 @@ export default function PostContent() {
     })
 
     const feelingHandler = (key) => {
+        // 비회원일 경우 block
         setFeeling({
             ...feeling,
             [key]: !(feeling[key])
         })
         // feeling에 따라 서버에 요청
+        // feeling이 true였으면 delete, false였으면 post
     }
 
     const deletePost = () => {
@@ -98,6 +100,9 @@ export default function PostContent() {
                             "https://img.icons8.com/material-outlined/24/000000/bookmark-ribbon--v1.png"}
                     />
                 </div>
+                <p className='single-post__page'>
+                    {currentSlide}/{slide.length}
+                </p>
                 <div className='single-post__btns__post'>
                     {/*  본인 글일 경우만 보이도록 세팅, edit은 post수정페이지로 연결, delete는 서버에 삭제 요청 */}
                     <Link href=''>

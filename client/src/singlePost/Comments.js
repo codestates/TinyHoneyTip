@@ -7,10 +7,14 @@ export default function Comments() {
     const [commentInput, setCommentInput] = useState('');
 
     const handleInput = (e) => {
+        // 비회원일 경우 block
+        // placeholder 메세지 변경
         setCommentInput(e.target.value)
     }
 
     const commentSubmit = () => {
+        // 비회원일 경우 block
+        // commentInput.length>0일떄
         // 서버에 comment 입력 보내기
     }
 

@@ -22,23 +22,36 @@ export default function Home() {
 
   }
 
-  const handleScroll = () => {
-    if (currentSection === sectionCount) {
+  // const handleScroll = () => {
+  //   if (currentSection === sectionCount) {
 
-    } else {
-      setCurrentSection(currentSection + 1);
-    }
-    console.log(currentSection)
-  }
+  //   } else {
+  //     setCurrentSection(currentSection + 1);
+  //   }
+  //   console.log(currentSection)
+  // }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+  // const throttleUsingRaf = (cb) => {
+  //   var rAfTimeout = 300;
 
-    // const sections = document.querySelectorAll('section');
-    // const firstSection = sections[0].offsetTop;
-    // const secondSection = sections[1].offsetTop;
-    return () => window.removeEventListener('scroll', handleScroll)
-  })
+  //   return function () {
+  //     if (rAfTimeout) {
+  //       window.cancelAnimationFrame(rAfTimeout);
+  //     }
+  //     rAfTimeout = window.requestAnimationFrame(function () {
+  //       cb();
+  //     })
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', throttleUsingRaf(handleScroll));
+
+  //   // const sections = document.querySelectorAll('section');
+  //   // const firstSection = sections[0].offsetTop;
+  //   // const secondSection = sections[1].offsetTop;
+  //   return () => window.removeEventListener('scroll', throttleUsingRaf(handleScroll))
+  // })
 
 
   return (
@@ -46,6 +59,7 @@ export default function Home() {
       <Header />
       <div className='landing__sections'>
         <section className='landing__section' id="section1">
+          {/* 첫 번째 섹션에 바로 시작하기 버튼 추가? */}
           <div className='landing__section1__text'>
             <h1 className='landing__section1__tittle'>
               Tiny Honey Tip
@@ -55,7 +69,11 @@ export default function Home() {
             </h2>
           </div>
           <img className='landing__section1__pic' src='./honeycomb.png' alt='honeycomb' />
-          <a href='#section2'>
+          <a onClick={() => {
+            let nextSection = document.getElementById('section2').offsetTop;
+            console.log(nextSection)
+            window.scrollTo(0, nextSection)
+          }}>
             <div className='scroll-down'></div>
           </a>
         </section>
@@ -63,9 +81,14 @@ export default function Home() {
           <div className='landing__section1__text'>
             <h2 className='landing__section1__p'>
               일상에서 꼭 필요한 각종 사소한 꿀팁을 <br /><br />시간 낭비없이 본론만 얻으세요!
+              {/* 여긴 자동으로 넘어가는 이미지 슬라이드 */}
             </h2>
           </div>
-          <a href='#section3'>
+          <a onClick={() => {
+            let nextSection = document.getElementById('section3').offsetTop;
+            console.log(nextSection)
+            window.scrollTo(0, nextSection)
+          }}>
             <div className='scroll-down'></div>
           </a>
         </section>
@@ -77,9 +100,14 @@ export default function Home() {
               그와 동시에 다른 사람들의 꿀팁을 스크랩하여 저장하고 <br /><br />
               꿀팁저장소에서 언제 어디서든 <br /><br />
               필요할 때 다시 꺼내볼 수 있습니다!
+              {/* 여긴 수동으로 넘어가는 gif 슬라이드 */}
             </h2>
           </div>
-          <a href='#section4'>
+          <a onClick={() => {
+            let nextSection = document.getElementById('section4').offsetTop;
+            console.log(nextSection)
+            window.scrollTo(0, nextSection)
+          }}>
             <div className='scroll-down'></div>
           </a>
         </section>

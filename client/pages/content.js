@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
-import Select from '../src/components/select';
+import Select from '../src/components/Select';
 import { testPost } from '../src/assets/mock';
 
 export default function Content() {

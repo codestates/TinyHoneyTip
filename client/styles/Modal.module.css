@@ -109,12 +109,12 @@
 .Modal_btn {
     white-space: nowrap;
     width: 65px;
-    border : none;
+    border: none;
     background-color: transparent;
     font-family: 'Lobster', cursive;
-    font-size: 24px;
+    font-size: 18px;
     cursor: pointer;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 .alert_container {
     width: 50vw;
@@ -251,14 +251,9 @@
         background-color: white;
     }
     .Modal_btn {
-        width: 10vw;
-        height: 2vw;
-        border: none;
-        position: relative;
-        background-color: transparent;
-        font-family: 'Lobster', cursive;
-        font-size: 2.5vw;
-        cursor: pointer;
+        width: 100px;
+        height: 20px;
+        font-size: 25px;
     }
     .alert_container {
         width: 30vw;
@@ -393,16 +388,7 @@
         position: relative;
         background-color: white;
     }
-    .Modal_btn {
-        width: 10vw;
-        height: 2vw;
-        border: none;
-        position: relative;
-        background-color: transparent;
-        font-family: 'Lobster', cursive;
-        font-size: 2.5vw;
-        cursor: pointer;
-    }
+
     .alert_container {
         font-size: 1.5vw;
         width: 30vw;

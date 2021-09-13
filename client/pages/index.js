@@ -83,6 +83,23 @@ export default function Home() {
               일상에서 꼭 필요한 각종 사소한 꿀팁을 <br /><br />시간 낭비없이 본론만 얻으세요!
               {/* 여긴 자동으로 넘어가는 이미지 슬라이드 */}
             </h2>
+            <div className='landing__section2__slide'>
+              {/* 이미지 개수에 따라 style 수정 */}
+              <ul style={{ width: `calc(100% * 4)` }}>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+              </ul>
+            </div>
           </div>
           <a onClick={() => {
             let nextSection = document.getElementById('section3').offsetTop;
@@ -95,13 +112,40 @@ export default function Home() {
         <section className='landing__section' id="section3">
           <div className='landing__section1__text'>
             <h2 className='landing__section1__p'>
-              갖고있는 작고 소중한 꿀팁을 템플릿으로 <br /><br />
+              뭐시기
+              {/* 갖고있는 작고 소중한 꿀팁을 템플릿으로 <br /><br />
               깔끔하게 정리하고 <br /><br />
               그와 동시에 다른 사람들의 꿀팁을 스크랩하여 저장하고 <br /><br />
               꿀팁저장소에서 언제 어디서든 <br /><br />
-              필요할 때 다시 꺼내볼 수 있습니다!
+              필요할 때 다시 꺼내볼 수 있습니다! */}
               {/* 여긴 수동으로 넘어가는 gif 슬라이드 */}
             </h2>
+            <div className='landing__section3__slide'>
+              <input type='radio' name='section3-pos' id='section-pos1' />
+              <input type='radio' name='section3-pos' id='section-pos2' />
+              <input type='radio' name='section3-pos' id='section-pos3' />
+              <input type='radio' name='section3-pos' id='section-pos4' />
+              <ul style={{ width: `calc(100% * 4)` }}>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+                <li style={{ width: `calc(100% / 4)` }}>
+                  <img src=''></img>
+                </li>
+              </ul>
+              <p class='section3__bullet'>
+                <label for='section-pos1'>1</label>
+                <label for='section-pos2'>2</label>
+                <label for='section-pos3'>3</label>
+                <label for='section-pos4'>4</label>
+              </p>
+            </div>
           </div>
           <a onClick={() => {
             let nextSection = document.getElementById('section4').offsetTop;

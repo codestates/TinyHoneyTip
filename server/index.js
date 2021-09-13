@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const port = 80;
-nginx;
 
 const controllers = require('./controllers');
 
@@ -18,7 +17,9 @@ app.use(
     }),
 );
 app.use(cookieParser());
-
+app.get('/', (req, res) => {
+    res.send('helloworld');
+});
 app.use('/mypage', controllers.mypage);
 app.use('/post', controllers.post);
 

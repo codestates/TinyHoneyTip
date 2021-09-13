@@ -7,7 +7,6 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
-const { user, scrap, post, post_container, like, dislike, comment } = sequelize.models;
 
 let sequelize;
 if (config.use_env_variable) {
@@ -34,22 +33,24 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-post_container.belongsTo(user, { foreignKey: 'user_id' });
-user.hasMany(post_container);
+const { User, scrap, post, post_container, like, dislike, comment } = sequelize.models;
+
+post_container.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(post_container);
 
 post_container.hasMany(post);
 post.belongsTo(post_container, { foreignKey: 'post_id' });
 
-user.belongsToMany(post_container, { through: 'like', foreignKey: 'post_id' });
-post_container.belongsToMany(user, { through: 'like', foreignKey: 'user_id' });
+User.belongsToMany(post_container, { through: 'like', foreignKey: 'post_id' });
+post_container.belongsToMany(User, { through: 'like', foreignKey: 'user_id' });
 
-user.belongsToMany(post_container, { through: 'dislike', foreignKey: 'post_id' });
-post_container.belongsToMany(user, { through: 'dislike', foreignKey: 'user_id' });
+User.belongsToMany(post_container, { through: 'dislike', foreignKey: 'post_id' });
+post_container.belongsToMany(User, { through: 'dislike', foreignKey: 'user_id' });
 
-user.belongsToMany(post_container, { through: 'scrap', foreignKey: 'post_id' });
-post_container.belongsToMany(user, { through: 'scrap', foreignKey: 'user_id' });
+User.belongsToMany(post_container, { through: 'scrap', foreignKey: 'post_id' });
+post_container.belongsToMany(User, { through: 'scrap', foreignKey: 'user_id' });
 
-user.belongsToMany(post_container, { through: 'comment', foreignKey: 'post_id' });
-post_container.belongsToMany(user, { through: 'comment', foreignKey: 'user_id' });
+User.belongsToMany(post_container, { through: 'comment', foreignKey: 'post_id' });
+post_container.belongsToMany(User, { through: 'comment', foreignKey: 'user_id' });
 
 module.exports = db;

@@ -1,9 +1,25 @@
+import React, { useState } from "react"
+import axios from "axios"
 
 import SingleComment from "./SingleComment"
 
 export default function Comments() {
+    const [commentInput, setCommentInput] = useState('');
 
-    return(
+    const handleInput = (e) => {
+        // 비회원일 경우 block
+        // placeholder 메세지 변경
+        setCommentInput(e.target.value)
+    }
+
+    const commentSubmit = () => {
+        // 비회원일 경우 block
+        // commentInput.length>0일떄
+        // 서버에 comment 입력 보내기
+    }
+
+
+    return (
         <div className='single-post__comment-area'>
             <div className='single-post__profile'>
                 <img className='single-post__profile__img' src='' />
@@ -12,13 +28,28 @@ export default function Comments() {
                 </h1>
             </div>
             <div className='single-post__comments'>
-                {/* overflow: auto 로 스크롤 생성 */}
                 {/* 데이터 받아서 map */}
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
+                <SingleComment />
                 <SingleComment />
             </div>
             <div className='single-post__comment-input'>
-                <input className='single-post__comment-input__input' type='text' />
-                <button className='single-post__comment-input__submit'>
+                <input
+                    className='single-post__comment-input__input'
+                    type='text'
+                    onChange={handleInput}
+                    placeholder='댓글을 입력해주세요.'
+                />
+                <button
+                    className='single-post__comment-input__submit'
+                    onClick={commentSubmit}
+                >
                     등록
                 </button>
             </div>

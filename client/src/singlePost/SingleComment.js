@@ -1,21 +1,28 @@
+import axios from "axios"
 
 export default function SingleComment() {
 
-    return(
+    const deleteComment = () => {
+        // 서버에 댓글 삭제 요청
+    }
+
+    return (
         <div className='single-comment'>
-            <div className='single-comment__profile'>
-                <img className='single-comment__profile__img' src='' />
-                <h1 className='single-comment__profile__username'>
-                    유저 이름
-                </h1>
-            </div>
+            <img className='single-comment__profile__img' src='' />
             <p className='single-comment__comment'>
-                댓글 내용
+                <span className='single-comment__profile__username'>
+                    유저이름
+                </span>
+                댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용
             </p>
-            <button className='single-comment__delete'>
-                {/* 본인 댓글인 경우만 보이도록 */}
-                삭제
-            </button>
+            <div className='single-comment__delete-space'>
+                {/* 본인이 쓴 댓글인 경우에만 표시 */}
+                <img
+                    className='single-comment__delete'
+                    onClick={deleteComment}
+                    src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-delete-multimedia-kiranshastry-solid-kiranshastry.png"
+                />
+            </div>
         </div>
     )
 }

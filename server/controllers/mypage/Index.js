@@ -1,8 +1,8 @@
 const express = require('express');
 const mypage = express();
-const {} = require('./MypageApi');
+const { getmypage, editmypage } = require('./MypageApi');
 
-mypage.get('/');
-mypage.patch('/');
+mypage.get('/', getmypage);
+mypage.patch('/', editmypage);
 
 module.exports = mypage;

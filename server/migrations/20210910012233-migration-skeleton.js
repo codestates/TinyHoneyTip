@@ -2,17 +2,17 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.addConstraint('post_containers', {
-            fields: ['user_id'],
-            type: 'foreign key',
-            name: 'fk_post_containers_Users_id',
-            references: {
-                table: 'Users',
-                field: 'id',
-            },
-            onDelete: 'cascade',
-            onUpdate: 'cascade',
-        });
+        // await queryInterface.addConstraint('post_containers', {
+        //     fields: ['user_id'],
+        //     type: 'foreign key',
+        //     name: 'fk_post_containers_Users_id',
+        //     references: {
+        //         table: 'Users',
+        //         field: 'id',
+        //     },
+        //     onDelete: 'cascade',
+        //     onUpdate: 'cascade',
+        // });
         await queryInterface.addConstraint('posts', {
             fields: ['post_id'],
             type: 'foreign key',

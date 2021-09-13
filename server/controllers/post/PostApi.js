@@ -1,4 +1,4 @@
-const { user, post_container, post, sequelize } = require('../../models');
+const { User, post_container, post, sequelize } = require('../../models');
 const jwt = require('jsonwebtoken');
 const { QueryTypes } = require('sequelize');
 require('dotenv').config();
@@ -8,12 +8,12 @@ module.exports = {
         try {
             const postlist = await sequelize.query(
                 `
-            select post_containers.id, post_containers.title, post_container.category,
-            users.username, posts as post, likes as like
-            from post_contents
-            left join users on post_contents.id = users.post_id
-            left join (select * as posts from posts group by post_id) as postlist on post.id = postlist.post_id
-            left join (select * as likes from likes group by post_id) as likelist on post.id = likelist.post_id
+            SELECT post_containers.id, post_containers.title, post_containers.category,
+            Users.username, posts AS post, likes AS like
+            FROM post_containers
+            LEFT JOIN Users ON post_containers.id = Users.post_id
+            LEFT JOIN (SELECT * AS posts from posts GROUP BY post_id) AS postlist ON posts.id = postlist.post_id
+            LEFT JOIN (SELECT * AS likes from likes GROUP BY post_id) AS likelist ON posts.id = likelist.post_id
             `,
                 { type: QueryTypes.SELECT },
             );

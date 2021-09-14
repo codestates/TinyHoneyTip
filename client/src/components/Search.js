@@ -17,11 +17,16 @@ export default function Search({ postList }) {
             return el.title.indexOf(searchKeyword) > -1;
         });
         return data.map((list) => {
-            return <></>;
+            return (
+                <>
+                    <Thumbnail list={list} />
+                </>
+            );
         });
     };
     return (
         <>
+            <div className="post_list_title">🐝 꿀팁 둘러보기</div>
             <div className={styles.search_container}>
                 <input
                     className={styles.search_input}
@@ -33,7 +38,7 @@ export default function Search({ postList }) {
             </div>
             <div>
                 {filteredContent(postList).length !== 0 ? (
-                    <div className={styles.postList_container}>{filteredContent(postList)}</div>
+                    <div>{filteredContent(postList)}</div>
                 ) : (
                     '검색 결과가 없습니다.'
                 )}

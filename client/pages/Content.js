@@ -5,6 +5,7 @@ import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
 import Thumbnail from '../src/components/Thumbnail';
 import { testPost } from '../src/assets/mock';
+import Search from '../src/components/Search';
 import axios from 'axios';
 
 export default function Content() {
@@ -69,7 +70,7 @@ export default function Content() {
                                                             key={cate}
                                                             className="nav_items"
                                                             value={cate}
-                                                            onClick={categoryHandler(e)}>
+                                                            onClick={(e) => categoryHandler(e)}>
                                                             {cate}
                                                         </button>
                                                     </div>
@@ -96,6 +97,7 @@ export default function Content() {
                                     <div className="best_list_title">🐝 BEST 꿀팁</div>
                                     <div className="best_list">
                                         {postList.slice(0, 5).map((best) => {
+                                            console.log(best);
                                             return (
                                                 <div className="best_item">
                                                     <div className="best_item_inner">
@@ -140,7 +142,8 @@ export default function Content() {
                                             );
                                         })}
                                     </div>
-                                    <Thumbnail postList={postList} />
+                                    <Search postList={postList} />
+                                    <Thumbnail postList={postList} setPostList={setPostList} />
                                 </div>
                             </div>
                         </div>

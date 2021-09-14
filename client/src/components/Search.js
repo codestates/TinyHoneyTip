@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import styles from '../../styles/Search.module.css';
+import Thumbnail from './Thumbnail';
 
 export default function Search({ postList }) {
     console.log(postList, 'search');
@@ -16,16 +17,7 @@ export default function Search({ postList }) {
             return el.title.indexOf(searchKeyword) > -1;
         });
         return data.map((list) => {
-            return (
-                <li>
-                    <Link href={`/post/${list.id}`}>
-                        <div className={styles.post_container}>
-                            <h1>썸네일 타이틀</h1>
-                            <img>썸네일 이미지</img>
-                        </div>
-                    </Link>
-                </li>
-            );
+            return <></>;
         });
     };
     return (

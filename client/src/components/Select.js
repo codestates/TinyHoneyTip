@@ -9,11 +9,11 @@ export default function Select({ postList }) {
 
     const sortedResult = postList.map((el) => {
         if (selected === '0') {
-            el.sort((a, b) => a.category > b.category);
+            return el.sort((a, b) => a.category > b.category);
             console.log(el);
         }
         if (selected === '1') {
-            el.sort((a, b) => a.like > b.like);
+            return el.sort((a, b) => a.like > b.like);
             console.log(el);
         }
     });

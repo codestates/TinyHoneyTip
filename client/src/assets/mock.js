@@ -7,7 +7,7 @@ export const testPost = {
                 category: '생활',
                 post_page: [
                     {
-                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        img: 'https://media.discordapp.net/attachments/884717967307321407/884986416105402438/d2d952a12bb5e51f.png',
                         content:
                             '어쩌구 저쩌구 생활의 꿀팁 어쩌구 저쩌구 가나다라마바사 abcdefg 저는 말이 많아요 정말 너무너무너무너무너무너무 많아서 길어질텐데 글이 겹칠까요 혹시? 안겹치게 잘랐습니다 수고하세요 ',
                     },
@@ -17,10 +17,10 @@ export const testPost = {
             {
                 id: 2,
                 title: '실험용2',
-                category: '요리',
+                category: '동물',
                 post_page: [
                     {
-                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        img: 'https://lh3.googleusercontent.com/proxy/PCgytGcajMS0yJRqQEUQIy1T2-NmizBB3ARpOPRaIABcSlle87k7IDCPv3kCvIhaxfZHZvVz1KXbcBl9h8dUZtn--s7URtHIAYrG8rdiipTzBdRHeFzXf7Y',
                         content: '실험용2',
                     },
                 ],
@@ -29,10 +29,10 @@ export const testPost = {
             {
                 id: 3,
                 title: '실험용3',
-                category: '생활',
+                category: '동물',
                 post_page: [
                     {
-                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        img: 'https://img.insight.co.kr/static/2018/03/28/700/qc2tugpq65d4vwl89nj9.jpg',
                         content: '실험용3',
                     },
                 ],
@@ -44,8 +44,8 @@ export const testPost = {
                 category: '생활',
                 post_page: [
                     {
-                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
-                        content: '실험용1',
+                        img: 'http://newsteacher.chosun.com/site/data/img_dir/2021/05/11/2021051100077_0.jpg',
+                        content: '꿀벌최고',
                     },
                 ],
                 like: 15,
@@ -234,6 +234,330 @@ export const testPost = {
                 id: 10,
                 title: '끝',
                 category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '동물',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '쇼핑',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '동물',
+                post_page: [
+                    {
+                        img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
+                        content: '됐으면',
+                    },
+                ],
+                like: 67,
+            },
+            {
+                id: 10,
+                title: '끝',
+                category: '동물',
                 post_page: [
                     {
                         img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',

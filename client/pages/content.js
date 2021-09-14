@@ -3,27 +3,24 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
-import Thumbnail from '../src/components/Thumbnail';
 import { testPost } from '../src/assets/mock';
 import Search from '../src/components/Search';
 import axios from 'axios';
 
 export default function Content() {
-    const [postList, setPostList] = useState(testPost.data.post); // []
+    const [postList, setPostList] = useState([]); // []
     // const [items, setItems] = useState(10);
     // const [preItems, setPreItems] = useState(0);
     const [isClick, setClick] = useState(false);
-    const categories = ['All', '운동', '생활', '동물', '쇼핑', '휴지통'];
-    const [categoryBtn, setCategoryBtn] = useState('All');
+    const categories = ['전체', '운동', '생활', '동물', '쇼핑', '휴지통'];
 
     const categoryHandler = (e) => {
-        setCategoryBtn(e.target.value);
-
-        if (categoryBtn === 'All') {
+        if (e.target.innerText === '전체') {
             setPostList(testPost.data.post);
+            return;
         } else {
-            const filteredData = postList.filter((el) => {
-                return el.category === e.target.value;
+            const filteredData = testPost.data.post.filter((el) => {
+                return el.category === e.target.innerText;
             });
             setPostList(filteredData);
         }
@@ -40,14 +37,12 @@ export default function Content() {
     //     });
     // };
 
-    useEffect(() => {
-        setPostList(testPost.data.post);
-    }, [testPost.data.post]);
-
     // useEffect(() => {
     //     getPostsData();
     // }, []);
-
+    useEffect(() => {
+        setPostList(testPost.data.post);
+    }, []);
     return (
         <>
             <Head>
@@ -71,7 +66,10 @@ export default function Content() {
                                                             className="nav_items"
                                                             value={cate}
                                                             onClick={(e) => categoryHandler(e)}>
-                                                            {cate}
+                                                            <div className="category">
+                                                                <img className="cate_icon" />
+                                                                {cate}
+                                                            </div>
                                                         </button>
                                                     </div>
                                                 );
@@ -97,7 +95,6 @@ export default function Content() {
                                     <div className="best_list_title">🐝 BEST 꿀팁</div>
                                     <div className="best_list">
                                         {postList.slice(0, 5).map((best) => {
-                                            console.log(best);
                                             return (
                                                 <div className="best_item">
                                                     <div className="best_item_inner">
@@ -143,7 +140,6 @@ export default function Content() {
                                         })}
                                     </div>
                                     <Search postList={postList} />
-                                    <Thumbnail postList={postList} setPostList={setPostList} />
                                 </div>
                             </div>
                         </div>

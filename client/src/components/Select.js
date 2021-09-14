@@ -3,6 +3,7 @@ import styles from '../../styles/Select.module.css';
 
 export default function Select({ postList }) {
     const [selected, setSelected] = useState('');
+
     const changeSelectOptionHandler = (e) => {
         setSelected(e.target.value);
     };

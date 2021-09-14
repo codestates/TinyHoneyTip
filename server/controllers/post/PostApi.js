@@ -1,4 +1,4 @@
-const { User, post_container, post, sequelize } = require('../../models');
+const { User, post_container, post, like, dislike, comment, scrap, sequelize } = require('../../models');
 const jwt = require('jsonwebtoken');
 const { QueryTypes } = require('sequelize');
 require('dotenv').config();
@@ -34,10 +34,93 @@ module.exports = {
     getpostdetail: async (req, res) => {},
     editpost: async (req, res) => {},
     deletepost: async (req, res) => {},
-    like: async (req, res) => {},
-    cancellike: async (req, res) => {},
-    dislike: async (req, res) => {},
-    canceldislike: async (req, res) => {},
+
+    getLike: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    like.create({
+                        user_id: userInfo.id,
+                        post_id: req.params.id,
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+
+    cancellike: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    like.destroy({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+
+    dislike: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    dislike.create({
+                        user_id: userInfo.id,
+                        post_id: req.params.id,
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+
+    canceldislike: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    dislike.destroy({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+
     scrap: async (req, res) => {},
     cancelscrap: async (req, res) => {},
     comment: async (req, res) => {},

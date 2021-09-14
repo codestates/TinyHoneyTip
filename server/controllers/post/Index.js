@@ -6,7 +6,7 @@ const {
     getpostdetail,
     editpost,
     deletepost,
-    like,
+    getLike,
     cancellike,
     dislike,
     canceldislike,
@@ -21,7 +21,7 @@ post.post('/', uploadpost);
 post.get('/:id', getpostdetail);
 post.patch('/:id', editpost);
 post.delete('/:id', deletepost);
-post.get('/like/:id', like);
+post.get('/like/:id', getLike);
 post.delete('/like/:id', cancellike);
 post.get('/dislike/:id', dislike);
 post.delete('/dislike/:id', canceldislike);

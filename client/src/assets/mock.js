@@ -84,7 +84,7 @@ export const testPost = {
                         content: '실험용1',
                     },
                 ],
-                like: 2,
+                like: 23,
             },
             {
                 id: 28,
@@ -96,7 +96,7 @@ export const testPost = {
                         content: 'IT 최고',
                     },
                 ],
-                like: 10,
+                like: 22,
             },
             {
                 id: 29,
@@ -108,7 +108,7 @@ export const testPost = {
                         content: '999',
                     },
                 ],
-                like: 9,
+                like: 21,
             },
             {
                 id: 30,
@@ -120,7 +120,7 @@ export const testPost = {
                         content: '실험용1',
                     },
                 ],
-                like: 10,
+                like: 20,
             },
             {
                 id: 31,
@@ -132,7 +132,7 @@ export const testPost = {
                         content: '됐으면',
                     },
                 ],
-                like: 67,
+                like: 19,
             },
             {
                 id: 32,
@@ -144,7 +144,7 @@ export const testPost = {
                         content: '됐으면',
                     },
                 ],
-                like: 67,
+                like: 18,
             },
             {
                 id: 33,
@@ -156,7 +156,7 @@ export const testPost = {
                         content: '됐으면',
                     },
                 ],
-                like: 37,
+                like: 17,
             },
             {
                 id: 34,
@@ -168,7 +168,7 @@ export const testPost = {
                         content: '됐으면',
                     },
                 ],
-                like: 7,
+                like: 16,
             },
             {
                 id: 35,
@@ -180,7 +180,7 @@ export const testPost = {
                         content: '됐으면',
                     },
                 ],
-                like: 17,
+                like: 15,
             },
             {
                 id: 36,
@@ -192,7 +192,7 @@ export const testPost = {
                         content: '됐으면',
                     },
                 ],
-                like: 67,
+                like: 14,
             },
             {
                 id: 37,
@@ -204,7 +204,7 @@ export const testPost = {
                         content: '앉아!',
                     },
                 ],
-                like: 67,
+                like: 14,
             },
             {
                 id: 38,
@@ -216,7 +216,7 @@ export const testPost = {
                         content: '돌아!',
                     },
                 ],
-                like: 67,
+                like: 13,
             },
             {
                 id: 39,
@@ -228,7 +228,7 @@ export const testPost = {
                         content: '돌아!',
                     },
                 ],
-                like: 67,
+                like: 12,
             },
             {
                 id: 40,
@@ -240,7 +240,7 @@ export const testPost = {
                         content: '돌아!',
                     },
                 ],
-                like: 67,
+                like: 11,
             },
             {
                 id: 41,
@@ -265,7 +265,7 @@ export const testPost = {
                         content: '실험용2',
                     },
                 ],
-                like: 10,
+                like: 9,
             },
             {
                 id: 43,
@@ -277,7 +277,7 @@ export const testPost = {
                         content: '실험용3',
                     },
                 ],
-                like: 1,
+                like: 8,
             },
             {
                 id: 44,
@@ -289,7 +289,7 @@ export const testPost = {
                         content: '꿀벌최고',
                     },
                 ],
-                like: 45,
+                like: 7,
             },
             {
                 id: 45,
@@ -301,7 +301,7 @@ export const testPost = {
                         content: '실험용5',
                     },
                 ],
-                like: 0,
+                like: 6,
             },
             {
                 id: 46,
@@ -313,7 +313,7 @@ export const testPost = {
                         content: '실험용6',
                     },
                 ],
-                like: 100,
+                like: 5,
             },
             {
                 id: 47,
@@ -325,7 +325,7 @@ export const testPost = {
                         content: '실험용1',
                     },
                 ],
-                like: 2,
+                like: 4,
             },
             {
                 id: 48,
@@ -337,7 +337,7 @@ export const testPost = {
                         content: 'IT 최고',
                     },
                 ],
-                like: 10,
+                like: 3,
             },
             {
                 id: 49,
@@ -349,7 +349,7 @@ export const testPost = {
                         content: '999',
                     },
                 ],
-                like: 9,
+                like: 2,
             },
             {
                 id: 50,
@@ -361,7 +361,7 @@ export const testPost = {
                         content: '실험용1',
                     },
                 ],
-                like: 10,
+                like: 1,
             },
         ],
     },

@@ -6,6 +6,7 @@ import Footer from '../src/components/Footer';
 import { testPost } from '../src/assets/mock';
 import Search from '../src/components/Search';
 import axios from 'axios';
+import Select from '../src/components/Select';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []
@@ -57,6 +58,7 @@ export default function Content() {
                                 <div className="nav_container">
                                     <button className="nav_btn" onClick={clickHandler}>
                                         <h1>카테고리</h1>
+
                                         <section>
                                             {categories.map((cate) => {
                                                 return (
@@ -94,7 +96,7 @@ export default function Content() {
                                 <div className="best_list_top">
                                     <div className="best_list_title">🐝 BEST 꿀팁</div>
                                     <div className="best_list">
-                                        {postList.slice(0, 5).map((best) => {
+                                        {postList?.slice(0, 5).map((best) => {
                                             return (
                                                 <div className="best_item">
                                                     <div className="best_item_inner">
@@ -102,30 +104,30 @@ export default function Content() {
                                                             <div className="item_overlay"></div>
                                                         </div>
                                                         <div className="best_item_header">
-                                                            <Link href={`/post/${best.id}`}>
+                                                            <Link href={`/post/${best?.id}`}>
                                                                 <a className="header_image">
                                                                     <img
                                                                         className="img_inner"
-                                                                        alt={best.title}
-                                                                        src={best.post_page[0].img}
+                                                                        alt={best?.title}
+                                                                        src={best?.post_page[0].img}
                                                                     />
                                                                 </a>
                                                             </Link>
                                                             <div className="best_desc">
                                                                 <div className="best_desc_title">
-                                                                    <Link href={`/post/${best.id}`}>
-                                                                        <a className="best_title_font">{best.title}</a>
+                                                                    <Link href={`/post/${best?.id}`}>
+                                                                        <a className="best_title_font">{best?.title}</a>
                                                                     </Link>
                                                                 </div>
                                                                 <div className="best_desc_text">
-                                                                    <Link href={`/post/${best.id}`}>
+                                                                    <Link href={`/post/${best?.id}`}>
                                                                         <a className="best_text">
-                                                                            <div>{best.post_page[0].content}</div>
+                                                                            <div>{best?.post_page[0].content}</div>
                                                                         </a>
                                                                     </Link>
                                                                 </div>
                                                                 <div className="best_desc_category">
-                                                                    <a className="best_category">{best.category}</a>
+                                                                    <a className="best_category">{best?.category}</a>
                                                                 </div>
                                                                 <div className="best_desc_user">
                                                                     <div className="best_desc_userinfo">
@@ -139,7 +141,8 @@ export default function Content() {
                                             );
                                         })}
                                     </div>
-                                    <Search postList={postList} />
+                                    <Select postList={postList} setPostList={setPostList} />
+                                    <Search postList={postList} setPostList={setPostList} />
                                 </div>
                             </div>
                         </div>

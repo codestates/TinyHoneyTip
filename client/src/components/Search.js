@@ -2,19 +2,18 @@ import { useState } from 'react';
 import Link from 'next/link';
 import styles from '../../styles/Search.module.css';
 import Thumbnail from './Thumbnail';
-import Select from './Select';
 
-export default function Search({ postList }) {
+export default function Search({ postList, setPostList }) {
     const [searchKeyword, SetSearchKeyword] = useState('');
 
     const inputHandler = (e) => {
         SetSearchKeyword(([e.target.name] = e.target.value));
     };
     const filteredContent = (data) => {
-        data = data.filter((el) => {
+        data = data?.filter((el) => {
             return el.title.indexOf(searchKeyword) > -1;
         });
-        return data.map((list) => {
+        return data?.map((list) => {
             return <Thumbnail list={list} key={list.id} />;
         });
     };
@@ -29,7 +28,6 @@ export default function Search({ postList }) {
                     onChange={inputHandler}
                     value={searchKeyword}
                 />
-                <Select postList={postList} />
             </div>
             <div>
                 {filteredContent(postList)?.length !== 0 ? (

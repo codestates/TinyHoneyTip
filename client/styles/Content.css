@@ -19,7 +19,7 @@
         background: rgba(244, 193, 65, 0.8);
     }
     .nav_area {
-        width: 14vw;
+        width: 16vw;
         height: 100vh;
         left: 0;
         margin-top: -2vw;
@@ -45,16 +45,18 @@
         padding-inline-start: 4vw;
     }
     .nav_items {
-        top: 5vw;
-        right: 3vw;
+        top: 2vw;
+        right: 0vw;
         list-style: none;
         position: relative;
         box-sizing: inherit;
-    }
-    .cate {
-        position: relative;
-        box-sizing: inherit;
-        display: list-item;
+        width: 100%;
+        margin: 1vw 0;
+        transition: all 0.1s ease;
+        outline: 0;
+        border: 0;
+        border-radius: 1vw;
+        background-color: rgba(244, 193, 65, 0.8);
     }
     .category {
         position: relative;
@@ -62,18 +64,18 @@
         border-radius: 1vw;
         font-size: 1vw;
         line-height: 1;
-        margin-bottom: 1vw;
+        padding: 0.5vw;
+        margin-left: 1vw;
         font-weight: 700;
         box-sizing: inherit;
         display: list-item;
         transition: all 0.1s ease;
         width: 100%;
-        padding: 1vw 1vw 1vw 4vw;
     }
     .cate_icon {
         font-size: 0;
         height: 2vw;
-        left: 1vw;
+        left: -0.5vw;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -106,7 +108,7 @@
         color: black;
         font-size: 1vw;
         font-weight: 700;
-        height: 2vw;
+        height: 3vw;
         position: relative;
     }
     .best_list {

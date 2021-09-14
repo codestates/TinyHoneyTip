@@ -1,9 +1,27 @@
 .search_container {
-    position: absolute;
+    position: relative;
     background-color: white;
 }
 .search_input {
     position: absolute;
-    margin: -2vw 8vw;
+    margin: -4vw 55vw;
     width: 20vw;
+    height: 3vw;
+}
+.post_list_title {
+    color: black;
+    font-size: 1vw;
+    font-weight: 700;
+    margin-top: 1.5vw;
+    margin-bottom: 3vw;
+    position: relative;
+}
+.post_list {
+    display: grid;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 3vw;
+    width: 86.5vw;
+    grid-gap: 2vw;
+    grid-template-columns: repeat(5, 15vw);
 }

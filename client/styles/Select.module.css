@@ -1,0 +1,10 @@
+.select_container {
+    position: relative;
+    left: 76vw;
+    width: 10px;
+    top: 3.5vw;
+}
+.select {
+    width: 100px;
+    height: 2vw;
+}

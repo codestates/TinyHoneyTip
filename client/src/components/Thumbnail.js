@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 export default function Thumbnail({ list }) {
     const post = list;
-    console.log(post);
+    console.log(post.id);
     return (
         <>
             {/* <div className="post_list">

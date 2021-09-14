@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: 'scrap',
-            underscored: true,
         },
     );
     return scrap;

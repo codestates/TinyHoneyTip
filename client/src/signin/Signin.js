@@ -117,7 +117,9 @@ export default function Signin({ userInfo, loginHandler }) {
                                     value={loginInfo.password}
                                 />
                             </div>
-                            <img className={styles.modal_img} />
+                            <div className={styles.modal_img_container}>
+                                <img className={styles.modal_img} />
+                            </div>
                             <div className={styles.signin_line}>
                                 <button className={styles.signin_btn} onClick={loginRequestHandler}>
                                     Sign In

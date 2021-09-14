@@ -3,6 +3,8 @@ import Link from 'next/link';
 import styles from '../../styles/Search.module.css';
 
 export default function Search({ postList }) {
+    console.log(postList, 'search');
+
     const [searchKeyword, SetSearchKeyword] = useState('');
 
     const inputHandler = (e) => {
@@ -11,13 +13,13 @@ export default function Search({ postList }) {
     };
     const filteredContent = (data) => {
         data = data.filter((el) => {
-            return el.post.title.indexOf(searchKeyword) > -1;
+            return el.title.indexOf(searchKeyword) > -1;
         });
         return data.map((list) => {
             return (
                 <li>
                     <Link href={`/post/${list.id}`}>
-                        <div className={styles.postList_container}>
+                        <div className={styles.post_container}>
                             <h1>썸네일 타이틀</h1>
                             <img>썸네일 이미지</img>
                         </div>
@@ -39,7 +41,7 @@ export default function Search({ postList }) {
             </div>
             <div>
                 {filteredContent(postList).length !== 0 ? (
-                    <div>{filteredContent(postList)}</div>
+                    <div className={styles.postList_container}>{filteredContent(postList)}</div>
                 ) : (
                     '검색 결과가 없습니다.'
                 )}

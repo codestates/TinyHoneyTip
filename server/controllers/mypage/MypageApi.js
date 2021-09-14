@@ -22,7 +22,6 @@ module.exports = {
                         attributes: ['title', 'category', 'user_id', 'id'],
                         where: { user_id: findUserInfo.id },
                     });
-                    console.log('내 게시물', findMyPost_container[0]);
 
                     let post_page = [];
                     let post_scrap = [];
@@ -65,7 +64,7 @@ module.exports = {
                         });
                     }
                     //console.log('마이포스트!!!', myPost[0]);
-
+                    console.log(Token);
                     const findScrap = await scrap.findAll({
                         where: { user_id: Token.id },
                         attributes: ['post_id'],
@@ -88,30 +87,31 @@ module.exports = {
                     let scrap_like = [];
                     let scrap_scr = [];
                     const myScrap = [];
+
                     for (let el of scrapPost_c) {
-                        let page = await post.findAll({
+                        let findPage = await post.findAll({
                             where: { post_id: el.id },
                             attributes: ['post_id', 'content', 'img'],
                         });
-                        scrap_page.push(page);
+                        scrap_page.push(findPage);
 
-                        let comment = await comment.findAll({
+                        let findComment = await comment.findAll({
                             where: { post_id: el.id },
                             attributes: ['user_id', 'txt', 'post_id'],
                         });
-                        scrap_comment.push(comment);
+                        scrap_comment.push(findComment);
 
-                        let like = await like.findAll({
+                        let findLike = await like.findAll({
                             where: { post_id: el.id },
                             attributes: ['user_id', 'post_id'],
                         });
-                        scrap_like.push(like);
+                        scrap_like.push(findLike);
 
-                        let scrap = await scrap.findAll({
+                        let findScrap = await scrap.findAll({
                             where: { post_id: el.id },
                             attributes: ['user_id', 'post_id'],
                         });
-                        scrap_scr.push(scrap);
+                        scrap_scr.push(findScrap);
 
                         myScrap.push({
                             id: el.id,

@@ -1,4 +1,4 @@
-const { user, post_container, post, sequelize } = require('../../models');
+const { User, post_container, post, sequelize } = require('../../models');
 const jwt = require('jsonwebtoken');
 const { QueryTypes } = require('sequelize');
 require('dotenv').config();
@@ -6,18 +6,55 @@ require('dotenv').config();
 module.exports = {
     getpostlist: async (req, res) => {
         try {
-            const postlist = await sequelize.query(
+            const allpost_container = await sequelize.query(
                 `
-            select post_containers.id, post_containers.title, post_container.category,
-            users.username, posts as post, likes as like
-            from post_contents
-            left join users on post_contents.id = users.post_id
-            left join (select * as posts from posts group by post_id) as postlist on post.id = postlist.post_id
-            left join (select * as likes from likes group by post_id) as likelist on post.id = likelist.post_id
-            `,
+                select * from post_containers
+                `,
                 { type: QueryTypes.SELECT },
             );
-            res.status(200).json({ data: postlist });
+            console.log('allpostc', allpost_container);
+
+            let post_page = [];
+            let post_scrap = [];
+            let post_comment = [];
+            let post_like = [];
+            const allPost = [];
+            for (let el of allpost_container) {
+                let page = await post.findAll({
+                    attributes: ['id', 'content', 'img', 'post_id'],
+                    where: { post_id: el.id },
+                });
+                post_page.push(page);
+
+                let findScrap = await scrap.findAll({
+                    where: { post_id: el.id },
+                    attributes: ['id', 'user_id', 'post_id'],
+                });
+                post_scrap.push(findScrap);
+
+                let findComment = await comment.findAll({
+                    where: { post_id: el.id },
+                    attributes: ['user_id', 'txt', 'post_id'],
+                });
+                post_comment.push(findComment);
+
+                let findLike = await like.findAll({
+                    where: { post_id: el.id },
+                    attributes: ['user_id', 'post_id'],
+                });
+                post_like.push(findLike);
+
+                allPost.push({
+                    id: el.id,
+                    title: el.title,
+                    category: el.category,
+                    post_page: post_page,
+                    like: post_like,
+                    scrap: post_scrap,
+                    comment: post_comment,
+                });
+            }
+            res.status(200).json();
         } catch (err) {
             res.status(500).json({ message: 'err' });
         }

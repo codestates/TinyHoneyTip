@@ -10,7 +10,7 @@ module.exports = {
         const accessToken = req.cookies.accessToken;
         const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
         if (userinfo) {
-            user.destroy({ where: { email: userinfo.email } });
+            User.destroy({ where: { email: userinfo.email } });
             res.status(200).json({ message: 'byebye' });
         } else {
             res.status(500).json({ message: 'error!!' });
@@ -18,15 +18,15 @@ module.exports = {
     },
     signin: async (req, res) => {
         const { email, password } = req.body;
-        const findEmail = await user.findOne({
+        const findemail = await User.findOne({
             where: { email: email },
         });
-        const finduser = await user.findOne({
+        const finduser = await User.findOne({
             where: { email: email, password: password },
         });
         if (findemail && !finduser) {
             res.status(400).json({ message: 'rewrite password' });
-        } else if (!findEmail && !finduser) {
+        } else if (!findemail && !finduser) {
             res.status(400).json({ message: 'rewrite email' });
         } else {
             delete finduser.dataValues.password;

@@ -1,8 +1,6 @@
 .post-upload-page {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    min-height: 100vh;
 }
 
 .post-upload-empty {
@@ -13,11 +11,13 @@
 .post-upload-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    background-color: rgba(253, 242, 217, 1);
 }
 
 .upload-post__post-area {
-    display: flex;
     position: relative;
+    display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 2vh;
@@ -33,7 +33,7 @@
 .upload-post__title {
     width: 80vw;
     margin: 3vh 0 3vh 0;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .upload-post__post ul {
@@ -50,6 +50,7 @@
 .upload-post__post__pic {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .upload-post__post__text {
@@ -91,16 +92,124 @@
 }
 
 .upload-post__post__previous-page-btn {
-    left: -4vw;
-    top: 50vw;
+    left: -6%;
+    top: 45%;
 }
 
 .upload-post__post__next-page-btn {
-    right: -4vw;
-    top: 50vw;
+    right: -6%;
+    top: 45%;
     transform: rotate(180deg);
 }
 
+.post__toolbar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.post__toolbar__label__div {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5vw;
+    top: -25px;
+}
+
+.post__toolbar__label {
+    /* 색이랑 border 변경 */
+    display: flex;
+    padding: 4px;
+    background-color: rgb(251, 236, 197);
+    border: 1px solid rgba(105, 105, 105, 0.7);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+}
+
+.selected-page {
+    border-bottom: none;
+}
+
+.post__toolbar__label__add-page {
+    /* 색이랑 border 변경 */
+    padding: 4px;
+    border: 1px solid rgba(105, 105, 105, 0.7);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: rgb(248, 217, 140);
+}
+
+.post__toolbar__edit-section {
+    /* 색이랑 border 변경 */
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+    border: 2px solid rgba(105, 105, 105, 0.7);
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(248, 217, 140);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.post__toolbar__about-post {
+    display: flex;
+    flex-direction: column;
+}
+
+.post__toolbar__title {
+    width: 250px;
+    height: 25px;
+    margin: 7px 0 7px 0;
+}
+
+.post__toolbar__category {
+    width: 120px;
+    height: 25px;
+    margin: 7px 0 20px 0;
+}
+
+.post__toolbar__content-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.post__toolbar__image-label {
+    display: block;
+    cursor: pointer;
+    padding: 2px;
+    text-align: center;
+    width: 250px;
+    border: 1.5px solid rgba(105, 105, 105, 0.7);
+    /* background-color: rgb(239, 239, 239); */
+    border-radius: 6px;
+    /* font-size: 15px; */
+    margin-bottom: 7px;
+}
+
+.post__toolbar__image-input {
+    display: none;
+}
+
+.post__toolbar__content-form label {
+    margin-bottom: 7px;
+}
+
+.post__toolbar__content-form textarea {
+    width: 250px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.post__toolbar__edit-section button {
+    width: 250px;
+    height: 25px;
+    margin-bottom: 7px;
+}
+/*
 @media screen and (min-width: 768px) {
     .upload-post__title {
         font-size: 28px;
@@ -131,6 +240,7 @@
 
 @media screen and (min-width: 1024px) {
     .post-upload-container {
+        position: relative;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -138,7 +248,8 @@
     }
 
     .upload-post__post-area {
-        margin-right: 80px;
+        width: 50%;
+        height: 100%;
     }
 
     .upload-post__title {
@@ -175,4 +286,47 @@
         top: 300px;
         right: -10px;
     }
-}
+
+    .post__toolbar {
+        position: relative;
+        flex-grow: 1;
+    }
+
+    .post__toolbar__label {
+        position: absolute;
+    }
+
+    .post__toolbar__edit-section {
+        width: 450px;
+        height: 500px;
+        border: 2px solid #666;
+    }
+} */
+
+/* @media screen and (min-width: 1024px) {
+    .post-upload-page {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .post-upload-empty {
+        width: 100%;
+        height: 60px;
+    }
+
+    .post-upload-container {
+        width: 100%;
+        min-height: 725px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .upload-post__post-area {
+        width: 55%;
+    }
+
+    .post__toolbar {
+        width: 45%;
+    }
+} */

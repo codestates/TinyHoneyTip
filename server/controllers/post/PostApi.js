@@ -31,7 +31,51 @@ module.exports = {
         });
         const createpost = await post_container.create({});
     },
-    getpostdetail: async (req, res) => {},
+
+    getpostdetail: async (req, res) => {
+        try {
+            const accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
+
+            console.log('여긴가1', req.params.id);
+            const postInfo = await post_container.findOne({
+                where: { id: req.params.id },
+                //attributes: [id, user_id, category, title],
+            });
+            console.log('여긴가2');
+            const post_page = await post.findAll({ where: { post_id: req.params.id }, attributes: [id, img, txt] });
+
+            let userLike = await like.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            console.log(userLike);
+
+            let userDisLike = await dislike.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            userDisLike ? (userDisLike = true) : (userDisLike = false);
+            console.log(userDisLike);
+
+            let userScrap = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            console.log(userScrap);
+
+            let userComment = await like.findOne({ where: { post_id: req.params.id } });
+            console.log(userComment);
+
+            res.status(200).json({
+                data: {
+                    post: {
+                        id: postInfo.id,
+                        title: postInfo.title,
+                        category: postInfo.category,
+                        post_page: post_page,
+                        like: userLike,
+                        dislike: userDisLike,
+                        scrap: userScrap,
+                        comment: userComment,
+                    },
+                },
+            });
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+
     editpost: async (req, res) => {},
     deletepost: async (req, res) => {},
 

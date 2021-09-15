@@ -4,6 +4,8 @@ phases:
     pre_build:
         commands:
             - cd client
+            - npm install react-router-dom
+            - npm i -g npm
             - npm install
     build:
         commands:

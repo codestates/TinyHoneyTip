@@ -1,0 +1,22 @@
+.select_container {
+    position: relative;
+    left: 65vw;
+    width: 10px;
+    top: 3vw;
+}
+.select {
+    width: 15vw;
+    height: 3vw;
+}
+@media screen and (max-width: 768px) {
+    .select_container {
+        position: relative;
+        left: 55vw;
+        width: 10px;
+        top: 5vw;
+    }
+    .select {
+        width: 15vw;
+        height: 3vw;
+    }
+}

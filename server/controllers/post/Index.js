@@ -6,7 +6,7 @@ const {
     getpostdetail,
     editpost,
     deletepost,
-    like,
+    getLike,
     cancellike,
     dislike,
     canceldislike,

@@ -128,10 +128,14 @@ export default function Signup() {
                                         {!isconfirm ? '비밀번호가 일치하지 않습니다.' : 'OK'}
                                     </div>
                                 </div>
-                                <img className={styles.modal_img} />
-                                <button className={styles.signin_btn} onClick={signupRequestHandler}>
-                                    Sign Up
-                                </button>
+                                <div className={styles.modal_img_container}>
+                                    <img className={styles.modal_img} />
+                                </div>
+                                <div className={styles.signin_line}>
+                                    <button className={styles.signin_btn} onClick={signupRequestHandler}>
+                                        Sign Up
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>

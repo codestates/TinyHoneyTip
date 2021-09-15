@@ -1,4 +1,4 @@
-const { User, post_container, post, scrap, comment, like, sequelize } = require('../../models');
+const { User, post_container, post, like, dislike, comment, scrap, sequelize } = require('../../models');
 const jwt = require('jsonwebtoken');
 const { QueryTypes } = require('sequelize');
 require('dotenv').config();
@@ -68,13 +68,137 @@ module.exports = {
         });
         const createpost = await post_container.create({});
     },
-    getpostdetail: async (req, res) => {},
+
+    getpostdetail: async (req, res) => {
+        try {
+            const accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
+
+            console.log('여긴가1', req.params.id);
+            const postInfo = await post_container.findOne({
+                where: { id: req.params.id },
+                //attributes: [id, user_id, category, title],
+            });
+            console.log('여긴가2');
+            const post_page = await post.findAll({ where: { post_id: req.params.id }, attributes: [id, img, txt] });
+
+            let userLike = await like.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            console.log(userLike);
+
+            let userDisLike = await dislike.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            userDisLike ? (userDisLike = true) : (userDisLike = false);
+            console.log(userDisLike);
+
+            let userScrap = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            console.log(userScrap);
+
+            let userComment = await like.findOne({ where: { post_id: req.params.id } });
+            console.log(userComment);
+
+            res.status(200).json({
+                data: {
+                    post: {
+                        id: postInfo.id,
+                        title: postInfo.title,
+                        category: postInfo.category,
+                        post_page: post_page,
+                        like: userLike,
+                        dislike: userDisLike,
+                        scrap: userScrap,
+                        comment: userComment,
+                    },
+                },
+            });
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+
     editpost: async (req, res) => {},
     deletepost: async (req, res) => {},
-    like: async (req, res) => {},
-    cancellike: async (req, res) => {},
-    dislike: async (req, res) => {},
-    canceldislike: async (req, res) => {},
+
+    like: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    like.create({
+                        user_id: userInfo.id,
+                        post_id: req.params.id,
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+    cancellike: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    like.destroy({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+    dislike: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    dislike.create({
+                        user_id: userInfo.id,
+                        post_id: req.params.id,
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+
+    canceldislike: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            if (!accessToken) {
+                res.status(400).json({ message: 'Bad Request' });
+            } else {
+                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userInfo) {
+                    res.status(400).json({ message: 'Bad Request' });
+                } else {
+                    dislike.destroy({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
+                    });
+                    res.status(200).json({ message: 'ok' });
+                }
+            }
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
     scrap: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;

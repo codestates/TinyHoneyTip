@@ -17,10 +17,6 @@ app.use(
     }),
 );
 app.use(cookieParser());
-<<<<<<< HEAD
-
-=======
->>>>>>> b49ac245c23cc9f06b4898f602c749dcf39fcc87
 app.get('/', (req, res) => {
     res.send('helloworld');
 });

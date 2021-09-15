@@ -4,7 +4,7 @@
 }
 .search_input {
     position: absolute;
-    margin: -4vw 55vw;
+    margin: -5.5vw 30vw;
     width: 20vw;
     height: 3vw;
 }
@@ -21,7 +21,36 @@
     overflow-x: hidden;
     overflow-y: hidden;
     margin-bottom: 3vw;
-    width: 86.5vw;
+    width: 70.5vw;
     grid-gap: 2vw;
     grid-template-columns: repeat(5, 15vw);
+}
+@media screen and (min-width: 1024px) {
+    .search_container {
+        position: relative;
+        background-color: white;
+    }
+    .search_input {
+        position: absolute;
+        margin: -5.5vw 40vw;
+        width: 20vw;
+        height: 3vw;
+    }
+    .post_list_title {
+        color: black;
+        font-size: 1vw;
+        font-weight: 700;
+        margin-top: 1.5vw;
+        margin-bottom: 3vw;
+        position: relative;
+    }
+    .post_list {
+        display: grid;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        margin-bottom: 3vw;
+        width: 86.5vw;
+        grid-gap: 2vw;
+        grid-template-columns: repeat(5, 15vw);
+    }
 }

@@ -21,7 +21,7 @@ post.post('/', uploadpost);
 post.get('/:id', getpostdetail);
 post.patch('/:id', editpost);
 post.delete('/:id', deletepost);
-post.get('/like/:id', getLike);
+post.get('/like/:id', like);
 post.delete('/like/:id', cancellike);
 post.get('/dislike/:id', dislike);
 post.delete('/dislike/:id', canceldislike);

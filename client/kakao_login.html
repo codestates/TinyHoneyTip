@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-wirdth, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <a href="javascript:kakaoLogin()"
+            ><img src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
+        /></a>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script>
+            window.Kakao.init('ff1adc6cf8cdb7adefe3832b6bb11acf');
+            // ff1adc6cf8cdb7adefe3832b6bb11acf;
+            function kakaoLogin() {
+                window.Kakao.Auth.login({
+                    scope: 'profile_nickname, account_email',
+                    success: function (authObj) {
+                        console.log(authObj);
+                        window.Kakao.API.request({
+                            url: '/v2/user/me',
+                            success: (res) => {
+                                const kakao_account = res.kakao_account;
+                                console.log(kakao_account);
+                            },
+                        });
+                    },
+                });
+            }
+        </script>
+    </body>
+</html>

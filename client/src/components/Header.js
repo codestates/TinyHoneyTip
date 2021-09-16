@@ -6,6 +6,7 @@ import Signin from '../signin/Signin';
 import Signup from '../signup/Signup';
 
 export default function Header() {
+    const [isClick, setIsClick] = useState(false);
     // 새로고침시 로그아웃되는 문제 발생시 수정
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
@@ -14,7 +15,9 @@ export default function Header() {
         userName: '',
         profile: '',
     });
-
+    const openModal = () => {
+        setIsClick(true);
+    };
     const loginHandler = () => {
         // 서버에 요청 보내고 response 반영하여 userInfo 수정
         setUserInfo({
@@ -41,16 +44,28 @@ export default function Header() {
             </Link>
             {userInfo.isLogin ? (
                 <div className="header__btns">
+                    <Link href="/post/new">
+                        <a className="header__btn">New Post</a>
+                    </Link>
                     <Link href="/mypage">
                         <a className="header__btn">my page</a>
                     </Link>
                     <button className="header__btn" onClick={logoutHandler}>
-                        log out
+                        Log out
                     </button>
                 </div>
             ) : (
                 <div className="header__btns">
-                    <Signin userInfo={userInfo} loginHandle={loginHandler} />
+                    <a onClick={openModal} className="header__btn">
+                        New Post
+                    </a>
+                    <Signin
+                        isClick={isClick}
+                        setIsClick={setIsClick}
+                        userInfo={userInfo}
+                        loginHandle={loginHandler}
+                        openModal={openModal}
+                    />
                     <Signup />
                 </div>
             )}

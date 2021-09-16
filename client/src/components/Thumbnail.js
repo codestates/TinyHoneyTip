@@ -4,7 +4,7 @@ import styles from '../../styles/Tumbnail.module.css';
 export default function Thumbnail({ list }) {
     return (
         <>
-            <div className={styles.post_item}>
+            <div className={styles.post_item} key={list.id}>
                 <div className={styles.post_item_inner}>
                     <div className={styles.post_item_option}>
                         <div className={styles.post_overlay}></div>

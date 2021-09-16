@@ -89,7 +89,7 @@ export const testPost = {
             {
                 id: 28,
                 title: '실험용8',
-                category: 'IT',
+                category: '휴지통',
                 post_page: [
                     {
                         img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',
@@ -330,7 +330,7 @@ export const testPost = {
             {
                 id: 48,
                 title: '실험용8',
-                category: 'IT',
+                category: '휴지통',
                 post_page: [
                     {
                         img: 'https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png',

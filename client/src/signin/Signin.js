@@ -31,17 +31,24 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                     email: loginInfo.email,
                     password: loginInfo.password,
                 },
-                { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                },
             )
             .then((res) => {
-                setMessage('로그인 완료');
-                loginHandler();
-                console.log(res);
-                // return res.headers.cookies.accessToken;
+                if (res.data.message === 'login complete') {
+                    setMessage('로그인 완료');
+                    loginHandler();
+                    closeModal();
+                    console.log(res);
+                    return res.headers.cookies.accessToken;
+                }
             })
             .then((token) => {
+                console.log(token);
                 setUserInfo({
-                    accessToken: { token },
+                    accessToken: token,
                 });
                 okHandler();
             })

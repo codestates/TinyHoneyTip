@@ -3,26 +3,26 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
-import { testPost } from '../src/assets/mock';
 import Search from '../src/components/Search';
 import axios from 'axios';
 import Select from '../src/components/Select';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []
+    const [postData, setPostData] = useState([]);
     // const [items, setItems] = useState(10);
     // const [preItems, setPreItems] = useState(0);
     const [isClick, setClick] = useState(false);
-    const categories = ['전체', '운동', '생활', '동물', '쇼핑', '휴지통'];
+    const categories = ['전체', '건강', '운동', '생활', '동물', '쇼핑', '휴지통'];
 
     const categoryHandler = (e) => {
-        if (e.target.value === '전체') {
-            setPostList(testPost.data.post);
+        if (e.target.innerText === '전체') {
+            setPostList(postData);
             return;
         } else {
-            console.log(e.target.value);
-            const filteredData = testPost.data.post.filter((el) => {
-                return el.category === e.target.value;
+            console.log(e.target.innerText);
+            const filteredData = postData.filter((el) => {
+                return el.category === e.target.innerText;
             });
             setPostList(filteredData);
         }
@@ -31,22 +31,25 @@ export default function Content() {
     const clickHandler = () => {
         setClick(!isClick);
     };
+    const categorySort = (data) => {
+        data?.sort(function (a, b) {
+            return a.category - b.category;
+        });
+    };
 
-    // const getPostsData = () => {
-    //     axios.get('http://localhost:80/post').then((res) => {
-    //         // const result = res.data.post.slice(preItems, items);
-    //         setPostList(res.data.data);
-    //         console.log(res.data.data);
-    //     });
-    // };
-
-    // useEffect(() => {
-    //     getPostsData();
-    // }, []);
+    const getPostsData = () => {
+        axios.get('http://localhost:80/post').then((res) => {
+            // const result = res.data.post.slice(preItems, items);
+            setPostList(res.data.data);
+            setPostData(res.data.data);
+        });
+    };
 
     useEffect(() => {
-        setPostList(testPost.data.post);
+        getPostsData();
+        categorySort(postData);
     }, []);
+
     return (
         <>
             <Head>
@@ -64,10 +67,9 @@ export default function Content() {
                                         <section>
                                             {categories.map((cate) => {
                                                 return (
-                                                    <div value={cate} onClick={(e) => categoryHandler(e)} key={cate}>
+                                                    <div onClick={(e) => categoryHandler(e)} key={cate}>
                                                         <button
                                                             className="nav_items"
-                                                            value={cate}
                                                             onClick={(e) => categoryHandler(e)}>
                                                             <div className="category">
                                                                 <img className="cate_icon" alt={cate} />
@@ -110,7 +112,7 @@ export default function Content() {
                                                                     <img
                                                                         className="img_inner"
                                                                         alt={best?.title}
-                                                                        src={best?.post_page[0].img}
+                                                                        src={best?.post_page[0][0].img}
                                                                     />
                                                                 </a>
                                                             </Link>
@@ -123,7 +125,7 @@ export default function Content() {
                                                                 <div className="best_desc_text">
                                                                     <Link href={`/post/${best?.id}`}>
                                                                         <a className="best_text">
-                                                                            <div>{best?.post_page[0].content}</div>
+                                                                            <div>{best?.post_page[0][0].content}</div>
                                                                         </a>
                                                                     </Link>
                                                                 </div>
@@ -132,7 +134,9 @@ export default function Content() {
                                                                 </div>
                                                                 <div className="best_desc_user">
                                                                     <div className="best_desc_userinfo">
-                                                                        <div className="best_author">🐝 글쓴이</div>
+                                                                        <div className="best_author">
+                                                                            ❤️ {best?.like.length}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

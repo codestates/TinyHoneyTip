@@ -11,6 +11,7 @@ export default function Header() {
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
         isSocial: false,
+        user_id: '',
         accessToken: '',
         username: '',
         profile_img: '',
@@ -33,6 +34,7 @@ export default function Header() {
             isSocal: false,
             accessToken: '',
             username: '',
+            user_id: '',
         });
     };
 

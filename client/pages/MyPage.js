@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
+import Thumbnail from '../src/components/Thumbnail';
 
 export default function MyPage() {
     const [userInfo, setUserInfo] = useState({});
@@ -45,7 +46,15 @@ export default function MyPage() {
                 </div>
                 <div className="my_post_wrapper">
                     <h3 className="my_post">내가 쓴 글</h3>
-                    {myPost.map((el) => {})}
+                    {myPost.map((el) => {
+                        <Thumbnail list={el}></Thumbnail>;
+                    })}
+                </div>
+                <div className="my_scrap_wrapper">
+                    <h3 className="my_scrap">내가 스크랩한 글</h3>
+                    {myScrap.map((el) => {
+                        <Thumbnail list={el}></Thumbnail>;
+                    })}
                 </div>
             </div>
             <Footer />

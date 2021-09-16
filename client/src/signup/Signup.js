@@ -64,10 +64,11 @@ export default function Signup() {
                     { 'Content-Type': 'application/json', withCredentials: true },
                 )
                 .then((res) => {
+                    console.log(res);
                     if (res.data.message === 'ok') {
                         setMessage('회원가입 완료');
                         okHandler();
-                        return closeModal();
+                        closeModal();
                     }
                 });
         }
@@ -108,9 +109,6 @@ export default function Signup() {
                                         onChange={(e) => inputHandler(e)}
                                         value={signupInfo.username}
                                     />
-                                    <div className={styles.checkmsg}>
-                                        {!ischeckPassword ? '올바른 비밀번호 형식이 아닙니다' : 'OK'}
-                                    </div>
                                 </div>
                                 <div className={styles.input_container}>
                                     <div className={styles.label}>Password</div>
@@ -155,9 +153,9 @@ export default function Signup() {
                     </div>
                 </div>
             ) : (
-                <button className={styles.Modal_btn} onClick={openModal}>
+                <a className="header__btn" onClick={openModal}>
                     Sign Up
-                </button>
+                </a>
             )}
             {isOk ? (
                 <div className={styles.alert_container}>

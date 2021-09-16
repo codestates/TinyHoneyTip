@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from '../../styles/Tumbnail.module.css';
 export default function Thumbnail({ list }) {
+    console.log(list);
     return (
         <>
             <div className={styles.post_item} key={list.id}>
@@ -12,7 +13,7 @@ export default function Thumbnail({ list }) {
                     <div className={styles.best_item_header}>
                         <Link href={`/post/${list?.id}`}>
                             <a className={styles.header_image}>
-                                <img className={styles.img_inner} alt={list?.title} src={list?.post_page[0].img} />
+                                <img className={styles.img_inner} alt={list?.title} src={list?.post_page[0][0].img} />
                             </a>
                         </Link>
                         <div className={styles.post_desc}>
@@ -24,7 +25,7 @@ export default function Thumbnail({ list }) {
                             <div className={styles.post_desc_text}>
                                 <Link href={`/post/${list?.id}`}>
                                     <a className={styles.post_text}>
-                                        <div>{list?.post_page[0].content}</div>
+                                        <div>{list?.post_page[0][0].content}</div>
                                     </a>
                                 </Link>
                             </div>
@@ -33,7 +34,7 @@ export default function Thumbnail({ list }) {
                             </div>
                             <div className={styles.post_desc_user}>
                                 <div className={styles.post_desc_userinfo}>
-                                    <div className={styles.post_author}>🐝 글쓴이</div>
+                                    <div className={styles.post_author}>💛 {list?.like.length}</div>
                                 </div>
                             </div>
                         </div>

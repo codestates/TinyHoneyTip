@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Modal.module.css';
 
-export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal }) {
+export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal, setUserInfo }) {
     const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [loginInfo, setLoginInfo] = useState({
@@ -34,9 +34,10 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                 { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
             )
             .then((res) => {
-                setMessage('로그인!');
+                setMessage('로그인 완료');
                 loginHandler();
-                return res.headers.cookies.accessToken;
+                console.log(res);
+                // return res.headers.cookies.accessToken;
             })
             .then((token) => {
                 setUserInfo({
@@ -46,41 +47,41 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
             })
             .catch((err) => alert(err));
     };
-    function kakaoLogin() {
-        window.Kakao.Auth.loginForm({
-            success: (auth) => {
-                axios
-                    .post(
-                        process.env.REACT_APP_API_ENDPOINT + '/auth/signin/kakao',
-                        {},
-                        {
-                            headers: {
-                                Authorization: `Bearer ${auth.access_token}`,
-                                'Content-Type': 'application/json',
-                            },
-                            withCredentials: true,
-                        },
-                    )
-                    .then((res) => {
-                        const data = {
-                            email: res.data.email,
-                            userId: res.data.userId,
-                            accessToken: res.data.accessToken,
-                            provider: 'kakao',
-                            bookmarks: res.data.bookmarks,
-                        };
-                        dispatch(userSignIn(data));
-                        getRepliedPosts(data.userId, data.accessToken);
-                        props.closeModal();
-                        dispatch(setAlertOpen(true, `${res.data.email}님, 반가워요!`));
-                    })
-                    .catch((e) => console.log(e));
-            },
-            fail: (err) => {
-                console.log(err);
-            },
-        });
-    }
+    // function kakaoLogin() {
+    //     window.Kakao.Auth.loginForm({
+    //         success: (auth) => {
+    //             axios
+    //                 .post(
+    //                     process.env.REACT_APP_API_ENDPOINT + '/auth/signin/kakao',
+    //                     {},
+    //                     {
+    //                         headers: {
+    //                             Authorization: `Bearer ${auth.access_token}`,
+    //                             'Content-Type': 'application/json',
+    //                         },
+    //                         withCredentials: true,
+    //                     },
+    //                 )
+    //                 .then((res) => {
+    //                     const data = {
+    //                         email: res.data.email,
+    //                         userId: res.data.userId,
+    //                         accessToken: res.data.accessToken,
+    //                         provider: 'kakao',
+    //                         bookmarks: res.data.bookmarks,
+    //                     };
+    //                     dispatch(userSignIn(data));
+    //                     getRepliedPosts(data.userId, data.accessToken);
+    //                     props.closeModal();
+    //                     dispatch(setAlertOpen(true, `${res.data.email}님, 반가워요!`));
+    //                 })
+    //                 .catch((e) => console.log(e));
+    //         },
+    //         fail: (err) => {
+    //             console.log(err);
+    //         },
+    //     });
+    // }
     return (
         <>
             {isClick === true ? (
@@ -120,7 +121,7 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                                 <button className={styles.signin_btn} onClick={loginRequestHandler}>
                                     Sign In
                                 </button>
-                                <button onClick={kakaoLogin}>카카오</button>
+                                {/* <button onClick={kakaoLogin}>카카오</button> */}
                                 {/* <button className={styles.kakao_btn}>
                                     카카오 로그인
                                     <img

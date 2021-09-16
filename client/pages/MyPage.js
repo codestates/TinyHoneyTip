@@ -6,18 +6,23 @@ import Footer from '../src/components/Footer';
 import Image from 'next/image';
 import Thumbnail from '../src/components/Thumbnail';
 
-export default function MyPage() {
+export default function MyPage(accessToken) {
     const [userInfo, setUserInfo] = useState({});
     const [myPost, setMyPost] = useState({});
     const [myScrap, setMyScrap] = useState({});
 
-    const getMyPage = () => {
-        axios.get('http://localhost:80/mypage').then((res) => {
-            setUserInfo(res.body.data.userInfo);
-            setMyPost(res.body.data.myPost);
-            setMyScrap(res.body.data.myScrap);
-        });
-    };
+    function getMyPage() {
+        axios
+            .get('http://localhost:80/myPage', {
+                headers: { accessToken, 'Content-Type': 'application/json' },
+                withCredentials: true,
+            })
+            .then((res) => {
+                setUserInfo(res.body.data.userInfo);
+                setMyPost(res.body.data.myPost);
+                setMyScrap(res.body.data.myScrap);
+            });
+    }
 
     useEffect(() => {
         getMyPage();

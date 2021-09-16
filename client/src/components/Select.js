@@ -17,7 +17,7 @@ export default function Select({ postList, setPostList }) {
     };
     const updatedContent = (data) => {
         data?.sort(function (a, b) {
-            return a.category - b.category;
+            return a.date - b.date;
         });
     };
     const likedContent = (data) => {

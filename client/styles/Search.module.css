@@ -1,3 +1,36 @@
+.search_box {
+    padding: 0vw;
+    position: relative;
+    left: 66vw;
+    top: -1vw;
+    width: 4vw;
+    height: 3vw;
+    transform: translate(-100%, -50%);
+    border-radius: 10vw;
+    transition: 0.4s;
+}
+.search_box:hover {
+    box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
+    width: 25vw;
+}
+.search_txt {
+    display: absolute;
+    padding: 0vw;
+    width: 0px;
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    margin-left: 1vw;
+    font-size: 1.5vw;
+    line-height: 3vw;
+    transition: 0.4s;
+}
+.search_box:hover > .search_txt {
+    width: 20vw;
+    padding: 0 0.6vw;
+}
+
 .search_container {
     position: relative;
     background-color: white;
@@ -13,7 +46,7 @@
     font-size: 1vw;
     font-weight: 700;
     margin-top: 1.5vw;
-    margin-bottom: 3vw;
+    margin-bottom: 0vw;
     position: relative;
 }
 .post_list {
@@ -21,18 +54,51 @@
     overflow-x: hidden;
     overflow-y: hidden;
     margin-bottom: 3vw;
-    width: 70.5vw;
+    width: 86.5vw;
     grid-gap: 2vw;
     grid-template-columns: repeat(5, 15vw);
 }
-@media screen and (min-width: 1024px) {
+@media screen and (max-width: 1024px) {
+    .search_box {
+        padding: 0vw;
+        position: relative;
+        left: 66vw;
+        top: -1vw;
+        width: 4vw;
+        height: 3vw;
+        transform: translate(-100%, -50%);
+        border-radius: 10vw;
+        transition: 0.4s;
+    }
+    .search_box:hover {
+        box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
+        width: 25vw;
+    }
+    .search_txt {
+        display: absolute;
+        padding: 0vw;
+        width: 0px;
+        border: none;
+        background: none;
+        outline: none;
+        float: left;
+        margin-left: 1vw;
+        font-size: 1.5vw;
+        line-height: 3vw;
+        transition: 0.4s;
+    }
+    .search_box:hover > .search_txt {
+        width: 20vw;
+        padding: 0 0.6vw;
+    }
+
     .search_container {
         position: relative;
         background-color: white;
     }
     .search_input {
         position: absolute;
-        margin: -5.5vw 40vw;
+        margin: -5.5vw 30vw;
         width: 20vw;
         height: 3vw;
     }
@@ -41,7 +107,7 @@
         font-size: 1vw;
         font-weight: 700;
         margin-top: 1.5vw;
-        margin-bottom: 3vw;
+        margin-bottom: 0vw;
         position: relative;
     }
     .post_list {
@@ -50,6 +116,69 @@
         overflow-y: hidden;
         margin-bottom: 3vw;
         width: 86.5vw;
+        grid-gap: 2vw;
+        grid-template-columns: repeat(5, 15vw);
+    }
+}
+@media screen and (max-width: 768px) {
+    .search_box {
+        padding: 0vw;
+        position: relative;
+        left: 55vw;
+        top: -0.5vw;
+        width: 4vw;
+        height: 3vw;
+        transform: translate(-100%, -50%);
+        border-radius: 10vw;
+        transition: 0.4s;
+    }
+    .search_box:hover {
+        box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
+        width: 25vw;
+    }
+    .search_txt {
+        display: absolute;
+        padding: 0vw;
+        width: 0px;
+        border: none;
+        background: none;
+        outline: none;
+        float: left;
+        margin-left: 1vw;
+        font-size: 1.5vw;
+        line-height: 3vw;
+        transition: 0.4s;
+    }
+    .search_box:hover > .search_txt {
+        width: 20vw;
+        padding: 0 0.6vw;
+    }
+
+    .search_container {
+        position: relative;
+        background-color: white;
+    }
+    .search_input {
+        position: absolute;
+        margin: -5.5vw 30vw;
+        width: 20vw;
+        height: 3vw;
+    }
+    .post_list_title {
+        color: black;
+        width: 25vw;
+        font-size: 0.5vw;
+        font-weight: 700;
+        margin-top: 1.5vw;
+        margin-bottom: 0vw;
+        position: relative;
+    }
+    .post_list {
+        display: grid;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        margin-bottom: 3vw;
+        width: 60.5vw;
         grid-gap: 2vw;
         grid-template-columns: repeat(5, 15vw);
     }

@@ -7,9 +7,8 @@ export default function Id() {
     const { id } = router.query;
 
     const [post, setPost] = useState({});
-
     const getPostsData = () => {
-        axios.get(`http://localhost:80/post/${id}`).then((res) => {
+        axios.get(`${process.env.NEXT_PUBLIC_URL}/post/${id}`).then((res) => {
             setPost(res.data.post);
             console.log(res.data.post);
         });

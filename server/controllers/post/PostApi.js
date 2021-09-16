@@ -72,27 +72,31 @@ module.exports = {
     getpostdetail: async (req, res) => {
         try {
             const accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
-
-            console.log('여긴가1', req.params.id);
             const postInfo = await post_container.findOne({
                 where: { id: req.params.id },
-                //attributes: [id, user_id, category, title],
+                attributes: [`id`, `title`, `category`, `user_id`, 'createdAt'],
             });
-            console.log('여긴가2');
-            const post_page = await post.findAll({ where: { post_id: req.params.id }, attributes: [id, img, txt] });
+            //console.log(postInfo);
 
-            let userLike = await like.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            console.log(userLike);
+            const post_page = await post.findAll({
+                where: { post_id: postInfo.id },
+                attributes: ['id', 'img', 'content'],
+            });
+            //console.log(post_page);
 
-            let userDisLike = await dislike.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            userDisLike ? (userDisLike = true) : (userDisLike = false);
-            console.log(userDisLike);
-
-            let userScrap = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            console.log(userScrap);
-
-            let userComment = await like.findOne({ where: { post_id: req.params.id } });
-            console.log(userComment);
+            const userLike = await like.findAll({ where: { post_id: req.params.id } });
+            // ⬆️ 포스트에 대한 좋아요 누른 데이터.
+            const didIL = await like.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+            // ⬆️ 내가 좋아요를 눌렀는지 확인해주는 데이터.
+            console.log(didIL);
+            const userDisLike = await dislike.findAll({ where: { post_id: req.params.id } });
+            // ⬆️ 포스트에 대한 싫어요를 누른 데이터.
+            const didIDisL = await dislike.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+            // ⬆️ 내가 싫어요를 눌렀는지 확인해주는 데이터.
+            const amIScrapped = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            console.log(amIScrapped);
+            const userComment = await comment.findAll({ where: { post_id: req.params.id } });
+            //console.log(userComment);
 
             res.status(200).json({
                 data: {
@@ -101,9 +105,9 @@ module.exports = {
                         title: postInfo.title,
                         category: postInfo.category,
                         post_page: post_page,
-                        like: userLike,
-                        dislike: userDisLike,
-                        scrap: userScrap,
+                        like: { userLike: userLike, didIL: didIL },
+                        dislike: { userDisLike: userDisLike, didIDisL: didIDisL },
+                        scrap: amIScrapped,
                         comment: userComment,
                     },
                 },
@@ -241,5 +245,20 @@ module.exports = {
             res.status(400).json({ messasge: 'Bad Request' });
         }
     },
-    deletecomment: async (req, res) => {},
+    deletecomment: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            await comment.destroy({
+                where: {
+                    user_id: userinfo.id,
+                    post_id: req.params.id,
+                    txt: req.body.comment,
+                },
+            });
+            res.status(200).json({ message: 'ok' });
+        } catch (err) {
+            res.status(500).json({ message: 'Bad Request' });
+        }
+    },
 };

@@ -7,6 +7,7 @@ import { testPost } from '../src/assets/mock';
 import Search from '../src/components/Search';
 import axios from 'axios';
 import Select from '../src/components/Select';
+import { BelongsTo } from 'sequelize/types';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []
@@ -16,12 +17,13 @@ export default function Content() {
     const categories = ['전체', '운동', '생활', '동물', '쇼핑', '휴지통'];
 
     const categoryHandler = (e) => {
-        if (e.target.innerText === '전체') {
+        if (e.target.value === '전체') {
             setPostList(testPost.data.post);
             return;
         } else {
+            console.log(e.target.value);
             const filteredData = testPost.data.post.filter((el) => {
-                return el.category === e.target.innerText;
+                return el.category === e.target.value;
             });
             setPostList(filteredData);
         }
@@ -31,7 +33,7 @@ export default function Content() {
         setClick(!isClick);
     };
     // const getPostsData = () => {
-    //     axios.get('http://localhost:80/post').then((res) => {
+    //     axios.get('/post').then((res) => {
     //         const result = res.data.post.slice(preItems, items);
     //         setPostList(...postList, ...result);
     //         console.log(res.data.post);
@@ -62,14 +64,13 @@ export default function Content() {
                                         <section>
                                             {categories.map((cate) => {
                                                 return (
-                                                    <div>
+                                                    <div value={cate} onClick={(e) => categoryHandler(e)} key={cate}>
                                                         <button
-                                                            key={cate}
                                                             className="nav_items"
                                                             value={cate}
                                                             onClick={(e) => categoryHandler(e)}>
                                                             <div className="category">
-                                                                <img className="cate_icon" />
+                                                                <img className="cate_icon" alt={cate} />
                                                                 {cate}
                                                             </div>
                                                         </button>
@@ -98,7 +99,7 @@ export default function Content() {
                                     <div className="best_list">
                                         {postList?.slice(0, 5).map((best) => {
                                             return (
-                                                <div className="best_item">
+                                                <div className="best_item" key={best.id}>
                                                     <div className="best_item_inner">
                                                         <div className="best_item_option">
                                                             <div className="item_overlay"></div>
@@ -141,8 +142,10 @@ export default function Content() {
                                             );
                                         })}
                                     </div>
-                                    <Select postList={postList} setPostList={setPostList} />
-                                    <Search postList={postList} setPostList={setPostList} />
+                                    <div className="search_line">
+                                        <Select postList={postList} setPostList={setPostList} />
+                                        <Search postList={postList} setPostList={setPostList} />
+                                    </div>
                                 </div>
                             </div>
                         </div>

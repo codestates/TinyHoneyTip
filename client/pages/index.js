@@ -175,7 +175,7 @@ export default function Home() {
                             대박 HoneyTip 기다리고 있을지...!
                         </h2>
                     </div>
-                    <Link href="/content">
+                    <Link href="/content" passHref>
                         <button className="landing__start-btn">시작하기</button>
                     </Link>
                 </section>

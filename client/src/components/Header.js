@@ -39,15 +39,15 @@ export default function Header() {
 
     return (
         <div className="header">
-            <Link href="/content">
+            <Link href="/content" passHref>
                 <h1 className="header__logo">Tiny Honey Tip</h1>
             </Link>
             {userInfo.isLogin ? (
                 <div className="header__btns">
-                    <Link href="/post/new">
+                    <Link href="/post/new" passHref>
                         <a className="header__btn">New Post</a>
                     </Link>
-                    <Link href="/mypage">
+                    <Link href="/mypage" passHref>
                         <a className="header__btn">my page</a>
                     </Link>
                     <button className="header__btn" onClick={logoutHandler}>

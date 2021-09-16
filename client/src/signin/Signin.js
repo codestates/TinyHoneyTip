@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Modal.module.css';
 
-export default function Signin({ userInfo, loginHandler }) {
-    const [isClick, setIsClick] = useState(false);
+export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal }) {
     const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [loginInfo, setLoginInfo] = useState({
@@ -14,9 +13,6 @@ export default function Signin({ userInfo, loginHandler }) {
         setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
     };
 
-    const openModal = () => {
-        setIsClick(true);
-    };
     const closeModal = () => {
         setIsClick(false);
     };

@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import axios from 'axios';
-
 import Signin from '../signin/Signin';
 import Signup from '../signup/Signup';
 
@@ -11,6 +9,7 @@ export default function Header() {
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
         isSocial: false,
+        id: '',
         accessToken: '',
         username: '',
         profile_img: '',
@@ -18,14 +17,13 @@ export default function Header() {
     const openModal = () => {
         setIsClick(true);
     };
-    const loginHandler = () => {
-        // 서버에 요청 보내고 response 반영하여 userInfo 수정
-        setUserInfo({
-            isLogin: true,
-            isSocial: true,
-        });
+    const loginHandler = (data) => {
+        issueAccessToken(data.accessToken);
     };
-
+    const issueAccessToken = (token) => {
+        setUserInfo({ ...userInfo, isLogin: true, isSocial: true, accessToken: token });
+    };
+    console.log(userInfo);
     const logoutHandler = () => {
         // 서버에 요청 보내고 response 반영하여 userInfo 수정
         setUserInfo({
@@ -33,7 +31,9 @@ export default function Header() {
             isSocal: false,
             accessToken: '',
             username: '',
+            id: '',
         });
+        setIsClick(false);
     };
 
     return (

@@ -38,7 +38,7 @@ module.exports = {
                 secure: true,
                 httpOnly: true,
             });
-            res.status(200).json({ message: 'login complete' });
+            res.status(200).json({ message: 'login complete', data: accessToken });
         }
     },
     signup: async (req, res) => {

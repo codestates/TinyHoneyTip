@@ -12,7 +12,7 @@ export default function Signup() {
     const [signupInfo, setSignupInfo] = useState({
         email: '',
         password: '',
-        userName: '',
+        username: '',
     });
     const openModal = () => {
         setIsClick(true);
@@ -59,7 +59,7 @@ export default function Signup() {
                     {
                         email: signupInfo.email,
                         password: signupInfo.password,
-                        userName: signupInfo.userName,
+                        username: signupInfo.username,
                     },
                     { 'Content-Type': 'application/json', withCredentials: true },
                 )
@@ -96,6 +96,20 @@ export default function Signup() {
                                     />
                                     <div className={styles.checkmsg}>
                                         {!ischeckEmail ? '올바른 이메일 형식이 아닙니다' : 'OK'}
+                                    </div>
+                                </div>
+                                <div className={styles.input_container}>
+                                    <div className={styles.label}>User Name</div>
+                                    <input
+                                        name="username"
+                                        className={styles.signin_input}
+                                        type="username"
+                                        placeholder="닉네임을 입력하세요"
+                                        onChange={(e) => inputHandler(e)}
+                                        value={signupInfo.username}
+                                    />
+                                    <div className={styles.checkmsg}>
+                                        {!ischeckPassword ? '올바른 비밀번호 형식이 아닙니다' : 'OK'}
                                     </div>
                                 </div>
                                 <div className={styles.input_container}>

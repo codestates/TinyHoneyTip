@@ -71,30 +71,37 @@ module.exports = {
 
     getpostdetail: async (req, res) => {
         try {
-            const accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
             const postInfo = await post_container.findOne({
                 where: { id: req.params.id },
                 attributes: [`id`, `title`, `category`, `user_id`, 'createdAt'],
             });
-            //console.log(postInfo);
 
             const post_page = await post.findAll({
                 where: { post_id: postInfo.id },
                 attributes: ['id', 'img', 'content'],
             });
-            //console.log(post_page);
+
+            const writerInfo = await User.findOne({ where: { id: postInfo.user_id } });
+
+            let accessToken = {};
+            let didIL = {};
+            let didIDisL = {};
+            let amIScrapped = {};
+            if (req.cookies.accessToken) {
+                accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
+                didIL = await like.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+                // ⬆️ 내가 좋아요를 눌렀는지 확인해주는 데이터.
+                didIDisL = await dislike.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+                // ⬆️ 내가 싫어요를 눌렀는지 확인해주는 데이터.
+                amIScrapped = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            }
 
             const userLike = await like.findAll({ where: { post_id: req.params.id } });
             // ⬆️ 포스트에 대한 좋아요 누른 데이터.
-            const didIL = await like.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
-            // ⬆️ 내가 좋아요를 눌렀는지 확인해주는 데이터.
-            console.log(didIL);
+
             const userDisLike = await dislike.findAll({ where: { post_id: req.params.id } });
             // ⬆️ 포스트에 대한 싫어요를 누른 데이터.
-            const didIDisL = await dislike.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
-            // ⬆️ 내가 싫어요를 눌렀는지 확인해주는 데이터.
-            const amIScrapped = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            console.log(amIScrapped);
+
             const userComment = await comment.findAll({ where: { post_id: req.params.id } });
             //console.log(userComment);
 
@@ -104,6 +111,7 @@ module.exports = {
                         id: postInfo.id,
                         title: postInfo.title,
                         category: postInfo.category,
+                        writerInfo: writerInfo,
                         post_page: post_page,
                         like: { userLike: userLike, didIL: didIL },
                         dislike: { userDisLike: userDisLike, didIDisL: didIDisL },

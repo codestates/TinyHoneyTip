@@ -147,6 +147,7 @@ html {
     top: 42vh;
     right: 4vw;
     z-index: 1;
+    object-fit: cover;
 }
 
 .top-btn {
@@ -241,6 +242,7 @@ html {
 
 .landing__section2__slide ul li {
     height: 50vw;
+    position: relative;
 }
 
 .landing__section2__slide ul li:nth-child(1) {
@@ -303,6 +305,7 @@ html {
 
 .landing__section3__slide li {
     height: 50vw;
+    position: relative;
 }
 
 .landing__section3__slide ul li:nth-child(1) {

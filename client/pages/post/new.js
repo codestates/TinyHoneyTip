@@ -42,6 +42,15 @@ export default function PostUpload() {
                 setSlide(editedContent);
             };
             reader.readAsDataURL(file);
+        } else if (key === 'deleteImage') {
+            let editedContent = slide.map((el, idx) => {
+                if (idx === index) {
+                    return { ...el, img: '', imgFile: '' };
+                } else {
+                    return el;
+                }
+            });
+            setSlide(editedContent);
         }
     };
 

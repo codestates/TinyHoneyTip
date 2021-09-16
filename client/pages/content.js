@@ -7,7 +7,6 @@ import { testPost } from '../src/assets/mock';
 import Search from '../src/components/Search';
 import axios from 'axios';
 import Select from '../src/components/Select';
-import { BelongsTo } from 'sequelize/types';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []

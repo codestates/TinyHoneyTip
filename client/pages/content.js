@@ -7,6 +7,7 @@ import { testPost } from '../src/assets/mock';
 import Search from '../src/components/Search';
 import axios from 'axios';
 import Select from '../src/components/Select';
+import { BelongsTo } from 'sequelize/types';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []
@@ -98,7 +99,7 @@ export default function Content() {
                                     <div className="best_list">
                                         {postList?.slice(0, 5).map((best) => {
                                             return (
-                                                <div className="best_item">
+                                                <div className="best_item" key={best.id}>
                                                     <div className="best_item_inner">
                                                         <div className="best_item_option">
                                                             <div className="item_overlay"></div>

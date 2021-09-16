@@ -8,7 +8,7 @@ module.exports = {
         try {
             const allpost_container = await sequelize.query(
                 `
-                select id from post_containers
+                select * from post_containers
                 `,
                 { type: QueryTypes.SELECT },
             );

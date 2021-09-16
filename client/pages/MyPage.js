@@ -45,9 +45,7 @@ export default function MyPage() {
                 </div>
                 <div className="my_post_wrapper">
                     <h3 className="my_post">내가 쓴 글</h3>
-                    {myPost.map((el) => {
-                        return;
-                    })}
+                    {myPost.map((el) => {})}
                 </div>
             </div>
             <Footer />

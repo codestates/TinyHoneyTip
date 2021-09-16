@@ -12,8 +12,8 @@ export default function Header() {
         isLogin: false,
         isSocial: false,
         accessToken: '',
-        userName: '',
-        profile: '',
+        username: '',
+        profile_img: '',
     });
     const openModal = () => {
         setIsClick(true);
@@ -32,8 +32,7 @@ export default function Header() {
             isLogin: false,
             isSocal: false,
             accessToken: '',
-            userName: '',
-            profile: '',
+            username: '',
         });
     };
 
@@ -63,7 +62,8 @@ export default function Header() {
                         isClick={isClick}
                         setIsClick={setIsClick}
                         userInfo={userInfo}
-                        loginHandle={loginHandler}
+                        setUserInfo={setUserInfo}
+                        loginHandler={loginHandler}
                         openModal={openModal}
                     />
                     <Signup />

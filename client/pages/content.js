@@ -31,17 +31,19 @@ export default function Content() {
     const clickHandler = () => {
         setClick(!isClick);
     };
+
     // const getPostsData = () => {
-    //     axios.get('/post').then((res) => {
-    //         const result = res.data.post.slice(preItems, items);
-    //         setPostList(...postList, ...result);
-    //         console.log(res.data.post);
+    //     axios.get('http://localhost:80/post').then((res) => {
+    //         // const result = res.data.post.slice(preItems, items);
+    //         setPostList(res.data.data);
+    //         console.log(res.data.data);
     //     });
     // };
 
     // useEffect(() => {
     //     getPostsData();
     // }, []);
+
     useEffect(() => {
         setPostList(testPost.data.post);
     }, []);
@@ -59,7 +61,6 @@ export default function Content() {
                                 <div className="nav_container">
                                     <button className="nav_btn" onClick={clickHandler}>
                                         <h1>카테고리</h1>
-
                                         <section>
                                             {categories.map((cate) => {
                                                 return (

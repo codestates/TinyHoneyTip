@@ -8,7 +8,7 @@ module.exports = {
         try {
             const allpost_container = await sequelize.query(
                 `
-                select id from post_containers
+                select * from post_containers
                 `,
                 { type: QueryTypes.SELECT },
             );
@@ -245,5 +245,20 @@ module.exports = {
             res.status(400).json({ messasge: 'Bad Request' });
         }
     },
-    deletecomment: async (req, res) => {},
+    deletecomment: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            await comment.destroy({
+                where: {
+                    user_id: userinfo.id,
+                    post_id: req.params.id,
+                    txt: req.body.comment,
+                },
+            });
+            res.status(200).json({ message: 'ok' });
+        } catch (err) {
+            res.status(500).json({ message: 'Bad Request' });
+        }
+    },
 };

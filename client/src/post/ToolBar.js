@@ -38,7 +38,7 @@ export default function ToolBar({
             </div>
             <div className="post__toolbar__edit-section">
                 <form className="post__toolbar__about-post">
-                    <label>제목</label>
+                    <label className="post__toolbar__title-label">제목</label>
                     <input
                         className="post__toolbar__title"
                         type="text"
@@ -58,6 +58,7 @@ export default function ToolBar({
                 </form>
                 {/* <h1>현재 페이지 : {currentSlide}</h1> */}
                 <div className="post__toolbar__image">
+                    {/* <img className="post__toolbar__image-preview" src={slide[currentSlide - 1].img} /> */}
                     <label className="post__toolbar__image-label">
                         이미지 업로드
                         <input
@@ -68,6 +69,11 @@ export default function ToolBar({
                             onChange={slideTextHandler(currentSlide - 1, 'image')}
                         />
                     </label>
+                    <button
+                        onClick={slideTextHandler(currentSlide - 1, 'deleteImage')}
+                        className="post__toolbar__image-label">
+                        이미지 삭제
+                    </button>
                 </div>
                 <form className="post__toolbar__content-form">
                     <label>내용</label>
@@ -78,10 +84,13 @@ export default function ToolBar({
                         onChange={slideTextHandler(currentSlide - 1, 'content')}
                     />
                 </form>
-                <button disabled={slide.length === 1 ? 'disabled' : ''} onClick={deleteSlideHandler(currentSlide - 1)}>
+                <button
+                    className="post__toolbar__delete-page"
+                    disabled={slide.length === 1 ? 'disabled' : ''}
+                    onClick={deleteSlideHandler(currentSlide - 1)}>
                     현재 페이지 삭제
                 </button>
-                <button>업로드</button>
+                <button className="post__toolbar__delete-post">업로드</button>
             </div>
         </div>
     );

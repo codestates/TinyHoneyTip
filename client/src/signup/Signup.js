@@ -153,9 +153,9 @@ export default function Signup() {
                     </div>
                 </div>
             ) : (
-                <button className={styles.Modal_btn} onClick={openModal}>
+                <a className="header__btn" onClick={openModal}>
                     Sign Up
-                </button>
+                </a>
             )}
             {isOk ? (
                 <div className={styles.alert_container}>

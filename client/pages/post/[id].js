@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Post from '../../src/components/Post';
 
 export default function Id() {
@@ -8,22 +9,25 @@ export default function Id() {
 
     const [post, setPost] = useState({});
 
+    const API_URL = `${process.env.NEXT_PUBLIC_URL}/post/${id}`;
+
     const getPostsData = () => {
-        axios.get(`http://localhost:80/post/${id}`).then((res) => {
-            setPost(res.data.post);
-            console.log(res.data.post);
+        axios.get(API_URL).then((res) => {
+            setPost(res.data.data.post);
         });
     };
 
     // useEffect(() => {
-    //     if (id && id > 0) {
-    //         getPostsData();
-    //     }
-    // }, [id]);
+    //     if (!router.isReady) return;
+    //     id = router.query.id;
+    //     getPostsData(id);
+    // }, [router.isReady]);
 
-    return (
-        <>
-            <Post post={post} />
-        </>
-    );
+    useEffect(() => {
+        if (id && id > 0) {
+            getPostsData();
+        }
+    }, [id]);
+
+    return <Post post={post} />;
 }

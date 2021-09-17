@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Modal.module.css';
 
-export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal }) {
+export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal, setUserInfo }) {
     const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [loginInfo, setLoginInfo] = useState({
@@ -31,56 +31,63 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                     email: loginInfo.email,
                     password: loginInfo.password,
                 },
-                { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                },
             )
             .then((res) => {
-                setMessage('로그인!');
-                loginHandler();
-                return res.headers.cookies.accessToken;
+                if (res.data.message === 'login complete') {
+                    // console.log(res.data.data)
+                    setMessage('로그인 완료');
+                    loginHandler(res.data.data);
+                    closeModal();
+                }
             })
-            .then((token) => {
-                setUserInfo({
-                    accessToken: { token },
-                });
-                okHandler();
-            })
+            // .then((token) => {
+            //     console.log(token);
+            //     setUserInfo({
+            //         accessToken: token,
+            //     });
+            //     okHandler();
+            // })
             .catch((err) => alert(err));
     };
-    function kakaoLogin() {
-        window.Kakao.Auth.loginForm({
-            success: (auth) => {
-                axios
-                    .post(
-                        process.env.REACT_APP_API_ENDPOINT + '/auth/signin/kakao',
-                        {},
-                        {
-                            headers: {
-                                Authorization: `Bearer ${auth.access_token}`,
-                                'Content-Type': 'application/json',
-                            },
-                            withCredentials: true,
-                        },
-                    )
-                    .then((res) => {
-                        const data = {
-                            email: res.data.email,
-                            userId: res.data.userId,
-                            accessToken: res.data.accessToken,
-                            provider: 'kakao',
-                            bookmarks: res.data.bookmarks,
-                        };
-                        dispatch(userSignIn(data));
-                        getRepliedPosts(data.userId, data.accessToken);
-                        props.closeModal();
-                        dispatch(setAlertOpen(true, `${res.data.email}님, 반가워요!`));
-                    })
-                    .catch((e) => console.log(e));
-            },
-            fail: (err) => {
-                console.log(err);
-            },
-        });
-    }
+    // function kakaoLogin() {
+    //     window.Kakao.Auth.loginForm({
+    //         success: (auth) => {
+    //             axios
+    //                 .post(
+    //                     process.env.REACT_APP_API_ENDPOINT + '/auth/signin/kakao',
+    //                     {},
+    //                     {
+    //                         headers: {
+    //                             Authorization: `Bearer ${auth.access_token}`,
+    //                             'Content-Type': 'application/json',
+    //                         },
+    //                         withCredentials: true,
+    //                     },
+    //                 )
+    //                 .then((res) => {
+    //                     const data = {
+    //                         email: res.data.email,
+    //                         userId: res.data.userId,
+    //                         accessToken: res.data.accessToken,
+    //                         provider: 'kakao',
+    //                         bookmarks: res.data.bookmarks,
+    //                     };
+    //                     dispatch(userSignIn(data));
+    //                     getRepliedPosts(data.userId, data.accessToken);
+    //                     props.closeModal();
+    //                     dispatch(setAlertOpen(true, `${res.data.email}님, 반가워요!`));
+    //                 })
+    //                 .catch((e) => console.log(e));
+    //         },
+    //         fail: (err) => {
+    //             console.log(err);
+    //         },
+    //     });
+    // }
     return (
         <>
             {isClick === true ? (
@@ -120,7 +127,7 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                                 <button className={styles.signin_btn} onClick={loginRequestHandler}>
                                     Sign In
                                 </button>
-                                <button onClick={kakaoLogin}>카카오</button>
+                                {/* <button onClick={kakaoLogin}>카카오</button> */}
                                 {/* <button className={styles.kakao_btn}>
                                     카카오 로그인
                                     <img
@@ -133,9 +140,9 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                     </div>
                 </div>
             ) : (
-                <button className={styles.Modal_btn} onClick={openModal}>
+                <a className="header__btn" onClick={openModal}>
                     Sign In
-                </button>
+                </a>
             )}
             {isOk ? (
                 <div className={styles.alert_container}>

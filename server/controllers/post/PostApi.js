@@ -6,18 +6,55 @@ require('dotenv').config();
 module.exports = {
     getpostlist: async (req, res) => {
         try {
-            const postlist = await sequelize.query(
+            const allpost_container = await sequelize.query(
                 `
-            SELECT post_containers.id, post_containers.title, post_containers.category,
-            Users.username, posts AS post, likes AS like
-            FROM post_containers
-            LEFT JOIN Users ON post_containers.id = Users.post_id
-            LEFT JOIN (SELECT * AS posts from posts GROUP BY post_id) AS postlist ON posts.id = postlist.post_id
-            LEFT JOIN (SELECT * AS likes from likes GROUP BY post_id) AS likelist ON posts.id = likelist.post_id
-            `,
+                select * from post_containers
+                `,
                 { type: QueryTypes.SELECT },
             );
-            res.status(200).json({ data: postlist });
+            console.log('allpostc', allpost_container);
+
+            let post_page = [];
+            let post_scrap = [];
+            let post_comment = [];
+            let post_like = [];
+            const allPost = [];
+            for (let el of allpost_container) {
+                let page = await post.findAll({
+                    attributes: ['id', 'content', 'img', 'post_id'],
+                    where: { post_id: el.id },
+                });
+                post_page.push(page);
+
+                let findScrap = await scrap.findAll({
+                    where: { post_id: el.id },
+                    attributes: ['id', 'user_id', 'post_id'],
+                });
+                post_scrap.push(findScrap);
+
+                let findComment = await comment.findAll({
+                    where: { post_id: el.id },
+                    attributes: ['user_id', 'txt', 'post_id'],
+                });
+                post_comment.push(findComment);
+
+                let findLike = await like.findAll({
+                    where: { post_id: el.id },
+                    attributes: ['user_id', 'post_id'],
+                });
+                post_like.push(findLike);
+
+                allPost.push({
+                    id: el.id,
+                    title: el.title,
+                    category: el.category,
+                    post_page: post_page,
+                    like: post_like,
+                    scrap: post_scrap,
+                    comment: post_comment,
+                });
+            }
+            res.status(200).json({ data: allPost });
         } catch (err) {
             res.status(500).json({ message: 'err' });
         }
@@ -34,28 +71,39 @@ module.exports = {
 
     getpostdetail: async (req, res) => {
         try {
-            const accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
-
-            console.log('여긴가1', req.params.id);
             const postInfo = await post_container.findOne({
                 where: { id: req.params.id },
-                //attributes: [id, user_id, category, title],
+                attributes: [`id`, `title`, `category`, `user_id`, 'createdAt'],
             });
-            console.log('여긴가2');
-            const post_page = await post.findAll({ where: { post_id: req.params.id }, attributes: [id, img, txt] });
 
-            let userLike = await like.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            console.log(userLike);
+            const post_page = await post.findAll({
+                where: { post_id: postInfo.id },
+                attributes: ['id', 'img', 'content'],
+            });
 
-            let userDisLike = await dislike.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            userDisLike ? (userDisLike = true) : (userDisLike = false);
-            console.log(userDisLike);
+            const writerInfo = await User.findOne({ where: { id: postInfo.user_id } });
 
-            let userScrap = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            console.log(userScrap);
+            let accessToken = {};
+            let didIL = {};
+            let didIDisL = {};
+            let amIScrapped = {};
+            if (req.cookies.accessToken) {
+                accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
+                didIL = await like.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+                // ⬆️ 내가 좋아요를 눌렀는지 확인해주는 데이터.
+                didIDisL = await dislike.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+                // ⬆️ 내가 싫어요를 눌렀는지 확인해주는 데이터.
+                amIScrapped = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            }
 
-            let userComment = await like.findOne({ where: { post_id: req.params.id } });
-            console.log(userComment);
+            const userLike = await like.findAll({ where: { post_id: req.params.id } });
+            // ⬆️ 포스트에 대한 좋아요 누른 데이터.
+
+            const userDisLike = await dislike.findAll({ where: { post_id: req.params.id } });
+            // ⬆️ 포스트에 대한 싫어요를 누른 데이터.
+
+            const userComment = await comment.findAll({ where: { post_id: req.params.id } });
+            //console.log(userComment);
 
             res.status(200).json({
                 data: {
@@ -63,10 +111,11 @@ module.exports = {
                         id: postInfo.id,
                         title: postInfo.title,
                         category: postInfo.category,
+                        writerInfo: writerInfo,
                         post_page: post_page,
-                        like: userLike,
-                        dislike: userDisLike,
-                        scrap: userScrap,
+                        like: { userLike: userLike, didIL: didIL },
+                        dislike: { userDisLike: userDisLike, didIDisL: didIDisL },
+                        scrap: amIScrapped,
                         comment: userComment,
                     },
                 },
@@ -79,7 +128,7 @@ module.exports = {
     editpost: async (req, res) => {},
     deletepost: async (req, res) => {},
 
-    getLike: async (req, res) => {
+    like: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
             if (!accessToken) {
@@ -100,7 +149,6 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
-
     cancellike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -121,7 +169,6 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
-
     dislike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -164,9 +211,62 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
-
-    scrap: async (req, res) => {},
-    cancelscrap: async (req, res) => {},
-    comment: async (req, res) => {},
-    deletecomment: async (req, res) => {},
+    scrap: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            await scrap.create({
+                user_id: userinfo.id,
+                post_id: req.params.id,
+            });
+            res.status(200).json({ message: 'ok' });
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+    cancelscrap: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            scrap.destroy({
+                where: {
+                    user_id: userinfo.id,
+                    post_id: req.params.id,
+                },
+            });
+            res.status(200).json({ message: 'ok' });
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
+    comment: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            await comment.create({
+                user_id: userinfo.id,
+                post_id: req.params.id,
+                txt: req.body.comment,
+            });
+            res.status(200).json({ message: 'ok' });
+        } catch (err) {
+            res.status(400).json({ messasge: 'Bad Request' });
+        }
+    },
+    deletecomment: async (req, res) => {
+        try {
+            const accessToken = req.cookies.accessToken;
+            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            await comment.destroy({
+                where: {
+                    user_id: userinfo.id,
+                    post_id: req.params.id,
+                    txt: req.body.comment,
+                },
+            });
+            res.status(200).json({ message: 'ok' });
+        } catch (err) {
+            res.status(500).json({ message: 'Bad Request' });
+        }
+    },
 };

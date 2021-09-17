@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import axios from 'axios';
-
 import Signin from '../signin/Signin';
 import Signup from '../signup/Signup';
 
@@ -11,43 +9,51 @@ export default function Header() {
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
         isSocial: false,
+        id: '',
+        email: '',
         accessToken: '',
-        userName: '',
-        profile: '',
+        username: '',
+        profile_img: '',
     });
     const openModal = () => {
         setIsClick(true);
     };
-    const loginHandler = () => {
-        // 서버에 요청 보내고 response 반영하여 userInfo 수정
+    const loginHandler = (data) => {
         setUserInfo({
+            ...userInfo,
             isLogin: true,
             isSocial: true,
+            id: data.userInfo.id,
+            email: data.userInfo.email,
+            accessToken: data.accessToken,
+            username: data.userInfo.username,
+            profile_img: data.userInfo.profile_img,
         });
     };
-
+    console.log(userInfo);
     const logoutHandler = () => {
         // 서버에 요청 보내고 response 반영하여 userInfo 수정
         setUserInfo({
             isLogin: false,
             isSocal: false,
             accessToken: '',
-            userName: '',
-            profile: '',
+            username: '',
+            id: '',
         });
+        setIsClick(false);
     };
 
     return (
         <div className="header">
-            <Link href="/content">
+            <Link href="/content" passHref>
                 <h1 className="header__logo">Tiny Honey Tip</h1>
             </Link>
             {userInfo.isLogin ? (
                 <div className="header__btns">
-                    <Link href="/post/new">
+                    <Link href="/post/new" passHref>
                         <a className="header__btn">New Post</a>
                     </Link>
-                    <Link href="/mypage">
+                    <Link href="/mypage" passHref>
                         <a className="header__btn">my page</a>
                     </Link>
                     <button className="header__btn" onClick={logoutHandler}>
@@ -63,7 +69,8 @@ export default function Header() {
                         isClick={isClick}
                         setIsClick={setIsClick}
                         userInfo={userInfo}
-                        loginHandle={loginHandler}
+                        setUserInfo={setUserInfo}
+                        loginHandler={loginHandler}
                         openModal={openModal}
                     />
                     <Signup />

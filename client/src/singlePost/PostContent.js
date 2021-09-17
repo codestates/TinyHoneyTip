@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 
-export default function PostContent({ post }) {
+export default function PostContent({ userInfo, post }) {
+    console.log(post);
     const { title, category, post_page, like, dislike, scrap } = post;
     // const { didIL, userLike } = like;
-
     // like dislike scrap 수정필요.. 빈 객체로 오면 저장시 에러가뜨는듯;;
     const [feeling, setFeeling] = useState({
         like: false,
@@ -13,7 +13,7 @@ export default function PostContent({ post }) {
         scrap: false,
     });
     // console.log(post_page);
-    console.log(like);
+    console.log(like?.didIL);
     // console.log(didIL);
     // console.log(like.didIL);
     const feelingHandler = (key) => {

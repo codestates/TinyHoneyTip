@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import Header from '../src/components/Header';
-import Footer from '../src/components/Footer';
-
 export default function Home() {
     // 스크롤 제거
     // window.addEventListener("wheel", function(e){
@@ -54,7 +51,6 @@ export default function Home() {
 
     return (
         <div className="landing">
-            <Header />
             <div className="landing__sections">
                 <section className="landing__section" id="section1">
                     {/* 첫 번째 섹션에 바로 시작하기 버튼 추가? */}
@@ -191,7 +187,6 @@ export default function Home() {
                 />
             </a>
             <div className="scroll__down"></div>
-            <Footer />
         </div>
     );
 }

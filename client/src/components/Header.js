@@ -10,6 +10,7 @@ export default function Header() {
         isLogin: false,
         isSocial: false,
         id: '',
+        email: '',
         accessToken: '',
         username: '',
         profile_img: '',
@@ -18,10 +19,16 @@ export default function Header() {
         setIsClick(true);
     };
     const loginHandler = (data) => {
-        issueAccessToken(data.accessToken);
-    };
-    const issueAccessToken = (token) => {
-        setUserInfo({ ...userInfo, isLogin: true, isSocial: true, accessToken: token });
+        setUserInfo({
+            ...userInfo,
+            isLogin: true,
+            isSocial: true,
+            id: data.userInfo.id,
+            email: data.userInfo.email,
+            accessToken: data.accessToken,
+            username: data.userInfo.username,
+            profile_img: data.userInfo.profile_img,
+        });
     };
     console.log(userInfo);
     const logoutHandler = () => {

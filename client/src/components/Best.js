@@ -6,8 +6,8 @@ export default function Best({ initData, postList, setPostList }) {
     const [curList, setCurList] = useState([]);
 
     let data = initData.sort(function (a, b) {
-        let likeA = a.like.length;
-        let likeB = b.like.length;
+        let likeA = a.like[a?.id + 2]?.length;
+        let likeB = b.like[b?.id + 2]?.length;
         if (likeA < likeB) return -1;
         if (likeA > likeB) return 1;
         return 0;
@@ -17,6 +17,7 @@ export default function Best({ initData, postList, setPostList }) {
     useEffect(() => {
         setCurList(data);
     });
+    // console.log(curList);
     // 카테고리 이름순 정렬 작동함.
     return (
         <>
@@ -61,7 +62,9 @@ export default function Best({ initData, postList, setPostList }) {
                                                     </div>
                                                     <div className="best_desc_user">
                                                         <div className="best_desc_userinfo">
-                                                            <div className="best_author">❤️ {best?.like.length}</div>
+                                                            <div className="best_author">
+                                                                ❤️ {best?.like[best?.id + 2]?.length}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

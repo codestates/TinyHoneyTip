@@ -8,50 +8,54 @@ module.exports = {
         try {
             const allpost_container = await sequelize.query(
                 `
-                select id from post_containers
+                select * from post_containers
                 `,
                 { type: QueryTypes.SELECT },
             );
             console.log('allpostc', allpost_container);
 
-            let post_page = [];
-            let post_scrap = [];
-            let post_comment = [];
-            let post_like = [];
             const allPost = [];
             for (let el of allpost_container) {
-                let page = await post.findAll({
+                let post_page = await post.findAll({
                     attributes: ['id', 'content', 'img', 'post_id'],
                     where: { post_id: el.id },
                 });
-                post_page.push(page);
+                // post_page.push(page);
 
-                let findScrap = await scrap.findAll({
+                let post_scrap = await scrap.findAll({
                     where: { post_id: el.id },
                     attributes: ['id', 'user_id', 'post_id'],
                 });
-                post_scrap.push(findScrap);
+                // post_scrap.push(findScrap);
 
-                let findComment = await comment.findAll({
+                let post_comment = await comment.findAll({
                     where: { post_id: el.id },
                     attributes: ['user_id', 'txt', 'post_id'],
                 });
-                post_comment.push(findComment);
+                // post_comment.push(findComment);
 
-                let findLike = await like.findAll({
+                let post_like = await like.findAll({
                     where: { post_id: el.id },
                     attributes: ['user_id', 'post_id'],
                 });
-                post_like.push(findLike);
+                // post_like.push(findLike);
 
                 allPost.push({
                     id: el.id,
                     title: el.title,
                     category: el.category,
-                    post_page: post_page,
-                    like: post_like,
-                    scrap: post_scrap,
-                    comment: post_comment,
+                    post_page: post_page.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
+                    like: post_like.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
+                    scrap: post_scrap.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
+                    comment: post_comment.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
                 });
             }
             res.status(200).json({ data: allPost });
@@ -60,41 +64,78 @@ module.exports = {
         }
     },
     uploadpost: async (req, res) => {
-        const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-        const { title, category } = req.body;
-        const creatpostcontainer = await post_container.create({
-            title: title,
-            category: category,
-        });
-        const createpost = await post_container.create({});
+        try {
+            const accessToken = req.cookies.accessToken;
+            // console.log(req);
+            const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            // console.log(userinfo);
+            if (userinfo) {
+                const { title, category } = req.body;
+                await post_container.create({
+                    title,
+                    category,
+                    user_id: userinfo.id,
+                });
+
+                const findcontainer = await post_container.findOne({
+                    where: {
+                        title: title,
+                        category: category,
+                        user_id: userinfo.id,
+                    },
+                    attributes: ['id'],
+                });
+                console.log(req.body.post_page[0]);
+                if (findcontainer) {
+                    for (let el of req.body.post_page) {
+                        //post_page 이름 바꿔야함
+                        post.create({
+                            post_id: findcontainer.id,
+                            img: el.img,
+                            content: el.content,
+                        });
+                    }
+                }
+            }
+            res.status(200).json({ messasge: 'upload complete' });
+        } catch (err) {
+            res.status(500).json({ message: 'Bad Request' });
+        }
     },
 
     getpostdetail: async (req, res) => {
         try {
-            const accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
             const postInfo = await post_container.findOne({
                 where: { id: req.params.id },
                 attributes: [`id`, `title`, `category`, `user_id`, 'createdAt'],
             });
-            //console.log(postInfo);
 
             const post_page = await post.findAll({
                 where: { post_id: postInfo.id },
                 attributes: ['id', 'img', 'content'],
             });
-            //console.log(post_page);
+
+            const writerInfo = await User.findOne({ where: { id: postInfo.user_id } });
+
+            let accessToken = {};
+            let didIL = {};
+            let didIDisL = {};
+            let amIScrapped = {};
+            if (req.cookies.accessToken) {
+                accessToken = await jwt.verify(req.cookies.accessToken, process.env.ACCESS_SECRET);
+                didIL = await like.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+                // ⬆️ 내가 좋아요를 눌렀는지 확인해주는 데이터.
+                didIDisL = await dislike.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
+                // ⬆️ 내가 싫어요를 눌렀는지 확인해주는 데이터.
+                amIScrapped = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
+            }
 
             const userLike = await like.findAll({ where: { post_id: req.params.id } });
             // ⬆️ 포스트에 대한 좋아요 누른 데이터.
-            const didIL = await like.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
-            // ⬆️ 내가 좋아요를 눌렀는지 확인해주는 데이터.
-            console.log(didIL);
+
             const userDisLike = await dislike.findAll({ where: { post_id: req.params.id } });
             // ⬆️ 포스트에 대한 싫어요를 누른 데이터.
-            const didIDisL = await dislike.findOne({ where: { user_id: accessToken.id, post_id: req.params.id } });
-            // ⬆️ 내가 싫어요를 눌렀는지 확인해주는 데이터.
-            const amIScrapped = await scrap.findOne({ where: { post_id: req.params.id, user_id: accessToken.id } });
-            console.log(amIScrapped);
+
             const userComment = await comment.findAll({ where: { post_id: req.params.id } });
             //console.log(userComment);
 
@@ -104,6 +145,7 @@ module.exports = {
                         id: postInfo.id,
                         title: postInfo.title,
                         category: postInfo.category,
+                        writerInfo: writerInfo,
                         post_page: post_page,
                         like: { userLike: userLike, didIL: didIL },
                         dislike: { userDisLike: userDisLike, didIDisL: didIDisL },
@@ -116,9 +158,24 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
-
     editpost: async (req, res) => {},
-    deletepost: async (req, res) => {},
+    deletepost: async (req, res) => {
+        try {
+            await post_container.destroy({
+                where: {
+                    id: req.params.id,
+                },
+            });
+            await post.destroy({
+                where: {
+                    post_id: req.params.id,
+                },
+            });
+            res.status(200).json({ message: 'ok' });
+        } catch (err) {
+            res.status(400).json({ message: 'Bad Request' });
+        }
+    },
 
     like: async (req, res) => {
         try {

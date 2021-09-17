@@ -12,7 +12,7 @@ export default function Signup() {
     const [signupInfo, setSignupInfo] = useState({
         email: '',
         password: '',
-        userName: '',
+        username: '',
     });
     const openModal = () => {
         setIsClick(true);
@@ -59,15 +59,16 @@ export default function Signup() {
                     {
                         email: signupInfo.email,
                         password: signupInfo.password,
-                        userName: signupInfo.userName,
+                        username: signupInfo.username,
                     },
                     { 'Content-Type': 'application/json', withCredentials: true },
                 )
                 .then((res) => {
+                    console.log(res);
                     if (res.data.message === 'ok') {
                         setMessage('회원가입 완료');
                         okHandler();
-                        return closeModal();
+                        closeModal();
                     }
                 });
         }
@@ -97,6 +98,17 @@ export default function Signup() {
                                     <div className={styles.checkmsg}>
                                         {!ischeckEmail ? '올바른 이메일 형식이 아닙니다' : 'OK'}
                                     </div>
+                                </div>
+                                <div className={styles.input_container}>
+                                    <div className={styles.label}>User Name</div>
+                                    <input
+                                        name="username"
+                                        className={styles.signin_input}
+                                        type="username"
+                                        placeholder="닉네임을 입력하세요"
+                                        onChange={(e) => inputHandler(e)}
+                                        value={signupInfo.username}
+                                    />
                                 </div>
                                 <div className={styles.input_container}>
                                     <div className={styles.label}>Password</div>
@@ -141,9 +153,9 @@ export default function Signup() {
                     </div>
                 </div>
             ) : (
-                <button className={styles.Modal_btn} onClick={openModal}>
+                <a className="header__btn" onClick={openModal}>
                     Sign Up
-                </button>
+                </a>
             )}
             {isOk ? (
                 <div className={styles.alert_container}>

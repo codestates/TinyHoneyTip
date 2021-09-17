@@ -38,7 +38,7 @@ module.exports = {
                 secure: true,
                 httpOnly: true,
             });
-            res.status(200).json({ message: 'login complete' });
+            res.status(200).json({ message: 'login complete', data: { accessToken: accessToken, userInfo: finduser } });
         }
     },
     signup: async (req, res) => {
@@ -60,13 +60,13 @@ module.exports = {
                     password,
                     username,
                 });
-                res.status(200).json({ messge: 'ok' });
+                res.status(200).json({ message: 'ok' });
             }
         } catch (err) {
             res.status(500).json({ message: 'unexpected error' });
         }
     },
     signout: async (req, res) => {
-        await res.clearCookie('access_token').status(200).json({ message: 'ok' });
+        await res.clearCookie('accessToken').status(200).json({ message: 'ok' });
     },
 };

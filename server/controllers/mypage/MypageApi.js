@@ -17,7 +17,7 @@ module.exports = {
                     const findUserInfo = await User.findOne({
                         where: { email: Token.email },
                     });
-                    console.log(Token);
+
                     const findMyPost_container = await post_container.findAll({
                         attributes: ['title', 'category', 'user_id', 'id'],
                         where: { user_id: findUserInfo.id },
@@ -81,7 +81,7 @@ module.exports = {
                         scrapPost_c.push(postContainer);
                     }
                     console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
-
+                    // ------------------마이포스트 끝!!  마이스크랩 시작!!-----------------------------------------------------------------------------------------------------------
                     let scrap_page = [];
                     let scrap_comment = [];
                     let scrap_like = [];
@@ -137,10 +137,11 @@ module.exports = {
                 }
             }
         } catch (err) {
-            console.log('에러다');
+            console.log('캐치에러다');
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
         try {

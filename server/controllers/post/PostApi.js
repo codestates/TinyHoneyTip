@@ -14,44 +14,48 @@ module.exports = {
             );
             console.log('allpostc', allpost_container);
 
-            let post_page = [];
-            let post_scrap = [];
-            let post_comment = [];
-            let post_like = [];
             const allPost = [];
             for (let el of allpost_container) {
-                let page = await post.findAll({
+                let post_page = await post.findAll({
                     attributes: ['id', 'content', 'img', 'post_id'],
                     where: { post_id: el.id },
                 });
-                post_page.push(page);
+                // post_page.push(page);
 
-                let findScrap = await scrap.findAll({
+                let post_scrap = await scrap.findAll({
                     where: { post_id: el.id },
                     attributes: ['id', 'user_id', 'post_id'],
                 });
-                post_scrap.push(findScrap);
+                // post_scrap.push(findScrap);
 
-                let findComment = await comment.findAll({
+                let post_comment = await comment.findAll({
                     where: { post_id: el.id },
                     attributes: ['user_id', 'txt', 'post_id'],
                 });
-                post_comment.push(findComment);
+                // post_comment.push(findComment);
 
-                let findLike = await like.findAll({
+                let post_like = await like.findAll({
                     where: { post_id: el.id },
                     attributes: ['user_id', 'post_id'],
                 });
-                post_like.push(findLike);
+                // post_like.push(findLike);
 
                 allPost.push({
                     id: el.id,
                     title: el.title,
                     category: el.category,
-                    post_page: post_page,
-                    like: post_like,
-                    scrap: post_scrap,
-                    comment: post_comment,
+                    post_page: post_page.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
+                    like: post_like.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
+                    scrap: post_scrap.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
+                    comment: post_comment.filter((ell) => {
+                        return ell.post_id === el.id;
+                    }),
                 });
             }
             res.status(200).json({ data: allPost });

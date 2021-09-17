@@ -1,24 +1,39 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../../styles/Tumbnail.module.css';
 import Select from './Select';
 import Search from './Search';
+import axios from 'axios';
+import Category from './Category';
 
-export default function Thumbnail({ postList, setPostList, getPostsData, changeSelectOptionHandler }) {
-    // console.log(postList, 'Thumbnail');
+export default function Thumbnail({ changeSelectOptionHandler }) {
+    const [postList, setPostList] = useState([]);
+    const [initData, setInitData] = useState([]);
+    console.log(postList, 'Thumbnail');
     const [input, setInput] = useState('');
 
     const inputHandler = (e) => {
         setInput(([e.target.name] = e.target.value));
     };
+    const getPostsData = () => {
+        axios.get(process.env.NEXT_PUBLIC_URL + '/post').then((res) => {
+            // const result = res.data.post.slice(preItems, items);
+            setPostList(res.data.data);
+            setInitData(res.data.data);
+        });
+    };
+
+    useEffect(() => {
+        getPostsData();
+    }, []);
 
     return (
         <>
             <div className={styles.search_line}>
+                <Category initData={initData} postList={postList} setPostList={setPostList} />
                 <Select
                     postList={postList}
                     setPostList={setPostList}
-                    getPostsData={getPostsData}
                     changeSelectOptionHandler={changeSelectOptionHandler}
                 />
                 <Search inputHandler={inputHandler} />

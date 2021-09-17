@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import SingleComment from './SingleComment';
 
-export default function Comments({ post }) {
+export default function Comments({ userInfo, post }) {
     const [commentInput, setCommentInput] = useState('');
 
     const { comment } = post;

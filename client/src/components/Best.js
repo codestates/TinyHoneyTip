@@ -1,28 +1,19 @@
-import Select from '../components/Select';
-import Search from '../components/Search';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Thumbnail from '../components/Thumbnail';
 
-export default function Best({ postList, setPostList }) {
+export default function Best({ initData, postList, setPostList }) {
     const [curList, setCurList] = useState([]);
-    // let data = postList.sort(function (a, b) {
-    //     let likeA = a.like.length;
-    //     let likeB = b.like.length;
-    //     if (likeA < likeB) return -1;
-    //     if (likeA > likeB) return 1;
-    //     return 0;
-    // });
-    // 인기순 정렬 (좋아요 수가 다 같아서 모르겠음 되는지)
 
-    let data = postList.sort(function (a, b) {
-        let cateA = a.category.toUpperCase();
-        let cateB = b.category.toUpperCase();
-        if (cateA < cateB) return -1;
-        if (cateA > cateB) return 1;
+    let data = initData.sort(function (a, b) {
+        let likeA = a.like.length;
+        let likeB = b.like.length;
+        if (likeA < likeB) return -1;
+        if (likeA > likeB) return 1;
         return 0;
     });
+    // 인기순 정렬 (좋아요 수가 다 같아서 모르겠음 되는지)
 
-    console.log(curList);
     useEffect(() => {
         setCurList(data);
     });
@@ -35,7 +26,7 @@ export default function Best({ postList, setPostList }) {
                     <div className="best_list_top">
                         <div className="best_list_title">🐝 BEST 꿀팁</div>
                         <div className="best_list">
-                            {postList?.slice(0, 5).map((best) => {
+                            {curList?.slice(0, 5).map((best) => {
                                 return (
                                     <div className="best_item" key={best.id}>
                                         <div className="best_item_inner">
@@ -80,12 +71,9 @@ export default function Best({ postList, setPostList }) {
                                 );
                             })}
                         </div>
-                        <div className="search_line">
-                            <Select postList={postList} setPostList={setPostList} />
-                            <Search postList={postList} setPostList={setPostList} />
-                        </div>
                     </div>
                 </div>
+                <Thumbnail postList={postList} setPostList={setPostList} />
             </div>
         </>
     );

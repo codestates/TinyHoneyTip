@@ -20,7 +20,6 @@ export default function Content() {
             setPostList(initData);
             return;
         } else {
-            console.log(e.target.innerText);
             const filteredData = initData.filter((el) => {
                 return el.category === e.target.innerText;
             });
@@ -30,11 +29,6 @@ export default function Content() {
 
     const clickHandler = () => {
         setClick(!isClick);
-    };
-    const categorySort = (data) => {
-        data?.sort(function (a, b) {
-            return a.category - b.category;
-        });
     };
 
     const getPostsData = () => {
@@ -47,7 +41,6 @@ export default function Content() {
 
     useEffect(() => {
         getPostsData();
-        categorySort(initData);
     }, []);
 
     return (
@@ -60,7 +53,12 @@ export default function Content() {
                 <div className="content">
                     <div className="best_content_container">
                         <Category isClick={isClick} clickHandler={clickHandler} categoryHandler={categoryHandler} />
-                        <Best postList={postList} setPostList={setPostList} />
+                        <Best
+                            postList={postList}
+                            setPostList={setPostList}
+                            initData={initData}
+                            setInitData={setInitData}
+                        />
                     </div>
                 </div>
             </div>

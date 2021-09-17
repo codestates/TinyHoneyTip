@@ -46,7 +46,7 @@ export default function Header() {
                     <Link href="/post/new" passHref>
                         <a className="header__btn">New Post</a>
                     </Link>
-                    <Link href="/mypage" passHref>
+                    <Link href={{ pathname: '/mypage', query: { token: userInfo.accessToken } }} passHref>
                         <a className="header__btn">my page</a>
                     </Link>
                     <button className="header__btn" onClick={logoutHandler}>

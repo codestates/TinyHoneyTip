@@ -1,22 +1,32 @@
+import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import Thumbnail from '../components/Thumbnail';
 
-export default function Best({ initData, postList, setPostList }) {
-    const [curList, setCurList] = useState([]);
+export default function Best() {
+    const [bestList, setBestList] = useState([]);
 
-    let data = initData.sort(function (a, b) {
-        let likeA = a.like[a?.id + 2]?.length;
-        let likeB = b.like[b?.id + 2]?.length;
+    const getBestData = () => {
+        axios.get(process.env.NEXT_PUBLIC_URL + '/post').then((res) => {
+            // const result = res.data.post.slice(preItems, items);
+            setBestList(res.data.data);
+        });
+    };
+    let data = bestList?.sort(function (a, b) {
+        let likeA = a.like[a?.id - 1]?.length;
+        let likeB = b.like[b?.id - 1]?.length;
         if (likeA < likeB) return -1;
         if (likeA > likeB) return 1;
         return 0;
     });
+    useEffect(() => {
+        getBestData();
+    }, []);
+    console.log(data);
     // 인기순 정렬 (좋아요 수가 다 같아서 모르겠음 되는지)
 
-    useEffect(() => {
-        setCurList(data);
-    });
+    // useEffect(() => {
+    //     setCurList(data);
+    // });
     // console.log(curList);
     // 카테고리 이름순 정렬 작동함.
     return (
@@ -27,7 +37,7 @@ export default function Best({ initData, postList, setPostList }) {
                     <div className="best_list_top">
                         <div className="best_list_title">🐝 BEST 꿀팁</div>
                         <div className="best_list">
-                            {curList?.slice(0, 5).map((best) => {
+                            {data?.slice(0, 5).map((best) => {
                                 return (
                                     <div className="best_item" key={best.id}>
                                         <div className="best_item_inner">
@@ -76,7 +86,6 @@ export default function Best({ initData, postList, setPostList }) {
                         </div>
                     </div>
                 </div>
-                <Thumbnail postList={postList} setPostList={setPostList} />
             </div>
         </>
     );

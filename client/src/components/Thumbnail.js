@@ -5,7 +5,7 @@ import Select from './Select';
 import Search from './Search';
 
 export default function Thumbnail({ postList, setPostList }) {
-    console.log(postList, 'Thumbnail');
+    // console.log(postList, 'Thumbnail');
     const [input, setInput] = useState('');
 
     const inputHandler = (e) => {

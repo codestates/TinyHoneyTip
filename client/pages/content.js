@@ -7,6 +7,7 @@ import Category from '../src/components/Category';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import Best from '../src/components/Best';
+import Select from '../src/components/Select';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []
@@ -20,7 +21,7 @@ export default function Content() {
             setPostList(initData);
             return;
         } else {
-            const filteredData = initData.filter((el) => {
+            const filteredData = postList.filter((el) => {
                 return el.category === e.target.innerText;
             });
             setPostList(filteredData);

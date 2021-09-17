@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Select.module.css';
 
 export default function Select({ postList, setPostList }) {
     const changeSelectOptionHandler = (e) => {
         if (e.target.value === 'title') {
             sortedTitle();
-            console.log(postList);
+            // console.log(postList);
         } else if (e.target.value === 'like') {
             sortedLiked();
-            console.log(postList);
+            // console.log(postList);
         } else if (e.target.value === 'update') {
             sortedUpdate();
-            console.log(postList);
+            // console.log(postList);
         }
     };
     const sortedUpdate = () => {
@@ -41,7 +41,7 @@ export default function Select({ postList, setPostList }) {
             return 0;
         });
     };
-    console.log(postList, 'select');
+    // console.log(postList, 'select');
     return (
         <>
             <div className={styles.select_container}>

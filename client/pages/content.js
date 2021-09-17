@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Head from 'next/head';
-import Header from '../src/components/Header';
-import Footer from '../src/components/Footer';
 import Category from '../src/components/Category';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import Best from '../src/components/Best';
-import Select from '../src/components/Select';
+import Thumbnail from '../src/components/Thumbnail';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []
@@ -21,7 +19,7 @@ export default function Content() {
             setPostList(initData);
             return;
         } else {
-            const filteredData = postList.filter((el) => {
+            const filteredData = initData.filter((el) => {
                 return el.category === e.target.innerText;
             });
             setPostList(filteredData);
@@ -49,17 +47,13 @@ export default function Content() {
             <Head>
                 <title>Content Page | Tiny Honey Tip</title>
             </Head>
-            <Header />
+
             <div>
                 <div className="content">
                     <div className="best_content_container">
                         <Category isClick={isClick} clickHandler={clickHandler} categoryHandler={categoryHandler} />
-                        <Best
-                            postList={postList}
-                            setPostList={setPostList}
-                            initData={initData}
-                            setInitData={setInitData}
-                        />
+                        <Best />
+                        <Thumbnail postList={postList} setPostList={setPostList} />
                     </div>
                 </div>
             </div>
@@ -73,7 +67,6 @@ export default function Content() {
                     unoptimized="true"
                 />
             </a>
-            <Footer />
         </>
     );
 }

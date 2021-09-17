@@ -38,7 +38,7 @@ export default function Search({ postList, setPostList }) {
                 {filteredContent(postList)?.length !== 0 ? (
                     <div className={styles.post_list}>{filteredContent(postList)}</div>
                 ) : (
-                    '검색 결과가 없습니다.'
+                    '검색 결과가 없습니다'
                     // loading으로 변경 예정
                 )}
             </div>

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Head from 'next/head';
-import Header from '../src/components/Header';
-import Footer from '../src/components/Footer';
 import Category from '../src/components/Category';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import Best from '../src/components/Best';
+import Thumbnail from '../src/components/Thumbnail';
 
 export default function Content() {
     const [postList, setPostList] = useState([]); // []
@@ -20,7 +19,6 @@ export default function Content() {
             setPostList(initData);
             return;
         } else {
-            console.log(e.target.innerText);
             const filteredData = initData.filter((el) => {
                 return el.category === e.target.innerText;
             });
@@ -30,11 +28,6 @@ export default function Content() {
 
     const clickHandler = () => {
         setClick(!isClick);
-    };
-    const categorySort = (data) => {
-        data?.sort(function (a, b) {
-            return a.category - b.category;
-        });
     };
 
     const getPostsData = () => {
@@ -47,7 +40,6 @@ export default function Content() {
 
     useEffect(() => {
         getPostsData();
-        categorySort(initData);
     }, []);
 
     return (
@@ -55,12 +47,13 @@ export default function Content() {
             <Head>
                 <title>Content Page | Tiny Honey Tip</title>
             </Head>
-            <Header />
+
             <div>
                 <div className="content">
                     <div className="best_content_container">
                         <Category isClick={isClick} clickHandler={clickHandler} categoryHandler={categoryHandler} />
-                        <Best postList={postList} setPostList={setPostList} />
+                        <Best />
+                        <Thumbnail postList={postList} setPostList={setPostList} />
                     </div>
                 </div>
             </div>
@@ -74,7 +67,6 @@ export default function Content() {
                     unoptimized="true"
                 />
             </a>
-            <Footer />
         </>
     );
 }

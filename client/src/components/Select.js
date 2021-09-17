@@ -1,45 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Select.module.css';
 
-export default function Select({ postList, setPostList }) {
-    console.log(postList, 'select');
-    const [selected, setSelected] = useState('');
-
+export default function Select({ postList, setPostList, getPostsData }) {
     const changeSelectOptionHandler = (e) => {
-        setSelected(e.target.value);
         if (e.target.value === 'title') {
-            titledContent();
-            console.log(postList);
+            sortedTitle();
+            // console.log(postList);
         } else if (e.target.value === 'like') {
-            likedContent();
-            console.log(postList);
+            sortedLiked();
+            // console.log(postList);
+        } else if (e.target.value === 'update') {
+            sortedUpdate();
+            // console.log(postList);
         }
     };
-    const titledContent = () => {
-        postList.sort(function (a, b) {
-            let titleA = a.title.toUpperCase();
-            let titleB = b.title.toUpperCase();
-            if (titleA < titleB) return -1;
-            if (titleA > titleB) return 1;
-            return 0;
-        });
+    const sortedUpdate = () => {
+        setPostList(
+            postList.sort(function (a, b) {
+                let idA = a.id;
+                let idB = b.id;
+                if (idA < idB) return -1;
+                if (idA > idB) return 1;
+                return 0;
+            }),
+        );
     };
-    const likedContent = () => {
-        postList.sort(function (a, b) {
-            let likeA = a.like.length;
-            let likeB = b.like.length;
-            if (likeA < likeB) return -1;
-            if (likeA > likeB) return 1;
-            return 0;
-        });
+    const sortedTitle = () => {
+        setPostList(
+            postList.sort(function (a, b) {
+                let titleA = a.title.toUpperCase();
+                let titleB = b.title.toUpperCase();
+                if (titleA < titleB) return -1;
+                if (titleA > titleB) return 1;
+                return 0;
+            }),
+        );
     };
+    const sortedLiked = () => {
+        setPostList(
+            postList.sort(function (a, b) {
+                let likeA = a.like.length;
+                let likeB = b.like.length;
+                if (likeA < likeB) return -1;
+                if (likeA > likeB) return 1;
+                return 0;
+            }),
+        );
+    };
+    // console.log(postList, 'select');
     return (
         <>
             <div className={styles.select_container}>
                 <select className={styles.select} onChange={changeSelectOptionHandler}>
-                    <option value="all">선택</option>
+                    <option value>선택</option>
                     <option value="title">이름순</option>
                     <option value="like">인기순</option>
+                    <option value="update">최신순</option>
                 </select>
             </div>
         </>

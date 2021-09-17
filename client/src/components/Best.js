@@ -1,31 +1,33 @@
-import Select from '../components/Select';
-import Search from '../components/Search';
+import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function Best({ postList, setPostList }) {
-    const [curList, setCurList] = useState([]);
-    // let data = postList.sort(function (a, b) {
-    //     let likeA = a.like.length;
-    //     let likeB = b.like.length;
-    //     if (likeA < likeB) return -1;
-    //     if (likeA > likeB) return 1;
-    //     return 0;
-    // });
-    // 인기순 정렬 (좋아요 수가 다 같아서 모르겠음 되는지)
+export default function Best() {
+    const [bestList, setBestList] = useState([]);
 
-    let data = postList.sort(function (a, b) {
-        let cateA = a.category.toUpperCase();
-        let cateB = b.category.toUpperCase();
-        if (cateA < cateB) return -1;
-        if (cateA > cateB) return 1;
+    const getBestData = () => {
+        axios.get(process.env.NEXT_PUBLIC_URL + '/post').then((res) => {
+            // const result = res.data.post.slice(preItems, items);
+            setBestList(res.data.data);
+        });
+    };
+    let data = bestList?.sort(function (a, b) {
+        let likeA = a.like[a?.id - 1]?.length;
+        let likeB = b.like[b?.id - 1]?.length;
+        if (likeA < likeB) return -1;
+        if (likeA > likeB) return 1;
         return 0;
     });
-
-    console.log(curList);
     useEffect(() => {
-        setCurList(data);
-    });
+        getBestData();
+    }, []);
+    console.log(data);
+    // 인기순 정렬 (좋아요 수가 다 같아서 모르겠음 되는지)
+
+    // useEffect(() => {
+    //     setCurList(data);
+    // });
+    // console.log(curList);
     // 카테고리 이름순 정렬 작동함.
     return (
         <>
@@ -35,7 +37,7 @@ export default function Best({ postList, setPostList }) {
                     <div className="best_list_top">
                         <div className="best_list_title">🐝 BEST 꿀팁</div>
                         <div className="best_list">
-                            {postList?.slice(0, 5).map((best) => {
+                            {data?.slice(0, 5).map((best) => {
                                 return (
                                     <div className="best_item" key={best.id}>
                                         <div className="best_item_inner">
@@ -70,7 +72,9 @@ export default function Best({ postList, setPostList }) {
                                                     </div>
                                                     <div className="best_desc_user">
                                                         <div className="best_desc_userinfo">
-                                                            <div className="best_author">❤️ {best?.like.length}</div>
+                                                            <div className="best_author">
+                                                                ❤️ {best?.like[best?.id + 2]?.length}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -79,10 +83,6 @@ export default function Best({ postList, setPostList }) {
                                     </div>
                                 );
                             })}
-                        </div>
-                        <div className="search_line">
-                            <Select postList={postList} setPostList={setPostList} />
-                            <Search postList={postList} setPostList={setPostList} />
                         </div>
                     </div>
                 </div>

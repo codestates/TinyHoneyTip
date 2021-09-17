@@ -31,20 +31,26 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                     email: loginInfo.email,
                     password: loginInfo.password,
                 },
-                { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                },
             )
             .then((res) => {
-                setMessage('로그인 완료');
-                loginHandler();
-                console.log(res);
-                // return res.headers.cookies.accessToken;
+                if (res.data.message === 'login complete') {
+                    // console.log(res.data.data)
+                    setMessage('로그인 완료');
+                    loginHandler(res.data.data);
+                    closeModal();
+                }
             })
-            .then((token) => {
-                setUserInfo({
-                    accessToken: { token },
-                });
-                okHandler();
-            })
+            // .then((token) => {
+            //     console.log(token);
+            //     setUserInfo({
+            //         accessToken: token,
+            //     });
+            //     okHandler();
+            // })
             .catch((err) => alert(err));
     };
     // function kakaoLogin() {
@@ -134,9 +140,9 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                     </div>
                 </div>
             ) : (
-                <button className={styles.Modal_btn} onClick={openModal}>
+                <a className="header__btn" onClick={openModal}>
                     Sign In
-                </button>
+                </a>
             )}
             {isOk ? (
                 <div className={styles.alert_container}>

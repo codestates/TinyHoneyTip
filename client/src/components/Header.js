@@ -1,39 +1,30 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import axios from 'axios';
-
 import Signin from '../signin/Signin';
 import Signup from '../signup/Signup';
+import axios from 'axios';
 
-export default function Header() {
+export default function Header({ userInfo, setUserInfo, loginHandler, logoutHandler }) {
     const [isClick, setIsClick] = useState(false);
     // 새로고침시 로그아웃되는 문제 발생시 수정
-    const [userInfo, setUserInfo] = useState({
-        isLogin: false,
-        isSocial: false,
-        accessToken: '',
-        username: '',
-        profile_img: '',
-    });
+
     const openModal = () => {
         setIsClick(true);
     };
-    const loginHandler = () => {
-        // 서버에 요청 보내고 response 반영하여 userInfo 수정
-        setUserInfo({
-            isLogin: true,
-            isSocial: true,
-        });
-    };
 
-    const logoutHandler = () => {
-        // 서버에 요청 보내고 response 반영하여 userInfo 수정
-        setUserInfo({
-            isLogin: false,
-            isSocal: false,
-            accessToken: '',
-            username: '',
-        });
+    const signOutSubmit = () => {
+        const API_URL = `${process.env.NEXT_PUBLIC_URL}/signout`;
+        axios
+            .get(API_URL, {
+                headers: {
+                    authorization: userInfo.accessToken,
+                },
+            })
+            .catch((error) => {
+                console.log('logout error 쿠키 삭제 실패');
+            });
+        logoutHandler();
+        setIsClick(false);
     };
 
     return (
@@ -41,15 +32,15 @@ export default function Header() {
             <Link href="/content" passHref>
                 <h1 className="header__logo">Tiny Honey Tip</h1>
             </Link>
-            {userInfo.isLogin ? (
+            {userInfo && userInfo.isLogin ? (
                 <div className="header__btns">
                     <Link href="/post/new" passHref>
                         <a className="header__btn">New Post</a>
                     </Link>
-                    <Link href="/mypage" passHref>
+                    <Link href={{ pathname: '/mypage', query: { token: userInfo.accessToken } }} passHref>
                         <a className="header__btn">my page</a>
                     </Link>
-                    <button className="header__btn" onClick={logoutHandler}>
+                    <button className="header__btn" onClick={signOutSubmit}>
                         Log out
                     </button>
                 </div>

@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const port = 80;
 
-const controllers = require('./controllers');
+const controllers = require('./controllers/Index');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,7 +26,7 @@ app.use('/post', controllers.post);
 app.delete('/user', controllers.user);
 app.post('/signin', controllers.signin);
 app.post('/signup', controllers.signup);
-app.get('signout', controllers.signout);
+app.get('/signout', controllers.signout);
 
 app.listen(port, () => {
     console.log(`서버가 ${port}번에서 작동중입니다.`);

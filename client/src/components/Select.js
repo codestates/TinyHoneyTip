@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Select.module.css';
 
-export default function Select({ postList, setPostList, getPostsData }) {
-    const changeSelectOptionHandler = (e) => {
+export default function Select({ postList, setPostList }) {
+    console.log(postList, 'select');
+    const selectHandler = (e) => {
         if (e.target.value === 'title') {
             sortedTitle();
-            // console.log(postList);
+            console.log(postList, 'title');
         } else if (e.target.value === 'like') {
             sortedLiked();
-            // console.log(postList);
+            console.log(postList, 'like');
         } else if (e.target.value === 'update') {
             sortedUpdate();
-            // console.log(postList);
+            console.log(postList, 'update');
         }
     };
+
     const sortedUpdate = () => {
+        const _postList = [...postList];
         setPostList(
-            postList.sort(function (a, b) {
+            _postList.sort(function (a, b) {
                 let idA = a.id;
                 let idB = b.id;
                 if (idA < idB) return -1;
@@ -25,9 +28,11 @@ export default function Select({ postList, setPostList, getPostsData }) {
             }),
         );
     };
+
     const sortedTitle = () => {
+        const _postList = [...postList];
         setPostList(
-            postList.sort(function (a, b) {
+            _postList.sort(function (a, b) {
                 let titleA = a.title.toUpperCase();
                 let titleB = b.title.toUpperCase();
                 if (titleA < titleB) return -1;
@@ -36,9 +41,11 @@ export default function Select({ postList, setPostList, getPostsData }) {
             }),
         );
     };
+
     const sortedLiked = () => {
+        const _postList = [...postList];
         setPostList(
-            postList.sort(function (a, b) {
+            _postList.sort(function (a, b) {
                 let likeA = a.like.length;
                 let likeB = b.like.length;
                 if (likeA < likeB) return -1;
@@ -51,7 +58,7 @@ export default function Select({ postList, setPostList, getPostsData }) {
     return (
         <>
             <div className={styles.select_container}>
-                <select className={styles.select} onChange={changeSelectOptionHandler}>
+                <select className={styles.select} onChange={selectHandler}>
                     <option value>선택</option>
                     <option value="title">이름순</option>
                     <option value="like">인기순</option>

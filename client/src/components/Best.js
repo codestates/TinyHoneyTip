@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Select from './Select';
 
 export default function Best() {
     const [bestList, setBestList] = useState([]);
@@ -21,14 +22,10 @@ export default function Best() {
     useEffect(() => {
         getBestData();
     }, []);
+
     console.log(data);
     // 인기순 정렬 (좋아요 수가 다 같아서 모르겠음 되는지)
 
-    // useEffect(() => {
-    //     setCurList(data);
-    // });
-    // console.log(curList);
-    // 카테고리 이름순 정렬 작동함.
     return (
         <>
             <div className="best_container">

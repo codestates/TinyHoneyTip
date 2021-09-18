@@ -84,7 +84,7 @@
 }
 
 .best_content_container {
-    grid-template-columns: 12vw 15vw;
+    grid-template-columns: 12vw auto;
     width: 100%;
     display: grid;
     position: relative;
@@ -329,7 +329,7 @@
     }
 
     .best_content_container {
-        grid-template-columns: 18vw 10vw;
+        grid-template-columns: 18vw auto;
         width: 100%;
         display: grid;
         position: relative;

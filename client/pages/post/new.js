@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import Header from '../../src/components/Header';
-import Footer from '../../src/components/Footer';
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
 
@@ -77,7 +75,6 @@ export default function PostUpload() {
 
     return (
         <div className="post-upload-page">
-            <Header />
             <div className="post-upload-empty"></div>
             <div className="post-upload-container">
                 <UploadPostContent
@@ -97,7 +94,6 @@ export default function PostUpload() {
                     postInfo={postInfo}
                 />
             </div>
-            <Footer />
         </div>
     );
 }

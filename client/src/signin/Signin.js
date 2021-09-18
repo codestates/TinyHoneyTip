@@ -38,6 +38,7 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
             )
             .then((res) => {
                 if (res.data.message === 'login complete') {
+                    // console.log(res.data.data)
                     setMessage('로그인 완료');
                     loginHandler(res.data.data);
                     closeModal();

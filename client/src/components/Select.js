@@ -48,8 +48,8 @@ export default function Select({ postList, setPostList }) {
             _postList.sort(function (a, b) {
                 let likeA = a.like.length;
                 let likeB = b.like.length;
-                if (likeA < likeB) return -1;
-                if (likeA > likeB) return 1;
+                if (likeA < likeB) return 1;
+                if (likeA > likeB) return -1;
                 return 0;
             }),
         );

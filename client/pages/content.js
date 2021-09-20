@@ -4,7 +4,6 @@ import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import Best from '../src/components/Best';
 import Thumbnail from '../src/components/Thumbnail';
-import Category from '../src/components/Category';
 
 export default function Content() {
     return (
@@ -12,7 +11,6 @@ export default function Content() {
             <Head>
                 <title>Content Page | Tiny Honey Tip</title>
             </Head>
-
             <div>
                 <div className="content">
                     <div className="best_content_container">
@@ -22,6 +20,7 @@ export default function Content() {
                     </div>
                 </div>
             </div>
+
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
                 <Image
                     loader={() => 'https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png'}

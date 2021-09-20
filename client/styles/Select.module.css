@@ -10,11 +10,22 @@
 @media screen and (max-width: 768px) {
     .select_container {
         position: absolute;
-        left: 75vw;
-        top: 44vw;
+        left: 68vw;
+        top: 0vw;
     }
     .select {
         width: 15vw;
         height: 3vw;
+    }
+}
+@media screen and (max-width: 425px) {
+    .select_container {
+        position: absolute;
+        left: 70vw;
+        top: -1vw;
+    }
+    .select {
+        width: 15vw;
+        height: 5vw;
     }
 }

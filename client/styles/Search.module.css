@@ -4,10 +4,14 @@
     left: 80vw;
     top: 1vw;
     width: 4vw;
-    height: 3vw;
+    height: 2vw;
     transform: translate(-100%, -50%);
     border-radius: 10vw;
     transition: 0.4s;
+}
+.search_icon {
+    width: 2vw;
+    height: 2vw;
 }
 .search_box:hover {
     box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
@@ -43,11 +47,64 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .search_icon {
+        width: 2vw;
+        height: 2vw;
+    }
+    .search_box {
+        padding: 0vw;
+        position: absolute;
+        left: 80vw;
+        top: 1.5vw;
+        width: 4vw;
+        height: 3vw;
+        transform: translate(-100%, -50%);
+        border-radius: 10vw;
+        transition: 0.4s;
+    }
+    .search_box:hover {
+        box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
+        width: 25vw;
+    }
+    .search_txt {
+        display: absolute;
+        padding: 0vw;
+        width: 0px;
+        border: none;
+        background: none;
+        outline: none;
+        float: left;
+        margin-left: 1vw;
+        font-size: 1.5vw;
+        line-height: 3vw;
+        transition: 0.4s;
+    }
+    .search_box:hover > .search_txt {
+        width: 20vw;
+        padding: 0 0.6vw;
+    }
+
+    .search_container {
+        position: relative;
+        background-color: white;
+    }
+    .search_input {
+        position: absolute;
+        margin: -5.5vw 30vw;
+        width: 20vw;
+        height: 3vw;
+    }
+}
+@media screen and (max-width: 768px) {
+    .search_icon {
+        width: 3vw;
+        height: 3vw;
+    }
     .search_box {
         padding: 0vw;
         position: absolute;
         left: 65vw;
-        top: 1vw;
+        top: 1.5vw;
         width: 4vw;
         height: 3vw;
         transform: translate(-100%, -50%);
@@ -82,36 +139,25 @@
     }
     .search_input {
         position: absolute;
-        margin: -5.5vw 30vw;
+        margin: -5vw 30vw;
         width: 20vw;
-        height: 3vw;
-    }
-    .post_list_title {
-        color: black;
-        font-size: 1vw;
-        font-weight: 700;
-        margin-top: 1.5vw;
-        margin-bottom: 0vw;
-        position: relative;
-    }
-    .post_list {
-        display: grid;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin-bottom: 3vw;
-        width: 86.5vw;
-        grid-gap: 2vw;
-        grid-template-columns: repeat(5, 15vw);
+        height: 2vw;
     }
 }
-@media screen and (max-width: 768px) {
-    .search_box {
-        padding: 0vw;
+@media screen and (max-width: 425px) {
+    .search_icon {
+        z-index: 0;
         position: absolute;
-        left: 55vw;
+        width: 5vw;
+        height: 5vw;
         top: 0vw;
-        width: 4vw;
-        height: 3vw;
+    }
+    .search_box {
+        padding: 1vw;
+        position: absolute;
+        left: 64vw;
+        width: 5vw;
+        height: 5vw;
         transform: translate(-100%, -50%);
         border-radius: 10vw;
         transition: 0.4s;
@@ -122,16 +168,19 @@
     }
     .search_txt {
         display: absolute;
-        padding: 0vw;
+        padding: 1vw;
         width: 0px;
         border: none;
         background: none;
         outline: none;
         float: left;
         margin-left: 1vw;
-        font-size: 1.5vw;
+        font-size: 1vw;
         line-height: 3vw;
         transition: 0.4s;
+    }
+    .search_txt::placeholder {
+        font-size: 0vw;
     }
     .search_box:hover > .search_txt {
         width: 20vw;
@@ -144,26 +193,8 @@
     }
     .search_input {
         position: absolute;
-        margin: -5.5vw 30vw;
+        margin: -5vw 30vw;
         width: 20vw;
-        height: 3vw;
-    }
-    .post_list_title {
-        color: black;
-        width: 25vw;
-        font-size: 0.5vw;
-        font-weight: 700;
-        margin-top: 1.5vw;
-        margin-bottom: 0vw;
-        position: relative;
-    }
-    .post_list {
-        display: grid;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin-bottom: 3vw;
-        width: 60.5vw;
-        grid-gap: 2vw;
-        grid-template-columns: repeat(5, 15vw);
+        height: 2vw;
     }
 }

@@ -38,7 +38,7 @@ export default function Thumbnail({ changeSelectOptionHandler }) {
                 />
                 <Search inputHandler={inputHandler} />
             </div>
-            <div>
+            <div className={styles.post_list_container}>
                 <div className={styles.post_list_title}>🐝 꿀팁 둘러보기</div>
                 <div className={styles.post_list}>
                     {
@@ -62,7 +62,7 @@ export default function Thumbnail({ changeSelectOptionHandler }) {
                                                               <img
                                                                   className={styles.img_inner}
                                                                   alt={list?.title}
-                                                                  src={list?.post_page[0][0].img}
+                                                                  src={list?.post_page[0]?.img}
                                                               />
                                                           </a>
                                                       </Link>
@@ -77,7 +77,7 @@ export default function Thumbnail({ changeSelectOptionHandler }) {
                                                           <div className={styles.post_desc_text}>
                                                               <Link href={`/post/${list?.id}`}>
                                                                   <a className={styles.post_text}>
-                                                                      <div>{list?.post_page[0][0].content}</div>
+                                                                      <div>{list?.post_page[0]?.content}</div>
                                                                   </a>
                                                               </Link>
                                                           </div>
@@ -87,7 +87,7 @@ export default function Thumbnail({ changeSelectOptionHandler }) {
                                                           <div className={styles.post_desc_user}>
                                                               <div className={styles.post_desc_userinfo}>
                                                                   <div className={styles.post_author}>
-                                                                      💛 {list?.like[list?.id + 2]?.length}
+                                                                      💛 {list?.like?.length}
                                                                   </div>
                                                               </div>
                                                           </div>

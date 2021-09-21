@@ -115,7 +115,10 @@ module.exports = {
                 attributes: ['id', 'img', 'content'],
             });
 
-            const writerInfo = await User.findOne({ where: { id: postInfo.user_id } });
+            const writerInfo = await User.findOne({
+                where: { id: postInfo.user_id },
+                attributes: ['username', 'profile_img'],
+            });
 
             let accessToken = {};
             let didIL = {};
@@ -136,8 +139,17 @@ module.exports = {
             const userDisLike = await dislike.findAll({ where: { post_id: req.params.id } });
             // ⬆️ 포스트에 대한 싫어요를 누른 데이터.
 
-            const userComment = await comment.findAll({ where: { post_id: req.params.id } });
-            //console.log(userComment);
+            const userComment = await comment.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['id', 'user_id', 'txt'],
+            });
+
+            for (let el of userComment) {
+                const userName = await User.findOne({ where: { id: el.user_id }, attributes: ['username'] });
+                el.dataValues.userName = userName.username;
+                //console.log(el.userName);
+            }
+            console.log('유저네임', userComment);
 
             res.status(200).json({
                 data: {

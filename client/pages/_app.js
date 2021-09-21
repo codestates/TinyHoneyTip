@@ -11,6 +11,7 @@ import '../styles/Landing.css';
 import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
+import '../styles/MyPage.css';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({

@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Thumbnail from '../src/components/Thumbnail';
 import pic from '../public/honeycomb.png';
 import editPic from '../public/edit.png';
+import styles from '../styles/Tumbnail.module.css';
+import Link from 'next/link';
 
 export default function MyPage({ userInfo }) {
     const [myPost, setMyPost] = useState([]);
@@ -34,11 +36,17 @@ export default function MyPage({ userInfo }) {
 
     function editMyPage() {
         axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { newUserInfo }).then((res) => {
-            if (res.message === 'ok') setNewUserInfo(res.data.userInfo);
+            if (res.message === 'ok') {
+                setNewUserInfo(res.data.userInfo);
+                alert('수정이 완료되었습니다.');
+            }
         });
     }
 
-    const editHandler = () => setEditBtn(editBtn ? false : true);
+    const editHandler = () => {
+        setEditBtn(editBtn ? false : true);
+        if (editBtn) editMyPage();
+    };
 
     return (
         <>
@@ -70,7 +78,48 @@ export default function MyPage({ userInfo }) {
                 <div className="my_post_wrapper">
                     <h3 className="my_post">내가 쓴 글</h3>
                     {myPost.map((el) => {
-                        return <Thumbnail list={el} key={el.id}></Thumbnail>;
+                        return (
+                            <div className={styles.post_item} key={el.id}>
+                                <div className={styles.post_item_inner}>
+                                    <div className={styles.post_item_option}>
+                                        <div className={styles.post_overlay}></div>
+                                    </div>
+                                    <div className={styles.best_item_header}>
+                                        <Link href={`/post/${el.id}`}>
+                                            <a className={styles.header_image}>
+                                                <img
+                                                    className={styles.img_inner}
+                                                    alt={el.title}
+                                                    src={el.post_page[0].img}
+                                                />
+                                            </a>
+                                        </Link>
+                                        <div className={styles.post_desc}>
+                                            <div className={styles.post_desc_title}>
+                                                <Link href={`/post/${el.id}`}>
+                                                    <a className={styles.post_title_font}>{el.title}</a>
+                                                </Link>
+                                            </div>
+                                            <div className={styles.post_desc_text}>
+                                                <Link href={`/post/${el.id}`}>
+                                                    <a className={styles.post_text}>
+                                                        <div>{el.post_page[0].content}</div>
+                                                    </a>
+                                                </Link>
+                                            </div>
+                                            <div className={styles.post_desc_category}>
+                                                <a className={styles.post_category}>{el?.category}</a>
+                                            </div>
+                                            <div className={styles.post_desc_user}>
+                                                <div className={styles.post_desc_userinfo}>
+                                                    <div className={styles.post_author}>💛 {el.like.length}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
                     })}
                 </div>
                 <div className="my_scrap_wrapper">

@@ -149,7 +149,8 @@ module.exports = {
                 el.dataValues.userName = userName.username;
                 //console.log(el.userName);
             }
-            console.log('유저네임', userComment);
+
+            const scrapList = await scrap.findAll({ where: { post_id: req.params.id } });
 
             res.status(200).json({
                 data: {
@@ -161,7 +162,7 @@ module.exports = {
                         post_page: post_page,
                         like: { userLike: userLike, didIL: didIL },
                         dislike: { userDisLike: userDisLike, didIDisL: didIDisL },
-                        scrap: amIScrapped,
+                        scrap: { scrapList: scrapList, amIScrapped: amIScrapped },
                         comment: userComment,
                     },
                 },

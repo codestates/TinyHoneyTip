@@ -1,0 +1,11 @@
+.loading_Container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+.loading_Container img {
+    display: inline-block;
+    margin: auto;
+    width: 200px;
+}

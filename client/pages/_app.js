@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { useRouter } from 'next/router';
 import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
+import Loading from '../src/components/Loading';
 
 import '../styles/globals.css';
 import '../styles/Landing.css';
@@ -50,6 +52,24 @@ function MyApp({ Component, pageProps }) {
             profile_img: '',
         });
     };
+    // loading
+    const router = useRouter();
+    const [isPageLoading, setPageLoading] = useState(false);
+    useEffect(() => {
+        router.events.on('routeChangeStart', (url) => {
+            console.log('router is changing');
+            setPageLoading(true);
+        }); //페이지 바뀌면 실행
+        router.events.on('routeChangeComplete', (url) => {
+            console.log('router is complete');
+            setPageLoading(false);
+        }); // 완료하면 실행
+        router.events.on('routeChangeError', (url) => {
+            console.log('router is err');
+            setPageLoading(false);
+        }); // 에러나면 실행
+    }, [router]);
+    //
 
     return (
         <>
@@ -59,6 +79,7 @@ function MyApp({ Component, pageProps }) {
                 loginHandler={loginHandler}
                 logoutHandler={logoutHandler}
             />
+            {isPageLoading && <Loading />}
             <Component userInfo={userInfo} {...pageProps} />
             <Footer />
         </>

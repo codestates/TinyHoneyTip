@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 
-export default function Category({ postList, setPostList, initData }) {
+export default function Category({ setPost, init }) {
     const [isClick, setClick] = useState(false);
     const categories = ['전체', '건강', '운동', '생활', '동물', '쇼핑', '휴지통'];
 
     const categoryHandler = (e) => {
         if (e.target.innerText === '전체') {
-            setPostList(initData);
+            setPost(init);
             return;
         } else {
-            const filteredData = initData.filter((el) => {
+            const filteredData = init.filter((el) => {
                 return el.category === e.target.innerText;
             });
-            setPostList(filteredData);
+            setPost(filteredData);
         }
     };
 

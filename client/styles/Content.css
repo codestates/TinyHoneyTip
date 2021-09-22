@@ -12,7 +12,7 @@
     outline: 0;
     font-size: 1vw;
     text-align: center;
-    position: relative;
+    position: sticky;
     right: 2vw;
     top: 5vw;
     background: rgba(244, 193, 65, 0.8);
@@ -20,7 +20,7 @@
 .nav_area {
     width: 16vw;
     left: 0;
-    margin-top: -2vw;
+    margin-top: 2vw;
     padding-top: 9vw;
     position: sticky;
     top: 0;
@@ -233,7 +233,7 @@
         outline: 0;
         font-size: 1vw;
         text-align: center;
-        position: relative;
+        position: sticky;
         right: 2vw;
         top: 10vw;
         background: rgba(244, 193, 65, 0.8);
@@ -241,7 +241,7 @@
     .nav_area {
         width: 10vw;
         left: 0;
-        margin-top: -8vw;
+        margin-top: 4vw;
         padding-top: 0vw;
         position: sticky;
         top: 0;
@@ -465,7 +465,7 @@
     .nav_area {
         width: 16vw;
         left: 0;
-        margin-top: -8vw;
+        margin-top: 1vw;
         padding-top: 0vw;
         position: sticky;
         top: 0;
@@ -524,7 +524,7 @@
     }
 
     .best_content_container {
-        grid-template-columns: 16vw auto;
+        grid-template-columns: 18vw auto;
         width: 100%;
         display: grid;
         position: relative;

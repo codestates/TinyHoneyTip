@@ -11,8 +11,7 @@ import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
 
-function MyApp({ Component, pageProps, initialUservalue }) {
-    console.log(initialUservalue);
+function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
         isSocial: false,

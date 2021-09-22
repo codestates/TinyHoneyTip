@@ -6,46 +6,32 @@ import Search from './Search';
 import axios from 'axios';
 import Category from './Category';
 
-export default function Thumbnail({ changeSelectOptionHandler }) {
-    const [postList, setPostList] = useState([]);
-    const [initData, setInitData] = useState([]);
-    console.log(postList, 'Thumbnail');
+export default function Thumbnail({ postList }) {
+    const [post, setPost] = useState(postList);
+    const [init, setInit] = useState(postList);
     const [input, setInput] = useState('');
+
+    console.log(post, 'Thumbnail');
 
     const inputHandler = (e) => {
         setInput(([e.target.name] = e.target.value));
     };
-    const getPostsData = () => {
-        axios.get(process.env.NEXT_PUBLIC_URL + '/post').then((res) => {
-            // const result = res.data.post.slice(preItems, items);
-            setPostList(res.data.data);
-            setInitData(res.data.data);
-        });
-    };
-
-    useEffect(() => {
-        getPostsData();
-    }, []);
 
     return (
         <>
             <div className={styles.search_line}>
-                <Category initData={initData} postList={postList} setPostList={setPostList} />
-                <Select
-                    postList={postList}
-                    setPostList={setPostList}
-                    changeSelectOptionHandler={changeSelectOptionHandler}
-                />
+                <Category init={init} post={post} setPost={setPost} />
+                <Select post={post} setPost={setPost} />
                 <Search inputHandler={inputHandler} />
             </div>
             <div className={styles.post_list_container}>
                 <div className={styles.post_list_title}>🐝 꿀팁 둘러보기</div>
                 <div className={styles.post_list}>
                     {
-                        postList?.filter((el) => {
+                        post?.filter((el) => {
                             return el.title.indexOf(input) > -1;
                         })?.length !== 0
-                            ? postList
+                            ? post
                                   ?.filter((el) => {
                                       return el.title.indexOf(input) > -1;
                                   })

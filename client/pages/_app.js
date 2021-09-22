@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import { useRouter } from 'next/router';
 import Header from '../src/components/Header';
@@ -12,7 +11,8 @@ import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, initialUservalue }) {
+    console.log(initialUservalue);
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
         isSocial: false,
@@ -50,7 +50,16 @@ function MyApp({ Component, pageProps }) {
             username: '',
             profile_img: '',
         });
+        sessionStorage.clear();
     };
+    useEffect(() => {
+        setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
+    }, []);
+    useEffect(() => {
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        sessionStorage.setItem('accessToken', userInfo?.accessToken);
+    });
+
     // loading
     const router = useRouter();
     const [isPageLoading, setPageLoading] = useState(false);

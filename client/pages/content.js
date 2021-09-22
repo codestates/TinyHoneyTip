@@ -4,8 +4,9 @@ import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import Best from '../src/components/Best';
 import Thumbnail from '../src/components/Thumbnail';
+import axios from 'axios';
 
-export default function Content() {
+export default function Content({ bestList, postList, initData }) {
     return (
         <>
             <Head>
@@ -15,8 +16,8 @@ export default function Content() {
                 <div className="content">
                     <div className="best_content_container">
                         <nav className="nav_area"></nav>
-                        <Best />
-                        <Thumbnail />
+                        <Best bestList={bestList} />
+                        <Thumbnail postList={postList} />
                     </div>
                 </div>
             </div>
@@ -33,4 +34,23 @@ export default function Content() {
             </a>
         </>
     );
+}
+
+export async function getServerSideProps(context) {
+    const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post`;
+    const res = await axios.get(apiUrl);
+    const best = res.data.data.sort(function (a, b) {
+        let likeA = a.like.length;
+        let likeB = b.like.length;
+        if (likeA < likeB) return 1;
+        if (likeA > likeB) return -1;
+        return 0;
+    });
+    const post = res.data.data;
+    return {
+        props: {
+            bestList: best,
+            postList: post,
+        },
+    };
 }

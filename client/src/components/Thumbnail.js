@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from '../../styles/Tumbnail.module.css';
 import Select from './Select';
 import Search from './Search';
@@ -7,11 +7,26 @@ import axios from 'axios';
 import Category from './Category';
 
 export default function Thumbnail({ postList }) {
-    const [post, setPost] = useState(postList);
+    const [itemIndex, setItemIndex] = useState(0);
+    const [post, setPost] = useState(postList.slice(0, 10));
     const [init, setInit] = useState(postList);
     const [input, setInput] = useState('');
 
-    console.log(post, 'Thumbnail');
+    const _infiniteScroll = useCallback(() => {
+        let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+        let clientHeight = document.documentElement.clientHeight;
+
+        if (scrollTop + clientHeight === scrollHeight) {
+            setItemIndex(itemIndex + 10);
+            setPost(post.concat(postList.slice(itemIndex + 10, itemIndex + 20)));
+        }
+    }, [itemIndex, post]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', _infiniteScroll, true);
+        return () => window.removeEventListener('scroll', _infiniteScroll, true);
+    }, [_infiniteScroll]);
 
     const inputHandler = (e) => {
         setInput(([e.target.name] = e.target.value));

@@ -9,6 +9,8 @@ export default function ToolBar({
     currentSlide,
     setCurrentSlide,
     postInfo,
+    submitHandler,
+    submitName,
 }) {
     return (
         <div className="post__toolbar">
@@ -29,7 +31,7 @@ export default function ToolBar({
                     }
                 })}
                 {slide.length < 5 ? (
-                    <button className="post__toolbar__label__add-page" onClick={addSlideHandler}>
+                    <button className="post__toolbar__label" onClick={addSlideHandler}>
                         페이지 추가
                     </button>
                 ) : (
@@ -39,7 +41,7 @@ export default function ToolBar({
             <div className="post__toolbar__edit-section">
                 <form className="post__toolbar__about-post">
                     <label className="post__toolbar__title-label">제목</label>
-                    <input
+                    <textarea
                         className="post__toolbar__title"
                         type="text"
                         value={postInfo.title}
@@ -90,7 +92,9 @@ export default function ToolBar({
                     onClick={deleteSlideHandler(currentSlide - 1)}>
                     현재 페이지 삭제
                 </button>
-                <button className="post__toolbar__delete-post">업로드</button>
+                <button onClick={submitHandler} className="post__toolbar__delete-post">
+                    {submitName}
+                </button>
             </div>
         </div>
     );

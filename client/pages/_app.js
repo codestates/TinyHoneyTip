@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
         profile_img: '',
     });
 
-    console.log(userInfo);
+    //console.log(userInfo);
 
     const loginHandler = (data) => {
         setUserInfo({
@@ -53,6 +53,7 @@ function MyApp({ Component, pageProps }) {
         });
     };
     // loading
+
     const router = useRouter();
     const [isPageLoading, setPageLoading] = useState(false);
     useEffect(() => {

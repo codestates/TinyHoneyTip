@@ -2,9 +2,75 @@
     width: 100%;
     height: 100%;
     position: relative;
+    padding: 8vw 0 5vw 0;
+    color: #666;
+}
+/* ------------------ side bar / user information 시작 ------------------------------------ */
+.side_bar {
+    margin: 0 5vw 0 8vw;
+    padding: 2vw;
+    width: 25vw;
+    height: 50vw;
+    border: 10px solid #f4c141;
+    border-radius: 5vw;
 }
 
-.side_bar {
+.user_info {
+    border-bottom: 5px dotted #f4c141;
     position: absolute;
-    left: 10vw;
+    margin: auto;
+    width: 20vw;
+    padding-bottom: 3vw;
+}
+
+.user_name {
+    margin: 2vw auto;
+    text-align: center;
+}
+
+.profile_img {
+    width: 15vw;
+    height: 15vw;
+    margin: auto;
+    border-radius: 20%;
+    background-color: #f4c141;
+}
+
+.edit_profile {
+    width: 3vw;
+    height: 3vw;
+    background-color: #fff;
+    border: none;
+    position: absolute;
+    right: 0vw;
+    bottom: 3.5vw;
+}
+
+.edit_profile:hover {
+    cursor: pointer;
+}
+
+/* ------------------- mypost / myscrap 시작 --------------------------- */
+
+.post_wrapper {
+    background-color: rgba(244, 193, 65, 0.8);
+    width: 58vw;
+    height: 50vw;
+    position: absolute;
+    top: 8vw;
+    right: 5vw;
+    overflow: scroll;
+    padding: 2vw;
+    border-radius: 5vw;
+}
+
+.my_post_wrapper {
+    width: 50vw;
+    height: 37vw;
+    background-color: #fff;
+    border-radius: 5vw;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
 }

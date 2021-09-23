@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import Head from 'next/head';
 
 import { useRouter } from 'next/router';
 import Header from '../src/components/Header';
@@ -74,6 +74,9 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <>
+            <Head>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width user-scalable=yes" />
+            </Head>
             <Header
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}

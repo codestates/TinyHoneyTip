@@ -82,7 +82,7 @@ export default function Home() {
                         <a
                             onClick={() => {
                                 let nextSection = document.getElementById('section2').offsetTop;
-                                console.log(nextSection);
+                                nextSection += document.getElementById('section2').offsetParent.offsetTop;
                                 window.scrollTo(0, nextSection);
                             }}>
                             <div className="scroll-down"></div>
@@ -96,27 +96,27 @@ export default function Home() {
                                 시간 낭비없이 본론만 얻으세요!
                                 {/* 여긴 자동으로 넘어가는 이미지 슬라이드 */}
                             </h2>
-                            {/* <div className="landing__section2__slide">
-                                <ul style={{ width: `calc(100% * 4)` }}>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                </ul>
-                            </div> */}
+                        </div>
+                        <div className="landing__section2__slide">
+                            <ul style={{ width: `calc(100% * 4)` }}>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                            </ul>
                         </div>
                         <a
                             onClick={() => {
                                 let nextSection = document.getElementById('section3').offsetTop;
-                                console.log(nextSection);
+                                nextSection += document.getElementById('section2').offsetParent.offsetTop;
                                 window.scrollTo(0, nextSection);
                             }}>
                             <div className="scroll-down"></div>
@@ -133,37 +133,37 @@ export default function Home() {
               필요할 때 다시 꺼내볼 수 있습니다! */}
                                 {/* 여긴 수동으로 넘어가는 gif 슬라이드 */}
                             </h2>
-                            {/* <div className="landing__section3__slide">
-                                <input type="radio" name="section3-pos" id="section-pos1" />
-                                <input type="radio" name="section3-pos" id="section-pos2" />
-                                <input type="radio" name="section3-pos" id="section-pos3" />
-                                <input type="radio" name="section3-pos" id="section-pos4" />
-                                <ul style={{ width: `calc(100% * 4)` }}>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                    <li style={{ width: `calc(100% / 4)` }}>
-                                        <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                    </li>
-                                </ul>
-                                <p className="section3__bullet">
-                                    <label htmlFor="section-pos1">1</label>
-                                    <label htmlFor="section-pos2">2</label>
-                                    <label htmlFor="section-pos3">3</label>
-                                    <label htmlFor="section-pos4">4</label>
-                                </p>
-                            </div> */}
+                        </div>
+                        <div className="landing__section3__slide">
+                            <input type="radio" name="section3-pos" id="section-pos1" />
+                            <input type="radio" name="section3-pos" id="section-pos2" />
+                            <input type="radio" name="section3-pos" id="section-pos3" />
+                            <input type="radio" name="section3-pos" id="section-pos4" />
+                            <ul style={{ width: `calc(100% * 4)` }}>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                            </ul>
+                            <p className="section3__bullet">
+                                <label htmlFor="section-pos1">1</label>
+                                <label htmlFor="section-pos2">2</label>
+                                <label htmlFor="section-pos3">3</label>
+                                <label htmlFor="section-pos4">4</label>
+                            </p>
                         </div>
                         <a
                             onClick={() => {
                                 let nextSection = document.getElementById('section4').offsetTop;
-                                console.log(nextSection);
+                                nextSection += document.getElementById('section2').offsetParent.offsetTop;
                                 window.scrollTo(0, nextSection);
                             }}>
                             <div className="scroll-down"></div>

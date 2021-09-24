@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-export default function SingleComment({ userInfo, comment }) {
+export default function SingleComment({ userInfo, comment, commentList, setCommentList }) {
     const router = useRouter();
     const { id } = router.query;
 
@@ -20,7 +20,11 @@ export default function SingleComment({ userInfo, comment }) {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log(res);
+                setCommentList(
+                    commentList.filter((el) => {
+                        return el.txt !== comment.txt;
+                    }),
+                );
             })
             .catch((error) => {
                 console.log(error);
@@ -31,17 +35,15 @@ export default function SingleComment({ userInfo, comment }) {
         <div className="single-comment">
             <img className="single-comment__profile__img" src="" />
             <p className="single-comment__comment">
-                <span className="single-comment__profile__username">{comment.user_id}</span>
+                <span className="single-comment__profile__username">{comment.userName}</span>
                 {comment.txt}
             </p>
             {comment.user_id === userInfo.id ? (
-                <div className="single-comment__delete-space">
-                    <img
-                        className="single-comment__delete"
-                        onClick={deleteComment}
-                        src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-delete-multimedia-kiranshastry-solid-kiranshastry.png"
-                    />
-                </div>
+                <img
+                    className="single-comment__delete"
+                    onClick={deleteComment}
+                    src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-delete-multimedia-kiranshastry-solid-kiranshastry.png"
+                />
             ) : (
                 ''
             )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Router from 'next/router';
 
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
@@ -97,7 +98,7 @@ export default function PostUpload({ userInfo }) {
                 },
             )
             .then((res) => {
-                console.log(res);
+                Router.push('/content');
             })
             .catch((error) => {
                 console.log(error);

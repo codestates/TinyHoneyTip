@@ -1,4 +1,4 @@
-.wrapper {
+.my_wrapper {
     width: 100%;
     height: 100%;
     position: relative;
@@ -6,7 +6,7 @@
     color: #666;
 }
 /* ------------------ side bar / user information 시작 ------------------------------------ */
-.side_bar {
+.my_side_bar {
     margin: 0 5vw 0 8vw;
     padding: 2vw;
     width: 25vw;
@@ -15,7 +15,7 @@
     border-radius: 5vw;
 }
 
-.user_info {
+.my_info {
     border-bottom: 5px dotted #f4c141;
     position: absolute;
     margin: auto;
@@ -23,12 +23,12 @@
     padding-bottom: 3vw;
 }
 
-.user_name {
+.my_user_name {
     margin: 2vw auto;
     text-align: center;
 }
 
-.profile_img {
+.my_profile_img {
     width: 15vw;
     height: 15vw;
     margin: auto;
@@ -36,7 +36,7 @@
     background-color: #f4c141;
 }
 
-.edit_profile {
+.edit_my_profile {
     width: 3vw;
     height: 3vw;
     background-color: #fff;
@@ -46,13 +46,13 @@
     bottom: 3.5vw;
 }
 
-.edit_profile:hover {
+.edit_my_profile:hover {
     cursor: pointer;
 }
 
 /* ------------------- mypost / myscrap 시작 --------------------------- */
 
-.post_wrapper {
+.my_Allpost_wrapper {
     background-color: rgba(244, 193, 65, 0.8);
     width: 58vw;
     height: 50vw;
@@ -64,13 +64,37 @@
     border-radius: 5vw;
 }
 
-.my_post_wrapper {
-    width: 50vw;
-    height: 37vw;
+.my_post_container,
+.my_scrap_container {
+    width: 54vw;
+    height: 30vw;
     background-color: #fff;
     border-radius: 5vw;
-    margin: auto;
-    display: flex;
-    flex-direction: row;
+    margin: 2vw auto;
+    padding: 2vw;
     overflow: scroll;
+    display: grid;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 3vw;
+    width: 86.5vw;
+    grid-gap: 2vw;
+    grid-template-columns: repeat(5, 15vw);
+}
+
+.my_post,
+.my_scrap {
+    color: #fff;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.my_post_item {
+    top: 10vw;
+    display: block;
+    height: 25vw;
+    width: 15vw;
+    background: rgba(244, 193, 65, 0.8);
+    border-radius: 1vw;
+    transition: all 0.15s;
 }

@@ -8,63 +8,51 @@ module.exports = {
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
-                //console.log('토큰에러');
                 res.status(404).json({ message: 'Bad Request' });
             } else {
                 const Token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
-                    const findUserInfo = await User.findOne({
-                        where: { email: Token.email },
-                    });
-                    console.log(Token);
                     const findMyPost_container = await post_container.findAll({
                         attributes: ['title', 'category', 'user_id', 'id'],
-                        where: { user_id: findUserInfo.id },
+                        where: { user_id: Token.id },
                     });
 
-                    let post_page = [];
-                    let post_scrap = [];
-                    let post_comment = [];
-                    let post_like = [];
-                    const myPost = [];
+                    let myPost = [];
+                    let findPages = await post.findAll({
+                        attributes: ['id', 'content', 'img', 'post_id'],
+                    });
+                    let findScraps = await scrap.findAll({
+                        attributes: ['id', 'user_id', 'post_id'],
+                    });
+                    let findComments = await comment.findAll({
+                        attributes: ['user_id', 'txt', 'post_id'],
+                    });
+                    let findLikes = await like.findAll({
+                        attributes: ['user_id', 'post_id'],
+                    });
                     for (let el of findMyPost_container) {
-                        let page = await post.findAll({
-                            attributes: ['id', 'content', 'img', 'post_id'],
-                            where: { post_id: el.id },
-                        });
-                        post_page.push(page);
-
-                        let findScrap = await scrap.findAll({
-                            where: { post_id: el.id },
-                            attributes: ['id', 'user_id', 'post_id'],
-                        });
-                        post_scrap.push(findScrap);
-
-                        let findComment = await comment.findAll({
-                            where: { post_id: el.id },
-                            attributes: ['user_id', 'txt', 'post_id'],
-                        });
-                        post_comment.push(findComment);
-
-                        let findLike = await like.findAll({
-                            where: { post_id: el.id },
-                            attributes: ['user_id', 'post_id'],
-                        });
-                        post_like.push(findLike);
-
                         myPost.push({
                             id: el.id,
                             title: el.title,
                             category: el.category,
-                            post_page: post_page,
-                            like: post_like,
-                            scrap: post_scrap,
-                            comment: post_comment,
+                            post_page: findPages.filter((page) => {
+                                return page.post_id === el.id;
+                            }),
+                            like: findLikes.filter((like) => {
+                                return like.post_id === el.id;
+                            }),
+                            scrap: findScraps.filter((scrap) => {
+                                return scrap.post_id === el.id;
+                            }),
+                            comment: findComments.filter((comment) => {
+                                return comment.post_id === el.id;
+                            }),
                         });
                     }
                     //console.log('마이포스트!!!', myPost[0]);
-                    console.log(Token);
+                    // ------------------마이포스트 끝!!  마이스크랩 시작!!-----------------------------------------------------------------------------------------------------------
+
                     const findScrap = await scrap.findAll({
                         where: { user_id: Token.id },
                         attributes: ['post_id'],
@@ -81,46 +69,24 @@ module.exports = {
                         scrapPost_c.push(postContainer);
                     }
                     console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
-
-                    let scrap_page = [];
-                    let scrap_comment = [];
-                    let scrap_like = [];
-                    let scrap_scr = [];
                     const myScrap = [];
-
                     for (let el of scrapPost_c) {
-                        let findPage = await post.findAll({
-                            where: { post_id: el.id },
-                            attributes: ['post_id', 'content', 'img'],
-                        });
-                        scrap_page.push(findPage);
-
-                        let findComment = await comment.findAll({
-                            where: { post_id: el.id },
-                            attributes: ['user_id', 'txt', 'post_id'],
-                        });
-                        scrap_comment.push(findComment);
-
-                        let findLike = await like.findAll({
-                            where: { post_id: el.id },
-                            attributes: ['user_id', 'post_id'],
-                        });
-                        scrap_like.push(findLike);
-
-                        let findScrap = await scrap.findAll({
-                            where: { post_id: el.id },
-                            attributes: ['user_id', 'post_id'],
-                        });
-                        scrap_scr.push(findScrap);
-
                         myScrap.push({
                             id: el.id,
                             title: el.title,
                             category: el.category,
-                            post_page: scrap_page,
-                            like: scrap_like,
-                            scrap: scrap_scr,
-                            comment: scrap_comment,
+                            post_page: findPages.filter((page) => {
+                                return page.post_id === el.id;
+                            }),
+                            like: findLikes.filter((like) => {
+                                return like.post_id === el.id;
+                            }),
+                            scrap: findScraps.filter((scrap) => {
+                                return scrap.post_id === el.id;
+                            }),
+                            comment: findComments.filter((comment) => {
+                                return comment.post_id === el.id;
+                            }),
                         });
                     }
 
@@ -128,7 +94,6 @@ module.exports = {
                     res.status(200).json({
                         message: 'ok',
                         data: {
-                            userInfo: findUserInfo,
                             myPost: myPost,
                             myScrap: myScrap,
                             alert: '',
@@ -137,10 +102,11 @@ module.exports = {
                 }
             }
         } catch (err) {
-            console.log('에러다');
+            console.log('캐치에러다');
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
         try {

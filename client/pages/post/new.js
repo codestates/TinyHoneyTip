@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Router from 'next/router';
 
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
 
-export default function PostUpload() {
+export default function PostUpload({ userInfo }) {
     const [slide, setSlide] = useState([{ img: '', imgFile: '', content: '' }]);
 
     const [postInfo, setPostInfo] = useState({
         title: '제목을 입력해주세요.',
         category: '카테고리',
     });
+
+    console.log(slide);
+    console.log(postInfo);
+    console.log(userInfo);
 
     const [currentSlide, setCurrentSlide] = useState(1);
 
@@ -58,8 +63,6 @@ export default function PostUpload() {
 
     const deleteSlideHandler = (index) => (e) => {
         let editedSlide = slide.filter((el, idx) => idx !== index);
-        // 페이지 삭제시 1페이지로 돌아가도록 했음
-        // 이전 페이지로 설정할 경우 슬라이드가 맨앞으로감.. 해결할 수 있을것같긴한데..끙
         setCurrentSlide(1);
         setSlide(editedSlide);
     };
@@ -70,30 +73,58 @@ export default function PostUpload() {
     };
 
     const postUploadHandler = () => {
-        // 제목과 카테고리 필수 입력
+        const postPage = slide.map((el, idx) => {
+            return { id: idx + 1, img: el.imgFile, content: el.content };
+        });
+        const category = postInfo.category;
+        const title = postInfo.title;
+        const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post`;
+
+        axios
+            .post(
+                apiUrl,
+                {
+                    post_page: postPage,
+                    category: category,
+                    title: title,
+                },
+                {
+                    headers: {
+                        Cookie: `accessToken=${userInfo.accessToken}`,
+                        // 'Accept-Encoding': 'gzip, deflate, br',
+                        Connection: 'keep-alive',
+                    },
+                    withCredentials: true,
+                },
+            )
+            .then((res) => {
+                Router.push('/content');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
         <div className="post-upload-page">
-            <div className="post-upload-empty"></div>
-            <div className="post-upload-container">
-                <UploadPostContent
-                    slide={slide}
-                    postInfo={postInfo}
-                    currentSlide={currentSlide}
-                    setCurrentSlide={setCurrentSlide}
-                />
-                <ToolBar
-                    slide={slide}
-                    addSlideHandler={addSlideHandler}
-                    deleteSlideHandler={deleteSlideHandler}
-                    slideTextHandler={slideTextHandler}
-                    postInfoHandler={postInfoHandler}
-                    currentSlide={currentSlide}
-                    setCurrentSlide={setCurrentSlide}
-                    postInfo={postInfo}
-                />
-            </div>
+            <UploadPostContent
+                slide={slide}
+                postInfo={postInfo}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+            />
+            <ToolBar
+                slide={slide}
+                addSlideHandler={addSlideHandler}
+                deleteSlideHandler={deleteSlideHandler}
+                slideTextHandler={slideTextHandler}
+                postInfoHandler={postInfoHandler}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+                postInfo={postInfo}
+                submitHandler={postUploadHandler}
+                submitName="업로드"
+            />
         </div>
     );
 }

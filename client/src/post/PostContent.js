@@ -5,7 +5,7 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
     return (
         <div className="upload-post__post-area">
             <h1 className="upload-post__title">
-                <span>{'[' + postInfo.category + ']'}</span>
+                <span>{'[' + postInfo.category + '] '}</span>
                 {postInfo.title}
             </h1>
             <div className="upload-post__post">

@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: 'like',
-            underscored: true,
         },
     );
     return like;

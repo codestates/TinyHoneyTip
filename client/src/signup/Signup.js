@@ -12,7 +12,7 @@ export default function Signup() {
     const [signupInfo, setSignupInfo] = useState({
         email: '',
         password: '',
-        userName: '',
+        username: '',
     });
     const openModal = () => {
         setIsClick(true);
@@ -59,15 +59,16 @@ export default function Signup() {
                     {
                         email: signupInfo.email,
                         password: signupInfo.password,
-                        userName: signupInfo.userName,
+                        username: signupInfo.username,
                     },
                     { 'Content-Type': 'application/json', withCredentials: true },
                 )
                 .then((res) => {
+                    console.log(res);
                     if (res.data.message === 'ok') {
                         setMessage('회원가입 완료');
                         okHandler();
-                        return closeModal();
+                        closeModal();
                     }
                 });
         }
@@ -99,6 +100,17 @@ export default function Signup() {
                                     </div>
                                 </div>
                                 <div className={styles.input_container}>
+                                    <div className={styles.label}>User Name</div>
+                                    <input
+                                        name="username"
+                                        className={styles.signin_input}
+                                        type="username"
+                                        placeholder="닉네임을 입력하세요"
+                                        onChange={(e) => inputHandler(e)}
+                                        value={signupInfo.username}
+                                    />
+                                </div>
+                                <div className={styles.input_container}>
                                     <div className={styles.label}>Password</div>
                                     <input
                                         name="password"
@@ -128,18 +140,22 @@ export default function Signup() {
                                         {!isconfirm ? '비밀번호가 일치하지 않습니다.' : 'OK'}
                                     </div>
                                 </div>
-                                <img className={styles.modal_img} />
-                                <button className={styles.signin_btn} onClick={signupRequestHandler}>
-                                    Sign Up
-                                </button>
+                                <div className={styles.modal_img_container}>
+                                    <img className={styles.modal_img} />
+                                </div>
+                                <div className={styles.signin_line}>
+                                    <button className={styles.signin_btn} onClick={signupRequestHandler}>
+                                        Sign Up
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
             ) : (
-                <button className={styles.Modal_btn} onClick={openModal}>
+                <a className="header__btn" onClick={openModal}>
                     Sign Up
-                </button>
+                </a>
             )}
             {isOk ? (
                 <div className={styles.alert_container}>

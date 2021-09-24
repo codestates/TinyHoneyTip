@@ -1,118 +1,207 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-export default function PostContent() {
-    //  slide와 feeling은 서버에서 받아온 내용으로 초기화
-    const [slide, setSlide] = useState([
-        { img: '', content: '1st slide' },
-        { img: '', content: '2st slide' },
-        { img: '', content: '3st slide' },
-        { img: '', content: '4st slide' },
-    ])
+export default function PostContent({ userInfo, post }) {
+    // scrap은 아직이유 ㅎ;
+    const router = useRouter();
+    const { id } = router.query;
+
+    const [currentSlide, setCurrentSlide] = useState(1);
+
+    const didIL = () => {
+        if (userInfo.isLogin) {
+            let myLike = post.like.userLike.filter((el) => {
+                return el.user_id === userInfo.id;
+            });
+            if (myLike.length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    };
+
+    const didIDisL = () => {
+        if (userInfo.isLogin) {
+            let myDisLike = post.dislike.userDisLike.filter((el) => {
+                return el.user_id === userInfo.id;
+            });
+            if (myDisLike.length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    };
 
     const [feeling, setFeeling] = useState({
-        like: true,
-        dislike: false,
-        scrap: false
-    })
+        like: didIL(),
+        dislike: didIDisL(),
+        scrap: false,
+    });
+    console.log(feeling);
+    const deleteFeelingHandler = (key) => {
+        axios
+            .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${post?.id}`, {
+                headers: {
+                    cookie: userInfo.accessToken,
+                },
+                withCredentials: true,
+            })
+            .then((res) => {
+                console.log('delete 성공');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const postFeelingHandler = (key) => {
+        axios
+            .get(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${post?.id}`, {
+                headers: {
+                    cookie: userInfo.accessToken,
+                },
+                withCredentials: true,
+            })
+            .then((res) => {
+                console.log('add 성공');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     const feelingHandler = (key) => {
-        setFeeling({
-            ...feeling,
-            [key]: !(feeling[key])
-        })
-        // feeling에 따라 서버에 요청
-    }
+        if (!!userInfo.isLogin) {
+            if (key === 'scrap') {
+                console.log('scrap 미구현');
+            } else if (!!feeling[key]) {
+                deleteFeelingHandler('like');
+            } else {
+                postFeelingHandler('like');
+            }
+            setFeeling({ ...feeling, [key]: !feeling[key] });
+        } else {
+            // 비회원
+        }
+    };
 
     const deletePost = () => {
         // 서버에 삭제 요청
-    }
-
-    const [currentSlide, setCurrentSlide] = useState(1)
+    };
 
     return (
-        <div className='single-post__post-area'>
-            <h1 className='single-post__title'>
-                게시물 제목
+        <div className="single-post__post-area">
+            <h1 className="single-post__title">
+                <span>{'[' + post.category + ']'}</span>
+                {post.title}
             </h1>
-            <div className='single-post__post'>
-                {
-                    slide.map((el, idx) => {
-                        return <input type="radio" name="pos" id={'pos' + (idx + 1)} onClick={() => setCurrentSlide(idx + 1)} />
-                    })
-                }
-                <ul style={{ width: `calc(100% * ${slide.length})` }}>
-                    {
-                        slide.map((el, idx) => {
-                            return (
-                                <li style={{ width: `calc(100% / ${slide.length})` }}>
-                                    <img className='single-post__post__pic' src={el.img} />
-                                    <p className='single-post__post__text'>
-                                        {el.content}
-                                    </p>
-                                </li>
-                            )
-                        })
-                    }
+            <div className="single-post__post">
+                {post.post_page.map((el, idx) => {
+                    return (
+                        <input
+                            key={idx}
+                            type="radio"
+                            name="pos"
+                            id={'pos' + (idx + 1)}
+                            onClick={() => setCurrentSlide(idx + 1)}
+                        />
+                    );
+                })}
+                <ul style={{ width: `calc(100% * ${post.post_page.length})` }}>
+                    {post.post_page.map((el, idx) => {
+                        return (
+                            <li key={idx} style={{ width: `calc(100% / ${post.post_page.length})` }}>
+                                {el.img ? (
+                                    <img className="single-post__post__pic" src={el.img} />
+                                ) : (
+                                    <div className="single-post__post__pic"></div>
+                                )}
+                                <pre className="single-post__post__text">{el.content}</pre>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
-            <p class="bullet">
-                <label for={currentSlide === 1 ? 'pos1' : 'pos' + (currentSlide - 1)}>
+            <p className="bullet">
+                <label htmlFor={currentSlide === 1 ? 'pos1' : 'pos' + (currentSlide - 1)}>
                     <img
-                        className='single-post__post__previous-page-btn'
+                        className="single-post__post__previous-page-btn"
                         src="https://img.icons8.com/material-outlined/24/000000/back--v1.png"
                     />
                 </label>
-                <label for={currentSlide === slide.length ? 'pos' + (slide.length) : 'pos' + (currentSlide + 1)}>
+                <label
+                    htmlFor={
+                        currentSlide === post.post_page.length
+                            ? 'pos' + post.post_page.length
+                            : 'pos' + (currentSlide + 1)
+                    }>
                     <img
-                        className='single-post__post__next-page-btn'
+                        className="single-post__post__next-page-btn"
                         src="https://img.icons8.com/material-outlined/24/000000/back--v1.png"
                     />
                 </label>
             </p>
-            <div className='single-post__btns'>
-                <div className='single-post__btns__feeling'>
+            <div className="single-post__btns">
+                <div className="single-post__btns__feeling">
                     <img
-                        className='single-post__btn__img'
+                        className="single-post__btn__img"
                         onClick={() => feelingHandler('like')}
-                        src={feeling.like ?
-                            "https://img.icons8.com/material-rounded/24/000000/like--v1.png"
-                            :
-                            "https://img.icons8.com/material-outlined/24/000000/like--v1.png"}
+                        alt="like button"
+                        src={
+                            feeling.like
+                                ? 'https://img.icons8.com/material-rounded/24/000000/like--v1.png'
+                                : 'https://img.icons8.com/material-outlined/24/000000/like--v1.png'
+                        }
                     />
                     <img
-                        className='single-post__btn__img'
+                        className="single-post__btn__img"
                         onClick={() => feelingHandler('dislike')}
-                        src={feeling.dislike ?
-                            "https://img.icons8.com/material-rounded/24/000000/dislike.png"
-                            :
-                            "https://img.icons8.com/material-outlined/24/000000/dislike.png"}
+                        alt="dislike button"
+                        src={
+                            feeling.dislike
+                                ? 'https://img.icons8.com/material-rounded/24/000000/dislike.png'
+                                : 'https://img.icons8.com/material-outlined/24/000000/dislike.png'
+                        }
                     />
                     <img
-                        className='single-post__btn__img'
+                        className="single-post__btn__img"
                         onClick={() => feelingHandler('scrap')}
-                        src={feeling.scrap ?
-                            "https://img.icons8.com/material-rounded/24/000000/bookmark-ribbon.png"
-                            :
-                            "https://img.icons8.com/material-outlined/24/000000/bookmark-ribbon--v1.png"}
+                        alt="scrap button"
+                        src={
+                            false
+                                ? 'https://img.icons8.com/material-rounded/24/000000/bookmark-ribbon.png'
+                                : 'https://img.icons8.com/material-outlined/24/000000/bookmark-ribbon--v1.png'
+                        }
                     />
                 </div>
-                <div className='single-post__btns__post'>
-                    {/*  본인 글일 경우만 보이도록 세팅, edit은 post수정페이지로 연결, delete는 서버에 삭제 요청 */}
-                    <Link href=''>
+                <p className="single-post__page">{`${currentSlide}/${post.post_page.length}`}</p>
+                {post.writerInfo.id === userInfo.id ? (
+                    <div className="single-post__btns__post">
+                        {/*  편집 페이지 생성 후 추가 */}
+                        <Link href={`/post/edit/${id}`} passHref>
+                            <img
+                                className="single-post__edit"
+                                src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png"
+                            />
+                        </Link>
                         <img
-                            className='single-post__edit'
-                            src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png"
+                            className="single-post__delete"
+                            onClick={deletePost}
+                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-delete-multimedia-kiranshastry-solid-kiranshastry.png"
                         />
-                    </Link>
-                    <img
-                        className='single-post__delete'
-                        onClick={deletePost}
-                        src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/64/000000/external-delete-multimedia-kiranshastry-solid-kiranshastry.png"
-                    />
-                </div>
+                    </div>
+                ) : (
+                    ''
+                )}
             </div>
         </div>
-    )
+    );
 }

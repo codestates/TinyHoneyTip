@@ -1,29 +1,21 @@
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import axios from 'axios';
+
 import Post from '../../src/components/Post';
 
-export default function Id() {
-    const router = useRouter();
-    const { id } = router.query;
+export default function Id({ post, userInfo }) {
+    // 로그인할 때 로컬 스토리지에 저장하고 아래 getServerSideProps에서 불러보기(혹은 session)
+    // https://stackoverflow.com/questions/62474098/get-localstorage-in-nextjs-getinitialprops
+    return <Post userInfo={userInfo} post={post} />;
+}
 
-    const [post, setPost] = useState({});
-
-    const getPostsData = () => {
-        axios.get(`http://localhost:80/post/${id}`).then((res) => {
-            setPost(res.data.post);
-            console.log(res.data.post);
-        });
+export async function getServerSideProps(context) {
+    const id = context.params.id;
+    const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/${id}`;
+    const res = await axios.get(apiUrl);
+    const data = await res.data.data.post;
+    return {
+        props: {
+            post: data,
+        },
     };
-
-    // useEffect(() => {
-    //     if (id && id > 0) {
-    //         getPostsData();
-    //     }
-    // }, [id]);
-
-    return (
-        <>
-            <Post post={post} />
-        </>
-    );
 }

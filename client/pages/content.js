@@ -1,47 +1,72 @@
 import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
-import Search from '../src/components/Search';
 import axios from 'axios';
-import PostList from '../src/components/PostList';
-import Header from '../src/components/Header';
-import Footer from '../src/components/Footer';
+import Head from 'next/head';
+import Category from '../src/components/Category';
+import Image from 'next/image';
+import pic from '../public/honeycomb.png';
+import Best from '../src/components/Best';
+import Thumbnail from '../src/components/Thumbnail';
 
 export default function Content() {
-    const [postList, setPostList] = useState([]);
+    const [postList, setPostList] = useState([]); // []
+    const [initData, setInitData] = useState([]);
+    // const [items, setItems] = useState(10);
+    // const [preItems, setPreItems] = useState(0);
+    const [isClick, setClick] = useState(false);
+
+    const categoryHandler = (e) => {
+        if (e.target.innerText === '전체') {
+            setPostList(initData);
+            return;
+        } else {
+            const filteredData = initData.filter((el) => {
+                return el.category === e.target.innerText;
+            });
+            setPostList(filteredData);
+        }
+    };
+
+    const clickHandler = () => {
+        setClick(!isClick);
+    };
 
     const getPostsData = () => {
-        axios.get('http://localhost:80/post').then((res) => {
-            setPostList(res.data.post);
-            console.log(res.data.post);
+        axios.get(process.env.NEXT_PUBLIC_URL + '/post').then((res) => {
+            // const result = res.data.post.slice(preItems, items);
+            setPostList(res.data.data);
+            setInitData(res.data.data);
         });
     };
-    // useEffect(() => {
-    //     getPostsData();
-    // }, []);
+
+    useEffect(() => {
+        getPostsData();
+    }, []);
+
     return (
         <>
             <Head>
                 <title>Content Page | Tiny Honey Tip</title>
             </Head>
 
-            <div className="content">
-                <Header />
-                <div className="content_container">
-                    <div className="best_container">
-                        <h3 className="best_title">BEST 꿀팁</h3>
-                        <div>
-                            {/* 베스트 꿀팁 모음 */}
-                            <PostList postList={postList.slice(0, 5)} />
-                        </div>
-                    </div>
-                    <div className="postList_container">
-                        {/* 나머지 포스트 리스트 */}
-                        <PostList postList={postList.slice(5)} />
-                        <Search postList={postList} />
+            <div>
+                <div className="content">
+                    <div className="best_content_container">
+                        <Category isClick={isClick} clickHandler={clickHandler} categoryHandler={categoryHandler} />
+                        <Best />
+                        <Thumbnail postList={postList} setPostList={setPostList} />
                     </div>
                 </div>
-                <Footer />
             </div>
+            <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
+                <Image
+                    loader={() => 'https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png'}
+                    src={pic}
+                    alt="top-button"
+                    width="7vw"
+                    height="5vw"
+                    unoptimized="true"
+                />
+            </a>
         </>
     );
 }

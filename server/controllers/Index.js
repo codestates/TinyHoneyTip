@@ -1,4 +1,4 @@
-const { user, post_contailner } = require('../models');
+const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -10,39 +10,44 @@ module.exports = {
         const accessToken = req.cookies.accessToken;
         const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
         if (userinfo) {
-            user.destroy({ where: { email: userinfo.email } });
+            User.destroy({ where: { email: userinfo.email } });
             res.status(200).json({ message: 'byebye' });
+        } else {
+            res.status(500).json({ message: 'error!!' });
         }
     },
     signin: async (req, res) => {
         const { email, password } = req.body;
-        const findEmail = await user.findOne({
+        const findemail = await User.findOne({
             where: { email: email },
         });
-        const finduser = await user.findOne({
+        const finduser = await User.findOne({
             where: { email: email, password: password },
         });
         if (findemail && !finduser) {
             res.status(400).json({ message: 'rewrite password' });
-        } else if (!findEmail && !finduser) {
+        } else if (!findemail && !finduser) {
             res.status(400).json({ message: 'rewrite email' });
         } else {
             delete finduser.dataValues.password;
+            console.log(finduser);
             const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
-            res.status(200)
-                .cookie('accessToken', accessToken, {
-                    httpOnly: true,
-                })
-                .json({ message: 'login complete' });
+
+            res.cookie('accessToken', accessToken, {
+                sameSite: 'none',
+                secure: true,
+                httpOnly: true,
+            });
+            res.status(200).json({ message: 'login complete', data: { accessToken: accessToken, userInfo: finduser } });
         }
     },
     signup: async (req, res) => {
         try {
             const { email, password, username } = req.body;
-            const emailCheck = await user.findOne({
+            const emailCheck = await User.findOne({
                 where: { email: email },
             });
-            const usernameCheck = await user.findOne({
+            const usernameCheck = await User.findOne({
                 where: { username: username },
             });
             if (emailCheck) {
@@ -50,11 +55,12 @@ module.exports = {
             } else if (usernameCheck) {
                 res.status(400).json({ message: 'already username exist' });
             } else {
-                await user.create({
+                await User.create({
                     email,
                     password,
                     username,
                 });
+                res.status(200).json({ message: 'ok' });
             }
         } catch (err) {
             res.status(500).json({ message: 'unexpected error' });

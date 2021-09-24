@@ -8,8 +8,9 @@ export default function Comments({ userInfo, post }) {
     const router = useRouter();
     const { id } = router.query;
     const [commentInput, setCommentInput] = useState('');
-    console.log(userInfo.accessToken);
-    console.log(post);
+    const [commentList, setCommentList] = useState(post.comment);
+
+    console.log(userInfo);
 
     const handleInput = (e) => {
         setCommentInput(e.target.value);
@@ -34,7 +35,13 @@ export default function Comments({ userInfo, post }) {
                     },
                 )
                 .then((res) => {
-                    console.log(res);
+                    setCommentList([
+                        ...commentList,
+                        { userName: userInfo.username, user_id: userInfo.id, txt: commentInput },
+                    ]);
+                    let commentForm = document.getElementById('commentInput');
+                    commentForm.value = '';
+                    setCommentInput('');
                 })
                 .catch((error) => {
                     console.log(error);
@@ -49,17 +56,31 @@ export default function Comments({ userInfo, post }) {
                 <h1 className="single-post__profile__username">{post.writerInfo.username}</h1>
             </div>
             <div className="single-post__comments">
-                {post.comment.map((el, idx) => {
-                    return <SingleComment key={idx} comment={el} userInfo={userInfo} />;
+                {commentList.map((el, idx) => {
+                    return (
+                        <SingleComment
+                            key={idx}
+                            comment={el}
+                            userInfo={userInfo}
+                            commentList={commentList}
+                            setCommentList={setCommentList}
+                        />
+                    );
                 })}
             </div>
             <div className="single-post__comment-input">
                 <input
                     className="single-post__comment-input__input"
+                    id="commentInput"
                     type="text"
                     onChange={handleInput}
                     placeholder={userInfo.isLogin ? '댓글을 입력해주세요.' : '로그인해 주세요.'}
                     disabled={userInfo.isLogin ? '' : 'disabled'}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            commentSubmit();
+                        }
+                    }}
                 />
                 <button
                     className="single-post__comment-input__submit"

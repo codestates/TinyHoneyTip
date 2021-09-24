@@ -6,13 +6,13 @@ export default function Select({ post, setPost }) {
     const selectHandler = (e) => {
         if (e.target.value === 'title') {
             sortedTitle();
-            console.log(postList, 'title');
+            console.log(post, 'title');
         } else if (e.target.value === 'like') {
             sortedLiked();
-            console.log(postList, 'like');
+            console.log(post, 'like');
         } else if (e.target.value === 'update') {
             sortedUpdate();
-            console.log(postList, 'update');
+            console.log(post, 'update');
         }
     };
 

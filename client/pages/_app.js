@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import Head from 'next/head';
+
 import { useRouter } from 'next/router';
 import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
@@ -10,6 +12,7 @@ import '../styles/Landing.css';
 import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
+import '../styles/MyPage.css';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({
@@ -80,6 +83,9 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <>
+            <Head>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width user-scalable=yes" />
+            </Head>
             <Header
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}

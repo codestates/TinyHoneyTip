@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export default function PostContent({ userInfo, post }) {
-    // scrap은 아직이유 ㅎ;
+    // post detail page에서 header를 통해 로그인할 시 like dislike scrap이 바로 반영이 안되는 문제가 있긴함..
+    console.log(post);
     const router = useRouter();
     const { id } = router.query;
 
@@ -40,10 +41,25 @@ export default function PostContent({ userInfo, post }) {
         }
     };
 
+    const amIScrapped = () => {
+        if (userInfo.isLogin) {
+            let myScrap = post.scrap.scrapList.filter((el) => {
+                return el.user_id === userInfo.id;
+            });
+            if (myScrap.length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    };
+
     const [feeling, setFeeling] = useState({
         like: didIL(),
         dislike: didIDisL(),
-        scrap: false,
+        scrap: amIScrapped(),
     });
     console.log(feeling);
     const deleteFeelingHandler = (key) => {
@@ -80,12 +96,10 @@ export default function PostContent({ userInfo, post }) {
 
     const feelingHandler = (key) => {
         if (!!userInfo.isLogin) {
-            if (key === 'scrap') {
-                console.log('scrap 미구현');
-            } else if (!!feeling[key]) {
-                deleteFeelingHandler('like');
+            if (!!feeling[key]) {
+                deleteFeelingHandler(key);
             } else {
-                postFeelingHandler('like');
+                postFeelingHandler(key);
             }
             setFeeling({ ...feeling, [key]: !feeling[key] });
         } else {
@@ -176,7 +190,7 @@ export default function PostContent({ userInfo, post }) {
                         onClick={() => feelingHandler('scrap')}
                         alt="scrap button"
                         src={
-                            false
+                            feeling.scrap
                                 ? 'https://img.icons8.com/material-rounded/24/000000/bookmark-ribbon.png'
                                 : 'https://img.icons8.com/material-outlined/24/000000/bookmark-ribbon--v1.png'
                         }

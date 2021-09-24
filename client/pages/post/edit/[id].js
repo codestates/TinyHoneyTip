@@ -85,25 +85,24 @@ export default function Id({ post, userInfo }) {
 
     return (
         <div className="post-upload-page">
-            <div className="post-upload-empty"></div>
-            <div className="post-upload-container">
-                <UploadPostContent
-                    slide={slide}
-                    postInfo={postInfo}
-                    currentSlide={currentSlide}
-                    setCurrentSlide={setCurrentSlide}
-                />
-                <ToolBar
-                    slide={slide}
-                    addSlideHandler={addSlideHandler}
-                    deleteSlideHandler={deleteSlideHandler}
-                    slideTextHandler={slideTextHandler}
-                    postInfoHandler={postInfoHandler}
-                    currentSlide={currentSlide}
-                    setCurrentSlide={setCurrentSlide}
-                    postInfo={postInfo}
-                />
-            </div>
+            <UploadPostContent
+                slide={slide}
+                postInfo={postInfo}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+            />
+            <ToolBar
+                slide={slide}
+                addSlideHandler={addSlideHandler}
+                deleteSlideHandler={deleteSlideHandler}
+                slideTextHandler={slideTextHandler}
+                postInfoHandler={postInfoHandler}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+                postInfo={postInfo}
+                submitHandler={postEditSubmitHandler}
+                submitName="수정하기"
+            />
         </div>
     );
 }

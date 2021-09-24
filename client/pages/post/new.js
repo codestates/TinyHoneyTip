@@ -58,8 +58,6 @@ export default function PostUpload() {
 
     const deleteSlideHandler = (index) => (e) => {
         let editedSlide = slide.filter((el, idx) => idx !== index);
-        // 페이지 삭제시 1페이지로 돌아가도록 했음
-        // 이전 페이지로 설정할 경우 슬라이드가 맨앞으로감.. 해결할 수 있을것같긴한데..끙
         setCurrentSlide(1);
         setSlide(editedSlide);
     };
@@ -75,25 +73,24 @@ export default function PostUpload() {
 
     return (
         <div className="post-upload-page">
-            <div className="post-upload-empty"></div>
-            <div className="post-upload-container">
-                <UploadPostContent
-                    slide={slide}
-                    postInfo={postInfo}
-                    currentSlide={currentSlide}
-                    setCurrentSlide={setCurrentSlide}
-                />
-                <ToolBar
-                    slide={slide}
-                    addSlideHandler={addSlideHandler}
-                    deleteSlideHandler={deleteSlideHandler}
-                    slideTextHandler={slideTextHandler}
-                    postInfoHandler={postInfoHandler}
-                    currentSlide={currentSlide}
-                    setCurrentSlide={setCurrentSlide}
-                    postInfo={postInfo}
-                />
-            </div>
+            <UploadPostContent
+                slide={slide}
+                postInfo={postInfo}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+            />
+            <ToolBar
+                slide={slide}
+                addSlideHandler={addSlideHandler}
+                deleteSlideHandler={deleteSlideHandler}
+                slideTextHandler={slideTextHandler}
+                postInfoHandler={postInfoHandler}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+                postInfo={postInfo}
+                submitHandler={postUploadHandler}
+                submitName="업로드"
+            />
         </div>
     );
 }

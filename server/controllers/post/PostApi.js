@@ -117,7 +117,7 @@ module.exports = {
 
             const writerInfo = await User.findOne({
                 where: { id: postInfo.user_id },
-                attributes: ['username', 'profile_img'],
+                attributes: ['username', 'profile_img', 'id'],
             });
 
             let accessToken = {};

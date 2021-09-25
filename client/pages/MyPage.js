@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Thumbnail from '../src/components/Thumbnail';
 import pic from '../public/honeycomb.png';
 import editPic from '../public/edit.png';
 import styles from '../styles/Tumbnail.module.css';
@@ -21,7 +20,6 @@ export default function MyPage({ userInfo }) {
             })
             .then((res) => {
                 console.log(res.data);
-
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
             })
@@ -31,6 +29,7 @@ export default function MyPage({ userInfo }) {
     }
 
     useEffect(() => {
+        console.log(userInfo);
         getMyPage();
     }, []);
 
@@ -50,16 +49,16 @@ export default function MyPage({ userInfo }) {
 
     return (
         <>
-            <div className="wrapper">
-                <div className="side_bar">
-                    <div className="user_info">
-                        <div className="profile_img"></div>
-                        <h3 className="user_name">{newUserInfo.username}🐝벌님 안녕하세요</h3>
-                        <button>
+            <div className="my_wrapper">
+                <div className="my_side_bar">
+                    <div className="my_info">
+                        <div className="my_profile_img">{/*<Image src={newUserInfo.profile_img} /> */}</div>
+                        <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
+                        <button className="edit_my_profile">
                             <Image onClick={editHandler} src={editPic} />
                         </button>
                         {editBtn ? (
-                            <div className="user_info_body">
+                            <div className="my_user_infoBody">
                                 <form>
                                     이메일: {newUserInfo.email}
                                     <label htmlFor="userName">이름: </label>
@@ -67,66 +66,111 @@ export default function MyPage({ userInfo }) {
                                 </form>
                             </div>
                         ) : (
-                            <div className="user_info_body">
-                                이메일: {newUserInfo.email}
-                                이름: {newUserInfo.username}
+                            <div className="my_user_infoBody">
+                                이메일 {newUserInfo.email}
+                                <br />
+                                <br />
+                                이름 {newUserInfo.username}
                             </div>
                         )}
                     </div>
-                    <div id="alert"></div>
+                    <div id="my_alert"></div>
                 </div>
-                <div className="my_post_wrapper">
-                    <h3 className="my_post">내가 쓴 글</h3>
-                    {myPost.map((el) => {
-                        return (
-                            <div className={styles.post_item} key={el.id}>
-                                <div className={styles.post_item_inner}>
-                                    <div className={styles.post_item_option}>
-                                        <div className={styles.post_overlay}></div>
-                                    </div>
-                                    <div className={styles.best_item_header}>
-                                        <Link href={`/post/${el.id}`}>
-                                            <a className={styles.header_image}>
-                                                <img
-                                                    className={styles.img_inner}
-                                                    alt={el.title}
-                                                    src={el.post_page[0].img}
-                                                />
-                                            </a>
-                                        </Link>
-                                        <div className={styles.post_desc}>
-                                            <div className={styles.post_desc_title}>
-                                                <Link href={`/post/${el.id}`}>
-                                                    <a className={styles.post_title_font}>{el.title}</a>
-                                                </Link>
+                <div className="my_Allpost_wrapper">
+                    <div className="my_post_wrapper">
+                        <h3 className="my_post">My Posts</h3>
+                        <div className="my_post_container">
+                            {myPost.map((el) => {
+                                return (
+                                    <div className="my_post_item" key={el.id}>
+                                        <div className={styles.post_item_inner}>
+                                            <div className={styles.post_item_option}>
+                                                <div className={styles.post_overlay}></div>
                                             </div>
-                                            <div className={styles.post_desc_text}>
+                                            <div className={styles.best_item_header}>
                                                 <Link href={`/post/${el.id}`}>
-                                                    <a className={styles.post_text}>
-                                                        <div>{el.post_page[0].content}</div>
+                                                    <a className={styles.header_image}>
+                                                        <img
+                                                            className={styles.img_inner}
+                                                            alt={el.title}
+                                                            //src={el.post_page[0].img}
+                                                        />
                                                     </a>
                                                 </Link>
-                                            </div>
-                                            <div className={styles.post_desc_category}>
-                                                <a className={styles.post_category}>{el?.category}</a>
-                                            </div>
-                                            <div className={styles.post_desc_user}>
-                                                <div className={styles.post_desc_userinfo}>
-                                                    <div className={styles.post_author}>💛 {el.like.length}</div>
+                                                <div className={styles.post_desc}>
+                                                    <div className={styles.post_desc_title}>
+                                                        <Link href={`/post/${el.id}`}>
+                                                            <a className={styles.post_title_font}>{el.title}</a>
+                                                        </Link>
+                                                    </div>
+                                                    <div className={styles.post_desc_text}>
+                                                        {/* <Link href={`/post/${el.id}`}>
+                                                <a className={styles.post_text}>{el.post_page[0].content}</a>
+                                                </Link> */}
+                                                    </div>
+                                                    <div className={styles.post_desc_category}>
+                                                        <a className={styles.post_category}>{el?.category}</a>
+                                                    </div>
+                                                    <div className={styles.post_desc_user}>
+                                                        <div className={styles.post_desc_userinfo}>
+                                                            <div className={styles.post_author}>
+                                                                💛 {el.like.length}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                <div className="my_scrap_wrapper">
-                    <h3 className="my_scrap">내가 스크랩한 글</h3>
-                    {myScrap.map((el) => {
-                        return <Thumbnail list={el} key={el.id}></Thumbnail>;
-                    })}
+                                );
+                            })}
+                        </div>
+                    </div>
+                    <div className="my_scrap_wrapper">
+                        <h3 className="my_scrap">My Scrapped Posts</h3>
+                        <div className="my_scrap_container">
+                            {myScrap.map((el) => {
+                                <div className={styles.post_item} key={el.id}>
+                                    <div className={styles.post_item_inner}>
+                                        <div className={styles.post_item_option}>
+                                            <div className={styles.post_overlay}></div>
+                                        </div>
+                                        <div className={styles.best_item_header}>
+                                            <Link href={`/post/${el.id}`}>
+                                                <a className={styles.header_image}>
+                                                    <img
+                                                        className={styles.img_inner}
+                                                        alt={el.title}
+                                                        //src={el.post_page[0].img}
+                                                    />
+                                                </a>
+                                            </Link>
+                                            <div className={styles.post_desc}>
+                                                <div className={styles.post_desc_title}>
+                                                    <Link href={`/post/${el.id}`}>
+                                                        <a className={styles.post_title_font}>{el.title}</a>
+                                                    </Link>
+                                                </div>
+                                                <div className={styles.post_desc_text}>
+                                                    {/* <Link href={`/post/${el.id}`}>
+                                            <a className={styles.post_text}>{el.post_page[0].content}</a>
+                                            </Link> */}
+                                                </div>
+                                                <div className={styles.post_desc_category}>
+                                                    <a className={styles.post_category}>{el?.category}</a>
+                                                </div>
+                                                <div className={styles.post_desc_user}>
+                                                    <div className={styles.post_desc_userinfo}>
+                                                        <div className={styles.post_author}>💛 {el.like.length}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>;
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>

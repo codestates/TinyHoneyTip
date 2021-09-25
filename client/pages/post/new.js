@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Router from 'next/router';
 
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
 
-export default function PostUpload() {
+export default function PostUpload({ userInfo }) {
     const [slide, setSlide] = useState([{ img: '', imgFile: '', content: '' }]);
 
     const [postInfo, setPostInfo] = useState({
         title: '제목을 입력해주세요.',
         category: '카테고리',
     });
+
+    console.log(slide);
+    console.log(postInfo);
+    console.log(userInfo);
 
     const [currentSlide, setCurrentSlide] = useState(1);
 
@@ -68,7 +73,36 @@ export default function PostUpload() {
     };
 
     const postUploadHandler = () => {
-        // 제목과 카테고리 필수 입력
+        const postPage = slide.map((el, idx) => {
+            return { id: idx + 1, img: el.imgFile, content: el.content };
+        });
+        const category = postInfo.category;
+        const title = postInfo.title;
+        const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post`;
+
+        axios
+            .post(
+                apiUrl,
+                {
+                    post_page: postPage,
+                    category: category,
+                    title: title,
+                },
+                {
+                    headers: {
+                        Cookie: `accessToken=${userInfo.accessToken}`,
+                        // 'Accept-Encoding': 'gzip, deflate, br',
+                        Connection: 'keep-alive',
+                    },
+                    withCredentials: true,
+                },
+            )
+            .then((res) => {
+                Router.push('/content');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (

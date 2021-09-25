@@ -9,6 +9,7 @@ import Link from 'next/link';
 export default function MyPage({ userInfo }) {
     const [myPost, setMyPost] = useState([]);
     const [myScrap, setMyScrap] = useState([]);
+    const [alert, setAlert] = useState({ scrap: [{ title: '', userName: '' }], like: [{ title: '', userName: '' }] });
     const [editBtn, setEditBtn] = useState(false);
     const [newUserInfo, setNewUserInfo] = useState(userInfo);
 
@@ -22,6 +23,7 @@ export default function MyPage({ userInfo }) {
                 console.log(res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
+                setAlert(res.data.data.alert);
             })
             .catch((err) => {
                 return console.log('오류입니다!', err);
@@ -61,6 +63,8 @@ export default function MyPage({ userInfo }) {
                             <div className="my_user_infoBody">
                                 <form>
                                     이메일: {newUserInfo.email}
+                                    <br />
+                                    <br />
                                     <label htmlFor="userName">이름: </label>
                                     <input type="text" id="userName" placeholder="이름을 입력하세요"></input>
                                 </form>
@@ -74,7 +78,27 @@ export default function MyPage({ userInfo }) {
                             </div>
                         )}
                     </div>
-                    <div id="my_alert"></div>
+                    <div id="my_alert">
+                        <h3 id="my_alert_title"></h3>
+                        <ul className="alert_scrap_list">
+                            {alert.scrap !== [{ title: '', userName: '' }]
+                                ? alert.scrap.map((el) => {
+                                      <li className="alert_scrap_item">
+                                          {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 스크랩했습니다.
+                                      </li>;
+                                  })
+                                : '알림이 없습니다.'}
+                        </ul>
+                        <ul className="alert_like_list">
+                            {alert.like !== [{ title: '', userName: '' }]
+                                ? alert.like.map((el) => {
+                                      <li className="alert_like_item">
+                                          {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 좋아합니다.
+                                      </li>;
+                                  })
+                                : '알림이 없습니다.'}
+                        </ul>
+                    </div>
                 </div>
                 <div className="my_Allpost_wrapper">
                     <div className="my_post_wrapper">

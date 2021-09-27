@@ -8,14 +8,14 @@
 }
 .Modal {
     width: 50vw;
-    height: 40vh;
+    height: 56vw;
     position: relative;
     box-sizing: border-box;
     margin: 5vw auto;
     padding: 2vw;
     background: rgba(244, 193, 65, 0.8);
     border-radius: 3vw;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 .Modal_signup {
     overflow-y: auto;
@@ -29,20 +29,21 @@
     border-radius: 1vw;
 }
 .title {
-    margin-left: 4vw;
-    font-size: 3vw;
+    left: 6vw;
+    position: relative;
+    font-size: 2vw;
 }
 .close_btn {
-    float: right;
-    border: 0;
-    outline: 0;
-    background-color: rgba(244, 193, 65, 0.8);
-    font-size: 1.5vw;
-    cursor: pointer;
+    background: none;
+    outline: none;
+    border: none;
+    border-radius: 1vw;
+    position: absolute;
+    left: 77%;
 }
 .label {
     font-weight: 600;
-    font-size: 2vw;
+    font-size: 1vw;
     margin-bottom: 1vw;
 }
 .checkmsg {
@@ -51,8 +52,8 @@
     font-size: 1vw;
 }
 .input_container {
-    padding: 0 4vw;
-    margin-top: 2vw;
+    padding: 0 6vw;
+    margin-top: 1vw;
 }
 .signin_input {
     font-size: 1.2vw;
@@ -68,14 +69,14 @@
     color: #999999;
 }
 .signin_line {
-    padding: 0 4vw;
+    padding: 0 6vw;
     text-align: center;
     align-items: center;
 }
 .signin_btn {
-    height: 4vw;
+    height: 5vw;
     width: 100%;
-    font-size: 1.5vw;
+    font-size: 0.1vw;
     display: relative;
     cursor: pointer;
     background-color: black;
@@ -83,11 +84,11 @@
     outline: 0;
     box-sizing: border-box;
     border-radius: 1vw;
-    margin-top: 2vw;
+    margin-top: 1vw;
     margin-bottom: 1vw;
 }
 .kakao_btn {
-    height: 4vw;
+    height: 5vw;
     width: 100%;
     font-size: 1.5vw;
     display: relative;
@@ -101,17 +102,17 @@
     border-radius: 1vw;
 }
 .kakaoLogo {
-    width: 3vw;
+    width: 1vw;
 }
 .modal_img_container {
-    padding: 0 4vw;
+    padding: 0 6vw;
 }
 .modal_img {
+    border-radius: 2vw;
     margin-top: 2vw;
-    width: 100%;
-    height: 10vw;
+    width: 34vw;
+    height: 13vw;
     position: relative;
-    background-color: white;
 }
 
 .alert_container {
@@ -140,6 +141,7 @@
     border: 0;
     background-color: rgba(244, 193, 65, 0.8);
 }
+
 @media screen and (min-width: 768px) {
     .Modal_back {
         position: fixed;
@@ -150,20 +152,20 @@
         background: rgba(102, 102, 102, 0.5);
     }
     .Modal {
-        width: 40vw;
-        height: 40vw;
+        width: 34vw;
+        height: 36vw;
         position: relative;
         box-sizing: border-box;
         margin: 5vw auto;
         padding: 2vw;
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
-        overflow-y: auto;
+        overflow-y: hidden;
     }
     .Modal_signup {
         overflow-y: auto;
-        width: 40vw;
-        height: 40vw;
+        width: 34vw;
+        height: 34vw;
         position: relative;
         box-sizing: border-box;
         margin: 5vw auto;
@@ -172,19 +174,22 @@
         border-radius: 1vw;
     }
     .title {
-        font-size: 3vw;
+        left: 5vw;
+        position: relative;
+        font-size: 1.5vw;
     }
     .close_btn {
-        float: right;
-        border: 0;
-        outline: 0;
-        background-color: rgba(244, 193, 65, 0.8);
-        font-size: 1.5vw;
         cursor: pointer;
+        background: none;
+        outline: none;
+        border: none;
+        border-radius: 1vw;
+        position: absolute;
+        left: 73%;
     }
     .label {
         font-weight: 600;
-        font-size: 2vw;
+        font-size: 1vw;
         margin-bottom: 1vw;
     }
     .checkmsg {
@@ -193,14 +198,14 @@
         font-size: 1vw;
     }
     .input_container {
-        padding: 0 4vw;
-        margin-top: 2vw;
+        padding: 0 6vw;
+        margin-top: 1vw;
     }
     .signin_input {
-        font-size: 1.2vw;
+        font-size: 0.5vw;
         border-radius: 1vw;
         width: 100%;
-        height: 4vw;
+        height: 2vw;
         border: 0.1vw solid #e5e5e5;
         padding: 1vw 1vw;
         outline: none;
@@ -210,27 +215,27 @@
         color: #999999;
     }
     .signin_line {
-        padding: 0 4vw;
+        padding: 0 6vw;
         text-align: center;
         align-items: center;
     }
     .signin_btn {
-        height: 4vw;
+        height: 3vw;
         width: 100%;
-        font-size: 1.5vw;
+        font-size: 1vw;
         display: relative;
         cursor: pointer;
         background-color: black;
         color: rgba(244, 193, 65, 0.8);
         box-sizing: border-box;
         border-radius: 1vw;
-        margin-top: 2vw;
+        margin-top: 1vw;
         margin-bottom: 1vw;
     }
     .kakao_btn {
-        height: 4vw;
+        height: 3vw;
         width: 100%;
-        font-size: 1.5vw;
+        font-size: 1vw;
         display: relative;
         cursor: pointer;
         background-color: black;
@@ -242,19 +247,20 @@
         border-radius: 1vw;
     }
     .kakaoLogo {
-        width: 3vw;
+        width: 1vw;
     }
     .modal_img {
+        border-radius: 1vw;
         margin-top: 2vw;
-        width: 100%;
-        height: 10vw;
+        width: 18vw;
+        height: 8vw;
         position: relative;
-        background-color: white;
     }
     .modal_img_container {
-        padding: 0 4vw;
+        padding: 0 6vw;
     }
     .alert_container {
+        font-size: 1.5vw;
         width: 30vw;
         height: 10vw;
         position: fixed;
@@ -289,20 +295,20 @@
         background: rgba(102, 102, 102, 0.5);
     }
     .Modal {
-        width: 40vw;
-        height: 40vw;
+        width: 34vw;
+        height: 34vw;
         position: relative;
         box-sizing: border-box;
         margin: 5vw auto;
         padding: 2vw;
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
-        overflow-y: auto;
+        overflow-y: hidden;
     }
     .Modal_signup {
         overflow-y: auto;
-        width: 40vw;
-        height: 40vw;
+        width: 34vw;
+        height: 34vw;
         position: relative;
         box-sizing: border-box;
         margin: 5vw auto;
@@ -311,20 +317,22 @@
         border-radius: 1vw;
     }
     .title {
-        font-size: 3vw;
+        left: 5vw;
+        font-size: 1.5vw;
+        position: relative;
     }
     .close_btn {
-        float: right;
-        border: 0;
-        outline: 0;
-        background-color: rgba(244, 193, 65, 0.8);
-        font-size: 1.5vw;
-        cursor: pointer;
+        background: none;
+        outline: none;
+        border: none;
+        border-radius: 1vw;
+        position: absolute;
+        left: 73%;
     }
     .label {
         font-weight: 600;
         margin-bottom: 1vw;
-        font-size: 2vw;
+        font-size: 1vw;
     }
     .checkmsg {
         font-weight: 400;
@@ -332,14 +340,14 @@
         font-size: 1vw;
     }
     .input_container {
-        padding: 0 4vw;
-        margin-top: 2vw;
+        padding: 0 6vw;
+        margin-top: 1vw;
     }
     .signin_input {
-        font-size: 1.2vw;
+        font-size: 0.5vw;
         border-radius: 1vw;
         width: 100%;
-        height: 4vw;
+        height: 2vw;
         border: 0.1vw solid #e5e5e5;
         padding: 1vw 1vw;
         outline: none;
@@ -349,27 +357,27 @@
         color: #999999;
     }
     .signin_line {
-        padding: 0 4vw;
+        padding: 0 6vw;
         text-align: center;
         align-items: center;
     }
     .signin_btn {
-        height: 4vw;
+        height: 3vw;
         width: 100%;
-        font-size: 1.5vw;
+        font-size: 1vw;
         display: relative;
         cursor: pointer;
         background-color: black;
         color: rgba(244, 193, 65, 0.8);
         box-sizing: border-box;
         border-radius: 1vw;
-        margin-top: 2vw;
+        margin-top: 1vw;
         margin-bottom: 1vw;
     }
     .kakao_btn {
-        height: 4vw;
+        height: 3vw;
         width: 100%;
-        font-size: 1.5vw;
+        font-size: 1vw;
         display: relative;
         cursor: pointer;
         background-color: black;
@@ -381,17 +389,18 @@
         border-radius: 1vw;
     }
     .kakaoLogo {
-        width: 3vw;
+        position: relative;
+        width: 1vw;
     }
     .modal_img {
+        border-radius: 1vw;
         margin-top: 2vw;
-        width: 100%;
-        height: 10vw;
+        width: 18vw;
+        height: 8vw;
         position: relative;
-        background-color: white;
     }
     .modal_img_container {
-        padding: 0 4vw;
+        padding: 0 6vw;
     }
     .alert_container {
         font-size: 1.5vw;

@@ -54,9 +54,6 @@ export default function Thumbnail({ postList }) {
                                       return (
                                           <div className={styles.post_item} key={list.id}>
                                               <div className={styles.post_item_inner}>
-                                                  <div className={styles.post_item_option}>
-                                                      <div className={styles.post_overlay}></div>
-                                                  </div>
                                                   <div className={styles.best_item_header}>
                                                       <Link href={`/post/${list?.id}`}>
                                                           <a className={styles.header_image}>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Modal.module.css';
+import Image from 'next/image';
+import signinPic from '../../public/18:8.png';
 
 export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal, setUserInfo, user }) {
     const [isOk, setIsOk] = useState(false);
@@ -113,7 +115,9 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                                 />
                             </div>
                             <div className={styles.modal_img_container}>
-                                <img className={styles.modal_img} />
+                                <div className={styles.modal_img}>
+                                    <Image src={signinPic} alt="sign in picture" />
+                                </div>
                             </div>
                             <div className={styles.signin_line}>
                                 <button className={styles.signin_btn} onClick={loginRequestHandler}>

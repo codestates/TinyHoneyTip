@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 export default function PostContent({ userInfo, post }) {
     // post detail page에서 header를 통해 로그인할 시 like dislike scrap이 바로 반영이 안되는 문제가 있긴함..
@@ -27,7 +28,7 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const didIDisL = () => {
-        if (userInfo.isLogin) {
+        if (userInfo?.isLogin) {
             let myDisLike = post.dislike.userDisLike.filter((el) => {
                 return el.user_id === userInfo.id;
             });
@@ -108,7 +109,21 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const deletePost = () => {
-        // 서버에 삭제 요청
+        const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/${id}`;
+        axios
+            .delete(apiUrl, {
+                headers: {
+                    Cookie: `accessToken=${userInfo.accessToken}`,
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    Connection: 'keep-alive',
+                },
+            })
+            .then((res) => {
+                Router.push('/content');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
@@ -199,7 +214,6 @@ export default function PostContent({ userInfo, post }) {
                 <p className="single-post__page">{`${currentSlide}/${post.post_page.length}`}</p>
                 {post.writerInfo.id === userInfo.id ? (
                     <div className="single-post__btns__post">
-                        {/*  편집 페이지 생성 후 추가 */}
                         <Link href={`/post/edit/${id}`} passHref>
                             <img
                                 className="single-post__edit"

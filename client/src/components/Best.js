@@ -15,9 +15,6 @@ export default function Best({ bestList }) {
                                 return (
                                     <div className="best_item" key={best.id}>
                                         <div className="best_item_inner">
-                                            <div className="best_item_option">
-                                                <div className="item_overlay"></div>
-                                            </div>
                                             <div className="best_item_header">
                                                 <Link href={`/post/${best?.id}`}>
                                                     <a className="header_image">

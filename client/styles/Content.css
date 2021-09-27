@@ -80,7 +80,7 @@
     box-sizing: inherit;
     border: 0;
 }
-
+/* card */
 .best_content_container {
     grid-template-columns: 12vw auto;
     width: 100%;
@@ -89,6 +89,7 @@
     text-align: left;
     box-sizing: inherit;
 }
+
 .best_title_container {
     padding-top: 10vw;
     align-items: center;
@@ -101,13 +102,16 @@
     pointer-events: none;
     word-break: keep-all;
 }
+
 .best_list_title {
+    margin-left: 1.5vw;
     color: black;
     font-size: 1vw;
     font-weight: 700;
     height: 3vw;
     position: relative;
 }
+
 .best_list {
     display: grid;
     margin-bottom: 3vw;
@@ -117,19 +121,31 @@
     grid-gap: 2vw;
     grid-template-columns: repeat(5, 15vw);
 }
+
 .best_item {
+    margin: 1.5vw;
     display: block;
     height: 25vw;
     width: 15vw;
     background: rgba(244, 193, 65, 0.8);
     border-radius: 1vw;
-    transition: all 0.15s;
+}
+.best_item:hover {
+    background-color: transparent;
+    border: 0.2vw dashed black;
 }
 .best_item_inner {
-    height: 100%;
+    transition: all 0.15s;
+    height: 25vw;
+    width: 15vw;
     position: relative;
 }
 
+.best_item_inner:hover {
+    background-color: rgba(244, 193, 65, 1);
+    transform: translate(-1.5vw, -1.5vw);
+    border-radius: 1vw;
+}
 .img_inner {
     border-radius: 1vw;
     height: 14.5vw;
@@ -143,6 +159,7 @@
     overflow: hidden;
     vertical-align: top;
 }
+
 .img_center {
     object-position: center;
 }
@@ -336,7 +353,7 @@
         display: grid;
         overflow-x: scroll;
         overflow-y: hidden;
-        width: 68.5vw;
+        width: 77vw;
         grid-gap: 2vw;
         grid-template-columns: repeat(5, auto);
     }
@@ -345,14 +362,24 @@
         height: 35vw;
         width: 21vw;
         background: rgba(244, 193, 65, 0.8);
-        border-radius: 1vw;
+        border-radius: 2vw;
         transition: all 0.15s;
+    }
+    .best_item:hover {
+        background-color: transparent;
+        border: 0.4vw dashed black;
     }
     .best_item_inner {
         height: 100%;
+        height: 35vw;
+        width: 21vw;
         position: relative;
     }
-
+    .best_item_inner:hover {
+        background-color: rgba(244, 193, 65, 1);
+        transform: translate(-1.5vw, -1.5vw);
+        border-radius: 2vw;
+    }
     .img_inner {
         border-radius: 1vw;
         height: 18.5vw;
@@ -558,7 +585,7 @@
         display: grid;
         overflow-x: scroll;
         overflow-y: hidden;
-        width: 70vw;
+        width: 77vw;
         grid-gap: 2vw;
         grid-template-columns: repeat(5, auto);
     }
@@ -570,11 +597,22 @@
         border-radius: 4vw;
         transition: all 0.15s;
     }
+    .best_item:hover {
+        background-color: transparent;
+        border: 0.2vw dashed black;
+    }
     .best_item_inner {
+        border-radius: 4vw;
         height: 100%;
+        height: 56vw;
+        width: 34vw;
         position: relative;
     }
-
+    .best_item_inner:hover {
+        background-color: rgba(244, 193, 65, 1);
+        transform: translate(-1.5vw, -1.5vw);
+        border-radius: 4vw;
+    }
     .img_inner {
         border-radius: 4vw;
         height: 32.8vw;

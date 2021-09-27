@@ -8,18 +8,22 @@ import ToolBar from '../../src/post/ToolBar';
 export default function PostUpload({ userInfo }) {
     const [slide, setSlide] = useState([{ img: '', imgFile: '', content: '' }]);
 
+    const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
+
     const [postInfo, setPostInfo] = useState({
-        title: '제목을 입력해주세요.',
+        title: '',
         category: '카테고리',
     });
 
     console.log(slide);
     console.log(postInfo);
     console.log(userInfo);
+    console.log(cannotSubmitMessage);
 
     const [currentSlide, setCurrentSlide] = useState(1);
 
     const slideTextHandler = (index, key) => (e) => {
+        setCannotSubmitMessage(false);
         if (key === 'content') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
@@ -58,6 +62,7 @@ export default function PostUpload({ userInfo }) {
     };
 
     const postInfoHandler = (key) => (e) => {
+        setCannotSubmitMessage(false);
         setPostInfo({ ...postInfo, [key]: e.target.value });
     };
 
@@ -73,6 +78,10 @@ export default function PostUpload({ userInfo }) {
     };
 
     const postUploadHandler = () => {
+        if (postInfo.title.length === 0 || postInfo.category === '카테고리') {
+            setCannotSubmitMessage(true);
+            return;
+        }
         const postPage = slide.map((el, idx) => {
             return { id: idx + 1, img: el.imgFile, content: el.content };
         });
@@ -123,6 +132,7 @@ export default function PostUpload({ userInfo }) {
                 setCurrentSlide={setCurrentSlide}
                 postInfo={postInfo}
                 submitHandler={postUploadHandler}
+                cannotSubmitMessage={cannotSubmitMessage}
                 submitName="업로드"
             />
         </div>

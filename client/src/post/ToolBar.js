@@ -11,6 +11,7 @@ export default function ToolBar({
     postInfo,
     submitHandler,
     submitName,
+    cannotSubmitMessage,
 }) {
     return (
         <div className="post__toolbar">
@@ -46,12 +47,14 @@ export default function ToolBar({
                         type="text"
                         value={postInfo.title}
                         onChange={postInfoHandler('title')}
+                        placeholder="제목을 입력해주세요."
                     />
                     <label>카테고리</label>
                     <select
                         className="post__toolbar__category"
                         value={postInfo.category}
                         onChange={postInfoHandler('category')}>
+                        <option>카테고리</option>
                         <option>운동</option>
                         <option>생활</option>
                         <option>동물</option>
@@ -92,9 +95,16 @@ export default function ToolBar({
                     onClick={deleteSlideHandler(currentSlide - 1)}>
                     현재 페이지 삭제
                 </button>
-                <button onClick={submitHandler} className="post__toolbar__delete-post">
-                    {submitName}
-                </button>
+                <div className="new-post__upload-section">
+                    <button onClick={submitHandler} className="post__toolbar__delete-post">
+                        {submitName}
+                    </button>
+                    {cannotSubmitMessage ? (
+                        <span className="post-upload__err">제목과 카테고리는 필수 입력사항입니다.</span>
+                    ) : (
+                        ''
+                    )}
+                </div>
             </div>
         </div>
     );

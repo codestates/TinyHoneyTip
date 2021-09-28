@@ -1,51 +1,52 @@
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from '../../styles/Tumbnail.module.css';
 import Select from './Select';
 import Search from './Search';
 import axios from 'axios';
 import Category from './Category';
 
-export default function Thumbnail({ changeSelectOptionHandler }) {
-    const [postList, setPostList] = useState([]);
-    const [initData, setInitData] = useState([]);
-    console.log(postList, 'Thumbnail');
+export default function Thumbnail({ postList }) {
+    const [itemIndex, setItemIndex] = useState(0);
+    const [post, setPost] = useState(postList.slice(0, 10));
+    const [init, setInit] = useState(postList);
     const [input, setInput] = useState('');
+
+    const _infiniteScroll = useCallback(() => {
+        let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+        let clientHeight = document.documentElement.clientHeight;
+
+        if (scrollTop + clientHeight === scrollHeight) {
+            setItemIndex(itemIndex + 10);
+            setPost(post.concat(postList.slice(itemIndex + 10, itemIndex + 20)));
+        }
+    }, [itemIndex, post]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', _infiniteScroll, true);
+        return () => window.removeEventListener('scroll', _infiniteScroll, true);
+    }, [_infiniteScroll]);
 
     const inputHandler = (e) => {
         setInput(([e.target.name] = e.target.value));
     };
-    const getPostsData = () => {
-        axios.get(process.env.NEXT_PUBLIC_URL + '/post').then((res) => {
-            // const result = res.data.post.slice(preItems, items);
-            setPostList(res.data.data);
-            setInitData(res.data.data);
-        });
-    };
-
-    useEffect(() => {
-        getPostsData();
-    }, []);
 
     return (
         <>
             <div className={styles.search_line}>
-                <Category initData={initData} postList={postList} setPostList={setPostList} />
-                <Select
-                    postList={postList}
-                    setPostList={setPostList}
-                    changeSelectOptionHandler={changeSelectOptionHandler}
-                />
+                <Category init={init} post={post} setPost={setPost} />
+                <Select post={post} setPost={setPost} />
                 <Search inputHandler={inputHandler} />
             </div>
             <div className={styles.post_list_container}>
                 <div className={styles.post_list_title}>🐝 꿀팁 둘러보기</div>
                 <div className={styles.post_list}>
                     {
-                        postList?.filter((el) => {
+                        post?.filter((el) => {
                             return el.title.indexOf(input) > -1;
                         })?.length !== 0
-                            ? postList
+                            ? post
                                   ?.filter((el) => {
                                       return el.title.indexOf(input) > -1;
                                   })
@@ -53,9 +54,6 @@ export default function Thumbnail({ changeSelectOptionHandler }) {
                                       return (
                                           <div className={styles.post_item} key={list.id}>
                                               <div className={styles.post_item_inner}>
-                                                  <div className={styles.post_item_option}>
-                                                      <div className={styles.post_overlay}></div>
-                                                  </div>
                                                   <div className={styles.best_item_header}>
                                                       <Link href={`/post/${list?.id}`}>
                                                           <a className={styles.header_image}>

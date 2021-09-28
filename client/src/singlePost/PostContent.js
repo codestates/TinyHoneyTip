@@ -13,7 +13,7 @@ export default function PostContent({ userInfo, post }) {
     const [currentSlide, setCurrentSlide] = useState(1);
 
     const didIL = () => {
-        if (userInfo.isLogin) {
+        if (userInfo?.isLogin) {
             let myLike = post.like.userLike.filter((el) => {
                 return el.user_id === userInfo.id;
             });
@@ -28,7 +28,7 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const didIDisL = () => {
-        if (userInfo.isLogin) {
+        if (userInfo?.isLogin) {
             let myDisLike = post.dislike.userDisLike.filter((el) => {
                 return el.user_id === userInfo.id;
             });

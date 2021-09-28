@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../../styles/Modal.module.css';
+import Image from 'next/image';
+import signinPic from '../../public/18:8.png';
 
-export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal, setUserInfo }) {
+export default function Signin({ userInfo, loginHandler, setIsClick, isClick, openModal, setUserInfo, user }) {
     const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [loginInfo, setLoginInfo] = useState({
@@ -38,19 +40,11 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
             )
             .then((res) => {
                 if (res.data.message === 'login complete') {
-                    // console.log(res.data.data)
                     setMessage('로그인 완료');
                     loginHandler(res.data.data);
                     closeModal();
                 }
             })
-            // .then((token) => {
-            //     console.log(token);
-            //     setUserInfo({
-            //         accessToken: token,
-            //     });
-            //     okHandler();
-            // })
             .catch((err) => alert(err));
     };
     // function kakaoLogin() {
@@ -121,20 +115,21 @@ export default function Signin({ userInfo, loginHandler, setIsClick, isClick, op
                                 />
                             </div>
                             <div className={styles.modal_img_container}>
-                                <img className={styles.modal_img} />
+                                <div className={styles.modal_img}>
+                                    <Image src={signinPic} alt="sign in picture" />
+                                </div>
                             </div>
                             <div className={styles.signin_line}>
                                 <button className={styles.signin_btn} onClick={loginRequestHandler}>
                                     Sign In
                                 </button>
-                                {/* <button onClick={kakaoLogin}>카카오</button> */}
-                                {/* <button className={styles.kakao_btn}>
+                                <button className={styles.kakao_btn}>
                                     카카오 로그인
                                     <img
                                         className={styles.kakaoLogo}
                                         src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
                                     />
-                                </button> */}
+                                </button>
                             </div>
                         </div>
                     </div>

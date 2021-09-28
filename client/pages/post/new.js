@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 
@@ -6,6 +6,12 @@ import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
 
 export default function PostUpload({ userInfo }) {
+    useEffect(() => {
+        if (!userInfo.isLogin) {
+            Router.push('/content');
+        }
+    });
+
     const [slide, setSlide] = useState([{ img: '', imgFile: '', content: '' }]);
 
     const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
@@ -15,12 +21,10 @@ export default function PostUpload({ userInfo }) {
         category: '카테고리',
     });
 
-    console.log(slide);
-    console.log(postInfo);
-    console.log(userInfo);
-    console.log(cannotSubmitMessage);
-
     const [currentSlide, setCurrentSlide] = useState(1);
+
+    console.log(`currentSlide : ${currentSlide}`);
+    console.log(`slide : ${slide}`);
 
     const slideTextHandler = (index, key) => (e) => {
         setCannotSubmitMessage(false);
@@ -68,13 +72,40 @@ export default function PostUpload({ userInfo }) {
 
     const deleteSlideHandler = (index) => (e) => {
         let editedSlide = slide.filter((el, idx) => idx !== index);
-        setCurrentSlide(1);
         setSlide(editedSlide);
+        document.getElementById(`pos${currentSlide - 1}`).checked = true;
+        setCurrentSlide(currentSlide - 1);
     };
 
-    const addSlideHandler = () => {
+    const addSlideHandler = async () => {
         let newPage = { img: '', imgFile: '', content: '' };
-        setSlide(slide.concat(newPage));
+        await setSlide(slide.concat(newPage));
+        document.getElementById(`pos${slide.length + 1}`).checked = true;
+        setCurrentSlide(slide.length + 1);
+    };
+
+    const setFormData = (formData, data, parentKey) => {
+        if (!(formData instanceof FormData)) return;
+        if (!(data instanceof Object)) return;
+
+        Object.keys(data).forEach((key) => {
+            const val = data[key];
+            if (parentKey) key = `${parentKey}[${key}]`;
+            if (val instanceof Object && !Array.isArray(val)) {
+                return setFormData(formData, val, key);
+            }
+            if (Array.isArray(val)) {
+                val.forEach((v, idx) => {
+                    if (v instanceof Object) {
+                        setFormData(formData, v, `${key}[${idx}]`);
+                    } else {
+                        formData.append(`${key}[${idx}]`, v);
+                    }
+                });
+            } else {
+                formData.append(key, val);
+            }
+        });
     };
 
     const postUploadHandler = () => {
@@ -89,23 +120,34 @@ export default function PostUpload({ userInfo }) {
         const title = postInfo.title;
         const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post`;
 
+        const data = {
+            post_page: postPage,
+            category: category,
+            title: title,
+        };
+
+        const formData = new FormData();
+
+        setFormData(formData, data);
+
+        // console.log(formData);
+
+        // const arrQueryString = [];
+        // for (let pair of formData.entries()) {
+        //     console.log(`${pair[0]} = ${pair[1]}`);
+        //     arrQueryString.push(`${pair[0]} = ${pair[1]}`);
+        // }
+        // console.log(`query string= ${arrQueryString.join('&')}`);
         axios
-            .post(
-                apiUrl,
-                {
-                    post_page: postPage,
-                    category: category,
-                    title: title,
+            .post(apiUrl, formData, {
+                headers: {
+                    Cookie: `accessToken=${userInfo.accessToken}`,
+                    'content-type': 'multipart/form-data',
+                    // 'Accept-Encoding': 'gzip, deflate, br',
+                    Connection: 'keep-alive',
                 },
-                {
-                    headers: {
-                        Cookie: `accessToken=${userInfo.accessToken}`,
-                        // 'Accept-Encoding': 'gzip, deflate, br',
-                        Connection: 'keep-alive',
-                    },
-                    withCredentials: true,
-                },
-            )
+                withCredentials: true,
+            })
             .then((res) => {
                 Router.push('/content');
             })

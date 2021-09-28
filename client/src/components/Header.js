@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import axios from 'axios';
+import Image from 'next/image';
 
 import Signin from '../signin/Signin';
 import Signup from '../signup/Signup';
@@ -39,11 +40,14 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
             <Link href="/content" passHref>
                 <h1 className="header__logo">Tiny Honey Tip</h1>
             </Link>
-            <img
-                className="header__menu__btn"
-                src="https://img.icons8.com/material-outlined/48/000000/menu--v1.png"
-                onClick={menuHandler}
-            />
+            <div className="header__menu__btn" onClick={menuHandler}>
+                <Image
+                    loader={() => 'https://img.icons8.com/material-outlined/48/000000/menu--v1.png'}
+                    src="https://img.icons8.com/material-outlined/48/000000/menu--v1.png"
+                    layout="fill"
+                    alt="header menu"
+                />
+            </div>
             {userInfo && userInfo.isLogin ? (
                 <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
                     <Link href="/post/new" passHref>

@@ -24,6 +24,10 @@
     cursor: pointer;
 }
 
+.header__menu__btn {
+    position: relative;
+}
+
 /* footer */
 
 .footer {

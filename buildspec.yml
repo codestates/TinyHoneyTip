@@ -14,7 +14,7 @@ phases:
 artifacts:
     files:
         - '**/*'
-    base-directory: client/build
+    # base-directory: client/build
 
 cache:
     paths:

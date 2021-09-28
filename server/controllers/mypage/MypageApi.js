@@ -14,13 +14,12 @@ module.exports = {
                 const Token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
-                    const findMyPost_container = await post_container.findAll({
-                        attributes: ['title', 'category', 'user_id', 'id'],
-                        where: { user_id: Token.id },
-                    });
-                    // .then(res => {
-                    //
-                    // })
+                    const findMyPost_container = await post_container
+                        .findAll({
+                            attributes: ['title', 'category', 'user_id', 'id'],
+                            where: { user_id: Token.id },
+                        })
+                        .then((res) => {});
 
                     let myPost = [];
                     let findPages = await post.findAll({

@@ -171,7 +171,10 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
-    editpost: async (req, res) => {},
+    editpost: async (req, res) => {
+        // try {
+        // }
+    },
     deletepost: async (req, res) => {
         try {
             await post_container.destroy({

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import Head from 'next/head';
 
 import { useRouter } from 'next/router';
@@ -51,7 +52,16 @@ function MyApp({ Component, pageProps }) {
             username: '',
             profile_img: '',
         });
+        sessionStorage.clear();
     };
+    useEffect(() => {
+        setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
+    }, []);
+    useEffect(() => {
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        sessionStorage.setItem('accessToken', userInfo?.accessToken);
+    });
+
     // loading
 
     const router = useRouter();

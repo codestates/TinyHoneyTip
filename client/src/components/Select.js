@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Select.module.css';
 
-export default function Select({ postList, setPostList }) {
-    console.log(postList, 'select');
+export default function Select({ post, setPost }) {
+    console.log(post, 'select');
     const selectHandler = (e) => {
         if (e.target.value === 'title') {
             sortedTitle();
-            console.log(postList, 'title');
+            console.log(post, 'title');
         } else if (e.target.value === 'like') {
             sortedLiked();
-            console.log(postList, 'like');
+            console.log(post, 'like');
         } else if (e.target.value === 'update') {
             sortedUpdate();
-            console.log(postList, 'update');
+            console.log(post, 'update');
         }
     };
 
     const sortedUpdate = () => {
-        const _postList = [...postList];
-        setPostList(
-            _postList.sort(function (a, b) {
+        const _post = [...post];
+        setPost(
+            _post.sort(function (a, b) {
                 let idA = a.id;
                 let idB = b.id;
                 if (idA < idB) return -1;
@@ -30,9 +30,9 @@ export default function Select({ postList, setPostList }) {
     };
 
     const sortedTitle = () => {
-        const _postList = [...postList];
-        setPostList(
-            _postList.sort(function (a, b) {
+        const _post = [...post];
+        setPost(
+            _post.sort(function (a, b) {
                 let titleA = a.title.toUpperCase();
                 let titleB = b.title.toUpperCase();
                 if (titleA < titleB) return -1;
@@ -43,9 +43,9 @@ export default function Select({ postList, setPostList }) {
     };
 
     const sortedLiked = () => {
-        const _postList = [...postList];
-        setPostList(
-            _postList.sort(function (a, b) {
+        const _post = [...post];
+        setPost(
+            _post.sort(function (a, b) {
                 let likeA = a.like.length;
                 let likeB = b.like.length;
                 if (likeA < likeB) return 1;

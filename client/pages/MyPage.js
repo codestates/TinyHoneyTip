@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import pic from '../public/honeycomb.png';
-import editPic from '../public/edit.png';
+import pic from '/honeycomb.png';
+import userDeleteBtn from '/userDeleteBtn.png';
+import editPic from '/edit.png';
 import styles from '../styles/Tumbnail.module.css';
 import Link from 'next/link';
 
@@ -49,6 +50,22 @@ export default function MyPage({ userInfo }) {
         if (editBtn) editMyPage();
     };
 
+    const deleteSure = () => {
+        if (window.confirm('정말 회원 탈퇴하시겠습니까?')) {
+            window.open('exit.html', 'Thanks for Visiting!');
+        }
+    };
+
+    // const userDelete = () => {
+    //     axios.delete(`${process.env.NEXT_PUBLIC_URL}/user`, {data: {token: newUserInfo.token}, withCredentials: true,})
+    //     .then(res => {
+    //         if(res.message === "byebye") {
+    //             alert('회원탈퇴가 완료되었습니다.');
+    //             // userinfo 상태 초기화하고 쿠키 지우고 세션 지우고
+    //         }
+    //     })
+    // }
+
     return (
         <>
             <div className="my_wrapper">
@@ -57,7 +74,16 @@ export default function MyPage({ userInfo }) {
                         <div className="my_profile_img">{/*<Image src={newUserInfo.profile_img} /> */}</div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
-                            <Image onClick={editHandler} src={editPic} />
+                            <Image
+                                onClick={editHandler}
+                                src="/edit.png"
+                                loader={() =>
+                                    'https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png'
+                                }
+                            />
+                        </button>
+                        <button>
+                            {/* <Image onClick={}  src={userDeleteBtn} loader={() => 'https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png'}/> */}
                         </button>
                         {editBtn ? (
                             <div className="my_user_infoBody">
@@ -114,7 +140,7 @@ export default function MyPage({ userInfo }) {
                                             <div className={styles.best_item_header}>
                                                 <Link href={`/post/${el.id}`}>
                                                     <a className={styles.header_image}>
-                                                        <img
+                                                        <Image
                                                             className={styles.img_inner}
                                                             alt={el.title}
                                                             //src={el.post_page[0].img}
@@ -162,7 +188,7 @@ export default function MyPage({ userInfo }) {
                                         <div className={styles.best_item_header}>
                                             <Link href={`/post/${el.id}`}>
                                                 <a className={styles.header_image}>
-                                                    <img
+                                                    <Image
                                                         className={styles.img_inner}
                                                         alt={el.title}
                                                         //src={el.post_page[0].img}

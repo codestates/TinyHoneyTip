@@ -27,7 +27,7 @@
     float: left;
     margin-left: 1vw;
     font-size: 1.5vw;
-    line-height: 3vw;
+    line-height: 2vw;
     transition: 0.4s;
 }
 .search_box:hover > .search_txt {

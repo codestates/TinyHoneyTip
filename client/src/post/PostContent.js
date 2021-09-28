@@ -5,8 +5,8 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
     return (
         <div className="upload-post__post-area">
             <h1 className="upload-post__title">
-                <span>{'[' + postInfo.category + '] '}</span>
-                {postInfo.title}
+                <span>[{postInfo.category.length === 0 ? '카테고리' : postInfo.category}]</span>
+                {postInfo.title.length === 0 ? '제목을 입력해주세요.' : postInfo.title}
             </h1>
             <div className="upload-post__post">
                 {slide.map((el, idx) => {

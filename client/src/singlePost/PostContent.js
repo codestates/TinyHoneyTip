@@ -5,8 +5,6 @@ import { useRouter } from 'next/router';
 import Router from 'next/router';
 
 export default function PostContent({ userInfo, post }) {
-    // post detail page에서 header를 통해 로그인할 시 like dislike scrap이 바로 반영이 안되는 문제가 있긴함..
-    console.log(post);
     const router = useRouter();
     const { id } = router.query;
 
@@ -62,7 +60,7 @@ export default function PostContent({ userInfo, post }) {
         dislike: didIDisL(),
         scrap: amIScrapped(),
     });
-    console.log(feeling);
+
     const deleteFeelingHandler = (key) => {
         axios
             .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${post?.id}`, {

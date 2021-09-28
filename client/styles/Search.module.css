@@ -1,18 +1,20 @@
+.search_icon {
+    position: relative;
+    width: 3vw;
+    height: 3vw;
+}
 .search_box {
     padding: 0vw;
     position: absolute;
-    left: 80vw;
+    left: 75vw;
     top: 1vw;
     width: 4vw;
-    height: 2vw;
+    height: 3vw;
     transform: translate(-100%, -50%);
     border-radius: 10vw;
     transition: 0.4s;
 }
-.search_icon {
-    width: 2vw;
-    height: 2vw;
-}
+
 .search_box:hover {
     box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
     width: 25vw;
@@ -27,7 +29,7 @@
     float: left;
     margin-left: 1vw;
     font-size: 1.5vw;
-    line-height: 2vw;
+    line-height: 3vw;
     transition: 0.4s;
 }
 .search_box:hover > .search_txt {
@@ -46,55 +48,6 @@
     height: 3vw;
 }
 
-@media screen and (max-width: 1024px) {
-    .search_icon {
-        width: 2vw;
-        height: 2vw;
-    }
-    .search_box {
-        padding: 0vw;
-        position: absolute;
-        left: 80vw;
-        top: 1.5vw;
-        width: 4vw;
-        height: 3vw;
-        transform: translate(-100%, -50%);
-        border-radius: 10vw;
-        transition: 0.4s;
-    }
-    .search_box:hover {
-        box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
-        width: 25vw;
-    }
-    .search_txt {
-        display: absolute;
-        padding: 0vw;
-        width: 0px;
-        border: none;
-        background: none;
-        outline: none;
-        float: left;
-        margin-left: 1vw;
-        font-size: 1.5vw;
-        line-height: 3vw;
-        transition: 0.4s;
-    }
-    .search_box:hover > .search_txt {
-        width: 20vw;
-        padding: 0 0.6vw;
-    }
-
-    .search_container {
-        position: relative;
-        background-color: white;
-    }
-    .search_input {
-        position: absolute;
-        margin: -5.5vw 30vw;
-        width: 20vw;
-        height: 3vw;
-    }
-}
 @media screen and (max-width: 768px) {
     .search_icon {
         width: 3vw;
@@ -103,7 +56,7 @@
     .search_box {
         padding: 0vw;
         position: absolute;
-        left: 65vw;
+        left: 58vw;
         top: 1.5vw;
         width: 4vw;
         height: 3vw;
@@ -155,8 +108,9 @@
     .search_box {
         padding: 1vw;
         position: absolute;
-        left: 64vw;
-        width: 5vw;
+        left: 45vw;
+        top: 2vw;
+        width: 2vw;
         height: 5vw;
         transform: translate(-100%, -50%);
         border-radius: 10vw;
@@ -164,7 +118,7 @@
     }
     .search_box:hover {
         box-shadow: 0px 0px 0.05vw 0.1vw rgba(244, 193, 65, 0.8);
-        width: 25vw;
+        width: 35vw;
     }
     .search_txt {
         display: absolute;
@@ -180,10 +134,10 @@
         transition: 0.4s;
     }
     .search_txt::placeholder {
-        font-size: 0vw;
+        font-size: 1vw;
     }
     .search_box:hover > .search_txt {
-        width: 20vw;
+        width: 27vw;
         padding: 0 0.6vw;
     }
 

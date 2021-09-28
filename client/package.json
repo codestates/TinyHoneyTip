@@ -4,9 +4,10 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build && next export",
+        "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "prod": "next export"
     },
     "dependencies": {
         "acorn-dynamic-import": "^4.0.0",

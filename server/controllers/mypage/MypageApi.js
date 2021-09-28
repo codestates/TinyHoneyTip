@@ -18,6 +18,9 @@ module.exports = {
                         attributes: ['title', 'category', 'user_id', 'id'],
                         where: { user_id: Token.id },
                     });
+                    // .then(res => {
+                    //
+                    // })
 
                     let myPost = [];
                     let findPages = await post.findAll({

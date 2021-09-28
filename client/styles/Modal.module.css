@@ -4,144 +4,178 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(102, 102, 102, 0.5);
+    background: rgba(253, 242, 217, 1);
 }
 .Modal {
-    width: 50vw;
-    height: 56vw;
-    position: relative;
-    box-sizing: border-box;
-    margin: 5vw auto;
-    padding: 2vw;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    left: 0px;
+    top: 0px;
     background: rgba(244, 193, 65, 0.8);
-    border-radius: 3vw;
-    overflow-y: hidden;
+}
+.Modal_container {
+    border-radius: 20px;
+    width: 320px;
+    background-color: rgba(253, 242, 217, 1);
+    border: 1px solid rgb(219, 219, 219);
+    display: flex;
+    flex-direction: column;
 }
 .Modal_signup {
     overflow-y: auto;
-    width: 50vw;
-    height: 45vw;
-    position: relative;
-    box-sizing: border-box;
-    margin: 5vw auto;
-    padding: 2vw;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    left: 0px;
+    top: 0px;
     background: rgba(244, 193, 65, 0.8);
-    border-radius: 1vw;
-}
-.title {
-    left: 6vw;
-    position: relative;
-    font-size: 2vw;
 }
 .close_btn {
     background: none;
-    outline: none;
     border: none;
-    border-radius: 1vw;
+    margin: 20px;
+    right: 0px;
+    top: 0px;
     position: absolute;
-    left: 77%;
+    font-size: 20px;
+    z-index: 15;
 }
+.Modal_logo {
+    box-sizing: border-box;
+    font-size: 2em;
+    padding-top: 1em;
+    margin-block-start: 0.6em;
+    margin-block-end: 0.6em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: rgba(244, 193, 65, 1);
+    font-family: Lobster, cursive;
+}
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
 .label {
+    margin-left: 10px;
     font-weight: 600;
-    font-size: 1vw;
-    margin-bottom: 1vw;
+    font-size: 10px;
 }
 .checkmsg {
+    margin-left: 10px;
+    position: absolute;
+    color: red;
+    width: 266px;
     font-weight: 400;
-    margin: 0.3vw 1vw;
-    font-size: 1vw;
+    font-size: 0.5vw;
+}
+.input_cont {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 15px;
+    margin: 15px;
 }
 .input_container {
-    padding: 0 6vw;
-    margin-top: 1vw;
+    padding: 10px 0px;
+    display: block;
 }
 .signin_input {
-    font-size: 1.2vw;
-    border-radius: 1vw;
-    width: 100%;
-    height: 4vw;
-    border: 0.1vw solid #e5e5e5;
-    padding: 1vw 1vw;
-    outline: none;
+    border-radius: 10px;
+    padding: 10px 0px;
     box-sizing: border-box;
+    display: block;
+    width: 266px;
+    height: 32px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
+    margin: 3px;
 }
 .login_input::placeholder {
     color: #999999;
 }
 .signin_line {
-    padding: 0 6vw;
-    text-align: center;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
 }
 .signin_btn {
-    height: 5vw;
-    width: 100%;
-    font-size: 0.1vw;
-    display: relative;
+    background: rgba(244, 193, 65, 1);
+    color: black;
+    height: 30px;
+    border: none;
+    opacity: 1;
+    margin: 0.5em 1em;
+    padding: 0.25em 1em;
+    border-radius: 20px;
     cursor: pointer;
-    background-color: black;
-    color: rgba(244, 193, 65, 0.8);
-    outline: 0;
-    box-sizing: border-box;
-    border-radius: 1vw;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
 }
 .kakao_btn {
-    height: 5vw;
-    width: 100%;
-    font-size: 1.5vw;
-    display: relative;
+    background: rgba(244, 193, 65, 1);
+    color: black;
+    height: 30px;
+    border: none;
+    opacity: 1;
+    margin: 0.5em 1em;
+    padding: 0.25em 1em;
+    border-radius: 20px;
     cursor: pointer;
-    background-color: black;
-    color: rgba(244, 193, 65, 0.8);
-    text-align: center;
-    vertical-align: middle;
-    align-items: center;
-    box-sizing: border-box;
-    border-radius: 1vw;
 }
 .kakaoLogo {
     width: 1vw;
 }
-.modal_img_container {
-    padding: 0 6vw;
-}
+
 .modal_img {
-    border-radius: 2vw;
-    margin-top: 2vw;
-    width: 34vw;
-    height: 13vw;
+    border-radius: 20px;
+    margin-top: 20px;
+    width: 100%;
     position: relative;
 }
-
-.alert_container {
-    width: 50vw;
-    height: 15vw;
-    position: fixed;
-    top: 15vw;
-    left: 25vw;
-    box-sizing: border-box;
-    text-align: center;
-    background-color: white;
+.Signup_footer {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 0px;
+}
+.Convert_btn {
+    background: none;
     color: black;
-    border: 0.1vw solid black;
-    border-radius: 1vw;
+    text-decoration: underline;
+    height: 25px;
+    border: none;
 }
-.alert_box {
-    font-size: 2vw;
-    position: relative;
-    top: 3vw;
+.Convert_btn:hover {
+    color: red;
+    cursor: pointer;
 }
-.alert_btn {
-    font-size: 2vw;
-    position: relative;
-    top: 4vw;
-    outline: 0;
-    border: 0;
-    background-color: rgba(244, 193, 65, 0.8);
-}
-
+/* 
 @media screen and (min-width: 768px) {
     .Modal_back {
         position: fixed;
@@ -261,11 +295,11 @@
     }
     .alert_container {
         font-size: 1.5vw;
-        width: 30vw;
-        height: 10vw;
+        width: 20vw;
+        height: 8vw;
         position: fixed;
         top: 10vw;
-        left: 35vw;
+        left: 40vw;
         box-sizing: border-box;
         text-align: center;
         background-color: white;
@@ -274,12 +308,17 @@
         border-radius: 1vw;
     }
     .alert_box {
+        font-size: 1.2vw;
         position: relative;
-        top: 3vw;
+        top: 2vw;
     }
     .alert_btn {
+        font-size: 1vw;
+        border-radius: 1vw;
         position: relative;
-        top: 4vw;
+        width: 5vw;
+        height: 2vw;
+        top: 3vw;
         outline: 0;
         border: 0;
         background-color: rgba(244, 193, 65, 0.8);
@@ -404,11 +443,11 @@
     }
     .alert_container {
         font-size: 1.5vw;
-        width: 30vw;
-        height: 10vw;
+        width: 20vw;
+        height: 8vw;
         position: fixed;
         top: 10vw;
-        left: 35vw;
+        left: 40vw;
         box-sizing: border-box;
         text-align: center;
         background-color: white;
@@ -417,17 +456,19 @@
         border-radius: 1vw;
     }
     .alert_box {
+        font-size: 1.2vw;
         position: relative;
-        top: 3vw;
+        top: 2vw;
     }
     .alert_btn {
+        border-radius: 1vw;
         font-size: 1vw;
         width: 5vw;
         height: 2vw;
         position: relative;
-        top: 4vw;
+        top: 3vw;
         outline: 0;
         border: 0;
         background-color: rgba(244, 193, 65, 0.8);
     }
-}
+} */

@@ -1,0 +1,39 @@
+.Alert_back {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    position: fixed;
+    display: flex;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+}
+.Alert_container {
+    width: 220px;
+    height: 60px;
+    text-align: center;
+    background-color: rgba(253, 242, 217, 1);
+    color: black;
+    border: 0.1vw solid rgba(244, 193, 65, 0.8);
+    border-radius: 10px;
+}
+.Alert_box {
+    font-size: 14px;
+    position: relative;
+    top: 10px;
+}
+.Alert_btn {
+    font-size: 12px;
+    position: relative;
+    border-radius: 10px;
+    top: 15px;
+    outline: 0;
+    border: 0;
+    background-color: rgba(244, 193, 65, 0.8);
+}

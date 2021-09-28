@@ -5,10 +5,12 @@ import Select from './Select';
 import Search from './Search';
 import axios from 'axios';
 import Category from './Category';
+import Image from 'next/image';
+import signinPic from '../../public/18:8.png';
 
 export default function Thumbnail({ postList }) {
     const [itemIndex, setItemIndex] = useState(0);
-    const [post, setPost] = useState(postList.slice(0, 10));
+    const [post, setPost] = useState(postList.slice(0, 7));
     const [init, setInit] = useState(postList);
     const [input, setInput] = useState('');
 
@@ -18,8 +20,8 @@ export default function Thumbnail({ postList }) {
         let clientHeight = document.documentElement.clientHeight;
 
         if (scrollTop + clientHeight === scrollHeight) {
-            setItemIndex(itemIndex + 10);
-            setPost(post.concat(postList.slice(itemIndex + 10, itemIndex + 20)));
+            setItemIndex(itemIndex + 7);
+            setPost(post.concat(postList.slice(itemIndex + 7, itemIndex + 14)));
         }
     }, [itemIndex, post]);
 
@@ -44,58 +46,65 @@ export default function Thumbnail({ postList }) {
                 <div className={styles.post_list}>
                     {
                         post?.filter((el) => {
-                            return el.title.indexOf(input) > -1;
-                        })?.length !== 0
-                            ? post
-                                  ?.filter((el) => {
-                                      return el.title.indexOf(input) > -1;
-                                  })
-                                  .map((list) => {
-                                      return (
-                                          <div className={styles.post_item} key={list.id}>
-                                              <div className={styles.post_item_inner}>
-                                                  <div className={styles.best_item_header}>
-                                                      <Link href={`/post/${list?.id}`}>
-                                                          <a className={styles.header_image}>
-                                                              <img
-                                                                  className={styles.img_inner}
-                                                                  alt={list?.title}
-                                                                  src={list?.post_page[0]?.img}
-                                                              />
-                                                          </a>
-                                                      </Link>
-                                                      <div className={styles.post_desc}>
-                                                          <div className={styles.post_desc_title}>
-                                                              <Link href={`/post/${list?.id}`}>
-                                                                  <a className={styles.post_title_font}>
-                                                                      {list?.title}
-                                                                  </a>
-                                                              </Link>
-                                                          </div>
-                                                          <div className={styles.post_desc_text}>
-                                                              <Link href={`/post/${list?.id}`}>
-                                                                  <a className={styles.post_text}>
-                                                                      <div>{list?.post_page[0]?.content}</div>
-                                                                  </a>
-                                                              </Link>
-                                                          </div>
-                                                          <div className={styles.post_desc_category}>
-                                                              <a className={styles.post_category}>{list?.category}</a>
-                                                          </div>
-                                                          <div className={styles.post_desc_user}>
-                                                              <div className={styles.post_desc_userinfo}>
-                                                                  <div className={styles.post_author}>
-                                                                      💛 {list?.like?.length}
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      );
-                                  })
-                            : '검색 결과가 없습니다'
+                            return el?.title?.indexOf(input) > -1;
+                        })?.length !== 0 ? (
+                            post
+                                ?.filter((el) => {
+                                    return el.title.indexOf(input) > -1;
+                                })
+                                .map((list) => {
+                                    return (
+                                        <div className={styles.post_item} key={list.id}>
+                                            <div className={styles.post_item_inner}>
+                                                <div className={styles.best_item_header}>
+                                                    <Link href={`/post/${list?.id}`}>
+                                                        <a className={styles.header_image}>
+                                                            <img
+                                                                className={styles.img_inner}
+                                                                alt={list?.title}
+                                                                src={list?.post_page[0]?.img}
+                                                            />
+                                                        </a>
+                                                    </Link>
+                                                    <div className={styles.post_desc}>
+                                                        <div className={styles.post_desc_title}>
+                                                            <Link href={`/post/${list?.id}`}>
+                                                                <a className={styles.post_title_font}>{list?.title}</a>
+                                                            </Link>
+                                                        </div>
+                                                        <div className={styles.post_desc_text}>
+                                                            <Link href={`/post/${list?.id}`}>
+                                                                <a className={styles.post_text}>
+                                                                    <div>{list?.post_page[0]?.content}</div>
+                                                                </a>
+                                                            </Link>
+                                                        </div>
+                                                        <div className={styles.post_desc_category}>
+                                                            <a className={styles.post_category}>{list?.category}</a>
+                                                        </div>
+                                                        <div className={styles.post_desc_user}>
+                                                            <div className={styles.post_desc_userinfo}>
+                                                                <div className={styles.post_author}>
+                                                                    💛 {list?.like?.length}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                        ) : (
+                            <>
+                                <div className={styles.result}>
+                                    검색 결과가 없습니다.
+                                    <div className={styles.result_img}>
+                                        <Image src={signinPic} alt="sign in picture" />
+                                    </div>
+                                </div>
+                            </>
+                        )
                         // loading으로 변경 예정
                     }
                 </div>

@@ -14,12 +14,10 @@ module.exports = {
                 const Token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
-                    const findMyPost_container = await post_container
-                        .findAll({
-                            attributes: ['title', 'category', 'user_id', 'id'],
-                            where: { user_id: Token.id },
-                        })
-                        .then((res) => {});
+                    const findMyPost_container = await post_container.findAll({
+                        attributes: ['title', 'category', 'user_id', 'id'],
+                        where: { user_id: Token.id },
+                    });
 
                     let myPost = [];
                     let findPages = await post.findAll({
@@ -112,15 +110,15 @@ module.exports = {
                         });
                     }
 
-                    for (let id of alertScrapId) {
-                        alertScrapArr.push({
-                            title: id.title,
-                            userName: await User.findOne({
-                                where: { id: id.user_id }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
-                                attributes: ['username'],
-                            }),
-                        });
-                    }
+                    // for (let id of alertScrapId) {
+                    //     alertScrapArr.push({
+                    //         title: id.title,
+                    //         userName: await User.findOne({
+                    //             where: { id: id.user_id }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
+                    //             attributes: ['username'],
+                    //         }),
+                    //     });
+                    // }
 
                     // alert - like 시작
 

@@ -25,8 +25,6 @@ function MyApp({ Component, pageProps }) {
         profile_img: '',
     });
 
-    //console.log(userInfo);
-
     const loginHandler = (data) => {
         setUserInfo({
             ...userInfo,
@@ -41,7 +39,6 @@ function MyApp({ Component, pageProps }) {
     };
 
     const logoutHandler = () => {
-        // 서버에 요청 보내고 response 반영하여 userInfo 수정
         setUserInfo({
             ...userInfo,
             isLogin: false,

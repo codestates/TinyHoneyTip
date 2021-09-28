@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import pic from '/honeycomb.png';
-import userDeleteBtn from '/userDeleteBtn.png';
-import editPic from '/edit.png';
+// import pic from '/honeycomb.png';
+// import userDeleteBtn from '/userDeleteBtn.png';
+// import editPic from '/edit.png';
 import styles from '../styles/Tumbnail.module.css';
 import Link from 'next/link';
 

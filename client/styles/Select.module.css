@@ -1,7 +1,6 @@
 .select_container {
     position: relative;
     left: 70vw;
-    top: 0vw;
 }
 .select {
     width: 10vw;
@@ -9,9 +8,8 @@
 }
 @media screen and (max-width: 768px) {
     .select_container {
-        position: absolute;
-        left: 68vw;
-        top: 0vw;
+        position: relative;
+        left: 50vw;
     }
     .select {
         width: 15vw;
@@ -20,9 +18,9 @@
 }
 @media screen and (max-width: 425px) {
     .select_container {
-        position: absolute;
-        left: 70vw;
-        top: -1vw;
+        position: relative;
+        left: 46vw;
+        top: -0.5vw;
     }
     .select {
         width: 15vw;

@@ -86,6 +86,7 @@ export default function MyPage({ userInfo }) {
                         </div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
+
                             <Image
                                 onClick={editHandler}
                                 src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
@@ -102,6 +103,7 @@ export default function MyPage({ userInfo }) {
                                 width="7vw"
                                 height="5vw"
                             />
+
                         </button>
                         {editBtn ? (
                             <div className="my_user_infoBody">
@@ -245,6 +247,7 @@ export default function MyPage({ userInfo }) {
                 </div>
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
+
                 <Image
                     src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
                     alt="top-button"
@@ -252,6 +255,8 @@ export default function MyPage({ userInfo }) {
                     height="5vw"
                     unoptimized="false"
                 />
+
+
             </a>
         </>
     );

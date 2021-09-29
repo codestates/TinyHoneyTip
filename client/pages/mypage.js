@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
-// import editPic from '../public/edit.png';
 import styles from '../styles/Tumbnail.module.css';
 import Link from 'next/link';
 
@@ -55,7 +54,7 @@ export default function MyPage({ userInfo }) {
                         <div className="my_profile_img">{/*<Image src={newUserInfo.profile_img} /> */}</div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
-                            <Image onClick={editHandler} src="/edit.png" />
+                            <Image onClick={editHandler} src="/edit.png" layout="fill" />
                         </button>
                         {editBtn ? (
                             <div className="my_user_infoBody">
@@ -174,14 +173,7 @@ export default function MyPage({ userInfo }) {
                 </div>
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
-                <Image
-                    loader={() => 'https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png'}
-                    src={pic}
-                    alt="top-button"
-                    width="7vw"
-                    height="5vw"
-                    unoptimized="true"
-                />
+                <Image src={pic} alt="top-button" width="7vw" height="5vw" unoptimized="true" />
             </a>
         </>
     );

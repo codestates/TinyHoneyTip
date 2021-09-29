@@ -5,7 +5,7 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        console.log('쿠키' + req.cookies.accessToken);
+        // console.log('쿠키' + req.cookies.accessToken);
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
@@ -20,37 +20,47 @@ module.exports = {
                     });
 
                     let myPost = [];
-                    let findPages = await post.findAll({
-                        attributes: ['id', 'content', 'img', 'post_id'],
-                    });
-                    let findScraps = await scrap.findAll({
-                        attributes: ['id', 'user_id', 'post_id'],
-                    });
-                    let findComments = await comment.findAll({
-                        attributes: ['user_id', 'txt', 'post_id'],
-                    });
-                    let findLikes = await like.findAll({
-                        attributes: ['user_id', 'post_id'],
-                    });
+
                     for (let el of findMyPost_container) {
                         myPost.push({
                             id: el.id,
                             title: el.title,
                             category: el.category,
-                            post_page: findPages.filter((page) => {
-                                return page.post_id === el.id;
+                            post_page: await post.findOne({
+                                attributes: ['id', 'content', 'img', 'post_id'],
+                                where: { post_id: el.id },
                             }),
-                            like: findLikes.filter((like) => {
-                                return like.post_id === el.id;
+                            like: await like
+                                .findOne({
+                                    attributes: ['user_id'],
+                                    where: { post_id: el.id },
+                                })
+                                .then((res) =>
+                                    User.findOne({
+                                        attributes: ['username'],
+                                        where: res.user_id,
+                                    }),
+                                ),
+                            scrap: await scrap.findOne({
+                                attributes: ['user_id'],
+                                where: { post_id: el.id },
                             }),
-                            scrap: findScraps.filter((scrap) => {
-                                return scrap.post_id === el.id;
-                            }),
-                            comment: findComments.filter((comment) => {
-                                return comment.post_id === el.id;
-                            }),
+
+                            comment: await comment
+                                .findOne({
+                                    attributes: ['user_id', 'txt'],
+                                    where: { post_id: el.id },
+                                })
+                                .then((res) => {
+                                    console.log('왜이래');
+                                    User.findOne({
+                                        attributes: ['username'],
+                                        where: res.user_id,
+                                    });
+                                }),
                         });
                     }
+
                     //console.log('마이포스트!!!', myPost[0]);
                     // ------------------마이포스트 끝!!  마이스크랩 시작!!---------------------
 
@@ -69,7 +79,7 @@ module.exports = {
                         });
                         scrapPost_c.push(postContainer);
                     }
-                    console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
+                    // console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
                     const myScrap = [];
                     for (let el of scrapPost_c) {
                         myScrap.push({

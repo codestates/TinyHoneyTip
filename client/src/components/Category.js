@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 
 export default function Category({ setPost, init }) {
     const [isClick, setClick] = useState(false);
-    const categories = ['전체', '건강', '운동', '생활', '동물', '쇼핑', '휴지통'];
+    const categories = ['🐝 전체', '💪 건강', '🏋️‍♀️ 운동', '💡 생활', '🐾 동물', '💸 쇼핑', '☠️휴지통'];
 
     const categoryHandler = (e) => {
-        if (e.target.innerText === '전체') {
+        if (e.target.innerText.indexOf('전체') > -1) {
             setPost(init);
             return;
         } else {
             const filteredData = init.filter((el) => {
-                return el.category === e.target.innerText;
+                return e.target.innerText.indexOf(el.category) > -1;
             });
             setPost(filteredData);
         }
@@ -32,10 +32,7 @@ export default function Category({ setPost, init }) {
                                     return (
                                         <div onClick={(e) => categoryHandler(e)} key={cate}>
                                             <button className="nav_items" onClick={(e) => categoryHandler(e)}>
-                                                <div className="category">
-                                                    <img className="cate_icon" alt={cate} src="" />
-                                                    {cate}
-                                                </div>
+                                                <div className="category">{cate}</div>
                                             </button>
                                         </div>
                                     );

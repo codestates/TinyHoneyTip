@@ -58,7 +58,7 @@ export default function Signup({
         } else {
             axios
                 .post(
-                    'http://localhost:80/signup',
+                    `${process.env.NEXT_PUBLIC_URL}/signup`,
                     {
                         email: signupInfo.email,
                         password: signupInfo.password,

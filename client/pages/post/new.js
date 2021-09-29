@@ -130,8 +130,6 @@ export default function PostUpload({ userInfo }) {
 
         setFormData(formData, data);
 
-        // console.log(formData);
-
         // const arrQueryString = [];
         // for (let pair of formData.entries()) {
         //     console.log(`${pair[0]} = ${pair[1]}`);

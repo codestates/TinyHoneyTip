@@ -55,12 +55,12 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
                 <h1 className="header__logo">Tiny Honey Tip</h1>
             </Link>
             <div className="header__menu__btn" onClick={menuHandler}>
-                <Image
+                {/* <Image
                     loader={() => 'https://img.icons8.com/material-outlined/48/000000/menu--v1.png'}
                     src="https://img.icons8.com/material-outlined/48/000000/menu--v1.png"
                     layout="fill"
                     alt="header menu"
-                />
+                /> */}
             </div>
             {userInfo && userInfo.isLogin ? (
                 <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>

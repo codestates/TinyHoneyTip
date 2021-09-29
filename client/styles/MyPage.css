@@ -1,114 +1,367 @@
-.my_wrapper {
-    position: relative;
-    padding: 8vw 0 5vw 0;
-    color: #666;
-    background-color: rgba(253, 242, 217, 1);
-    list-style: none;
+@media screen and (min-width: 1024px) {
+    .my_wrapper {
+        position: relative;
+        padding: 8vw 0 5vw 0;
+        color: #666;
+        background-color: rgba(253, 242, 217, 1);
+        list-style: none;
+    }
+    /* ------------------ side bar / user information 시작 ------------------------------------ */
+    .my_side_bar {
+        margin: 0 5vw 0 8vw;
+        padding: 2vw;
+        width: 25vw;
+        height: 50vw;
+        border: 10px solid rgba(244, 193, 65, 0.8);
+        border-radius: 1.5vw;
+        position: relative;
+    }
+
+    .my_info {
+        border-bottom: 5px dotted #f4c141;
+        position: absolute;
+        margin: auto;
+        width: 20vw;
+        padding-bottom: 3vw;
+    }
+
+    .my_user_name {
+        margin: 2vw auto;
+        text-align: center;
+    }
+
+    .my_profile_img {
+        width: 15vw;
+        height: 15vw;
+        margin: auto;
+        border-radius: 7%;
+        background-color: #f4c141;
+    }
+
+    .edit_my_profile {
+        width: 3vw;
+        height: 3vw;
+        background-color: rgba(253, 242, 217, 1);
+        border: none;
+        position: absolute;
+        right: 0vw;
+        bottom: 3.5vw;
+    }
+
+    .edit_my_profile:hover {
+        cursor: pointer;
+    }
+
+    /* -------------------- alert 시작 ---------------------- */
+
+    #my_alert {
+        width: 20vw;
+        height: 20vw;
+        margin: auto;
+        background-color: #fff;
+        position: absolute;
+        bottom: 2vw;
+    }
+
+    .alert_scrap_list,
+    .alert_like_list {
+        overflow: scroll;
+    }
+
+    /* ------------------- mypost / myscrap 시작 --------------------------- */
+
+    .my_Allpost_wrapper {
+        background-color: rgba(244, 193, 65, 0.8);
+        width: 58vw;
+        height: 50vw;
+        position: absolute;
+        top: 8vw;
+        right: 5vw;
+        overflow: scroll;
+        padding: 2vw;
+        border-radius: 1.5vw;
+        border: 10px solid rgba(244, 193, 65, 0.2);
+    }
+
+    .my_post_container,
+    .my_scrap_container {
+        width: 54vw;
+        height: 30vw;
+        background-color: rgba(253, 242, 217, 1);
+        border-radius: 1.5vw;
+        margin: 2vw auto;
+        padding: 2vw;
+        overflow: scroll;
+        display: grid;
+        grid-gap: 2vw;
+        grid-template-columns: repeat(5, 15vw);
+    }
+
+    .my_post,
+    .my_scrap {
+        color: #fff;
+        font-size: 2vw;
+        text-align: center;
+    }
+
+    .my_post_item {
+        top: 10vw;
+        display: block;
+        height: 25vw;
+        width: 15vw;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+        transition: all 0.15s;
+    }
+
+    .my_post_item:hover {
+        background-color: transparent;
+        border: 0.2vw dashed black;
+    }
 }
-/* ------------------ side bar / user information 시작 ------------------------------------ */
-.my_side_bar {
-    margin: 0 5vw 0 8vw;
-    padding: 2vw;
-    width: 25vw;
-    height: 50vw;
-    border: 10px solid rgba(244, 193, 65, 0.8);
-    border-radius: 5vw;
-    position: relative;
+
+/* tablet */
+@media screen and (min-width: 768px) {
+    .my_wrapper {
+        position: relative;
+        padding: 8vw 0 5vw 0;
+        color: #666;
+        background-color: rgba(253, 242, 217, 1);
+        list-style: none;
+    }
+    /* ------------------ side bar / user information 시작 ------------------------------------ */
+    .my_side_bar {
+        margin: 0 5vw 0 8vw;
+        padding: 2vw;
+        width: 25vw;
+        height: 50vw;
+        border: 10px solid rgba(244, 193, 65, 0.8);
+        border-radius: 1.5vw;
+        position: relative;
+    }
+
+    .my_info {
+        border-bottom: 5px dotted #f4c141;
+        position: absolute;
+        margin: auto;
+        width: 20vw;
+        padding-bottom: 3vw;
+    }
+
+    .my_user_name {
+        margin: 2vw auto;
+        text-align: center;
+    }
+
+    .my_profile_img {
+        width: 15vw;
+        height: 15vw;
+        margin: auto;
+        border-radius: 7%;
+        background-color: #f4c141;
+    }
+
+    .edit_my_profile {
+        width: 3vw;
+        height: 3vw;
+        background-color: rgba(253, 242, 217, 1);
+        border: none;
+        position: absolute;
+        right: 0vw;
+        bottom: 3.5vw;
+    }
+
+    .edit_my_profile:hover {
+        cursor: pointer;
+    }
+
+    /* -------------------- alert 시작 ---------------------- */
+
+    #my_alert {
+        width: 20vw;
+        height: 20vw;
+        margin: auto;
+        background-color: #fff;
+        position: absolute;
+        bottom: 2vw;
+    }
+
+    .alert_scrap_list,
+    .alert_like_list {
+        overflow: scroll;
+    }
+
+    /* ------------------- mypost / myscrap 시작 --------------------------- */
+
+    .my_Allpost_wrapper {
+        background-color: rgba(244, 193, 65, 0.8);
+        width: 58vw;
+        height: 50vw;
+        position: absolute;
+        top: 8vw;
+        right: 5vw;
+        overflow: scroll;
+        padding: 2vw;
+        border-radius: 1.5vw;
+        border: 10px solid rgba(244, 193, 65, 0.2);
+    }
+
+    .my_post_container,
+    .my_scrap_container {
+        width: 54vw;
+        height: 30vw;
+        background-color: rgba(253, 242, 217, 1);
+        border-radius: 1.5vw;
+        margin: 2vw auto;
+        padding: 2vw;
+        overflow: scroll;
+        display: grid;
+        grid-gap: 2vw;
+        grid-template-columns: repeat(5, 15vw);
+    }
+
+    .my_post,
+    .my_scrap {
+        color: #fff;
+        font-size: 2vw;
+        text-align: center;
+    }
+
+    .my_post_item {
+        top: 10vw;
+        display: block;
+        height: 25vw;
+        width: 15vw;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+        transition: all 0.15s;
+    }
+
+    .my_post_item:hover {
+        background-color: transparent;
+        border: 0.2vw dashed black;
+    }
 }
 
-.my_info {
-    border-bottom: 5px dotted #f4c141;
-    position: absolute;
-    margin: auto;
-    width: 20vw;
-    padding-bottom: 3vw;
-}
+/* mobile */
+@media screen and (max-width: 425px) {
+    .my_wrapper {
+        position: relative;
+        padding: 9vw 0 5vw 0;
+        color: #666;
+        background-color: rgba(253, 242, 217, 1);
+        list-style: none;
+    }
+    /* ------------------ side bar / user information 시작 ------------------------------------ */
+    .my_side_bar {
+        margin: 0 5vw 0 8vw;
+        padding: 2vw;
+        width: 25vw;
+        height: 50vw;
+        border: 10px solid rgba(244, 193, 65, 0.8);
+        border-radius: 1.5vw;
+        position: relative;
+    }
 
-.my_user_name {
-    margin: 2vw auto;
-    text-align: center;
-}
+    .my_info {
+        border-bottom: 5px dotted #f4c141;
+        position: absolute;
+        margin: auto;
+        width: 20vw;
+        padding-bottom: 3vw;
+    }
 
-.my_profile_img {
-    width: 15vw;
-    height: 15vw;
-    margin: auto;
-    border-radius: 20%;
-    background-color: #f4c141;
-}
+    .my_user_name {
+        margin: 2vw auto;
+        text-align: center;
+    }
 
-.edit_my_profile {
-    width: 3vw;
-    height: 3vw;
-    background-color: rgba(253, 242, 217, 1);
-    border: none;
-    position: absolute;
-    right: 0vw;
-    bottom: 3.5vw;
-}
+    .my_profile_img {
+        width: 15vw;
+        height: 15vw;
+        margin: auto;
+        border-radius: 7%;
+        background-color: #f4c141;
+    }
 
-.edit_my_profile:hover {
-    cursor: pointer;
-}
+    .edit_my_profile {
+        width: 3vw;
+        height: 3vw;
+        background-color: rgba(253, 242, 217, 1);
+        border: none;
+        position: absolute;
+        right: 0vw;
+        bottom: 3.5vw;
+    }
 
-/* -------------------- alert 시작 ---------------------- */
+    .edit_my_profile:hover {
+        cursor: pointer;
+    }
 
-#my_alert {
-    width: 20vw;
-    height: 20vw;
-    margin: auto;
-    background-color: #fff;
-    position: absolute;
-    bottom: 2vw;
-}
+    /* -------------------- alert 시작 ---------------------- */
 
-.alert_scrap_list,
-.alert_like_list {
-    overflow: scroll;
-}
+    #my_alert {
+        width: 20vw;
+        height: 20vw;
+        margin: auto;
+        background-color: #fff;
+        position: absolute;
+        bottom: 2vw;
+    }
 
-/* ------------------- mypost / myscrap 시작 --------------------------- */
+    .alert_scrap_list,
+    .alert_like_list {
+        overflow: scroll;
+    }
 
-.my_Allpost_wrapper {
-    background-color: rgba(244, 193, 65, 0.8);
-    width: 58vw;
-    height: 50vw;
-    position: absolute;
-    top: 8vw;
-    right: 5vw;
-    overflow: scroll;
-    padding: 2vw;
-    border-radius: 5vw;
-    border: 10px solid rgba(244, 193, 65, 0.2);
-}
+    /* ------------------- mypost / myscrap 시작 --------------------------- */
 
-.my_post_container,
-.my_scrap_container {
-    width: 54vw;
-    height: 30vw;
-    background-color: rgba(253, 242, 217, 1);
-    border-radius: 5vw;
-    margin: 2vw auto;
-    padding: 2vw;
-    overflow: scroll;
-    display: grid;
-    grid-gap: 2vw;
-    grid-template-columns: repeat(5, 15vw);
-}
+    .my_Allpost_wrapper {
+        background-color: rgba(244, 193, 65, 0.8);
+        width: 58vw;
+        height: 50vw;
+        position: absolute;
+        top: 8vw;
+        right: 5vw;
+        overflow: scroll;
+        padding: 2vw;
+        border-radius: 1.5vw;
+        border: 10px solid rgba(244, 193, 65, 0.2);
+    }
 
-.my_post,
-.my_scrap {
-    color: #fff;
-    font-size: 2vw;
-    text-align: center;
-}
+    .my_post_container,
+    .my_scrap_container {
+        width: 54vw;
+        height: 30vw;
+        background-color: rgba(253, 242, 217, 1);
+        border-radius: 1.5vw;
+        margin: 2vw auto;
+        padding: 2vw;
+        overflow: scroll;
+        display: grid;
+        grid-gap: 2vw;
+        grid-template-columns: repeat(5, 15vw);
+    }
 
-.my_post_item {
-    top: 10vw;
-    display: block;
-    height: 25vw;
-    width: 15vw;
-    background: rgba(244, 193, 65, 0.8);
-    border-radius: 1vw;
-    transition: all 0.15s;
+    .my_post,
+    .my_scrap {
+        color: #fff;
+        font-size: 2vw;
+        text-align: center;
+    }
+
+    .my_post_item {
+        top: 10vw;
+        display: block;
+        height: 25vw;
+        width: 15vw;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+        transition: all 0.15s;
+    }
+
+    .my_post_item:hover {
+        background-color: transparent;
+        border: 0.2vw dashed black;
+    }
 }

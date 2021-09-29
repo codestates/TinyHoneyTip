@@ -19,7 +19,11 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/ ' });
 
 post.get('/', getpostlist);
+<<<<<<< HEAD
+//post.post('/', upload.singgle('image'), uploadpost);
+=======
 post.post('/', upload.single('image'), uploadpost);
+>>>>>>> fca1c0d49d8f0dbce5e29a3f7ffefbc02a313a66
 post.get('/:id', getpostdetail);
 post.patch('/:id', editpost);
 post.delete('/:id', deletepost);

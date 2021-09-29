@@ -151,6 +151,7 @@ module.exports = {
                     // }
 
                     console.log('성공');
+
                     res.status(200).json({
                         message: 'ok',
                         data: {

@@ -13,9 +13,8 @@
 }
 
 .header__logo {
-    font-family: 'Lobster', cursive;
+    position: relative;
     cursor: pointer;
-    white-space: nowrap;
 }
 
 .header__btn {
@@ -308,9 +307,9 @@ html {
     }
 
     .header__logo {
-        font-size: 26px;
-        margin-left: 10px;
-        cursor: pointer;
+        margin-left: 15px;
+        width: 160px;
+        height: 60.7px;
     }
 
     .header__menu__btn {
@@ -346,6 +345,7 @@ html {
     /* footer */
 
     .footer {
+        width: 100vw;
         justify-content: space-between;
         padding: 35px 70px 35px 70px;
         gap: 5vw;
@@ -481,9 +481,9 @@ html {
     }
 
     .header__logo {
-        font-size: 30px;
-        margin-left: 20px;
-        cursor: pointer;
+        margin-left: 15px;
+        width: 180px;
+        height: 68.3px;
     }
 
     .header__btns {
@@ -499,6 +499,7 @@ html {
     /* footer */
 
     .footer {
+        width: 100vw;
         justify-content: center;
         padding: 50px;
         gap: 28vw;
@@ -547,6 +548,10 @@ html {
 
     .landing__section {
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 16vw;
+        padding-left: 16vw;
     }
 
     .landing__section:first-child {
@@ -554,7 +559,7 @@ html {
     }
 
     .landing__section1__title {
-        font-size: 50px;
+        font-size: 60px;
         margin-bottom: 30px;
     }
 
@@ -563,7 +568,7 @@ html {
     }
 
     .landing__section1__p {
-        font-size: 20px;
+        font-size: 30px;
         margin-bottom: 25px;
     }
 
@@ -577,9 +582,8 @@ html {
     }
 
     .landing__section1__pic-div {
-        width: 220px;
-        height: 220px;
-        margin-left: 10px;
+        width: 290px;
+        height: 290px;
     }
 
     .top-btn {
@@ -630,30 +634,35 @@ html {
 
     /* landing page */
 
+    .landing__section {
+        padding-right: 20vw;
+        padding-left: 20vw;
+    }
+
     .landing__section1__title {
-        font-size: 56px;
+        font-size: 70px;
         margin-bottom: 36px;
     }
 
     .landing__section1__text {
-        width: 450px;
+        width: 480px;
     }
 
     .landing__section1__p {
-        font-size: 24px;
+        font-size: 32px;
         margin-bottom: 36px;
     }
 
     .landing__start-btn {
-        font-size: 24px;
-        width: 220px;
-        height: 50px;
+        font-size: 32px;
+        width: 260px;
+        height: 60px;
     }
 
     .landing__section1__pic-div {
-        width: 260px;
-        height: 260px;
-        margin-left: 10px;
+        width: 450px;
+        height: 450px;
+        margin-left: auto;
     }
 
     .top-btn {
@@ -674,11 +683,11 @@ html {
 
     .landing__section2__slide,
     .landing__section3__slide {
-        width: 380px;
+        width: 450px;
     }
 
     .landing__section2__slide ul li,
     .landing__section3__slide li {
-        height: 230px;
+        height: 280px;
     }
 }

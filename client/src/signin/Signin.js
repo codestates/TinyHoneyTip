@@ -34,7 +34,7 @@ export default function Signin({
         } else {
             axios
                 .post(
-                    'http://localhost:80/signin',
+                    `${process.env.NEXT_PUBLIC_URL}/signin`,
                     {
                         email: loginInfo.email,
                         password: loginInfo.password,
@@ -104,7 +104,7 @@ export default function Signin({
                         <div className={styles.Modal}>
                             <div className={styles.Modal_container}>
                                 <h1 className={styles.Modal_logo}>Tiny Honey Tip</h1>
-                                <h2 className={styles.title}>Sign Up</h2>
+                                <h2 className={styles.title}>Sign In</h2>
                                 <div className={styles.input_cont}>
                                     <div className={styles.input_container}>
                                         <div className={styles.label}>Email</div>

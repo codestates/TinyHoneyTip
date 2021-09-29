@@ -1,9 +1,11 @@
 const { User, post_container, scrap, post, like, comment } = require('../../models');
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
+        console.log(req);
         console.log('쿠키' + req.cookies.accessToken);
         const accessToken = req.cookies.accessToken;
         try {
@@ -51,7 +53,7 @@ module.exports = {
                         });
                     }
                     //console.log('마이포스트!!!', myPost[0]);
-                    // ------------------마이포스트 끝!!  마이스크랩 시작!!-----------------------------------------------------------------------------------------------------------
+                    // ------------------마이포스트 끝!!  마이스크랩 시작!!---------------------
 
                     const findScrap = await scrap.findAll({
                         where: { user_id: Token.id },
@@ -90,13 +92,75 @@ module.exports = {
                         });
                     }
 
+                    // alert - scrap 시작
+                    // const alertScrapArr = [];
+                    // const alertScrapId = [];
+                    // for (let el of findMyPost_container) {
+                    //     alertScrapId.push({
+                    //         userId: await scrap.findAll({
+                    //             where: {
+                    //                 post_id: el.id,
+                    //             },
+                    //             createdAt: {
+                    //                 [Op.lt]: new Date(),
+                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                    //             },
+                    //             attributes: ['user_id'],
+                    //         }),
+                    //         title: el.title,
+                    //     });
+                    // }
+
+                    // for (let id of alertScrapId) {
+                    //     alertScrapArr.push({
+                    //         title: id.title,
+                    //         userName: await User.findOne({
+                    //             where: { id: id.user_id }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
+                    //             attributes: ['username'],
+                    //         }),
+                    //     });
+                    // }
+
+                    // // alert - like 시작
+
+                    // const alertLikeArr = [];
+                    // const alertLikeId = [];
+                    // for (let el of findMyPost_container) {
+                    //     alertLikeId.push({
+                    //         userId: await like.findAll({
+                    //             where: {
+                    //                 post_id: el.id,
+                    //             },
+                    //             createdAt: {
+                    //                 [Op.lt]: new Date(),
+                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                    //             },
+                    //             attributes: ['user_id'],
+                    //         }),
+                    //         title: el.title,
+                    //     });
+                    // }
+
+                    // for (let id of alertLikeId) {
+                    //     alertLikeArr.push({
+                    //         title: id.title,
+                    //         userName: await User.findOne({
+                    //             where: { id: id.user_id },
+                    //             attributes: ['username'],
+                    //         }),
+                    //     });
+                    // }
+
                     console.log('성공');
                     res.status(200).json({
                         message: 'ok',
                         data: {
                             myPost: myPost,
                             myScrap: myScrap,
-                            alert: '',
+                            // alert: {
+                            //     scrap: alertScrapArr,
+                            //     like: alertLikeArr,
+                            // },
                         },
                     });
                 }

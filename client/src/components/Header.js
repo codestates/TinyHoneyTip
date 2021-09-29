@@ -52,10 +52,7 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
     return (
         <div className="header">
             <Link href="/content" passHref>
-                {/* <h1 className="header__logo">Tiny Honey Tip</h1> */}
-                <div className="header__logo">
-                    <Image src="/tht_logo.png" layout="fill" alt="Tiny Honey Tip" />
-                </div>
+                <h1 className="header__logo">Tiny Honey Tip</h1>
             </Link>
             <div className="header__menu__btn" onClick={menuHandler}>
                 <Image
@@ -63,7 +60,6 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
                     src="https://img.icons8.com/material-outlined/48/000000/menu--v1.png"
                     layout="fill"
                     alt="header menu"
-                    unoptimized="true"
                 />
             </div>
             {userInfo && userInfo.isLogin ? (

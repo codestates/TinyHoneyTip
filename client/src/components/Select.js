@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Select.module.css';
 
 export default function Select({ post, setPost }) {
-    console.log(post, 'select');
     const selectHandler = (e) => {
         if (e.target.value === 'title') {
             sortedTitle();
@@ -54,7 +53,6 @@ export default function Select({ post, setPost }) {
             }),
         );
     };
-    // console.log(postList, 'select');
     return (
         <>
             <div className={styles.select_container}>

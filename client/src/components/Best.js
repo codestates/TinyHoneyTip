@@ -18,15 +18,15 @@ export default function Best({ bestList }) {
                                         <div className="best_item_inner">
                                             <div className="best_item_header">
                                                 <Link href={`/post/${best?.id}`}>
-                                                    <a className="header_image">
-                                                        <a className="img_inner">
+                                                    <div className="header_image">
+                                                        <div className="img_inner">
                                                             <Image
                                                                 alt={best?.title}
                                                                 layout="fill"
                                                                 src={best?.post_page[0]?.img}
                                                             />
-                                                        </a>
-                                                    </a>
+                                                        </div>
+                                                    </div>
                                                 </Link>
                                                 <div className="best_desc">
                                                     <div className="best_desc_title">

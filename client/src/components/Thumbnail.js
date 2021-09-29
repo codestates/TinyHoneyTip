@@ -56,27 +56,29 @@ export default function Thumbnail({ postList }) {
                                             <div className={styles.post_item_inner}>
                                                 <div className={styles.best_item_header}>
                                                     <Link href={`/post/${list?.id}`}>
-                                                        <a className={styles.header_image}>
-                                                            <a className={styles.img_inner}>
+                                                        <div className={styles.header_image}>
+                                                            <div className={styles.img_inner}>
                                                                 <Image
                                                                     layout="fill"
                                                                     alt={list?.title}
                                                                     src={list?.post_page[0]?.img}
                                                                 />
-                                                            </a>
-                                                        </a>
+                                                            </div>
+                                                        </div>
                                                     </Link>
                                                     <div className={styles.post_desc}>
                                                         <div className={styles.post_desc_title}>
                                                             <Link href={`/post/${list?.id}`}>
-                                                                <a className={styles.post_title_font}>{list?.title}</a>
+                                                                <div className={styles.post_title_font}>
+                                                                    {list?.title}
+                                                                </div>
                                                             </Link>
                                                         </div>
                                                         <div className={styles.post_desc_text}>
                                                             <Link href={`/post/${list?.id}`}>
-                                                                <a className={styles.post_text}>
+                                                                <div className={styles.post_text}>
                                                                     <div>{list?.post_page[0]?.content}</div>
-                                                                </a>
+                                                                </div>
                                                             </Link>
                                                         </div>
                                                         <div className={styles.post_desc_category}>

@@ -19,10 +19,11 @@ export default function MyPage({ userInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log(newUserInfo);
+                console.log(res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
                 setAlert(res.data.data.alert);
+                console.log(newUserInfo);
             })
             .catch((err) => {
                 return console.log('오류입니다!', err);
@@ -30,8 +31,10 @@ export default function MyPage({ userInfo }) {
     }
 
     useEffect(() => {
-        console.log(userInfo);
-        getMyPage();
+        if (newUserInfo) {
+            getMyPage();
+            console.log('왜이래래애ㅐ앤', newUserInfo);
+        }
     }, []);
 
     function editMyPage() {
@@ -68,17 +71,14 @@ export default function MyPage({ userInfo }) {
             });
     };
 
-    // const myLoader = ({ src, width, quality }) => {
-    //     return `cdn.discordapp.com/${src}?w=${width}&q=${quality || 75}`;
-    // };
-
     return (
         <>
             <div className="my_wrapper">
                 <div className="my_side_bar">
                     <div className="my_info">
                         <div className="my_profile_img">
-                            {newUserInfo.profile_img ? <Image src={newUserInfo.profile_img} /> : null}
+                            <Image src={newUserInfo.profile_img} alt="profile_image" />
+                            {console.log('에러1')}
                         </div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
@@ -121,8 +121,8 @@ export default function MyPage({ userInfo }) {
                     <div id="my_alert">
                         <h3 id="my_alert_title"></h3>
                         <ul className="alert_scrap_list">
-                            {alert.scrap !== [{ title: '', userName: '' }]
-                                ? alert.scrap.map((el) => {
+                            {alert?.scrap !== [{ title: '', userName: '' }]
+                                ? alert?.scrap.map((el) => {
                                       <li className="alert_scrap_item">
                                           {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 스크랩했습니다.
                                       </li>;
@@ -130,8 +130,8 @@ export default function MyPage({ userInfo }) {
                                 : '알림이 없습니다.'}
                         </ul>
                         <ul className="alert_like_list">
-                            {alert.like !== [{ title: '', userName: '' }]
-                                ? alert.like.map((el) => {
+                            {alert?.like !== [{ title: '', userName: '' }]
+                                ? alert?.like.map((el) => {
                                       <li className="alert_like_item">
                                           {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 좋아합니다.
                                       </li>;
@@ -152,13 +152,14 @@ export default function MyPage({ userInfo }) {
                                                 <div className={styles.post_overlay}></div>
                                             </div>
                                             <div className={styles.best_item_header}>
-                                                <Link href={`/post/${el.id}`}>
+                                                <Link href={`/post/${el?.id}`}>
                                                     <a className={styles.header_image}>
                                                         <Image
                                                             className={styles.img_inner}
                                                             alt={el?.title}
-                                                            src={el?.post_page[0].img}
+                                                            src={el?.post_page[0]?.img}
                                                         />
+                                                        {console.log('에러2')}
                                                     </a>
                                                 </Link>
                                                 <div className={styles.post_desc}>
@@ -170,7 +171,7 @@ export default function MyPage({ userInfo }) {
                                                     <div className={styles.post_desc_text}>
                                                         <Link href={`/post/${el?.id}`}>
                                                             <a className={styles.post_text}>
-                                                                {el?.post_page[0].content}
+                                                                {el?.post_page[0]?.content}
                                                             </a>
                                                         </Link>
                                                     </div>
@@ -207,8 +208,9 @@ export default function MyPage({ userInfo }) {
                                                     <Image
                                                         className={styles.img_inner}
                                                         alt={el?.title}
-                                                        src={el?.post_page[0].img}
+                                                        src={el?.post_page[0]?.img}
                                                     />
+                                                    {console.log('에러3')}
                                                 </a>
                                             </Link>
                                             <div className={styles.post_desc}>
@@ -241,6 +243,7 @@ export default function MyPage({ userInfo }) {
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
                 <Image src={pic} alt="top-button" width="7vw" height="5vw" />
+                {console.log('에러4')}
             </a>
         </>
     );

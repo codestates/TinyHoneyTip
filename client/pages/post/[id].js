@@ -3,9 +3,6 @@ import axios from 'axios';
 import Post from '../../src/components/Post';
 
 export default function Id({ post, userInfo }) {
-    // 로그인할 때 로컬 스토리지에 저장하고 아래 getServerSideProps에서 불러보기(혹은 session)
-    // https://stackoverflow.com/questions/62474098/get-localstorage-in-nextjs-getinitialprops
-    console.log(post);
     return <Post userInfo={userInfo} post={post} />;
 }
 

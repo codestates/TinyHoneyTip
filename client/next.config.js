@@ -1,6 +1,9 @@
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
+    images: {
+        domains: ['cdn.discordapp.com'],
+    },
     reactStrictMode: true,
     node: {
         fs: 'empty',
@@ -12,4 +15,5 @@ module.exports = {
 
         return config;
     },
+    // future: { webpack5: true },
 };

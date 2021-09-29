@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 
@@ -6,10 +6,13 @@ import UploadPostContent from '../../../src/post/PostContent';
 import ToolBar from '../../../src/post/ToolBar';
 
 export default function Id({ post, userInfo }) {
-    // 작성자가 아닌경우 content페이지로 보낼것(isNotWriter 함수)
-
-    // 로그인할 때 로컬 스토리지에 저장하고 아래 getServerSideProps에서 불러보기(혹은 session)
-    // https://stackoverflow.com/questions/62474098/get-localstorage-in-nextjs-getinitialprops
+    useEffect(() => {
+        if (!userInfo.isLogin) {
+            Router.push('/content');
+        } else if (userInfo.id !== post.writerInfo.id) {
+            Router.push(`/content`);
+        }
+    });
 
     const [slide, setSlide] = useState(post.post_page);
 
@@ -19,12 +22,6 @@ export default function Id({ post, userInfo }) {
         title: post.title,
         category: post.category,
     });
-
-    const isNotWriter = () => {
-        if (userInfo.id !== post.writerInfo.id) {
-            Router.push(`/content`);
-        }
-    };
 
     const slideTextHandler = (index, key) => (e) => {
         if (key === 'content') {
@@ -70,8 +67,6 @@ export default function Id({ post, userInfo }) {
 
     const deleteSlideHandler = (index) => (e) => {
         let editedSlide = slide.filter((el, idx) => idx !== index);
-        // 페이지 삭제시 1페이지로 돌아가도록 했음
-        // 이전 페이지로 설정할 경우 슬라이드가 맨앞으로감.. 해결할 수 있을것같긴한데..끙
         setCurrentSlide(1);
         setSlide(editedSlide);
     };

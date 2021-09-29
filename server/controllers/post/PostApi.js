@@ -171,7 +171,35 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
-    editpost: async (req, res) => {},
+    editpost: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const { title, category } = req.body;
+            if (title && category) {
+                await post_container.update(
+                    {
+                        title: title,
+                        category: category,
+                    },
+                    { where: { id } },
+                );
+                await post.destroy({ where: { id } });
+                for (let el of req.body.post_page) {
+                    //post_page 이름 바꿔야함
+                    post.create({
+                        post_id: id,
+                        img: el.img,
+                        content: el.content,
+                    });
+                }
+                res.status(200).json({ message: 'ok' });
+            } else {
+                res.status(400).json({ message: '빈칸이 있나?' });
+            }
+        } catch (err) {
+            res.status(500).json({ message: 'Bad Request' });
+        }
+    },
     deletepost: async (req, res) => {
         try {
             await post_container.destroy({

@@ -68,26 +68,27 @@ export default function MyPage({ userInfo }) {
             });
     };
 
+    const myLoader = ({ src, width, quality }) => {
+        return `cdn.discordapp.com/${src}?w=${width}&q=${quality || 75}`;
+    };
+
     return (
         <>
             <div className="my_wrapper">
                 <div className="my_side_bar">
                     <div className="my_info">
                         <div className="my_profile_img">
-                            {/* <Image
+                            <Image
                                 src={newUserInfo.profile_img}
                                 loader={() => newUserInfo.profile_img}
                                 unoptimized="false"
-                            /> */}
+                            />
                         </div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
                             <Image
                                 onClick={editHandler}
-                                src="/edit.png"
-                                loader={() =>
-                                    'https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png'
-                                }
+                                src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
                                 unoptimized="false"
                                 width="7vw"
                                 height="5vw"
@@ -96,10 +97,7 @@ export default function MyPage({ userInfo }) {
                         <button>
                             <Image
                                 onClick={deleteSure}
-                                src="/userDeleteBtn.png"
-                                loader={() =>
-                                    'https://cdn.discordapp.com/attachments/881710985335934979/892220570425507870/userDeleteBtn.png'
-                                }
+                                src="https://cdn.discordapp.com/attachments/881710985335934979/892220570425507870/userDeleteBtn.png"
                                 unoptimized="false"
                                 width="7vw"
                                 height="5vw"
@@ -164,7 +162,6 @@ export default function MyPage({ userInfo }) {
                                                             className={styles.img_inner}
                                                             alt={el.title}
                                                             src={el.post_page[0].img}
-                                                            loader={()=> el.post_page[0].img}
                                                             unoptimized="false"
                                                         /> */}
                                                     </a>
@@ -248,14 +245,13 @@ export default function MyPage({ userInfo }) {
                 </div>
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
-                {/* <Image
-                    loader={() => 'https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png'}
-                    src={pic}
+                <Image
+                    src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
                     alt="top-button"
                     width="7vw"
                     height="5vw"
                     unoptimized="false"
-                /> */}
+                />
             </a>
         </>
     );

@@ -78,7 +78,7 @@ export default function Signin({
     //             // closeInModal();
     //         });
     //     };
-    //
+
     //     if (authorizationCode) {
     //         await getAccessToken(authorizationCode);
     //     }

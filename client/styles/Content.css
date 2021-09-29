@@ -52,10 +52,9 @@
     position: relative;
     color: black;
     border-radius: 1vw;
-    font-size: 1vw;
+    font-size: 0.8vw;
     line-height: 1;
-    padding: 0.5vw;
-    margin-left: 1vw;
+    padding: 1vw 0vw;
     font-weight: 700;
     box-sizing: inherit;
     display: list-item;
@@ -276,7 +275,6 @@
         font-size: 1vw;
         line-height: 1;
         padding: 0.5vw;
-        margin-left: 1vw;
         font-weight: 700;
         box-sizing: inherit;
         display: list-item;

@@ -115,7 +115,10 @@ module.exports = {
                 attributes: ['id', 'img', 'content'],
             });
 
-            const writerInfo = await User.findOne({ where: { id: postInfo.user_id } });
+            const writerInfo = await User.findOne({
+                where: { id: postInfo.user_id },
+                attributes: ['username', 'profile_img', 'id'],
+            });
 
             let accessToken = {};
             let didIL = {};
@@ -136,8 +139,18 @@ module.exports = {
             const userDisLike = await dislike.findAll({ where: { post_id: req.params.id } });
             // ⬆️ 포스트에 대한 싫어요를 누른 데이터.
 
-            const userComment = await comment.findAll({ where: { post_id: req.params.id } });
-            //console.log(userComment);
+            const userComment = await comment.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['id', 'user_id', 'txt'],
+            });
+
+            for (let el of userComment) {
+                const userName = await User.findOne({ where: { id: el.user_id }, attributes: ['username'] });
+                el.dataValues.userName = userName.username;
+                //console.log(el.userName);
+            }
+
+            const scrapList = await scrap.findAll({ where: { post_id: req.params.id } });
 
             res.status(200).json({
                 data: {
@@ -149,7 +162,7 @@ module.exports = {
                         post_page: post_page,
                         like: { userLike: userLike, didIL: didIL },
                         dislike: { userDisLike: userDisLike, didIDisL: didIDisL },
-                        scrap: amIScrapped,
+                        scrap: { scrapList: scrapList, amIScrapped: amIScrapped },
                         comment: userComment,
                     },
                 },
@@ -158,7 +171,35 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
-    editpost: async (req, res) => {},
+    editpost: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const { title, category } = req.body;
+            if (title && category) {
+                await post_container.update(
+                    {
+                        title: title,
+                        category: category,
+                    },
+                    { where: { id } },
+                );
+                await post.destroy({ where: { id } });
+                for (let el of req.body.post_page) {
+                    //post_page 이름 바꿔야함
+                    post.create({
+                        post_id: id,
+                        img: el.img,
+                        content: el.content,
+                    });
+                }
+                res.status(200).json({ message: 'ok' });
+            } else {
+                res.status(400).json({ message: '빈칸이 있나?' });
+            }
+        } catch (err) {
+            res.status(500).json({ message: 'Bad Request' });
+        }
+    },
     deletepost: async (req, res) => {
         try {
             await post_container.destroy({

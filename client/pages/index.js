@@ -186,7 +186,6 @@ export default function Home() {
                     </section>
                     <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
                         <Image
-                            loader={() => 'https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png'}
                             src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
                             alt="top-button"
                             layout="fill"

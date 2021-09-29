@@ -23,14 +23,7 @@ export default function Content({ bestList, postList, initData }) {
             </div>
 
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
-                <Image
-                    loader={() => 'https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png'}
-                    src={pic}
-                    alt="top-button"
-                    width="7vw"
-                    height="5vw"
-                    unoptimized="true"
-                />
+                <Image src={pic} alt="top-button" width="7vw" height="5vw" unoptimized="true" />
             </a>
         </>
     );

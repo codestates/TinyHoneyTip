@@ -3,10 +3,8 @@ import { useState, useEffect, useCallback } from 'react';
 import styles from '../../styles/Tumbnail.module.css';
 import Select from './Select';
 import Search from './Search';
-import axios from 'axios';
 import Category from './Category';
 import Image from 'next/image';
-import signinPic from '../../public/18:8.png';
 
 export default function Thumbnail({ postList }) {
     const [itemIndex, setItemIndex] = useState(0);
@@ -59,11 +57,13 @@ export default function Thumbnail({ postList }) {
                                                 <div className={styles.best_item_header}>
                                                     <Link href={`/post/${list?.id}`}>
                                                         <a className={styles.header_image}>
-                                                            <img
-                                                                className={styles.img_inner}
-                                                                alt={list?.title}
-                                                                src={list?.post_page[0]?.img}
-                                                            />
+                                                            <a className={styles.img_inner}>
+                                                                <Image
+                                                                    layout="fill"
+                                                                    alt={list?.title}
+                                                                    src={list?.post_page[0]?.img}
+                                                                />
+                                                            </a>
                                                         </a>
                                                     </Link>
                                                     <div className={styles.post_desc}>
@@ -100,7 +100,11 @@ export default function Thumbnail({ postList }) {
                                 <div className={styles.result}>
                                     검색 결과가 없습니다.
                                     <div className={styles.result_img}>
-                                        <Image src={signinPic} alt="sign in picture" />
+                                        <Image
+                                            src="https://cdn.discordapp.com/attachments/884717967307321407/892412101031776266/da13e0ed049893a8.png"
+                                            alt="sign in picture"
+                                            layout="fill"
+                                        />
                                     </div>
                                 </div>
                             </>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function Best({ bestList }) {
     return (
@@ -18,11 +19,13 @@ export default function Best({ bestList }) {
                                             <div className="best_item_header">
                                                 <Link href={`/post/${best?.id}`}>
                                                     <a className="header_image">
-                                                        <img
-                                                            className="img_inner"
-                                                            alt={best?.title}
-                                                            src={best?.post_page[0]?.img}
-                                                        />
+                                                        <a className="img_inner">
+                                                            <Image
+                                                                alt={best?.title}
+                                                                layout="fill"
+                                                                src={best?.post_page[0]?.img}
+                                                            />
+                                                        </a>
                                                     </a>
                                                 </Link>
                                                 <div className="best_desc">

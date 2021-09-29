@@ -19,7 +19,7 @@ export default function MyPage({ userInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log(res.data);
+                console.log(newUserInfo);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
                 setAlert(res.data.data.alert);
@@ -68,9 +68,9 @@ export default function MyPage({ userInfo }) {
             });
     };
 
-    const myLoader = ({ src, width, quality }) => {
-        return `cdn.discordapp.com/${src}?w=${width}&q=${quality || 75}`;
-    };
+    // const myLoader = ({ src, width, quality }) => {
+    //     return `cdn.discordapp.com/${src}?w=${width}&q=${quality || 75}`;
+    // };
 
     return (
         <>
@@ -78,32 +78,26 @@ export default function MyPage({ userInfo }) {
                 <div className="my_side_bar">
                     <div className="my_info">
                         <div className="my_profile_img">
-                            <Image
-                                src={newUserInfo.profile_img}
-                                loader={() => newUserInfo.profile_img}
-                                unoptimized="false"
-                            />
+                            {newUserInfo.profile_img ? <Image src={newUserInfo.profile_img} /> : null}
                         </div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
-
                             <Image
                                 onClick={editHandler}
                                 src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
-                                unoptimized="false"
                                 width="7vw"
                                 height="5vw"
+                                alt="edit button"
                             />
                         </button>
                         <button>
                             <Image
                                 onClick={deleteSure}
                                 src="https://cdn.discordapp.com/attachments/881710985335934979/892220570425507870/userDeleteBtn.png"
-                                unoptimized="false"
                                 width="7vw"
                                 height="5vw"
+                                alt="delete button"
                             />
-
                         </button>
                         {editBtn ? (
                             <div className="my_user_infoBody">
@@ -152,7 +146,7 @@ export default function MyPage({ userInfo }) {
                         <div className="my_post_container">
                             {myPost.map((el) => {
                                 return (
-                                    <div className="my_post_item" key={el.id}>
+                                    <div className="my_post_item" key={el?.id}>
                                         <div className={styles.post_item_inner}>
                                             <div className={styles.post_item_option}>
                                                 <div className={styles.post_overlay}></div>
@@ -160,24 +154,25 @@ export default function MyPage({ userInfo }) {
                                             <div className={styles.best_item_header}>
                                                 <Link href={`/post/${el.id}`}>
                                                     <a className={styles.header_image}>
-                                                        {/* <Image
+                                                        <Image
                                                             className={styles.img_inner}
-                                                            alt={el.title}
-                                                            src={el.post_page[0].img}
-                                                            unoptimized="false"
-                                                        /> */}
+                                                            alt={el?.title}
+                                                            src={el?.post_page[0].img}
+                                                        />
                                                     </a>
                                                 </Link>
                                                 <div className={styles.post_desc}>
                                                     <div className={styles.post_desc_title}>
-                                                        <Link href={`/post/${el.id}`}>
-                                                            <a className={styles.post_title_font}>{el.title}</a>
+                                                        <Link href={`/post/${el?.id}`}>
+                                                            <a className={styles.post_title_font}>{el?.title}</a>
                                                         </Link>
                                                     </div>
                                                     <div className={styles.post_desc_text}>
-                                                        {/* <Link href={`/post/${el.id}`}>
-                                                <a className={styles.post_text}>{el.post_page[0].content}</a>
-                                                </Link> */}
+                                                        <Link href={`/post/${el?.id}`}>
+                                                            <a className={styles.post_text}>
+                                                                {el?.post_page[0].content}
+                                                            </a>
+                                                        </Link>
                                                     </div>
                                                     <div className={styles.post_desc_category}>
                                                         <a className={styles.post_category}>{el?.category}</a>
@@ -185,7 +180,7 @@ export default function MyPage({ userInfo }) {
                                                     <div className={styles.post_desc_user}>
                                                         <div className={styles.post_desc_userinfo}>
                                                             <div className={styles.post_author}>
-                                                                💛 {el.like.length}
+                                                                💛 {el?.like.length}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -201,40 +196,38 @@ export default function MyPage({ userInfo }) {
                         <h3 className="my_scrap">My Scrapped Posts</h3>
                         <div className="my_scrap_container">
                             {myScrap.map((el) => {
-                                <div className={styles.post_item} key={el.id}>
+                                <div className={styles.post_item} key={el?.id}>
                                     <div className={styles.post_item_inner}>
                                         <div className={styles.post_item_option}>
                                             <div className={styles.post_overlay}></div>
                                         </div>
                                         <div className={styles.best_item_header}>
-                                            <Link href={`/post/${el.id}`}>
+                                            <Link href={`/post/${el?.id}`}>
                                                 <a className={styles.header_image}>
-                                                    {/* <Image
+                                                    <Image
                                                         className={styles.img_inner}
-                                                        alt={el.title}
-                                                        //src={el.post_page[0].img}
-                                                        loader={()=> el.post_page[0].img}
-                                                        unoptimized=false
-                                                    /> */}
+                                                        alt={el?.title}
+                                                        src={el?.post_page[0].img}
+                                                    />
                                                 </a>
                                             </Link>
                                             <div className={styles.post_desc}>
                                                 <div className={styles.post_desc_title}>
-                                                    <Link href={`/post/${el.id}`}>
-                                                        <a className={styles.post_title_font}>{el.title}</a>
+                                                    <Link href={`/post/${el?.id}`}>
+                                                        <a className={styles.post_title_font}>{el?.title}</a>
                                                     </Link>
                                                 </div>
                                                 <div className={styles.post_desc_text}>
-                                                    {/* <Link href={`/post/${el.id}`}>
-                                            <a className={styles.post_text}>{el.post_page[0].content}</a>
-                                            </Link> */}
+                                                    <Link href={`/post/${el?.id}`}>
+                                                        <a className={styles.post_text}>{el?.post_page[0].content}</a>
+                                                    </Link>
                                                 </div>
                                                 <div className={styles.post_desc_category}>
                                                     <a className={styles.post_category}>{el?.category}</a>
                                                 </div>
                                                 <div className={styles.post_desc_user}>
                                                     <div className={styles.post_desc_userinfo}>
-                                                        <div className={styles.post_author}>💛 {el.like.length}</div>
+                                                        <div className={styles.post_author}>💛 {el?.like.length}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -247,16 +240,7 @@ export default function MyPage({ userInfo }) {
                 </div>
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
-
-                <Image
-                    src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
-                    alt="top-button"
-                    width="7vw"
-                    height="5vw"
-                    unoptimized="false"
-                />
-
-
+                <Image src={pic} alt="top-button" width="7vw" height="5vw" />
             </a>
         </>
     );

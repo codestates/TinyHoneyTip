@@ -91,7 +91,7 @@ function MyApp({ Component, pageProps }) {
                 logoutHandler={logoutHandler}
             />
             {isPageLoading && <Loading />}
-            <Component userInfo={userInfo} {...pageProps} />
+            <Component userInfo={userInfo} setUserInfo={setUserInfo} {...pageProps} />
             <Footer />
         </>
     );

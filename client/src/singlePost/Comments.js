@@ -17,6 +17,16 @@ export default function Comments({ userInfo, post }) {
     const commentSubmit = () => {
         const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/comment/${id}`;
         if (userInfo.isLogin && commentInput.length > 0) {
+            const axiosConfig = {
+                headers: {
+                    'content-Type': 'application/json',
+                    Accept: '/',
+                    'Cache-Control': 'no-cache',
+                    Cookie: `accessToken=${userInfo.accessToken}`,
+                },
+                credentials: 'same=origin',
+            };
+            axios.defaults.withCredentials = true;
             axios
                 .post(
                     apiUrl,
@@ -26,6 +36,7 @@ export default function Comments({ userInfo, post }) {
                     {
                         headers: {
                             Cookie: `accessToken=${userInfo.accessToken}`,
+                            'Content-type': 'application/x-www-form-urlencoded',
                             'Accept-Encoding': 'gzip, deflate, br',
                             Connection: 'keep-alive',
                         },
@@ -79,6 +90,7 @@ export default function Comments({ userInfo, post }) {
                             commentSubmit();
                         }
                     }}
+                    maxLength="120"
                 />
                 <button
                     className="single-post__comment-input__submit"

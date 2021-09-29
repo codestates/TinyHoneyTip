@@ -84,29 +84,29 @@ export default function PostUpload({ userInfo }) {
         setCurrentSlide(slide.length + 1);
     };
 
-    const setFormData = (formData, data, parentKey) => {
-        if (!(formData instanceof FormData)) return;
-        if (!(data instanceof Object)) return;
+    // const setFormData = (formData, data, parentKey) => {
+    //     if (!(formData instanceof FormData)) return;
+    //     if (!(data instanceof Object)) return;
 
-        Object.keys(data).forEach((key) => {
-            const val = data[key];
-            if (parentKey) key = `${parentKey}[${key}]`;
-            if (val instanceof Object && !Array.isArray(val)) {
-                return setFormData(formData, val, key);
-            }
-            if (Array.isArray(val)) {
-                val.forEach((v, idx) => {
-                    if (v instanceof Object) {
-                        setFormData(formData, v, `${key}[${idx}]`);
-                    } else {
-                        formData.append(`${key}[${idx}]`, v);
-                    }
-                });
-            } else {
-                formData.append(key, val);
-            }
-        });
-    };
+    //     Object.keys(data).forEach((key) => {
+    //         const val = data[key];
+    //         if (parentKey) key = `${parentKey}[${key}]`;
+    //         if (val instanceof Object && !Array.isArray(val)) {
+    //             return setFormData(formData, val, key);
+    //         }
+    //         if (Array.isArray(val)) {
+    //             val.forEach((v, idx) => {
+    //                 if (v instanceof Object) {
+    //                     setFormData(formData, v, `${key}[${idx}]`);
+    //                 } else {
+    //                     formData.append(`${key}[${idx}]`, v);
+    //                 }
+    //             });
+    //         } else {
+    //             formData.append(key, val);
+    //         }
+    //     });
+    // };
 
     const postUploadHandler = () => {
         if (postInfo.title.length === 0 || postInfo.category === '카테고리') {
@@ -128,9 +128,15 @@ export default function PostUpload({ userInfo }) {
 
         const formData = new FormData();
 
-        setFormData(formData, data);
-
-        // console.log(formData);
+        formData.append('title', data.title);
+        formData.append('category', data.category);
+        data.post_page.map((el, idx) => {
+            formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
+            formData.append(`post_page[${idx}]['img']`, data.post_page[idx].img);
+            formData.append(`post_page[${idx}]['content']`, data.post_page[idx].content);
+            return el;
+        });
+        // setFormData(formData, data);
 
         // const arrQueryString = [];
         // for (let pair of formData.entries()) {

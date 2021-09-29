@@ -23,8 +23,8 @@ export default function PostUpload({ userInfo }) {
 
     const [currentSlide, setCurrentSlide] = useState(1);
 
-    console.log(`currentSlide : ${currentSlide}`);
-    console.log(`slide : ${slide}`);
+    // console.log(`currentSlide : ${currentSlide}`);
+    // console.log(`slide : ${slide}`);
 
     const slideTextHandler = (index, key) => (e) => {
         setCannotSubmitMessage(false);

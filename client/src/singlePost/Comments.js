@@ -10,8 +10,6 @@ export default function Comments({ userInfo, post }) {
     const [commentInput, setCommentInput] = useState('');
     const [commentList, setCommentList] = useState(post.comment);
 
-    console.log(userInfo);
-
     const handleInput = (e) => {
         setCommentInput(e.target.value);
     };

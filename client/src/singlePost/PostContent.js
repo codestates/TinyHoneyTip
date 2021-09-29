@@ -69,9 +69,7 @@ export default function PostContent({ userInfo, post }) {
                 },
                 withCredentials: true,
             })
-            .then((res) => {
-                console.log('delete 성공');
-            })
+            .then((res) => {})
             .catch((error) => {
                 console.log(error);
             });
@@ -85,9 +83,7 @@ export default function PostContent({ userInfo, post }) {
                 },
                 withCredentials: true,
             })
-            .then((res) => {
-                console.log('add 성공');
-            })
+            .then((res) => {})
             .catch((error) => {
                 console.log(error);
             });

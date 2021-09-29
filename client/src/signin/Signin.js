@@ -34,7 +34,7 @@ export default function Signin({
         } else {
             axios
                 .post(
-                    'http://localhost:80/signin',
+                    `${process.env.NEXT_PUBLIC_URL}/signin`,
                     {
                         email: loginInfo.email,
                         password: loginInfo.password,

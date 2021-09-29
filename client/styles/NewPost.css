@@ -1,7 +1,7 @@
 /* 공통 */
 
 .post-upload-page {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -404,7 +404,7 @@
         flex-direction: row;
         min-height: 80vh;
         gap: 2vw;
-        justify-content: space-evenly;
+        justify-content: center;
     }
 
     .post__toolbar__edit-section {

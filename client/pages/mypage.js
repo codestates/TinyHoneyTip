@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
-// import editPic from '../public/edit.png';
+import editPic from '../public/edit.png';
 import styles from '../styles/Tumbnail.module.css';
 import Link from 'next/link';
 
@@ -55,7 +55,7 @@ export default function MyPage({ userInfo }) {
                         <div className="my_profile_img">{/*<Image src={newUserInfo.profile_img} /> */}</div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
-                            <Image onClick={editHandler} src="/edit.png" />
+                            <Image onClick={editHandler} src={editPic} />
                         </button>
                         {editBtn ? (
                             <div className="my_user_infoBody">

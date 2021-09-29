@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function MyPage({ userInfo }) {
     const [myPost, setMyPost] = useState([]);
     const [myScrap, setMyScrap] = useState([]);
+    const [alert, setAlert] = useState({ scrap: [{ title: '', userName: '' }], like: [{ title: '', userName: '' }] });
     const [editBtn, setEditBtn] = useState(false);
     const [newUserInfo, setNewUserInfo] = useState(userInfo);
 
@@ -21,6 +22,7 @@ export default function MyPage({ userInfo }) {
                 console.log(res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
+                setAlert(res.data.data.alert);
             })
             .catch((err) => {
                 return console.log('오류입니다!', err);
@@ -46,20 +48,69 @@ export default function MyPage({ userInfo }) {
         if (editBtn) editMyPage();
     };
 
+    const deleteSure = () => {
+        if (window.confirm('정말 회원 탈퇴하시겠습니까?')) {
+            window.open('exit.html', 'Thanks for Visiting!');
+        }
+    };
+
+    const userDelete = () => {
+        axios
+            .delete(`${process.env.NEXT_PUBLIC_URL}/user`, {
+                data: { token: newUserInfo.token },
+                withCredentials: true,
+            })
+            .then((res) => {
+                if (res.message === 'byebye') {
+                    alert('회원탈퇴가 완료되었습니다.');
+                    // userinfo 상태 초기화하고 쿠키 지우고 세션 지우고
+                }
+            });
+    };
+
+    const myLoader = ({ src, width, quality }) => {
+        return `cdn.discordapp.com/${src}?w=${width}&q=${quality || 75}`;
+    };
+
     return (
         <>
             <div className="my_wrapper">
                 <div className="my_side_bar">
                     <div className="my_info">
-                        <div className="my_profile_img">{/*<Image src={newUserInfo.profile_img} /> */}</div>
+                        <div className="my_profile_img">
+                            <Image
+                                src={newUserInfo.profile_img}
+                                loader={() => newUserInfo.profile_img}
+                                unoptimized="false"
+                            />
+                        </div>
                         <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
-                            <Image onClick={editHandler} src="/edit.png" layout="fill" />
+
+                            <Image
+                                onClick={editHandler}
+                                src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
+                                unoptimized="false"
+                                width="7vw"
+                                height="5vw"
+                            />
+                        </button>
+                        <button>
+                            <Image
+                                onClick={deleteSure}
+                                src="https://cdn.discordapp.com/attachments/881710985335934979/892220570425507870/userDeleteBtn.png"
+                                unoptimized="false"
+                                width="7vw"
+                                height="5vw"
+                            />
+
                         </button>
                         {editBtn ? (
                             <div className="my_user_infoBody">
                                 <form>
                                     이메일: {newUserInfo.email}
+                                    <br />
+                                    <br />
                                     <label htmlFor="userName">이름: </label>
                                     <input type="text" id="userName" placeholder="이름을 입력하세요"></input>
                                 </form>
@@ -73,7 +124,27 @@ export default function MyPage({ userInfo }) {
                             </div>
                         )}
                     </div>
-                    <div id="my_alert"></div>
+                    <div id="my_alert">
+                        <h3 id="my_alert_title"></h3>
+                        <ul className="alert_scrap_list">
+                            {alert.scrap !== [{ title: '', userName: '' }]
+                                ? alert.scrap.map((el) => {
+                                      <li className="alert_scrap_item">
+                                          {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 스크랩했습니다.
+                                      </li>;
+                                  })
+                                : '알림이 없습니다.'}
+                        </ul>
+                        <ul className="alert_like_list">
+                            {alert.like !== [{ title: '', userName: '' }]
+                                ? alert.like.map((el) => {
+                                      <li className="alert_like_item">
+                                          {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 좋아합니다.
+                                      </li>;
+                                  })
+                                : '알림이 없습니다.'}
+                        </ul>
+                    </div>
                 </div>
                 <div className="my_Allpost_wrapper">
                     <div className="my_post_wrapper">
@@ -89,11 +160,12 @@ export default function MyPage({ userInfo }) {
                                             <div className={styles.best_item_header}>
                                                 <Link href={`/post/${el.id}`}>
                                                     <a className={styles.header_image}>
-                                                        <img
+                                                        {/* <Image
                                                             className={styles.img_inner}
                                                             alt={el.title}
-                                                            //src={el.post_page[0].img}
-                                                        />
+                                                            src={el.post_page[0].img}
+                                                            unoptimized="false"
+                                                        /> */}
                                                     </a>
                                                 </Link>
                                                 <div className={styles.post_desc}>
@@ -137,11 +209,13 @@ export default function MyPage({ userInfo }) {
                                         <div className={styles.best_item_header}>
                                             <Link href={`/post/${el.id}`}>
                                                 <a className={styles.header_image}>
-                                                    <img
+                                                    {/* <Image
                                                         className={styles.img_inner}
                                                         alt={el.title}
                                                         //src={el.post_page[0].img}
-                                                    />
+                                                        loader={()=> el.post_page[0].img}
+                                                        unoptimized=false
+                                                    /> */}
                                                 </a>
                                             </Link>
                                             <div className={styles.post_desc}>
@@ -173,7 +247,16 @@ export default function MyPage({ userInfo }) {
                 </div>
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
-                <Image src={pic} alt="top-button" width="7vw" height="5vw" unoptimized="true" />
+
+                <Image
+                    src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
+                    alt="top-button"
+                    width="7vw"
+                    height="5vw"
+                    unoptimized="false"
+                />
+
+
             </a>
         </>
     );

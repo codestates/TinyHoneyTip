@@ -58,7 +58,6 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
             </Link>
             <div className="header__menu__btn" onClick={menuHandler}>
                 <Image
-                    loader={() => 'https://img.icons8.com/material-outlined/48/000000/menu--v1.png'}
                     src="https://img.icons8.com/material-outlined/48/000000/menu--v1.png"
                     layout="fill"
                     alt="header menu"

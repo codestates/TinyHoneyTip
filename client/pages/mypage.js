@@ -5,12 +5,11 @@ import pic from '../public/honeycomb.png';
 import styles from '../styles/Tumbnail.module.css';
 import Link from 'next/link';
 
-export default function MyPage({ userInfo }) {
+export default function MyPage({ userInfo, setUserInfo }) {
     const [myPost, setMyPost] = useState([]);
     const [myScrap, setMyScrap] = useState([]);
     const [alert, setAlert] = useState({ scrap: [{ title: '', userName: '' }], like: [{ title: '', userName: '' }] });
     const [editBtn, setEditBtn] = useState(false);
-    const [newUserInfo, setNewUserInfo] = useState(userInfo);
 
     function getMyPage() {
         axios
@@ -19,7 +18,7 @@ export default function MyPage({ userInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log(newUserInfo);
+                console.log(res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
                 setAlert(res.data.data.alert);
@@ -67,7 +66,7 @@ export default function MyPage({ userInfo }) {
                 }
             });
     };
-
+    console.log(userInfo);
     // const myLoader = ({ src, width, quality }) => {
     //     return `cdn.discordapp.com/${src}?w=${width}&q=${quality || 75}`;
     // };
@@ -77,10 +76,8 @@ export default function MyPage({ userInfo }) {
             <div className="my_wrapper">
                 <div className="my_side_bar">
                     <div className="my_info">
-                        <div className="my_profile_img">
-                            {newUserInfo.profile_img ? <Image src={newUserInfo.profile_img} /> : null}
-                        </div>
-                        <h3 className="my_user_name">{newUserInfo.username} 🐝 벌님 안녕하세요</h3>
+                        <div className="my_profile_img">{/* <Image src={newUserInfo.profile_img} /> */}</div>
+                        <h3 className="my_user_name">🐝{userInfo.username} 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
                             <Image
                                 onClick={editHandler}
@@ -102,7 +99,7 @@ export default function MyPage({ userInfo }) {
                         {editBtn ? (
                             <div className="my_user_infoBody">
                                 <form>
-                                    이메일: {newUserInfo.email}
+                                    이메일: {userInfo.email}
                                     <br />
                                     <br />
                                     <label htmlFor="userName">이름: </label>
@@ -111,29 +108,29 @@ export default function MyPage({ userInfo }) {
                             </div>
                         ) : (
                             <div className="my_user_infoBody">
-                                이메일 {newUserInfo.email}
+                                이메일 {userInfo.email}
                                 <br />
                                 <br />
-                                이름 {newUserInfo.username}
+                                이름 {userInfo.username}
                             </div>
                         )}
                     </div>
                     <div id="my_alert">
                         <h3 id="my_alert_title"></h3>
                         <ul className="alert_scrap_list">
-                            {alert.scrap !== [{ title: '', userName: '' }]
-                                ? alert.scrap.map((el) => {
+                            {alert?.scrap !== [{ title: '', userName: '' }]
+                                ? alert?.scrap.map((el) => {
                                       <li className="alert_scrap_item">
-                                          {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 스크랩했습니다.
+                                          {userInfo.username}벌님의 {el.title}을 {el.userName} 님이 스크랩했습니다.
                                       </li>;
                                   })
                                 : '알림이 없습니다.'}
                         </ul>
                         <ul className="alert_like_list">
-                            {alert.like !== [{ title: '', userName: '' }]
-                                ? alert.like.map((el) => {
+                            {alert?.like !== [{ title: '', userName: '' }]
+                                ? alert?.like.map((el) => {
                                       <li className="alert_like_item">
-                                          {newUserInfo.username}벌님의 {el.title}을 {el.userName} 님이 좋아합니다.
+                                          {userInfo.username}벌님의 {el.title}을 {el.userName} 님이 좋아합니다.
                                       </li>;
                                   })
                                 : '알림이 없습니다.'}
@@ -155,6 +152,7 @@ export default function MyPage({ userInfo }) {
                                                 <Link href={`/post/${el.id}`}>
                                                     <a className={styles.header_image}>
                                                         <Image
+                                                            layout="fill"
                                                             className={styles.img_inner}
                                                             alt={el?.title}
                                                             src={el?.post_page[0].img}

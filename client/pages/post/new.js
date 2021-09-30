@@ -98,11 +98,15 @@ export default function PostUpload({ userInfo }) {
         formData.append('category', data.category);
         data.post_page.map((el, idx) => {
             formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
+<<<<<<< HEAD
             if (data.post_page[idx].img.length === 0) {
                 formData.append(`post_page_img_${idx}`, undefined);
             } else {
                 formData.append(`post_page_img_${idx}`, data.post_page[idx].img);
             }
+=======
+            formData.append('post_page_img', data.post_page[idx].img);
+>>>>>>> 1d6bc2079927c5a1f31b2abcdc9d1928654e0907
             formData.append(`post_page[${idx}]['content']`, data.post_page[idx].content);
             return el;
         });

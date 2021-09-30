@@ -28,8 +28,16 @@
 |--|--|
 - 팀장
 - Position: Front-End
-- Stack:
-- Contributions
+- Stack: Node.js, Next js, express, html, css, react, javascript
+- Contributions<br />
+ content page<br />
+ signin, signup <br />
+ select <br />
+ category<br />
+ search<br />
+ loading<br />
+ infinite scroll<br />
+ image src making <br />
 </div>
 </details>
 

@@ -48,6 +48,7 @@ export default function ToolBar({
                         value={postInfo.title}
                         onChange={postInfoHandler('title')}
                         placeholder="제목을 입력해주세요."
+                        maxLength="30"
                     />
                     <label>카테고리</label>
                     <select
@@ -87,6 +88,7 @@ export default function ToolBar({
                         value={slide[currentSlide - 1].content}
                         placeholder="내용을 입력해주세요."
                         onChange={slideTextHandler(currentSlide - 1, 'content')}
+                        maxLength="300"
                     />
                 </form>
                 <button

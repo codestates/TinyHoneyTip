@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
-import styles from '../styles/Tumbnail.module.css';
+import styles from '../styles/Post.module.css';
 import Link from 'next/link';
 
 export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }) {
@@ -11,9 +11,11 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
     console.log(alert);
     const [editBtn, setEditBtn] = useState(false);
 
+
     const inputHandler = (e) => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
     };
+
 
     function editMyPage() {
         axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { userInfo }).then((res) => {
@@ -263,11 +265,10 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 }
 
 export async function getServerSideProps(context) {
-    const cookies = context.req.headers.cookie;
-    console.log(cookies);
+    const token = context.req.headers.cookie;
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
     const res = await axios.get(apiUrl, {
-        headers: { cookie: cookies, 'Content-Type': 'application/json' },
+        headers: { cookie: token, 'Content-Type': 'application/json' },
     });
     const post = res.data.data.myPost;
     const scrap = res.data.data.myScrap;

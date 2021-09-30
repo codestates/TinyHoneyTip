@@ -51,6 +51,10 @@ export default function Comments({ userInfo, post }) {
                     let commentForm = document.getElementById('commentInput');
                     commentForm.value = '';
                     setCommentInput('');
+                    document.getElementById('single-post__comments').scrollTo({
+                        top: 9999999999999999,
+                        behavior: 'smooth',
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
@@ -64,7 +68,7 @@ export default function Comments({ userInfo, post }) {
                 <img className="single-post__profile__img" src={post.writerInfo.profile_img} />
                 <h1 className="single-post__profile__username">{post.writerInfo.username}</h1>
             </div>
-            <div className="single-post__comments">
+            <div className="single-post__comments" id="single-post__comments">
                 {commentList.map((el, idx) => {
                     return (
                         <SingleComment

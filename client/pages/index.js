@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 export default function Home() {
-    const sectionCount = 4;
+    const sectionCount = 5;
 
     let init = function () {};
     useEffect(() => {
@@ -22,6 +22,9 @@ export default function Home() {
                 const section4offset =
                     document.getElementById(`section4`).offsetTop +
                     document.getElementById(`section4`).offsetParent.offsetTop;
+                const section5offset =
+                    document.getElementById(`section5`).offsetTop +
+                    document.getElementById(`section5`).offsetParent.offsetTop;
                 const currentScrollTop = document.querySelector('html').scrollTop;
                 let page = 1;
                 if (currentScrollTop < section2offset) {
@@ -30,8 +33,10 @@ export default function Home() {
                     page = 2;
                 } else if (currentScrollTop < section4offset) {
                     page = 3;
-                } else {
+                } else if (currentScrollTop < section5offset) {
                     page = 4;
+                } else {
+                    page = 5;
                 }
                 if (e.wheelDelta === -120) {
                     // console.log('wheel down');
@@ -40,7 +45,7 @@ export default function Home() {
                         page++;
                         let nextSection = document.getElementById(`section${page}`).offsetTop;
                         nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
-                        window.scrollTo(0, nextSection);
+                        window.scrollTo({ top: nextSection, behavior: 'smooth' });
                     }
                 } else {
                     // console.log('wheel up');
@@ -49,7 +54,7 @@ export default function Home() {
                         page--;
                         let nextSection = document.getElementById(`section${page}`).offsetTop;
                         nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
-                        window.scrollTo(0, nextSection);
+                        window.scrollTo({ top: nextSection, behavior: 'smooth' });
                     }
                 }
             };
@@ -171,6 +176,16 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section4">
+                        <a
+                            onClick={() => {
+                                let nextSection = document.getElementById('section5').offsetTop;
+                                nextSection += document.getElementById('section3').offsetParent.offsetTop;
+                                window.scrollTo(0, nextSection);
+                            }}>
+                            <div className="scroll-down"></div>
+                        </a>
+                    </section>
+                    <section className="landing__section" id="section5">
                         <div className="landing__section1__text">
                             <h1 className="landing__section1__title">Tiny Honey Tip</h1>
                             <h2 className="landing__section1__p">

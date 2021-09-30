@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 
@@ -13,7 +13,6 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
     const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [menuClicked, setMenuClicked] = useState(false);
-    // 새로고침시 로그아웃되는 문제 발생시 수정
 
     const openUpModal = () => {
         setIsUpClick(true);

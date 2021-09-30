@@ -98,8 +98,10 @@
     border-radius: 20px;
 }
 .best_item:hover {
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 15px 15px;
     background-color: transparent;
-    border: 4px dashed black;
+    border-radius: 20px;
+    transform: translate(-15px, -15px);
 }
 .best_item_inner {
     height: 380px;
@@ -110,7 +112,6 @@
 
 .best_item_inner:hover {
     background-color: rgba(244, 193, 65, 1);
-    transform: translate(-25px, -25px);
     border-radius: 20px;
 }
 .img_inner {
@@ -289,8 +290,10 @@
         border-radius: 1vw;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
         background-color: transparent;
-        border: 0.2vw dashed black;
+        border-radius: 1vw;
+        transform: translate(-1vw, -1vw);
     }
     .best_item_inner {
         max-height: 380px;
@@ -303,7 +306,6 @@
 
     .best_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-1vw, -1vw);
         border-radius: 1vw;
     }
     .img_inner {
@@ -487,8 +489,10 @@
         border-radius: 1vw;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
+        border-radius: 1vw;
         background-color: transparent;
-        border: 0.2vw dashed black;
+        transform: translate(-1vw, -1vw);
     }
     .best_item_inner {
         transition: all 0.15s;
@@ -499,7 +503,6 @@
 
     .best_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-1vw, -1vw);
         border-radius: 1vw;
     }
     .img_inner {
@@ -678,8 +681,10 @@
         transition: all 0.15s;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 2vw 2vw;
         background-color: transparent;
-        border: 0.4vw dashed black;
+        border-radius: 2vw;
+        transform: translate(-2vw, -2vw);
     }
     .best_item_inner {
         height: 40vw;
@@ -688,7 +693,6 @@
     }
     .best_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-2vw, -2vw);
         border-radius: 2vw;
     }
     .img_inner {
@@ -850,8 +854,10 @@
         transition: all 0.15s;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 3vw 3vw;
         background-color: transparent;
-        border: 0.8vw dashed black;
+        border-radius: 4vw;
+        transform: translate(-3vw, -3vw);
     }
     .best_item_inner {
         border-radius: 4vw;
@@ -861,7 +867,7 @@
         position: relative;
     }
     .best_item_inner:hover {
-        transform: translate(-3vw, -3vw);
+        background-color: rgba(244, 193, 65, 1);
         border-radius: 4vw;
     }
     .img_inner {
@@ -944,4 +950,14 @@
         transition: all 0.15s;
         float: right;
     }
+}
+.app {
+    background-image: url('../public//18:8.png');
+    background-size: cover;
+    background-position: bottom;
+    transition: 0.4 ease-out;
+}
+
+.app.warm {
+    background-image: url('../public//honeycomb.png');
 }

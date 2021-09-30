@@ -41,7 +41,7 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const amIScrapped = () => {
-        if (userInfo.isLogin) {
+        if (userInfo?.isLogin) {
             let myScrap = post.scrap.scrapList.filter((el) => {
                 return el.user_id === userInfo.id;
             });

@@ -19,7 +19,7 @@ const upload = require('../../multer');
 // const upload = multer({ dest: 'uploads/ ' });
 
 post.get('/', getpostlist);
-post.post('/', upload.array('image', 5), uploadpost);
+post.post('/', upload.array('post_page_img', 5), uploadpost);
 post.get('/:id', getpostdetail);
 post.patch('/:id', editpost);
 post.delete('/:id', deletepost);

@@ -33,11 +33,11 @@ module.exports = {
             console.log(finduser);
             const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
 
-            // res.cookie('accessToken', accessToken, {
-            //     sameSite: 'none',
-            //     secure: true,
-            //     httpOnly: true,
-            // });
+            res.cookie('accessToken', accessToken, {
+                sameSite: 'none',
+                secure: true,
+                httpOnly: true,
+            });
             res.status(200).json({ message: 'login complete', data: { accessToken: accessToken, userInfo: finduser } });
         }
     },

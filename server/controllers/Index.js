@@ -30,7 +30,7 @@ module.exports = {
             res.status(400).json({ message: 'rewrite email' });
         } else {
             delete finduser.dataValues.password;
-            console.log(finduser);
+            // console.log(finduser);
             const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
 
             res.cookie('accessToken', accessToken, {

@@ -1,0 +1,693 @@
+/* 공통 */
+
+/* header */
+
+.header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    z-index: 3;
+    background-color: rgba(244, 193, 65, 0.8);
+}
+
+.header__logo {
+    position: relative;
+    cursor: pointer;
+}
+
+.header__btn {
+    white-space: nowrap;
+    font-family: 'Lobster', cursive;
+    cursor: pointer;
+}
+
+.header__menu__btn {
+    position: relative;
+}
+
+/* footer */
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    background-color: rgba(244, 193, 65, 0.8);
+}
+
+.footer__logo-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__logo,
+.footer__logo-copyright {
+    font-family: 'Lobster', cursive;
+    white-space: nowrap;
+}
+
+.footer__boxes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer__box {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__box__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__box__content__el {
+    display: block;
+    cursor: pointer;
+}
+
+.footer__box__content__row {
+    display: flex;
+}
+
+/* landing page */
+
+html {
+    scroll-behavior: smooth;
+}
+
+.landing {
+    position: relative;
+}
+
+.landing__sections {
+    display: flex;
+    flex-direction: column;
+}
+
+.landing__section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(253, 242, 217, 1);
+}
+
+.landing__section1__title {
+    font-family: 'Lobster', cursive;
+}
+
+.landing__section1__pic-div {
+    position: relative;
+    opacity: 0.8;
+}
+
+.top-btn {
+    position: fixed;
+    bottom: 10vh;
+    right: 0;
+    z-index: 9999;
+    cursor: pointer;
+    background-color: rgba(244, 193, 65, 0.8);
+}
+
+.scroll-down {
+    position: absolute;
+    left: 45%;
+    cursor: pointer;
+}
+
+.scroll-down::before,
+.scroll-down::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    border: 2px solid black;
+    height: 10px;
+    width: 10px;
+    transform: translate(-50%, -100%) rotate(45deg);
+    border-top: transparent;
+    border-left: transparent;
+    animation: scroll-down 1s ease-in-out infinite;
+}
+
+.scroll-down::after {
+    top: 30%;
+    animation-delay: 0.3s;
+}
+
+@keyframes scroll-down {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 90%;
+    }
+}
+
+.landing__section2__slide {
+    overflow: hidden;
+}
+
+.landing__section2__slide ul {
+    display: flex;
+    animation: slide 10s infinite;
+}
+
+.landing__section2__slide ul li {
+    position: relative;
+}
+
+.landing__section2__slide ul li:nth-child(1) {
+    background-color: #ffa;
+}
+
+.landing__section2__slide ul li:nth-child(2) {
+    background-color: #faa;
+}
+
+.landing__section2__slide ul li:nth-child(3) {
+    background-color: #afa;
+}
+
+.landing__section2__slide ul li:nth-child(4) {
+    background-color: #aaf;
+}
+
+@keyframes slide {
+    0% {
+        margin-left: 0;
+    } /* 0 ~ 10  : 정지 */
+    10% {
+        margin-left: 0;
+    } /* 10 ~ 25 : 변이 */
+    25% {
+        margin-left: -100%;
+    } /* 25 ~ 35 : 정지 */
+    35% {
+        margin-left: -100%;
+    } /* 35 ~ 50 : 변이 */
+    50% {
+        margin-left: -200%;
+    }
+    60% {
+        margin-left: -200%;
+    }
+    75% {
+        margin-left: -300%;
+    }
+    85% {
+        margin-left: -300%;
+    }
+    100% {
+        margin-left: 0;
+    }
+}
+
+.landing__section3__slide {
+    overflow: hidden;
+    position: relative;
+}
+
+.landing__section3__slide ul {
+    display: flex;
+    transition: 1s;
+}
+
+.landing__section3__slide li {
+    position: relative;
+}
+
+.landing__section3__slide ul li:nth-child(1) {
+    background-color: #ffa;
+}
+
+.landing__section3__slide ul li:nth-child(2) {
+    background-color: #faa;
+}
+
+.landing__section3__slide ul li:nth-child(3) {
+    background-color: #afa;
+}
+
+.landing__section3__slide ul li:nth-child(4) {
+    background-color: #aaf;
+}
+
+.landing__section3__slide input {
+    display: none;
+}
+
+.section3__bullet {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.section3__bullet label {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    border: 2px solid #666;
+    display: inline-block;
+    background-color: #fff;
+    font-size: 0;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.section3__bullet label:last-child {
+    margin-right: 0;
+}
+
+#section-pos1:checked ~ ul {
+    margin-left: 0;
+}
+#section-pos2:checked ~ ul {
+    margin-left: -100%;
+}
+#section-pos3:checked ~ ul {
+    margin-left: -200%;
+}
+#section-pos4:checked ~ ul {
+    margin-left: -300%;
+}
+
+#section-pos1:checked ~ .section3__bullet label:nth-child(1),
+#section-pos2:checked ~ .section3__bullet label:nth-child(2),
+#section-pos3:checked ~ .section3__bullet label:nth-child(3),
+#section-pos4:checked ~ .section3__bullet label:nth-child(4) {
+    background-color: #666;
+}
+
+/* mobile */
+
+@media screen and (max-width: 767px) {
+    /* overflow-x: hidden; 줘야됨 */
+
+    /* header */
+
+    .header {
+        height: 60px;
+    }
+
+    .header__logo {
+        margin-left: 15px;
+        width: 160px;
+        height: 60.7px;
+    }
+
+    .header__menu__btn {
+        width: 36px;
+        height: 36px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .header__btns {
+        position: fixed;
+        width: 200px;
+        top: 60px;
+        background-color: rgba(244, 193, 65, 0.8);
+        transition: all ease 0.5s;
+        right: 0;
+        /* z-index: 2; */
+        display: flex;
+        flex-direction: column;
+        padding: 30px 0 50px 30px;
+        gap: 20px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .header__btns__closed {
+        right: -200px;
+    }
+
+    .header__btn {
+        font-size: 23px;
+    }
+
+    /* footer */
+
+    .footer {
+        width: 100vw;
+        justify-content: space-between;
+        padding: 35px 70px 35px 70px;
+        gap: 5vw;
+    }
+
+    .footer__logo-box {
+        gap: 10px;
+    }
+
+    .footer__logo {
+        font-size: 25px;
+    }
+
+    .footer__logo-copyright {
+        font-size: 18px;
+    }
+
+    .footer__boxes {
+        gap: 25px;
+    }
+
+    .footer__box {
+        gap: 15px;
+    }
+
+    .footer__box__title {
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .footer__box__content {
+        gap: 12px;
+    }
+
+    .footer__box__content__el {
+        font-size: 15px;
+        letter-spacing: 0.5px;
+    }
+
+    .footer__box__content__row {
+        gap: 12px;
+    }
+
+    /* landing page */
+
+    .landing__section {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+
+    .landing__section:first-child {
+        height: calc(100vh - 60px);
+    }
+
+    .landing__section1__text {
+        margin-bottom: 0px;
+    }
+
+    .landing__section1__title {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+
+    .landing__section1__text {
+        width: 260px;
+    }
+
+    .landing__section1__p {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .landing__start-btn {
+        border: none;
+        font-size: 18px;
+        width: 150px;
+        height: 30px;
+        border-radius: 8px;
+        background-color: rgba(244, 193, 65, 0.8);
+    }
+
+    .landing__section1__pic-div {
+        width: 190px;
+        height: 190px;
+        margin-left: 25px;
+    }
+
+    .top-btn {
+        width: 45px;
+        height: 40px;
+        border-radius: 3px;
+        border: 7px solid rgba(244, 193, 65, 0.8);
+    }
+
+    .scroll-down {
+        opacity: 0.7;
+        height: 50px;
+        width: 30px;
+        border: 2.5px solid black;
+        bottom: 18px;
+        border-radius: 50px;
+    }
+
+    .landing__section2__slide {
+        margin-top: 40px;
+    }
+
+    .landing__section2__slide,
+    .landing__section3__slide {
+        height: 160px;
+        width: 256px;
+    }
+
+    .landing__section2__slide ul li,
+    .landing__section3__slide li {
+        height: 160px;
+    }
+}
+
+/* tablet */
+
+@media screen and (min-width: 768px) {
+    /* header */
+
+    .header__menu__btn {
+        display: none;
+    }
+
+    .header {
+        height: 70px;
+    }
+
+    .header__logo {
+        margin-left: 15px;
+        width: 180px;
+        height: 68.3px;
+    }
+
+    .header__btns {
+        display: flex;
+        gap: 14px;
+        margin-right: 20px;
+    }
+
+    .header__btn {
+        font-size: 24px;
+    }
+
+    /* footer */
+
+    .footer {
+        width: 100vw;
+        justify-content: center;
+        padding: 50px;
+        gap: 28vw;
+    }
+
+    .footer__logo-box {
+        gap: 10px;
+    }
+
+    .footer__logo {
+        font-size: 30px;
+    }
+
+    .footer__logo-copyright {
+        font-size: 19px;
+    }
+
+    .footer__boxes {
+        gap: 35px;
+    }
+
+    .footer__box {
+        gap: 20px;
+    }
+
+    .footer__box__title {
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .footer__box__content {
+        gap: 14px;
+    }
+
+    .footer__box__content__el {
+        font-size: 16px;
+        letter-spacing: 0.5px;
+    }
+
+    .footer__box__content__row {
+        gap: 14px;
+    }
+
+    /* landing page */
+
+    .landing__section {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 16vw;
+        padding-left: 16vw;
+    }
+
+    .landing__section:first-child {
+        height: calc(100vh - 60px);
+    }
+
+    .landing__section1__title {
+        font-size: 60px;
+        margin-bottom: 30px;
+    }
+
+    .landing__section1__text {
+        width: 360px;
+    }
+
+    .landing__section1__p {
+        font-size: 30px;
+        margin-bottom: 25px;
+    }
+
+    .landing__start-btn {
+        border: none;
+        font-size: 20px;
+        width: 180px;
+        height: 40px;
+        border-radius: 8px;
+        background-color: rgba(244, 193, 65, 0.8);
+    }
+
+    .landing__section1__pic-div {
+        width: 290px;
+        height: 290px;
+    }
+
+    .top-btn {
+        width: 55px;
+        height: 45px;
+        border-radius: 3px;
+        border: 7px solid rgba(244, 193, 65, 0.8);
+    }
+
+    .scroll-down {
+        opacity: 0.7;
+        height: 70px;
+        width: 40px;
+        border: 2.5px solid black;
+        bottom: 30px;
+        border-radius: 50px;
+    }
+
+    .landing__section2__slide,
+    .landing__section3__slide {
+        width: 320px;
+    }
+
+    .landing__section2__slide ul li,
+    .landing__section3__slide li {
+        height: 196px;
+    }
+}
+
+/* desktop */
+
+@media screen and (min-width: 1024px) {
+    /* header */
+
+    .header__logo {
+        font-size: 34px;
+        margin-left: 30px;
+    }
+
+    .header__btns {
+        margin-right: 30px;
+        gap: 20px;
+    }
+
+    .header__btn {
+        font-size: 26px;
+    }
+
+    /* landing page */
+
+    .landing__section {
+        padding-right: 20vw;
+        padding-left: 20vw;
+    }
+
+    .landing__section1__title {
+        font-size: 70px;
+        margin-bottom: 36px;
+    }
+
+    .landing__section1__text {
+        width: 480px;
+    }
+
+    .landing__section1__p {
+        font-size: 32px;
+        margin-bottom: 36px;
+    }
+
+    .landing__start-btn {
+        font-size: 32px;
+        width: 260px;
+        height: 60px;
+    }
+
+    .landing__section1__pic-div {
+        width: 450px;
+        height: 450px;
+        margin-left: auto;
+    }
+
+    .top-btn {
+        width: 55px;
+        height: 45px;
+        border-radius: 3px;
+        border: 7px solid rgba(244, 193, 65, 0.8);
+    }
+
+    .scroll-down {
+        opacity: 0.7;
+        height: 70px;
+        width: 40px;
+        border: 2.5px solid black;
+        bottom: 50px;
+        border-radius: 50px;
+    }
+
+    .landing__section2__slide,
+    .landing__section3__slide {
+        width: 450px;
+    }
+
+    .landing__section2__slide ul li,
+    .landing__section3__slide li {
+        height: 280px;
+    }
+}

@@ -1,0 +1,550 @@
+/* 공통 */
+
+.single-post {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    align-items: center;
+    background-color: rgba(253, 242, 217, 1);
+}
+
+.single-post__post-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.single-post__post {
+    overflow: hidden;
+    position: relative;
+}
+
+.single-post__post input {
+    display: none;
+}
+
+#pos1:checked ~ ul {
+    margin-left: 0;
+}
+#pos2:checked ~ ul {
+    margin-left: -100%;
+}
+#pos3:checked ~ ul {
+    margin-left: -200%;
+}
+#pos4:checked ~ ul {
+    margin-left: -300%;
+}
+#pos5:checked ~ ul {
+    margin-left: -400%;
+}
+
+.single-post__post ul {
+    display: flex;
+    transition: 1s;
+}
+
+.single-post__post li {
+    position: relative;
+    background-color: rgba(242, 186, 44, 0.7);
+}
+
+.single-post__post__pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.single-post__post__text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    white-space: pre-wrap;
+}
+
+.single-post__post__previous-page-btn,
+.single-post__post__next-page-btn {
+    position: absolute;
+    cursor: pointer;
+    padding: 20px 5px 20px 5px;
+}
+
+.single-post__btns {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.single-post__btns p {
+    position: absolute;
+}
+
+.single-post__btns__feeling img,
+.single-post__edit,
+.single-post__delete {
+    cursor: pointer;
+}
+
+.single-post__comment-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-post__profile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.single-post__profile__img {
+    border-radius: 100%;
+    background-color: rgba(242, 186, 44, 1);
+}
+
+.single-post__comments {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-comment {
+    display: flex;
+}
+
+.single-comment__profile__img {
+    border-radius: 100%;
+    background-color: rgba(242, 186, 44, 1);
+}
+
+.single-post__comment-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-post__comment-input__input {
+    background-color: transparent;
+    transition: all ease-in-out 0.3s;
+    border: none;
+    border-bottom: 1px solid rgba(163, 157, 143, 0.5);
+}
+
+.single-post__comment-input__input:focus {
+    outline: none;
+    border-bottom: 1px solid rgba(163, 157, 143, 1);
+}
+
+.single-post__comment-input__submit {
+    background-color: rgba(244, 193, 65, 0.8);
+    transition: all ease-in-out 0.3s;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.single-post__comment-input__submit:hover {
+    background-color: rgba(244, 193, 65, 1);
+}
+
+/* mobile */
+
+@media screen and (max-width: 767px) {
+    .single-post {
+        flex-direction: column;
+    }
+
+    .single-post__post-area {
+        padding: 20px;
+    }
+
+    .single-post__title {
+        width: 80vw;
+        max-width: 520px;
+        font-size: 16px;
+        line-height: 18px;
+        margin-bottom: 10px;
+    }
+
+    .single-post__post {
+        width: 75vw;
+        max-width: 470px;
+        margin-bottom: 10px;
+    }
+
+    .single-post__post li {
+        height: 75vw;
+        max-height: 470px;
+    }
+
+    .single-post__post__text {
+        padding: 20px;
+        font-size: 17px;
+        line-height: 21px;
+    }
+
+    .single-post__post__previous-page-btn,
+    .single-post__post__next-page-btn {
+        top: 45%;
+    }
+
+    .single-post__post__previous-page-btn {
+        left: 0px;
+    }
+
+    .single-post__post__next-page-btn {
+        right: 0px;
+        transform: rotate(180deg);
+    }
+
+    .single-post__btns {
+        width: 75vw;
+        max-width: 470px;
+    }
+
+    .single-post__btns__feeling img {
+        margin-right: 3px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .single-post__btns p {
+        right: 45%;
+    }
+
+    .single-post__btns__post:first-child {
+        margin-right: 3px;
+    }
+
+    .single-post__edit,
+    .single-post__delete {
+        width: 24px;
+        height: 24px;
+    }
+
+    .single-post__comment-area {
+        width: 80vw;
+        max-width: 520px;
+    }
+
+    .single-post__profile {
+        margin-bottom: 15px;
+    }
+
+    .single-post__profile__img {
+        width: 36px;
+        height: 36px;
+        margin-right: 10px;
+    }
+
+    .single-post__profile__username {
+        font-size: 17px;
+    }
+
+    .single-post__comments {
+        gap: 3px;
+        margin-bottom: 10px;
+    }
+
+    .single-comment__profile__img {
+        width: 32px;
+        height: 32px;
+        margin-right: 7px;
+    }
+
+    .single-comment__comment {
+        font-size: 13px;
+        line-height: 16px;
+        width: 70vw;
+        max-width: 420px;
+    }
+
+    .single-comment__profile__username {
+        font-size: 16px;
+        margin-right: 5px;
+    }
+
+    .single-comment__delete {
+        width: 20px;
+        height: 20px;
+    }
+
+    .single-post__comment-input {
+        width: 80vw;
+        max-width: 500px;
+        margin-bottom: 20px;
+    }
+
+    .single-post__comment-input__input {
+        width: 60vw;
+        max-width: 380px;
+        height: 30px;
+    }
+
+    .single-post__comment-input__submit {
+        width: 15vw;
+        max-width: 100px;
+        height: 30px;
+    }
+}
+
+/* tablet */
+
+@media screen and (min-width: 768px) {
+    .single-post {
+        flex-direction: column;
+    }
+
+    .single-post__post-area {
+        padding: 20px;
+    }
+
+    .single-post__title {
+        width: 520px;
+        font-size: 20px;
+        line-height: 18px;
+        margin-bottom: 15px;
+    }
+
+    .single-post__post {
+        width: 470px;
+        margin-bottom: 10px;
+    }
+
+    .single-post__post li {
+        height: 470px;
+    }
+
+    .single-post__post__text {
+        padding: 25px;
+        font-size: 19px;
+        line-height: 24px;
+    }
+
+    .single-post__post__previous-page-btn,
+    .single-post__post__next-page-btn {
+        top: 45%;
+    }
+
+    .single-post__post__previous-page-btn {
+        left: 0px;
+    }
+
+    .single-post__post__next-page-btn {
+        right: 0px;
+        transform: rotate(180deg);
+    }
+
+    .single-post__btns {
+        width: 75vw;
+        max-width: 470px;
+    }
+
+    .single-post__btns__feeling img {
+        margin-right: 3px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .single-post__btns p {
+        right: 45%;
+    }
+
+    .single-post__btns__post:first-child {
+        margin-right: 3px;
+    }
+
+    .single-post__edit,
+    .single-post__delete {
+        width: 24px;
+        height: 24px;
+    }
+
+    .single-post__comment-area {
+        width: 520px;
+    }
+
+    .single-post__profile {
+        margin-bottom: 15px;
+    }
+
+    .single-post__profile__img {
+        width: 36px;
+        height: 36px;
+        margin-right: 10px;
+    }
+
+    .single-post__profile__username {
+        font-size: 17px;
+    }
+
+    .single-post__comments {
+        gap: 3px;
+        margin-bottom: 10px;
+    }
+
+    .single-comment__profile__img {
+        width: 32px;
+        height: 32px;
+        margin-right: 7px;
+    }
+
+    .single-comment__comment {
+        margin-top: 10px;
+        font-size: 13px;
+        line-height: 16px;
+        width: 430px;
+    }
+
+    .single-comment__profile__username {
+        font-size: 16px;
+        margin-right: 5px;
+    }
+
+    .single-comment__delete {
+        margin-top: 10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .single-post__comment-input {
+        width: 500px;
+        margin-bottom: 20px;
+    }
+
+    .single-post__comment-input__input {
+        width: 380px;
+        height: 30px;
+    }
+
+    .single-post__comment-input__submit {
+        width: 100px;
+        height: 30px;
+    }
+}
+
+/* desktop */
+
+/* css 문제(깨짐)로 여기선 그냥 1280을 경계로 했음. */
+
+@media screen and (min-width: 1200px) {
+    .single-post {
+        flex-direction: row;
+        min-height: 80vh;
+        gap: 10vw;
+        justify-content: center;
+    }
+
+    .single-post__comments {
+        height: 400px;
+        overflow: auto;
+    }
+
+    .single-post__comments::-webkit-scrollbar {
+        /* 스크롤바 전체 */
+        background-color: rgba(244, 193, 65, 0.4);
+        width: 12px;
+        border-radius: 30px;
+    }
+
+    .single-post__comments::-webkit-scrollbar-thumb {
+        /* 스크롤 막대 */
+        background-color: rgba(244, 193, 65, 0.4);
+        border-radius: 30px;
+    }
+
+    .single-post__title {
+        font-size: 22px;
+        line-height: 14px;
+        margin-bottom: 25px;
+    }
+
+    .single-post__post {
+        margin-bottom: 20px;
+    }
+
+    .single-post__post__text {
+        padding: 40px;
+        font-size: 24px;
+        line-height: 26px;
+    }
+
+    .single-post__btns__feeling img {
+        margin-right: 5px;
+        width: 27px;
+        height: 27px;
+    }
+
+    .single-post__btns__post:first-child {
+        margin-right: 5px;
+    }
+
+    .single-post__edit,
+    .single-post__delete {
+        width: 27px;
+        height: 27px;
+    }
+
+    .single-post__comment-area {
+        width: 490px;
+        gap: 15px;
+    }
+
+    .single-post__profile {
+        margin-bottom: 15px;
+    }
+
+    .single-post__profile__img {
+        width: 40px;
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .single-post__profile__username {
+        font-size: 19px;
+    }
+
+    .single-post__comments {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+
+    .single-comment__profile__img {
+        width: 36px;
+        height: 36px;
+        margin-right: 9px;
+    }
+
+    .single-comment__comment {
+        font-size: 14px;
+        line-height: 17px;
+        width: 400px;
+        margin-right: 3px;
+    }
+
+    .single-comment__profile__username {
+        font-size: 16px;
+        margin-right: 5px;
+    }
+
+    .single-comment__delete {
+        width: 22px;
+        height: 22px;
+    }
+
+    .single-post__comment-input {
+        width: 490px;
+        margin-bottom: 20px;
+    }
+
+    .single-post__comment-input__input {
+        width: 370px;
+        height: 30px;
+    }
+
+    .single-post__comment-input__submit {
+        width: 100px;
+        height: 30px;
+    }
+}

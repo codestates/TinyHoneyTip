@@ -1,0 +1,474 @@
+.Modal_back {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(253, 242, 217, 1);
+}
+.Modal {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    left: 0px;
+    top: 0px;
+    background: rgba(244, 193, 65, 0.8);
+}
+.Modal_container {
+    border-radius: 20px;
+    width: 320px;
+    background-color: rgba(253, 242, 217, 1);
+    border: 1px solid rgb(219, 219, 219);
+    display: flex;
+    flex-direction: column;
+}
+.Modal_signup {
+    overflow-y: auto;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    left: 0px;
+    top: 0px;
+    background: rgba(244, 193, 65, 0.8);
+}
+.close_btn {
+    background: none;
+    border: none;
+    margin: 20px;
+    right: 0px;
+    top: 0px;
+    position: absolute;
+    font-size: 20px;
+    z-index: 15;
+}
+.Modal_logo {
+    box-sizing: border-box;
+    font-size: 2em;
+    padding-top: 1em;
+    margin-block-start: 0.6em;
+    margin-block-end: 0.6em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: rgba(244, 193, 65, 1);
+    font-family: Lobster, cursive;
+}
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.label {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 10px;
+}
+.checkmsg {
+    margin-left: 10px;
+    position: absolute;
+    color: red;
+    width: 266px;
+    font-weight: 400;
+    font-size: 0.5vw;
+}
+.input_cont {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 15px;
+    margin: 15px;
+}
+.input_container {
+    padding: 10px 0px;
+    display: block;
+}
+.signin_input {
+    border-radius: 10px;
+    padding: 10px 0px;
+    box-sizing: border-box;
+    display: block;
+    width: 266px;
+    height: 32px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
+    margin: 3px;
+}
+.login_input::placeholder {
+    color: #999999;
+}
+.signin_line {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+}
+.signin_btn {
+    background: rgba(244, 193, 65, 1);
+    color: black;
+    height: 30px;
+    border: none;
+    opacity: 1;
+    margin: 0.5em 1em;
+    padding: 0.25em 1em;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.kakao_btn {
+    background: rgba(244, 193, 65, 1);
+    color: black;
+    height: 30px;
+    border: none;
+    opacity: 1;
+    margin: 0.5em 1em;
+    padding: 0.25em 1em;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.kakaoLogo {
+    width: 1vw;
+}
+
+.modal_img {
+    border-radius: 20px;
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+}
+.Signup_footer {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 0px;
+}
+.Convert_btn {
+    background: none;
+    color: black;
+    text-decoration: underline;
+    height: 25px;
+    border: none;
+}
+.Convert_btn:hover {
+    color: red;
+    cursor: pointer;
+}
+/* 
+@media screen and (min-width: 768px) {
+    .Modal_back {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(102, 102, 102, 0.5);
+    }
+    .Modal {
+        width: 34vw;
+        height: 36vw;
+        position: relative;
+        box-sizing: border-box;
+        margin: 5vw auto;
+        padding: 2vw;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+        overflow-y: hidden;
+    }
+    .Modal_signup {
+        overflow-y: auto;
+        width: 34vw;
+        height: 34vw;
+        position: relative;
+        box-sizing: border-box;
+        margin: 5vw auto;
+        padding: 2vw;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+    }
+    .title {
+        left: 5vw;
+        position: relative;
+        font-size: 1.5vw;
+    }
+    .close_btn {
+        cursor: pointer;
+        background: none;
+        outline: none;
+        border: none;
+        border-radius: 1vw;
+        position: absolute;
+        left: 73%;
+    }
+    .label {
+        font-weight: 600;
+        font-size: 1vw;
+        margin-bottom: 1vw;
+    }
+    .checkmsg {
+        font-weight: 400;
+        margin: 0.3vw 1vw;
+        font-size: 1vw;
+    }
+    .input_container {
+        padding: 0 6vw;
+        margin-top: 1vw;
+    }
+    .signin_input {
+        font-size: 0.5vw;
+        border-radius: 1vw;
+        width: 100%;
+        height: 2vw;
+        border: 0.1vw solid #e5e5e5;
+        padding: 1vw 1vw;
+        outline: none;
+        box-sizing: border-box;
+    }
+    .login_input::placeholder {
+        color: #999999;
+    }
+    .signin_line {
+        padding: 0 6vw;
+        text-align: center;
+        align-items: center;
+    }
+    .signin_btn {
+        height: 3vw;
+        width: 100%;
+        font-size: 1vw;
+        display: relative;
+        cursor: pointer;
+        background-color: black;
+        color: rgba(244, 193, 65, 0.8);
+        box-sizing: border-box;
+        border-radius: 1vw;
+        margin-top: 1vw;
+        margin-bottom: 1vw;
+    }
+    .kakao_btn {
+        height: 3vw;
+        width: 100%;
+        font-size: 1vw;
+        display: relative;
+        cursor: pointer;
+        background-color: black;
+        color: rgba(244, 193, 65, 0.8);
+        text-align: center;
+        vertical-align: middle;
+        align-items: center;
+        box-sizing: border-box;
+        border-radius: 1vw;
+    }
+    .kakaoLogo {
+        width: 1vw;
+    }
+    .modal_img {
+        border-radius: 1vw;
+        margin-top: 2vw;
+        width: 18vw;
+        height: 8vw;
+        position: relative;
+    }
+    .modal_img_container {
+        padding: 0 6vw;
+    }
+    .alert_container {
+        font-size: 1.5vw;
+        width: 20vw;
+        height: 8vw;
+        position: fixed;
+        top: 10vw;
+        left: 40vw;
+        box-sizing: border-box;
+        text-align: center;
+        background-color: white;
+        color: black;
+        border: 0.1vw solid black;
+        border-radius: 1vw;
+    }
+    .alert_box {
+        font-size: 1.2vw;
+        position: relative;
+        top: 2vw;
+    }
+    .alert_btn {
+        font-size: 1vw;
+        border-radius: 1vw;
+        position: relative;
+        width: 5vw;
+        height: 2vw;
+        top: 3vw;
+        outline: 0;
+        border: 0;
+        background-color: rgba(244, 193, 65, 0.8);
+    }
+}
+@media screen and (min-width: 1024px) {
+    .Modal_back {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(102, 102, 102, 0.5);
+    }
+    .Modal {
+        width: 34vw;
+        height: 34vw;
+        position: relative;
+        box-sizing: border-box;
+        margin: 5vw auto;
+        padding: 2vw;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+        overflow-y: hidden;
+    }
+    .Modal_signup {
+        overflow-y: auto;
+        width: 34vw;
+        height: 34vw;
+        position: relative;
+        box-sizing: border-box;
+        margin: 5vw auto;
+        padding: 2vw;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+    }
+    .title {
+        left: 5vw;
+        font-size: 1.5vw;
+        position: relative;
+    }
+    .close_btn {
+        background: none;
+        outline: none;
+        border: none;
+        border-radius: 1vw;
+        position: absolute;
+        left: 73%;
+    }
+    .label {
+        font-weight: 600;
+        margin-bottom: 1vw;
+        font-size: 1vw;
+    }
+    .checkmsg {
+        font-weight: 400;
+        margin: 0.3vw 1vw;
+        font-size: 1vw;
+    }
+    .input_container {
+        padding: 0 6vw;
+        margin-top: 1vw;
+    }
+    .signin_input {
+        font-size: 0.5vw;
+        border-radius: 1vw;
+        width: 100%;
+        height: 2vw;
+        border: 0.1vw solid #e5e5e5;
+        padding: 1vw 1vw;
+        outline: none;
+        box-sizing: border-box;
+    }
+    .login_input::placeholder {
+        color: #999999;
+    }
+    .signin_line {
+        padding: 0 6vw;
+        text-align: center;
+        align-items: center;
+    }
+    .signin_btn {
+        height: 3vw;
+        width: 100%;
+        font-size: 1vw;
+        display: relative;
+        cursor: pointer;
+        background-color: black;
+        color: rgba(244, 193, 65, 0.8);
+        box-sizing: border-box;
+        border-radius: 1vw;
+        margin-top: 1vw;
+        margin-bottom: 1vw;
+    }
+    .kakao_btn {
+        height: 3vw;
+        width: 100%;
+        font-size: 1vw;
+        display: relative;
+        cursor: pointer;
+        background-color: black;
+        color: rgba(244, 193, 65, 0.8);
+        text-align: center;
+        vertical-align: middle;
+        align-items: center;
+        box-sizing: border-box;
+        border-radius: 1vw;
+    }
+    .kakaoLogo {
+        position: relative;
+        width: 1vw;
+    }
+    .modal_img {
+        border-radius: 1vw;
+        margin-top: 2vw;
+        width: 18vw;
+        height: 8vw;
+        position: relative;
+    }
+    .modal_img_container {
+        padding: 0 6vw;
+    }
+    .alert_container {
+        font-size: 1.5vw;
+        width: 20vw;
+        height: 8vw;
+        position: fixed;
+        top: 10vw;
+        left: 40vw;
+        box-sizing: border-box;
+        text-align: center;
+        background-color: white;
+        color: black;
+        border: 0.1vw solid black;
+        border-radius: 1vw;
+    }
+    .alert_box {
+        font-size: 1.2vw;
+        position: relative;
+        top: 2vw;
+    }
+    .alert_btn {
+        border-radius: 1vw;
+        font-size: 1vw;
+        width: 5vw;
+        height: 2vw;
+        position: relative;
+        top: 3vw;
+        outline: 0;
+        border: 0;
+        background-color: rgba(244, 193, 65, 0.8);
+    }
+} */

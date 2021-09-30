@@ -38,21 +38,29 @@ export default function PostUpload({ userInfo }) {
             });
             setSlide(editedContent);
         } else if (key === 'image') {
-            e.preventDefault();
-            let reader = new FileReader();
-            let file = e.target.files[0];
+            // e.preventDefault();
+            // let reader = new FileReader();
+            // let file = e.target.files[0];
 
-            reader.onloadend = () => {
-                let editedContent = slide.map((el, idx) => {
-                    if (idx === index) {
-                        return { ...el, img: reader.result, imgFile: file };
-                    } else {
-                        return el;
-                    }
-                });
-                setSlide(editedContent);
-            };
-            reader.readAsDataURL(file);
+            // reader.onloadend = () => {
+            //     let editedContent = slide.map((el, idx) => {
+            //         if (idx === index) {
+            //             return { ...el, img: reader.result, imgFile: file };
+            //         } else {
+            //             return el;
+            //         }
+            //     });
+            //     setSlide(editedContent);
+            // };
+            // reader.readAsDataURL(file);
+            let editedContent = slide.map((el, idx) => {
+                if (idx === index) {
+                    return { ...el, img: '', imgFile: e.target.value };
+                } else {
+                    return el;
+                }
+            });
+            setSlide(editedContent);
         } else if (key === 'deleteImage') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
@@ -144,6 +152,9 @@ export default function PostUpload({ userInfo }) {
         //     arrQueryString.push(`${pair[0]} = ${pair[1]}`);
         // }
         // console.log(`query string= ${arrQueryString.join('&')}`);
+        for (let key of formData.entries()) {
+            console.log(`${key}`);
+        }
         axios
             .post(apiUrl, formData, {
                 headers: {

@@ -1,53 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 export default function Home() {
-    // 스크롤 제거
-    // window.addEventListener("wheel", function(e){
-    //   e.preventDefault();
-    // },{passive : false});
+    const sectionCount = 4;
 
-    // window.addEventListener('scroll', ()=>{
-    //   console.log('scrolled')
-    // })
-
-    // section 개수에 맞게 수정
-    const sectionCount = 5;
-    const [currentSection, setCurrentSection] = useState(1);
-
-    const sectionHandler = () => {};
-
-    // const handleScroll = () => {
-    //   if (currentSection === sectionCount) {
-
-    //   } else {
-    //     setCurrentSection(currentSection + 1);
-    //   }
-    //   console.log(currentSection)
-    // }
-
-    // const throttleUsingRaf = (cb) => {
-    //   var rAfTimeout = 300;
-
-    //   return function () {
-    //     if (rAfTimeout) {
-    //       window.cancelAnimationFrame(rAfTimeout);
-    //     }
-    //     rAfTimeout = window.requestAnimationFrame(function () {
-    //       cb();
-    //     })
-    //   }
-    // }
-
-    // useEffect(() => {
-    //   window.addEventListener('scroll', throttleUsingRaf(handleScroll));
-
-    //   // const sections = document.querySelectorAll('section');
-    //   // const firstSection = sections[0].offsetTop;
-    //   // const secondSection = sections[1].offsetTop;
-    //   return () => window.removeEventListener('scroll', throttleUsingRaf(handleScroll))
-    // })
+    let init = function () {};
+    useEffect(() => {
+        init = function () {
+            window.onmousewheel = function (e) {
+                // console.dir(e);
+                const section1offset =
+                    document.getElementById(`section1`).offsetTop +
+                    document.getElementById(`section1`).offsetParent.offsetTop;
+                const section2offset =
+                    document.getElementById(`section2`).offsetTop +
+                    document.getElementById(`section2`).offsetParent.offsetTop;
+                const section3offset =
+                    document.getElementById(`section3`).offsetTop +
+                    document.getElementById(`section3`).offsetParent.offsetTop;
+                const section4offset =
+                    document.getElementById(`section4`).offsetTop +
+                    document.getElementById(`section4`).offsetParent.offsetTop;
+                const currentScrollTop = document.querySelector('html').scrollTop;
+                let page = 1;
+                if (currentScrollTop < section2offset) {
+                    page = 1;
+                } else if (currentScrollTop < section3offset) {
+                    page = 2;
+                } else if (currentScrollTop < section4offset) {
+                    page = 3;
+                } else {
+                    page = 4;
+                }
+                if (e.wheelDelta === -120) {
+                    // console.log('wheel down');
+                    if (page === sectionCount) {
+                    } else {
+                        page++;
+                        let nextSection = document.getElementById(`section${page}`).offsetTop;
+                        nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
+                        window.scrollTo(0, nextSection);
+                    }
+                } else {
+                    // console.log('wheel up');
+                    if (page === 1) {
+                    } else {
+                        page--;
+                        let nextSection = document.getElementById(`section${page}`).offsetTop;
+                        nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
+                        window.scrollTo(0, nextSection);
+                    }
+                }
+            };
+        };
+        init();
+    }, []);
 
     return (
         <>
@@ -57,7 +65,6 @@ export default function Home() {
             <div className="landing">
                 <div className="landing__sections">
                     <section className="landing__section" id="section1">
-                        {/* 첫 번째 섹션에 바로 시작하기 버튼 추가? */}
                         <div className="landing__section1__text">
                             <h1 className="landing__section1__title">Tiny Honey Tip</h1>
                             <h2 className="landing__section1__p">
@@ -96,7 +103,6 @@ export default function Home() {
                                 각종 사소한 꿀팁을 <br />
                                 <br />
                                 시간 낭비없이 본론만 얻으세요!
-                                {/* 여긴 자동으로 넘어가는 이미지 슬라이드 */}
                             </h2>
                         </div>
                         <div className="landing__section2__slide">
@@ -126,15 +132,7 @@ export default function Home() {
                     </section>
                     <section className="landing__section" id="section3">
                         <div className="landing__section1__text">
-                            <h2 className="landing__section1__p">
-                                뭐시기
-                                {/* 갖고있는 작고 소중한 꿀팁을 템플릿으로 <br /><br />
-              깔끔하게 정리하고 <br /><br />
-              그와 동시에 다른 사람들의 꿀팁을 스크랩하여 저장하고 <br /><br />
-              꿀팁저장소에서 언제 어디서든 <br /><br />
-              필요할 때 다시 꺼내볼 수 있습니다! */}
-                                {/* 여긴 수동으로 넘어가는 gif 슬라이드 */}
-                            </h2>
+                            <h2 className="landing__section1__p">뭐시기</h2>
                         </div>
                         <div className="landing__section3__slide">
                             <input type="radio" name="section3-pos" id="section-pos1" />
@@ -184,7 +182,11 @@ export default function Home() {
                             <button className="landing__start-btn">시작하기</button>
                         </Link>
                     </section>
-                    <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
+                    <a
+                        className="top-btn"
+                        onClick={() => {
+                            window.scrollTo(0, 0);
+                        }}>
                         <Image
                             src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
                             alt="top-button"

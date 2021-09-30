@@ -71,6 +71,7 @@ module.exports = {
                         scrapPost_c.push(postContainer);
                     }
                     console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
+
                     const myScrap = [];
                     for (let el of scrapPost_c) {
                         myScrap.push({
@@ -93,63 +94,63 @@ module.exports = {
                     }
 
                     // alert - scrap 시작
-                    // const alertScrapArr = [];
-                    // const alertScrapId = [];
-                    // for (let el of findMyPost_container) {
-                    //     alertScrapId.push({
-                    //         userId: await scrap.findAll({
-                    //             where: {
-                    //                 post_id: el.id,
-                    //             },
-                    //             createdAt: {
-                    //                 [Op.lt]: new Date(),
-                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                    //             },
-                    //             attributes: ['user_id'],
-                    //         }),
-                    //         title: el.title,
-                    //     });
-                    // }
+                    const alertScrapArr = [];
+                    const alertScrapId = [];
+                    for (let el of findMyPost_container) {
+                        alertScrapId.push({
+                            userId: await scrap.findOne({
+                                where: {
+                                    post_id: el.id,
+                                },
+                                createdAt: {
+                                    [Op.lt]: new Date(),
+                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                },
+                                attributes: ['user_id'],
+                            }),
+                            title: el.title,
+                        });
+                    }
 
-                    // for (let id of alertScrapId) {
-                    //     alertScrapArr.push({
-                    //         title: id.title,
-                    //         userName: await User.findOne({
-                    //             where: { id: id.user_id }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
-                    //             attributes: ['username'],
-                    //         }),
-                    //     });
-                    // }
+                    for (let id of alertScrapId) {
+                        alertScrapArr.push({
+                            title: id.title,
+                            userName: await User.findOne({
+                                where: { id: id.userId }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
+                                attributes: ['username'],
+                            }),
+                        });
+                    }
 
-                    // // alert - like 시작
+                    // alert - like 시작
 
-                    // const alertLikeArr = [];
-                    // const alertLikeId = [];
-                    // for (let el of findMyPost_container) {
-                    //     alertLikeId.push({
-                    //         userId: await like.findAll({
-                    //             where: {
-                    //                 post_id: el.id,
-                    //             },
-                    //             createdAt: {
-                    //                 [Op.lt]: new Date(),
-                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                    //             },
-                    //             attributes: ['user_id'],
-                    //         }),
-                    //         title: el.title,
-                    //     });
-                    // }
+                    const alertLikeArr = [];
+                    const alertLikeId = [];
+                    for (let el of findMyPost_container) {
+                        alertLikeId.push({
+                            userId: await like.findOne({
+                                where: {
+                                    post_id: el.id,
+                                },
+                                createdAt: {
+                                    [Op.lt]: new Date(),
+                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                },
+                                attributes: ['user_id'],
+                            }),
+                            title: el.title,
+                        });
+                    }
 
-                    // for (let id of alertLikeId) {
-                    //     alertLikeArr.push({
-                    //         title: id.title,
-                    //         userName: await User.findOne({
-                    //             where: { id: id.user_id },
-                    //             attributes: ['username'],
-                    //         }),
-                    //     });
-                    // }
+                    for (let id of alertLikeId) {
+                        alertLikeArr.push({
+                            title: id.title,
+                            userName: await User.findOne({
+                                where: { id: id.userId },
+                                attributes: ['username'],
+                            }),
+                        });
+                    }
 
                     console.log('성공');
 
@@ -158,10 +159,10 @@ module.exports = {
                         data: {
                             myPost: myPost,
                             myScrap: myScrap,
-                            // alert: {
-                            //     scrap: alertScrapArr,
-                            //     like: alertLikeArr,
-                            // },
+                            alert: {
+                                scrap: alertScrapArr,
+                                like: alertLikeArr,
+                            },
                         },
                     });
                 }

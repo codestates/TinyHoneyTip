@@ -9,7 +9,7 @@ const upload = multer(
         storage: multerS3({
             s3: s3,
             bucket: 'thtimg',
-            acl: 'public-read',
+            ACL: 'public-read',
             key: function (req, file, cb) {
                 cb(null, Date.now() + '.' + file.originalname.split('.').pop()); // 이름 설정
             },

@@ -50,70 +50,72 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
     };
 
     return (
-        <div className="header">
-            <Link href="/content" passHref>
-                <div className="header__logo">
-                    <Image src="/tht_logo.png" layout="fill" alt="Tiny Honey Tip" />
+        <div className="header-container">
+            <div className="header">
+                <Link href="/content" passHref>
+                    <div className="header__logo">
+                        <Image src="/tht_logo.png" layout="fill" alt="Tiny Honey Tip" />
+                    </div>
+                </Link>
+                <div className="header__menu__btn" onClick={menuHandler}>
+                    <Image
+                        src="https://img.icons8.com/material-outlined/48/000000/menu--v1.png"
+                        layout="fill"
+                        alt="header menu"
+                        unoptimized="true"
+                    />
                 </div>
-            </Link>
-            <div className="header__menu__btn" onClick={menuHandler}>
-                <Image
-                    src="https://img.icons8.com/material-outlined/48/000000/menu--v1.png"
-                    layout="fill"
-                    alt="header menu"
-                    unoptimized="true"
-                />
+                {userInfo && userInfo.isLogin ? (
+                    <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
+                        <Link href="/post/new" passHref>
+                            <a className="header__btn">New Post</a>
+                        </Link>
+                        <Link href={{ pathname: '/mypage' }} passHref>
+                            <a className="header__btn">my page</a>
+                        </Link>
+                        <a className="header__btn" onClick={signOutSubmit}>
+                            Log out
+                        </a>
+                    </div>
+                ) : (
+                    <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
+                        <a onClick={openInModal} className="header__btn">
+                            New Post
+                        </a>
+                        <Signin
+                            socialHandler={socialHandler}
+                            message={message}
+                            setMessage={setMessage}
+                            isOk={isOk}
+                            setIsOk={setIsOk}
+                            isInClick={isInClick}
+                            setIsInClick={setIsInClick}
+                            userInfo={userInfo}
+                            setUserInfo={setUserInfo}
+                            loginHandler={loginHandler}
+                            openUpModal={openUpModal}
+                            openInModal={openInModal}
+                            closeUpModal={closeUpModal}
+                            closeInModal={closeInModal}
+                            okHandler={okHandler}
+                        />
+                        <Signup
+                            message={message}
+                            setMessage={setMessage}
+                            isOk={isOk}
+                            setIsOk={setIsOk}
+                            okHandler={okHandler}
+                            closeUpModal={closeUpModal}
+                            closeInModal={closeInModal}
+                            openUpModal={openUpModal}
+                            openInModal={openInModal}
+                            isUpClick={isUpClick}
+                            setIsUpClick={setIsUpClick}
+                        />
+                    </div>
+                )}
+                <Alert isOk={isOk} okHandler={okHandler} message={message} />
             </div>
-            {userInfo && userInfo.isLogin ? (
-                <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
-                    <Link href="/post/new" passHref>
-                        <a className="header__btn">New Post</a>
-                    </Link>
-                    <Link href={{ pathname: '/mypage' }} passHref>
-                        <a className="header__btn">my page</a>
-                    </Link>
-                    <a className="header__btn" onClick={signOutSubmit}>
-                        Log out
-                    </a>
-                </div>
-            ) : (
-                <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
-                    <a onClick={openInModal} className="header__btn">
-                        New Post
-                    </a>
-                    <Signin
-                        socialHandler={socialHandler}
-                        message={message}
-                        setMessage={setMessage}
-                        isOk={isOk}
-                        setIsOk={setIsOk}
-                        isInClick={isInClick}
-                        setIsInClick={setIsInClick}
-                        userInfo={userInfo}
-                        setUserInfo={setUserInfo}
-                        loginHandler={loginHandler}
-                        openUpModal={openUpModal}
-                        openInModal={openInModal}
-                        closeUpModal={closeUpModal}
-                        closeInModal={closeInModal}
-                        okHandler={okHandler}
-                    />
-                    <Signup
-                        message={message}
-                        setMessage={setMessage}
-                        isOk={isOk}
-                        setIsOk={setIsOk}
-                        okHandler={okHandler}
-                        closeUpModal={closeUpModal}
-                        closeInModal={closeInModal}
-                        openUpModal={openUpModal}
-                        openInModal={openInModal}
-                        isUpClick={isUpClick}
-                        setIsUpClick={setIsUpClick}
-                    />
-                </div>
-            )}
-            <Alert isOk={isOk} okHandler={okHandler} message={message} />
         </div>
     );
 }

@@ -9,7 +9,7 @@ export default function Home() {
     useEffect(() => {
         init = function () {
             document.getElementById('landingPage').onmousewheel = function (e) {
-                // console.dir(e);
+                console.dir(e);
                 const section1offset =
                     document.getElementById(`section1`).offsetTop +
                     document.getElementById(`section1`).offsetParent.offsetTop;
@@ -38,14 +38,14 @@ export default function Home() {
                 } else {
                     page = 5;
                 }
-                if (e.wheelDelta === -120) {
+                if (e.wheelDelta < 0) {
                     // console.log('wheel down');
                     if (page === sectionCount) {
                     } else {
                         page++;
                         let nextSection = document.getElementById(`section${page}`).offsetTop;
                         nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
-                        window.scrollTo({ top: nextSection, behavior: 'smooth' });
+                        window.scrollTo({ top: nextSection, behavior: 'auto' });
                     }
                 } else {
                     // console.log('wheel up');
@@ -176,6 +176,20 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section4">
+                        <div className="landing__section4__slide">
+                            <ul>
+                                <li>
+                                    <div className="landing-user-image">
+                                        <Image src="/free-icon-bee.png" layout="fill" alt="bee user" />
+                                    </div>
+                                    <span>박은빈 꿀벌님</span>
+                                    <span>
+                                        "꿀팁 대박.
+                                        <br /> 왜 안씀?"
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                         <a
                             onClick={() => {
                                 let nextSection = document.getElementById('section5').offsetTop;

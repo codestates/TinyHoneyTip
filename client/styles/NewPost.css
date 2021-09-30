@@ -117,6 +117,7 @@
     background-color: rgba(253, 242, 217, 1);
     border: none;
     border-radius: 3px;
+    resize: none;
 }
 
 .post__toolbar__category {

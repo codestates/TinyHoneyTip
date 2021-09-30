@@ -2,8 +2,12 @@
 
 /* header */
 
+.header-container {
+    width: 100vw;
+}
+
 .header {
-    position: relative;
+    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -295,13 +299,26 @@ html {
     background-color: #666;
 }
 
+.landing-user-image {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.landing__section4__slide ul li {
+    display: flex;
+    flex-direction: column;
+}
+
 /* mobile */
 
 @media screen and (max-width: 767px) {
     /* overflow-x: hidden; 줘야됨 */
 
     /* header */
-
+    .header-container {
+        height: 60px;
+    }
     .header {
         height: 60px;
     }
@@ -474,6 +491,10 @@ html {
 
     .header__menu__btn {
         display: none;
+    }
+
+    .header-container {
+        height: 70px;
     }
 
     .header {

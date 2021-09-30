@@ -44,6 +44,7 @@ export default function Signup({
         if (e.target.value !== '' && e.target.value === signupInfo.password) setConfirm(true);
         else setConfirm(false);
     };
+
     const signupRequestHandler = () => {
         if (
             !signupInfo.email ||
@@ -119,16 +120,19 @@ export default function Signup({
                                         <div className={styles.input_container}>
                                             <div className={styles.label}>User Name</div>
                                             <input
+                                                maxLength="8"
                                                 name="username"
                                                 className={styles.signin_input}
                                                 type="username"
-                                                placeholder="닉네임을 입력하세요"
+                                                placeholder="User Name 최대 8글자"
                                                 onChange={(e) => inputHandler(e)}
                                                 value={signupInfo.username}
                                             />
                                             {signupInfo.username.length === 0 ? null : (
                                                 <div className={styles.checkmsg}>
-                                                    {signupInfo.username.length > 0 ? null : '닉네임을 입력해주세요.'}
+                                                    {signupInfo.username.length > 1
+                                                        ? null
+                                                        : '올바른 닉네임을 입력해주세요.'}
                                                 </div>
                                             )}
                                         </div>

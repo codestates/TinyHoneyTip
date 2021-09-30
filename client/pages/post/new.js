@@ -132,7 +132,7 @@ export default function PostUpload({ userInfo }) {
         formData.append('category', data.category);
         data.post_page.map((el, idx) => {
             formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
-            formData.append(`post_page[${idx}]['img']`, data.post_page[idx].img);
+            formData.append(`post_page_img_${idx}`, data.post_page[idx].img);
             formData.append(`post_page[${idx}]['content']`, data.post_page[idx].content);
             return el;
         });
@@ -150,7 +150,7 @@ export default function PostUpload({ userInfo }) {
                     Cookie: `accessToken=${userInfo.accessToken}`,
                     'content-type': 'multipart/form-data',
                     // 'Accept-Encoding': 'gzip, deflate, br',
-                    Connection: 'keep-alive',
+                    // Connection: 'keep-alive',
                 },
                 withCredentials: true,
             })

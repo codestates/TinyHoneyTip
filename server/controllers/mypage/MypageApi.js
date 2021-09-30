@@ -5,6 +5,7 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
+        console.log(req);
         console.log('쿠키' + req.cookies.accessToken);
         const accessToken = req.cookies.accessToken;
         try {
@@ -151,6 +152,7 @@ module.exports = {
                     // }
 
                     console.log('성공');
+
                     res.status(200).json({
                         message: 'ok',
                         data: {

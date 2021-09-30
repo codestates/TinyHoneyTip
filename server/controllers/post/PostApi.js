@@ -65,8 +65,8 @@ module.exports = {
     },
     uploadpost: async (req, res) => {
         try {
-            const file = req.file;
-            console.log('upload', file);
+            // const file = req.file;
+            console.log('upload', req.files);
             const accessToken = req.cookies.accessToken;
             // console.log(req);
             const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);

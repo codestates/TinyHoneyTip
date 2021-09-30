@@ -3,7 +3,7 @@
 .single-post {
     display: flex;
     width: 100%;
-    min-height: 100vh;
+    min-height: 65vh;
     align-items: center;
     background-color: rgba(253, 242, 217, 1);
 }
@@ -153,6 +153,8 @@
 @media screen and (max-width: 767px) {
     .single-post {
         flex-direction: column;
+        padding-top: 30px;
+        padding-bottom: 30px;
     }
 
     .single-post__post-area {
@@ -294,6 +296,8 @@
 @media screen and (min-width: 768px) {
     .single-post {
         flex-direction: column;
+        padding-top: 40px;
+        padding-bottom: 40px;
     }
 
     .single-post__post-area {
@@ -434,6 +438,8 @@
         min-height: 80vh;
         gap: 10vw;
         justify-content: center;
+        padding-top: 90px;
+        padding-bottom: 90px;
     }
 
     .single-post__comments {

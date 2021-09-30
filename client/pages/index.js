@@ -183,10 +183,10 @@ export default function Home() {
                                         <Image src="/free-icon-bee.png" layout="fill" alt="bee user" />
                                     </div>
                                     <span>박은빈 꿀벌님</span>
-                                    <span>
+                                    {/* <span>
                                         "꿀팁 대박.
                                         <br /> 왜 안씀?"
-                                    </span>
+                                    </span> */}
                                 </li>
                             </ul>
                         </div>

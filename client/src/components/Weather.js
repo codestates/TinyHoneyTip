@@ -1,22 +1,25 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/Weather.module.css';
+import Image from 'next/image';
 
-export default function Weather() {
+export default function Weather({ weatherData }) {
     const [city, setCity] = useState('');
-    const [weatherData, setWeatherData] = useState({});
+    const [weather, setWeather] = useState(weatherData);
 
     async function search(e) {
         const url = 'https://api.openweathermap.org/data/2.5/';
-        console.log(e.key);
         if (e.key === 'Enter') {
-            await axios.get(`${url}weather?q=${city}&appid=${process.env.WEATHER_KEY}`).then((res) => {
-                setWeatherData(res.data);
-                setCity('');
-                console.log(res.data);
-            });
+            await axios
+                .get(`${url}weather?q=${city.toLowerCase()}&appid=${process.env.WEATHER_KEY}`)
+                .then((res) => {
+                    setWeather(res.data);
+                    setCity('');
+                })
+                .catch((err) => window.alert('도시 이름이 없습니다.'));
         }
     }
+    const weatherIcon = 'http://openweathermap.org/img/w/' + weather.weather[0].icon + '.png';
 
     const dateBuilder = (d) => {
         let months = [
@@ -38,16 +41,28 @@ export default function Weather() {
         let date = d.getDate();
         let month = months[d.getMonth()];
         let year = d.getFullYear();
+        return `${day} ${date} ${month} ${year}`;
     };
 
     return (
         <div className={styles.weather_container}>
-            오늘의 날씨 꿀팁
+            <div className={styles.weather_title}>
+                <p className={styles.weatherIcon}>
+                    <Image src={weatherIcon} width="50px" height="50px" />
+                </p>
+                오늘의 날씨 꿀팁
+            </div>
             <div
                 className={
-                    typeof weatherData?.main !== 'undefined'
-                        ? weatherData?.main.temp - 273 > 16
-                            ? 'app warm'
+                    typeof weather?.main !== 'undefined'
+                        ? weather?.main.temp - 273 > 25
+                            ? 'app summer'
+                            : weather?.main.temp - 273 > 15
+                            ? 'app lSummer'
+                            : weather?.main.temp - 273 > 10
+                            ? 'app fall'
+                            : weather?.main.temp - 273 > 5
+                            ? 'app lFall'
                             : 'app'
                         : 'app'
                 }>
@@ -62,17 +77,17 @@ export default function Weather() {
                             onKeyPress={search}
                         />
                     </div>
-                    {typeof weatherData.main !== 'undefined' ? (
+                    {typeof weather.main !== 'undefined' ? (
                         <div>
-                            <div>
-                                <div>
-                                    {weatherData.name}, {weatherData.sys.country}
+                            <div className={styles.location}>
+                                <div className={styles.location_container}>
+                                    {weather.name}, {weather.sys.country}
                                 </div>
-                                <div>{dateBuilder(new Date())}</div>
+                                <div className={styles.date}>{dateBuilder(new Date())}</div>
                             </div>
-                            <div>
-                                <div>{Math.round(weatherData.main.temp - 273)}°C</div>
-                                <div>{weatherData.weather[0].main} </div>
+                            <div className={styles.weather_box}>
+                                <div className={styles.temp}>{Math.round(weather.main.temp - 273)}°C</div>
+                                <div className={styles.weather}>{weather.weather[0].main}</div>
                             </div>
                         </div>
                     ) : (
@@ -80,10 +95,9 @@ export default function Weather() {
                     )}
                 </div>
             </div>
+
             {/* <div>{weatherData?.main?.temp - 273}</div> */}
-            {/* <div>{weatherData?.main?.humidity}</div> */}
             {/* <div>{weatherData?.weather[0]?.main}</div> */}
-            {/* <div>{weatherData?.weather[0]?.description}</div> */}
             {/* <div><Image src={iconUrl} /></div> */}
             {/* <div>{weatherData?.wind?.speed}</div> */}
             {/* <div>{weatherData?.sys?.country}</div> */}

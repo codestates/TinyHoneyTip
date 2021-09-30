@@ -24,8 +24,22 @@ function MyApp({ Component, pageProps }) {
         username: '',
         profile_img: '',
     });
+    console.log(userInfo);
 
     const loginHandler = (data) => {
+        setUserInfo({
+            ...userInfo,
+            isLogin: true,
+            isSocial: false,
+            id: data.userInfo.id,
+            email: data.userInfo.email,
+            accessToken: data.accessToken,
+            username: data.userInfo.username,
+            profile_img: data.userInfo.profile_img,
+        });
+    };
+
+    const socialHandler = (data) => {
         setUserInfo({
             ...userInfo,
             isLogin: true,
@@ -88,6 +102,7 @@ function MyApp({ Component, pageProps }) {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
                 loginHandler={loginHandler}
+                socialHandler={socialHandler}
                 logoutHandler={logoutHandler}
             />
             {isPageLoading && <Loading />}

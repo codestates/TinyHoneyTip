@@ -147,7 +147,7 @@
         position: relative;
     }
     .post_list {
-        display: flex;
+        display: grid;
         overflow-x: hidden;
         overflow-y: hidden;
         margin-bottom: 80px;

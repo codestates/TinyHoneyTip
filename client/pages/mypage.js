@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import styles from '../styles/Post.module.css';
@@ -11,11 +11,9 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
     console.log(alert);
     const [editBtn, setEditBtn] = useState(false);
 
-
     const inputHandler = (e) => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
     };
-
 
     function editMyPage() {
         axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { userInfo }).then((res) => {
@@ -165,7 +163,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                             <Image
                                                                 layout="fill"
                                                                 alt={el?.title}
-                                                                src={el?.post_page[0].img}
+                                                                src={el?.post_page[0]?.img}
                                                                 unoptimized="false"
                                                             />
                                                         </div>
@@ -180,7 +178,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                     <div className={styles.post_desc_text}>
                                                         <Link href={`/post/${el?.id}`}>
                                                             <div className={styles.post_text}>
-                                                                <div>{el?.post_page[0].content}</div>
+                                                                <div>{el?.post_page[0]?.content}</div>
                                                             </div>
                                                         </Link>
                                                     </div>
@@ -265,6 +263,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 }
 
 export async function getServerSideProps(context) {
+    console.log(context);
     const token = context.req.headers.cookie;
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
     const res = await axios.get(apiUrl, {

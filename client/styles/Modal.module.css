@@ -147,6 +147,9 @@
     cursor: pointer;
 }
 .kakaoLogo {
+    position: relative;
+    top: 0.25em;
+    height: 1vw;
     width: 1vw;
 }
 

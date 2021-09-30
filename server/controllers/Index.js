@@ -30,14 +30,14 @@ module.exports = {
             res.status(400).json({ message: 'rewrite email' });
         } else {
             delete finduser.dataValues.password;
-            console.log(finduser);
+            // console.log(finduser);
             const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
 
-            res.cookie('accessToken', accessToken, {
-                sameSite: 'none',
-                secure: true,
-                httpOnly: true,
-            });
+            // res.cookie('accessToken', accessToken, {
+            //     sameSite: 'none',
+            //     secure: true,
+            //     httpOnly: true,
+            // });
             res.status(200).json({ message: 'login complete', data: { accessToken: accessToken, userInfo: finduser } });
         }
     },

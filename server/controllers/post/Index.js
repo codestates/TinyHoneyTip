@@ -15,11 +15,11 @@ const {
     comment,
     deletecomment,
 } = require('./PostApi');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/ ' });
+const upload = require('../../multer');
+// const upload = multer({ dest: 'uploads/ ' });
 
 post.get('/', getpostlist);
-post.post('/', upload.single('image'), uploadpost);
+post.post('/', upload.array('image', 5), uploadpost);
 post.get('/:id', getpostdetail);
 post.patch('/:id', editpost);
 post.delete('/:id', deletepost);

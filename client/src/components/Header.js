@@ -7,7 +7,7 @@ import Signin from '../signin/Signin';
 import Signup from '../signup/Signup';
 import Alert from './AlertBox';
 
-export default function Header({ userInfo, setUserInfo, loginHandler, logoutHandler }) {
+export default function Header({ userInfo, setUserInfo, loginHandler, socialHandler, logoutHandler }) {
     const [isUpClick, setIsUpClick] = useState(false);
     const [isInClick, setIsInClick] = useState(false);
     const [isOk, setIsOk] = useState(false);
@@ -82,6 +82,7 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
                         New Post
                     </a>
                     <Signin
+                        socialHandler={socialHandler}
                         message={message}
                         setMessage={setMessage}
                         isOk={isOk}

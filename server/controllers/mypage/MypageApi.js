@@ -5,7 +5,8 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        // console.log('쿠키' + req.cookies.accessToken);
+        console.log(req);
+        console.log('쿠키' + req.cookies.accessToken);
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
@@ -20,47 +21,37 @@ module.exports = {
                     });
 
                     let myPost = [];
-
+                    let findPages = await post.findAll({
+                        attributes: ['id', 'content', 'img', 'post_id'],
+                    });
+                    let findScraps = await scrap.findAll({
+                        attributes: ['id', 'user_id', 'post_id'],
+                    });
+                    let findComments = await comment.findAll({
+                        attributes: ['user_id', 'txt', 'post_id'],
+                    });
+                    let findLikes = await like.findAll({
+                        attributes: ['user_id', 'post_id'],
+                    });
                     for (let el of findMyPost_container) {
                         myPost.push({
                             id: el.id,
                             title: el.title,
                             category: el.category,
-                            post_page: await post.findOne({
-                                attributes: ['id', 'content', 'img', 'post_id'],
-                                where: { post_id: el.id },
+                            post_page: findPages.filter((page) => {
+                                return page.post_id === el.id;
                             }),
-                            like: await like
-                                .findOne({
-                                    attributes: ['user_id'],
-                                    where: { post_id: el.id },
-                                })
-                                .then((res) =>
-                                    User.findOne({
-                                        attributes: ['username'],
-                                        where: res.user_id,
-                                    }),
-                                ),
-                            scrap: await scrap.findOne({
-                                attributes: ['user_id'],
-                                where: { post_id: el.id },
+                            like: findLikes.filter((like) => {
+                                return like.post_id === el.id;
                             }),
-
-                            comment: await comment
-                                .findOne({
-                                    attributes: ['user_id', 'txt'],
-                                    where: { post_id: el.id },
-                                })
-                                .then((res) => {
-                                    console.log('왜이래');
-                                    User.findOne({
-                                        attributes: ['username'],
-                                        where: res.user_id,
-                                    });
-                                }),
+                            scrap: findScraps.filter((scrap) => {
+                                return scrap.post_id === el.id;
+                            }),
+                            comment: findComments.filter((comment) => {
+                                return comment.post_id === el.id;
+                            }),
                         });
                     }
-
                     //console.log('마이포스트!!!', myPost[0]);
                     // ------------------마이포스트 끝!!  마이스크랩 시작!!---------------------
 
@@ -79,7 +70,7 @@ module.exports = {
                         });
                         scrapPost_c.push(postContainer);
                     }
-                    // console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
+                    console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
                     const myScrap = [];
                     for (let el of scrapPost_c) {
                         myScrap.push({
@@ -102,23 +93,23 @@ module.exports = {
                     }
 
                     // alert - scrap 시작
-                    const alertScrapArr = [];
-                    const alertScrapId = [];
-                    for (let el of findMyPost_container) {
-                        alertScrapId.push({
-                            userId: await scrap.findAll({
-                                where: {
-                                    post_id: el.id,
-                                },
-                                createdAt: {
-                                    [Op.lt]: new Date(),
-                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                                },
-                                attributes: ['user_id'],
-                            }),
-                            title: el.title,
-                        });
-                    }
+                    // const alertScrapArr = [];
+                    // const alertScrapId = [];
+                    // for (let el of findMyPost_container) {
+                    //     alertScrapId.push({
+                    //         userId: await scrap.findAll({
+                    //             where: {
+                    //                 post_id: el.id,
+                    //             },
+                    //             createdAt: {
+                    //                 [Op.lt]: new Date(),
+                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                    //             },
+                    //             attributes: ['user_id'],
+                    //         }),
+                    //         title: el.title,
+                    //     });
+                    // }
 
                     // for (let id of alertScrapId) {
                     //     alertScrapArr.push({
@@ -130,46 +121,47 @@ module.exports = {
                     //     });
                     // }
 
-                    // alert - like 시작
+                    // // alert - like 시작
 
-                    const alertLikeArr = [];
-                    const alertLikeId = [];
-                    for (let el of findMyPost_container) {
-                        alertLikeId.push({
-                            userId: await like.findAll({
-                                where: {
-                                    post_id: el.id,
-                                },
-                                createdAt: {
-                                    [Op.lt]: new Date(),
-                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                                },
-                                attributes: ['user_id'],
-                            }),
-                            title: el.title,
-                        });
-                    }
+                    // const alertLikeArr = [];
+                    // const alertLikeId = [];
+                    // for (let el of findMyPost_container) {
+                    //     alertLikeId.push({
+                    //         userId: await like.findAll({
+                    //             where: {
+                    //                 post_id: el.id,
+                    //             },
+                    //             createdAt: {
+                    //                 [Op.lt]: new Date(),
+                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                    //             },
+                    //             attributes: ['user_id'],
+                    //         }),
+                    //         title: el.title,
+                    //     });
+                    // }
 
-                    for (let id of alertLikeId) {
-                        alertLikeArr.push({
-                            title: id.title,
-                            userName: await User.findOne({
-                                where: { id: id.user_id },
-                                attributes: ['username'],
-                            }),
-                        });
-                    }
+                    // for (let id of alertLikeId) {
+                    //     alertLikeArr.push({
+                    //         title: id.title,
+                    //         userName: await User.findOne({
+                    //             where: { id: id.user_id },
+                    //             attributes: ['username'],
+                    //         }),
+                    //     });
+                    // }
 
                     console.log('성공');
+
                     res.status(200).json({
                         message: 'ok',
                         data: {
                             myPost: myPost,
                             myScrap: myScrap,
-                            alert: {
-                                scrap: alertScrapArr,
-                                like: alertLikeArr,
-                            },
+                            // alert: {
+                            //     scrap: alertScrapArr,
+                            //     like: alertLikeArr,
+                            // },
                         },
                     });
                 }

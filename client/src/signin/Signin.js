@@ -13,6 +13,7 @@ export default function Signin({
     setIsOk,
     message,
     setMessage,
+    socialHandler,
 }) {
     const [loginInfo, setLoginInfo] = useState({
         email: '',
@@ -65,24 +66,24 @@ export default function Signin({
         const url = `https://kauth.kakao.com/oauth/authorize?client_id=${id}&redirect_uri=${clientUrl}&response_type=code`;
         window.location.assign(url);
     };
-    // kakao post 요청
-    // useEffect(async () => {
-    //     const url = new URL(window.location.href);
-    //     const authorizationCode = url.searchParams.get('code');
-    //     const getAccessToken = async (authorizationCode) => {
-    //         let tokenData = await axios.post('http://localhost:80/signin/kakao', { authorizationCode }).then((res) => {
-    //             console.log(res.data);
-    //             // setMessage('로그인 완료');
-    //             // setIsOk(true);
-    //             // loginHandler(res.data.data);
-    //             // closeInModal();
-    //         });
-    //     };
 
-    //     if (authorizationCode) {
-    //         await getAccessToken(authorizationCode);
-    //     }
-    // }, []);
+    useEffect(async () => {
+        const url = new URL(window.location.href);
+        const authorizationCode = url.searchParams.get('code');
+        const getAccessToken = async (authorizationCode) => {
+            await axios.post('http://localhost:80/signin/kakao', { authorizationCode }).then((res) => {
+                console.log(res.data);
+                setMessage('로그인 완료');
+                setIsOk(true);
+                socialHandler(res.data.data);
+                closeInModal();
+            });
+        };
+
+        if (authorizationCode) {
+            await getAccessToken(authorizationCode);
+        }
+    }, []);
 
     return (
         <>

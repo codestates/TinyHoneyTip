@@ -263,6 +263,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 }
 
 export async function getServerSideProps(context) {
+    console.log(context);
     const token = context.req.headers.cookie;
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
     const res = await axios.get(apiUrl, {

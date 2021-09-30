@@ -78,7 +78,7 @@
 
     /* -------------------- alert 시작 ---------------------- */
 
-    #my_alert {
+    /* #my_alert {
         width: 20vw;
         height: 22vw;
         margin: auto;
@@ -103,7 +103,7 @@
         height: 9vw;
         background-color: aqua;
         margin-bottom: 1vw;
-    }
+    } */
 
     .alert_scrap_item {
         width: 100%;

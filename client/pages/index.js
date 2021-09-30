@@ -184,8 +184,8 @@ export default function Home() {
                                     </div>
                                     <span>박은빈 꿀벌님</span>
                                     <span>
-                                        "꿀팁 대박.
-                                        <br /> 왜 안씀?"
+                                        꿀팁 대박.
+                                        <br /> 왜 안씀?
                                     </span>
                                 </li>
                             </ul>

@@ -25,6 +25,7 @@ function MyApp({ Component, pageProps }) {
         profile_img: '',
     });
     console.log(userInfo);
+
     const loginHandler = (data) => {
         setUserInfo({
             ...userInfo,

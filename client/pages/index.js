@@ -5,57 +5,57 @@ import Head from 'next/head';
 export default function Home() {
     const sectionCount = 4;
 
-    let init = function () {};
-    useEffect(() => {
-        init = function () {
-            window.onmousewheel = function (e) {
-                // console.dir(e);
-                const section1offset =
-                    document.getElementById(`section1`).offsetTop +
-                    document.getElementById(`section1`).offsetParent.offsetTop;
-                const section2offset =
-                    document.getElementById(`section2`).offsetTop +
-                    document.getElementById(`section2`).offsetParent.offsetTop;
-                const section3offset =
-                    document.getElementById(`section3`).offsetTop +
-                    document.getElementById(`section3`).offsetParent.offsetTop;
-                const section4offset =
-                    document.getElementById(`section4`).offsetTop +
-                    document.getElementById(`section4`).offsetParent.offsetTop;
-                const currentScrollTop = document.querySelector('html').scrollTop;
-                let page = 1;
-                if (currentScrollTop < section2offset) {
-                    page = 1;
-                } else if (currentScrollTop < section3offset) {
-                    page = 2;
-                } else if (currentScrollTop < section4offset) {
-                    page = 3;
-                } else {
-                    page = 4;
-                }
-                if (e.wheelDelta === -120) {
-                    // console.log('wheel down');
-                    if (page === sectionCount) {
-                    } else {
-                        page++;
-                        let nextSection = document.getElementById(`section${page}`).offsetTop;
-                        nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
-                        window.scrollTo(0, nextSection);
-                    }
-                } else {
-                    // console.log('wheel up');
-                    if (page === 1) {
-                    } else {
-                        page--;
-                        let nextSection = document.getElementById(`section${page}`).offsetTop;
-                        nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
-                        window.scrollTo(0, nextSection);
-                    }
-                }
-            };
-        };
-        init();
-    }, []);
+    // let init = function () {};
+    // useEffect(() => {
+    //     init = function () {
+    //         window.onmousewheel = function (e) {
+    //             // console.dir(e);
+    //             const section1offset =
+    //                 document.getElementById(`section1`).offsetTop +
+    //                 document.getElementById(`section1`).offsetParent.offsetTop;
+    //             const section2offset =
+    //                 document.getElementById(`section2`).offsetTop +
+    //                 document.getElementById(`section2`).offsetParent.offsetTop;
+    //             const section3offset =
+    //                 document.getElementById(`section3`).offsetTop +
+    //                 document.getElementById(`section3`).offsetParent.offsetTop;
+    //             const section4offset =
+    //                 document.getElementById(`section4`).offsetTop +
+    //                 document.getElementById(`section4`).offsetParent.offsetTop;
+    //             const currentScrollTop = document.querySelector('html').scrollTop;
+    //             let page = 1;
+    //             if (currentScrollTop < section2offset) {
+    //                 page = 1;
+    //             } else if (currentScrollTop < section3offset) {
+    //                 page = 2;
+    //             } else if (currentScrollTop < section4offset) {
+    //                 page = 3;
+    //             } else {
+    //                 page = 4;
+    //             }
+    //             if (e.wheelDelta === -120) {
+    //                 // console.log('wheel down');
+    //                 if (page === sectionCount) {
+    //                 } else {
+    //                     page++;
+    //                     let nextSection = document.getElementById(`section${page}`).offsetTop;
+    //                     nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
+    //                     window.scrollTo(0, nextSection);
+    //                 }
+    //             } else {
+    //                 // console.log('wheel up');
+    //                 if (page === 1) {
+    //                 } else {
+    //                     page--;
+    //                     let nextSection = document.getElementById(`section${page}`).offsetTop;
+    //                     nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
+    //                     window.scrollTo(0, nextSection);
+    //                 }
+    //             }
+    //         };
+    //     };
+    //     init();
+    // }, []);
 
     return (
         <>

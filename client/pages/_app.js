@@ -13,6 +13,7 @@ import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
 import '../styles/MyPage.css';
+import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({
@@ -24,7 +25,6 @@ function MyApp({ Component, pageProps }) {
         username: '',
         profile_img: '',
     });
-    console.log(userInfo);
 
     const loginHandler = (data) => {
         setUserInfo({

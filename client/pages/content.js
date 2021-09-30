@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Category from '../src/components/Category';
 import Select from '../src/components/Select';
 import Search from '../src/components/Search';
+import Weather from '../src/components/Weather';
 
 export default function Content({ bestList, postList }) {
     const [itemIndex, setItemIndex] = useState(0);
@@ -42,6 +43,7 @@ export default function Content({ bestList, postList }) {
                 <div className="content">
                     <div className="best_content_container">
                         <div className="best_container">
+                            <Weather />
                             <div className="best_title_container"></div>
                             <div className="best_list_container">
                                 <div className="best_list_top">
@@ -93,7 +95,6 @@ export default function Content({ bestList, postList }) {
                                             );
                                         })}
                                     </div>
-
                                     <div className={styles.post_list_container}>
                                         <div className={styles.post_list_title}>🐝 꿀팁 둘러보기</div>
                                         <div className={styles.search_line}>
@@ -204,7 +205,7 @@ export default function Content({ bestList, postList }) {
     );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post`;
     const res = await axios.get(apiUrl);
     const best = res.data.data.sort(function (a, b) {
@@ -215,10 +216,13 @@ export async function getServerSideProps(context) {
         return 0;
     });
     const post = res.data.data;
+    // const weatherUrl = `${process.env.WEATHER_KEY}`;
+    // const data = await axios.get(weatherUrl);
     return {
         props: {
             bestList: best,
             postList: post,
+            // weatherData: data.data,
         },
     };
 }

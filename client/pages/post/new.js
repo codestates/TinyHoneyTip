@@ -23,9 +23,6 @@ export default function PostUpload({ userInfo }) {
 
     const [currentSlide, setCurrentSlide] = useState(1);
 
-    // console.log(`currentSlide : ${currentSlide}`);
-    // console.log(`slide : ${slide}`);
-
     const slideTextHandler = (index, key) => (e) => {
         setCannotSubmitMessage(false);
         if (key === 'content') {
@@ -38,21 +35,14 @@ export default function PostUpload({ userInfo }) {
             });
             setSlide(editedContent);
         } else if (key === 'image') {
-            e.preventDefault();
-            let reader = new FileReader();
-            let file = e.target.files[0];
-
-            reader.onloadend = () => {
-                let editedContent = slide.map((el, idx) => {
-                    if (idx === index) {
-                        return { ...el, img: reader.result, imgFile: file };
-                    } else {
-                        return el;
-                    }
-                });
-                setSlide(editedContent);
-            };
-            reader.readAsDataURL(file);
+            let editedContent = slide.map((el, idx) => {
+                if (idx === index) {
+                    return { ...el, img: '', imgFile: e.target.files[0] };
+                } else {
+                    return el;
+                }
+            });
+            setSlide(editedContent);
         } else if (key === 'deleteImage') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
@@ -84,30 +74,6 @@ export default function PostUpload({ userInfo }) {
         setCurrentSlide(slide.length + 1);
     };
 
-    // const setFormData = (formData, data, parentKey) => {
-    //     if (!(formData instanceof FormData)) return;
-    //     if (!(data instanceof Object)) return;
-
-    //     Object.keys(data).forEach((key) => {
-    //         const val = data[key];
-    //         if (parentKey) key = `${parentKey}[${key}]`;
-    //         if (val instanceof Object && !Array.isArray(val)) {
-    //             return setFormData(formData, val, key);
-    //         }
-    //         if (Array.isArray(val)) {
-    //             val.forEach((v, idx) => {
-    //                 if (v instanceof Object) {
-    //                     setFormData(formData, v, `${key}[${idx}]`);
-    //                 } else {
-    //                     formData.append(`${key}[${idx}]`, v);
-    //                 }
-    //             });
-    //         } else {
-    //             formData.append(key, val);
-    //         }
-    //     });
-    // };
-
     const postUploadHandler = () => {
         if (postInfo.title.length === 0 || postInfo.category === '카테고리') {
             setCannotSubmitMessage(true);
@@ -132,25 +98,23 @@ export default function PostUpload({ userInfo }) {
         formData.append('category', data.category);
         data.post_page.map((el, idx) => {
             formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
-            formData.append(`post_page_img_${idx}`, data.post_page[idx].img);
+            if (data.post_page[idx].img.length === 0) {
+                formData.append(`post_page_img`, undefined);
+            } else {
+                formData.append(`post_page_img`, data.post_page[idx].img);
+            }
             formData.append(`post_page[${idx}]['content']`, data.post_page[idx].content);
             return el;
         });
-        // setFormData(formData, data);
 
-        // const arrQueryString = [];
-        // for (let pair of formData.entries()) {
-        //     console.log(`${pair[0]} = ${pair[1]}`);
-        //     arrQueryString.push(`${pair[0]} = ${pair[1]}`);
-        // }
-        // console.log(`query string= ${arrQueryString.join('&')}`);
+        for (let key of formData.entries()) {
+            console.log(`${key}`);
+        }
         axios
             .post(apiUrl, formData, {
                 headers: {
                     Cookie: `accessToken=${userInfo.accessToken}`,
                     'content-type': 'multipart/form-data',
-                    // 'Accept-Encoding': 'gzip, deflate, br',
-                    // Connection: 'keep-alive',
                 },
                 withCredentials: true,
             })

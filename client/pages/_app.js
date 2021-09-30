@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 
 import Head from 'next/head';
 
@@ -64,6 +65,7 @@ function MyApp({ Component, pageProps }) {
             profile_img: '',
         });
         sessionStorage.clear();
+        Router.push('/');
     };
     useEffect(() => {
         setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));

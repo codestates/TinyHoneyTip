@@ -1,12 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import pic from '../public/honeycomb.png';
-import Best from '../src/components/Best';
-import Thumbnail from '../src/components/Thumbnail';
+import styles from '../styles/Post.module.css';
 import axios from 'axios';
+import Link from 'next/link';
+import Category from '../src/components/Category';
+import Select from '../src/components/Select';
+import Search from '../src/components/Search';
 
-export default function Content({ bestList, postList, initData }) {
+export default function Content({ bestList, postList }) {
+    const [itemIndex, setItemIndex] = useState(0);
+    const [post, setPost] = useState(postList?.slice(0, 7));
+    const [init, setInit] = useState(postList);
+    const [input, setInput] = useState('');
+
+    const _infiniteScroll = useCallback(() => {
+        let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+        let clientHeight = document.documentElement.clientHeight;
+
+        if (scrollTop + clientHeight === scrollHeight) {
+            setItemIndex(itemIndex + 7);
+            setPost(post.concat(postList?.slice(itemIndex + 7, itemIndex + 14)));
+        }
+    }, [itemIndex, post]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', _infiniteScroll, true);
+        return () => window.removeEventListener('scroll', _infiniteScroll, true);
+    }, [_infiniteScroll]);
+
+    const inputHandler = (e) => {
+        setInput(([e.target.name] = e.target.value));
+    };
     return (
         <>
             <Head>
@@ -15,9 +41,153 @@ export default function Content({ bestList, postList, initData }) {
             <div>
                 <div className="content">
                     <div className="best_content_container">
-                        <nav className="nav_area"></nav>
-                        <Best bestList={bestList} />
-                        <Thumbnail postList={postList} />
+                        <div className="best_container">
+                            <div className="best_title_container"></div>
+                            <div className="best_list_container">
+                                <div className="best_list_top">
+                                    <div className="best_list_title">🐝 BEST 꿀팁</div>
+                                    <div className="best_list">
+                                        {bestList?.slice(0, 5).map((best) => {
+                                            return (
+                                                <div className="best_item" key={best.id}>
+                                                    <div className="best_item_inner">
+                                                        <div className="best_item_header">
+                                                            <Link href={`/post/${best?.id}`}>
+                                                                <div className="header_image">
+                                                                    <div className="img_inner">
+                                                                        <Image
+                                                                            alt={best?.title}
+                                                                            layout="fill"
+                                                                            src={best?.post_page[0]?.img}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                            <div className="best_desc">
+                                                                <div className="best_desc_title">
+                                                                    <Link href={`/post/${best?.id}`}>
+                                                                        <a className="best_title_font">{best?.title}</a>
+                                                                    </Link>
+                                                                </div>
+                                                                <div className="best_desc_text">
+                                                                    <Link href={`/post/${best?.id}`}>
+                                                                        <a className="best_text">
+                                                                            <div>{best?.post_page[0]?.content}</div>
+                                                                        </a>
+                                                                    </Link>
+                                                                </div>
+                                                                <div className="best_desc_category">
+                                                                    <a className="best_category">{best?.category}</a>
+                                                                </div>
+                                                                <div className="best_desc_user">
+                                                                    <div className="best_desc_userinfo">
+                                                                        <div className="best_author">
+                                                                            ❤️ {best?.like?.length}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+
+                                    <div className={styles.post_list_container}>
+                                        <div className={styles.post_list_title}>🐝 꿀팁 둘러보기</div>
+                                        <div className={styles.search_line}>
+                                            <Category init={init} post={post} setPost={setPost} />
+                                            <Select post={post} setPost={setPost} />
+                                            <Search inputHandler={inputHandler} />
+                                        </div>
+                                        <div className={styles.post_list}>
+                                            {post?.filter((el) => {
+                                                return el?.title?.indexOf(input) > -1;
+                                            })?.length !== 0 ? (
+                                                post
+                                                    ?.filter((el) => {
+                                                        return el.title.indexOf(input) > -1;
+                                                    })
+                                                    .map((list) => {
+                                                        return (
+                                                            <div className={styles.post_item} key={list.id}>
+                                                                <div className={styles.post_item_inner}>
+                                                                    <div className={styles.best_item_header}>
+                                                                        <Link href={`/post/${list?.id}`}>
+                                                                            <div className={styles.header_image}>
+                                                                                <div className={styles.img_inner}>
+                                                                                    <Image
+                                                                                        layout="fill"
+                                                                                        alt={list?.title}
+                                                                                        src={list?.post_page[0]?.img}
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+                                                                        </Link>
+                                                                        <div className={styles.post_desc}>
+                                                                            <div className={styles.post_desc_title}>
+                                                                                <Link href={`/post/${list?.id}`}>
+                                                                                    <div
+                                                                                        className={
+                                                                                            styles.post_title_font
+                                                                                        }>
+                                                                                        {list?.title}
+                                                                                    </div>
+                                                                                </Link>
+                                                                            </div>
+                                                                            <div className={styles.post_desc_text}>
+                                                                                <Link href={`/post/${list?.id}`}>
+                                                                                    <div className={styles.post_text}>
+                                                                                        <div>
+                                                                                            {
+                                                                                                list?.post_page[0]
+                                                                                                    ?.content
+                                                                                            }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </Link>
+                                                                            </div>
+                                                                            <div className={styles.post_desc_category}>
+                                                                                <a className={styles.post_category}>
+                                                                                    {list?.category}
+                                                                                </a>
+                                                                            </div>
+                                                                            <div className={styles.post_desc_user}>
+                                                                                <div
+                                                                                    className={
+                                                                                        styles.post_desc_userinfo
+                                                                                    }>
+                                                                                    <div className={styles.post_author}>
+                                                                                        💛 {list?.like?.length}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })
+                                            ) : (
+                                                <>
+                                                    <div className={styles.result}>
+                                                        검색 결과가 없습니다.
+                                                        <div className={styles.result_img}>
+                                                            <Image
+                                                                src="https://cdn.discordapp.com/attachments/884717967307321407/892412101031776266/da13e0ed049893a8.png"
+                                                                alt="sign in picture"
+                                                                layout="fill"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

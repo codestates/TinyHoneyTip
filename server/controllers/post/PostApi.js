@@ -12,7 +12,7 @@ module.exports = {
                 `,
                 { type: QueryTypes.SELECT },
             );
-            console.log('allpostc', allpost_container);
+            // console.log('allpostc', allpost_container);
 
             const allPost = [];
             for (let el of allpost_container) {
@@ -65,6 +65,10 @@ module.exports = {
     },
     uploadpost: async (req, res) => {
         try {
+            // const file = req.file;
+
+            const obj = JSON.parse(JSON.stringify(req.body.post_page));
+            console.log('upload', req, obj[0]["'content'"]);
             const accessToken = req.cookies.accessToken;
             // console.log(req);
             const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
@@ -85,15 +89,23 @@ module.exports = {
                     },
                     attributes: ['id'],
                 });
-                console.log(req.body.post_page[0]);
+                // console.log(req.body.post_page[0]);
                 if (findcontainer) {
-                    for (let el of req.body.post_page) {
-                        //post_page 이름 바꿔야함
-                        post.create({
-                            post_id: findcontainer.id,
-                            img: el.img,
-                            content: el.content,
-                        });
+                    for (let i = 0; i < req.files.length; i++) {
+                        // console.log(req.files, obj[i][content]);
+                        if (req.files[i] !== undefined)
+                            post.create({
+                                post_id: findcontainer.id,
+                                img: req.files[i].location,
+                                content: obj[i]["'content'"],
+                            });
+                        else {
+                            post.create({
+                                post_id: findcontainer.id,
+                                img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
+                                content: obj[i].content,
+                            });
+                        }
                     }
                 }
             }

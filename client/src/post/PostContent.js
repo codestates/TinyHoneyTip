@@ -24,7 +24,10 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
                     {slide.map((el, idx) => {
                         return (
                             <li key={idx} style={{ width: `calc(100% / ${slide.length})` }}>
-                                <img className="upload-post__post__pic" src={el.img} />
+                                <img
+                                    className="upload-post__post__pic"
+                                    src={el.imgFile ? URL.createObjectURL(el.imgFile) : ''}
+                                />
                                 <pre className="upload-post__post__text">{el.content}</pre>
                             </li>
                         );

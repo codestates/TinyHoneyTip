@@ -51,7 +51,7 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
     return (
         <div className="header-container">
             <div className="header">
-                <Link href="/content" passHref>
+                <Link href="/" passHref>
                     <div className="header__logo">
                         <Image src="/tht_logo.png" layout="fill" alt="Tiny Honey Tip" />
                     </div>

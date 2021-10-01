@@ -99,17 +99,20 @@ export default function PostUpload({ userInfo }) {
         data.post_page.map((el, idx) => {
             formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
             if (data.post_page[idx].img.length === 0) {
+                formData.append(`post_page[${idx}]['image']`, false);
                 formData.append(`post_page_img`, undefined);
             } else {
+                formData.append(`post_page[${idx}]['image']`, true);
                 formData.append(`post_page_img`, data.post_page[idx].img);
             }
             formData.append(`post_page[${idx}]['content']`, data.post_page[idx].content);
             return el;
         });
 
-        for (let key of formData.entries()) {
-            console.log(`${key}`);
-        }
+        // for (let key of formData.entries()) {
+        //     console.log(`${key}`);
+        // }
+
         axios
             .post(apiUrl, formData, {
                 headers: {

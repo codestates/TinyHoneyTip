@@ -29,18 +29,19 @@
     border-radius: 20px;
 }
 .post_item:hover {
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 15px 15px;
     background-color: transparent;
-    border: 4px dashed black;
+    border-radius: 20px;
+    transform: translate(-15px, -15px);
 }
 .post_item_inner {
     height: 380px;
     width: 350px;
-    transition: all 0.15s;
+    transition: all 0.35s;
     position: relative;
 }
 .post_item_inner:hover {
     background-color: rgba(244, 193, 65, 1);
-    transform: translate(-25px, -25px);
     border-radius: 20px;
 }
 .img_inner {
@@ -122,7 +123,7 @@
     color: black;
     font-size: 20px;
     font-weight: 700;
-    height: 60px;
+    height: 40px;
     width: 200px;
     position: relative;
 }
@@ -166,8 +167,10 @@
         border-radius: 1vw;
     }
     .post_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
         background-color: transparent;
-        border: 0.2vw dashed black;
+        border-radius: 1vw;
+        transform: translate(-1vw, -1vw);
     }
     .post_item_inner {
         max-height: 380px;
@@ -179,7 +182,6 @@
     }
     .post_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-1vw, -1vw);
         border-radius: 1vw;
     }
     .img_inner {
@@ -267,7 +269,7 @@
     .post_list_title {
         margin-left: 1vw;
         color: black;
-        font-size: 1.5vw;
+        font-size: 20px;
         font-weight: 700;
         height: 4vw;
         margin-top: 1.1vw;
@@ -313,8 +315,10 @@
         border-radius: 1vw;
     }
     .post_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
         background-color: transparent;
-        border: 0.2vw dashed black;
+        border-radius: 1vw;
+        transform: translate(-1vw, -1vw);
     }
     .post_item_inner {
         transition: all 0.15s;
@@ -324,7 +328,6 @@
     }
     .post_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-1vw, -1vw);
         border-radius: 1vw;
     }
     .img_inner {
@@ -411,7 +414,7 @@
     .post_list_title {
         margin-left: 1vw;
         color: black;
-        font-size: 1.5vw;
+        font-size: 20px;
         font-weight: 700;
         height: 4vw;
         margin-top: 1.1vw;
@@ -436,7 +439,8 @@
 
 @media screen and (max-width: 768px) {
     .search_line {
-        left: 35px;
+        width: 20vw;
+        left: 4.8vw;
         margin-top: 5vw;
         z-index: 3;
         display: flex;
@@ -444,12 +448,12 @@
     }
     .post_list_title {
         color: black;
-        font-size: 2vw;
+        font-size: 15px;
         font-weight: 700;
         height: 2vw;
         position: relative;
         left: 5vw;
-        width: 18vw;
+        width: 120px;
     }
     .post_list {
         margin-top: 3vw;
@@ -471,8 +475,10 @@
         transition: all 0.15s;
     }
     .post_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
         background-color: transparent;
-        border: 0.4vw dashed black;
+        border-radius: 2vw;
+        transform: translate(-1vw, -1vw);
     }
     .post_item_inner {
         height: 40vw;
@@ -481,7 +487,6 @@
     }
     .post_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-1vw, -1vw);
         border-radius: 2vw;
     }
     .img_inner {
@@ -574,6 +579,7 @@
 }
 @media screen and (max-width: 425px) {
     .search_line {
+        width: 20vw;
         top: 2vw;
         z-index: 3;
         position: relative;
@@ -585,7 +591,7 @@
         height: 5vw;
         position: relative;
         left: 5vw;
-        width: 28vw;
+        width: 120px;
     }
     .post_list {
         margin-top: 8vw;
@@ -607,8 +613,10 @@
         transition: all 0.15s;
     }
     .post_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
         background-color: transparent;
-        border: 0.8vw dashed black;
+        border-radius: 4vw;
+        transform: translate(-3vw, -3vw);
     }
     .post_item_inner {
         border-radius: 4vw;
@@ -617,7 +625,7 @@
         position: relative;
     }
     .post_item_inner:hover {
-        transform: translate(-3vw, -3vw);
+        background-color: rgba(244, 193, 65, 1);
         border-radius: 4vw;
     }
     .img_inner {

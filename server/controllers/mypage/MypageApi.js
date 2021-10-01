@@ -59,10 +59,14 @@ module.exports = {
                         where: { user_id: Token.id },
                         attributes: ['post_id'],
                     });
+
                     // ⬆️ 유저아이디로 내가 스크랩한 포스트 아이디 찾기.
 
                     // ⬇️ findScrap에서 post_id와 id가 같은 포스트컨테이너를 배열로 리턴
                     let scrapPost_c = [];
+                    if (findScrap.length === 0) {
+                    }
+
                     for (let el of findScrap) {
                         let postContainer = await post_container.findOne({
                             attributes: ['title', 'category', 'user_id', 'id'],
@@ -71,7 +75,6 @@ module.exports = {
                         scrapPost_c.push(postContainer);
                     }
                     console.log('스크랩포스트컨테이너', scrapPost_c[0].id);
-
                     const myScrap = [];
                     for (let el of scrapPost_c) {
                         myScrap.push({
@@ -93,7 +96,7 @@ module.exports = {
                         });
                     }
 
-                    // alert - scrap 시작
+                    //alert - scrap 시작
                     const alertScrapArr = [];
                     const alertScrapId = [];
                     for (let el of findMyPost_container) {
@@ -111,6 +114,8 @@ module.exports = {
                             title: el.title,
                         });
                     }
+
+                    console.log('ddddddddd', alertScrapId);
 
                     for (let id of alertScrapId) {
                         alertScrapArr.push({
@@ -184,14 +189,15 @@ module.exports = {
                 if (!token) res.status(404).json({ message: 'Bad Request' });
                 else {
                     //console.log(req.body);
-                    const { email, username, password, profile_img } = req.body;
+                    const { email, username, password } = req.body;
+
                     if (email)
                         await User.update(
                             {
                                 email,
                                 username,
-                                profile_img,
                                 password,
+                                profile_img: req.file.location,
                             },
                             { where: { email: token } },
                         );

@@ -98,8 +98,10 @@
     border-radius: 20px;
 }
 .best_item:hover {
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 15px 15px;
     background-color: transparent;
-    border: 4px dashed black;
+    border-radius: 20px;
+    transform: translate(-15px, -15px);
 }
 .best_item_inner {
     height: 380px;
@@ -110,7 +112,6 @@
 
 .best_item_inner:hover {
     background-color: rgba(244, 193, 65, 1);
-    transform: translate(-25px, -25px);
     border-radius: 20px;
 }
 .img_inner {
@@ -260,7 +261,7 @@
     .best_list_title {
         margin-left: 1.5vw;
         color: black;
-        font-size: 1.5vw;
+        font-size: 20px;
         font-weight: 700;
         height: 3vw;
         position: relative;
@@ -289,8 +290,10 @@
         border-radius: 1vw;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
         background-color: transparent;
-        border: 0.2vw dashed black;
+        border-radius: 1vw;
+        transform: translate(-1vw, -1vw);
     }
     .best_item_inner {
         max-height: 380px;
@@ -303,7 +306,6 @@
 
     .best_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-1vw, -1vw);
         border-radius: 1vw;
     }
     .img_inner {
@@ -461,7 +463,7 @@
     .best_list_title {
         margin-left: 1vw;
         color: black;
-        font-size: 1.5vw;
+        font-size: 20px;
         font-weight: 700;
         height: 4vw;
         position: relative;
@@ -487,8 +489,10 @@
         border-radius: 1vw;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
+        border-radius: 1vw;
         background-color: transparent;
-        border: 0.2vw dashed black;
+        transform: translate(-1vw, -1vw);
     }
     .best_item_inner {
         transition: all 0.15s;
@@ -499,7 +503,6 @@
 
     .best_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-1vw, -1vw);
         border-radius: 1vw;
     }
     .img_inner {
@@ -652,12 +655,12 @@
     }
     .best_list_title {
         color: black;
-        font-size: 2vw;
+        font-size: 15px;
         font-weight: 700;
-        height: 6vw;
-        width: 12vw;
+        height: 30px;
+        width: 120px;
         position: relative;
-        left: 2vw;
+        left: 25px;
     }
     .best_list {
         margin-left: 2vw;
@@ -678,8 +681,10 @@
         transition: all 0.15s;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 2vw 2vw;
         background-color: transparent;
-        border: 0.4vw dashed black;
+        border-radius: 2vw;
+        transform: translate(-2vw, -2vw);
     }
     .best_item_inner {
         height: 40vw;
@@ -688,7 +693,6 @@
     }
     .best_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-2vw, -2vw);
         border-radius: 2vw;
     }
     .img_inner {
@@ -850,8 +854,10 @@
         transition: all 0.15s;
     }
     .best_item:hover {
+        box-shadow: rgba(0, 0, 0, 0.6) 0px 3vw 3vw;
         background-color: transparent;
-        border: 0.8vw dashed black;
+        border-radius: 4vw;
+        transform: translate(-3vw, -3vw);
     }
     .best_item_inner {
         border-radius: 4vw;
@@ -861,7 +867,7 @@
         position: relative;
     }
     .best_item_inner:hover {
-        transform: translate(-3vw, -3vw);
+        background-color: rgba(244, 193, 65, 1);
         border-radius: 4vw;
     }
     .img_inner {
@@ -944,4 +950,24 @@
         transition: all 0.15s;
         float: right;
     }
+}
+.app {
+    border-radius: 20px;
+    background-image: url('../public//building.jpg');
+    background-size: cover;
+    background-position: bottom;
+    transition: 0.4 ease-out;
+    margin: 25px;
+}
+.app.summer {
+    background-image: url('../public//summer.jpg');
+}
+.app.lSummer {
+    background-image: url('../public//lSummer.jpg');
+}
+.app.fall {
+    background-image: url('../public//fall.jpg');
+}
+.app.lFall {
+    background-image: url('../public//lFall.jpg');
 }

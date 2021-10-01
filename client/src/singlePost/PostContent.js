@@ -41,7 +41,7 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const amIScrapped = () => {
-        if (userInfo.isLogin) {
+        if (userInfo?.isLogin) {
             let myScrap = post.scrap.scrapList.filter((el) => {
                 return el.user_id === userInfo.id;
             });
@@ -206,7 +206,7 @@ export default function PostContent({ userInfo, post }) {
                     />
                 </div>
                 <p className="single-post__page">{`${currentSlide}/${post.post_page.length}`}</p>
-                {post.writerInfo.id === userInfo.id ? (
+                {post.writerInfo.id === userInfo?.id ? (
                     <div className="single-post__btns__post">
                         <Link href={`/post/edit/${id}`} passHref>
                             <img

@@ -59,10 +59,14 @@ module.exports = {
                         where: { user_id: Token.id },
                         attributes: ['post_id'],
                     });
+
                     // ⬆️ 유저아이디로 내가 스크랩한 포스트 아이디 찾기.
 
                     // ⬇️ findScrap에서 post_id와 id가 같은 포스트컨테이너를 배열로 리턴
                     let scrapPost_c = [];
+                    if (findScrap.length === 0) {
+                    }
+
                     for (let el of findScrap) {
                         let postContainer = await post_container.findOne({
                             attributes: ['title', 'category', 'user_id', 'id'],

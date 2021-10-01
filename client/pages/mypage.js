@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import styles from '../styles/Post.module.css';
@@ -13,6 +14,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 
     const inputHandler = (e) => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+        console.log(userInfo);
     };
 
     function editMyPage() {
@@ -52,8 +54,11 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 authorization: userInfo.accessToken,
                             },
                         })
-                        .catch((error) => {
-                            console.log('logout error 쿠키 삭제 실패', error);
+                        .then((res) => {
+                            if (res.data.message !== 'byebye') {
+                                window.alert('탈퇴가 완료되었습니다.');
+                                useRouter.back();
+                            }
                         });
                 }
             });
@@ -78,8 +83,8 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                             <Image
                                 onClick={editHandler}
                                 src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
-                                width="20px"
-                                height="20px"
+                                width="18px"
+                                height="18px"
                                 alt="edit button"
                             />
                         </button>
@@ -88,6 +93,8 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                             <>
                                 <div className="my_user_infoBody">
                                     <form>
+                                        <label htmlFor="profile_img_uploader">업로드</label>
+                                        <input type="file" id="profile_img_uploader" onChange="" />
                                         이메일: {userInfo.email}
                                         <br />
                                         <br />
@@ -95,19 +102,20 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                         <input
                                             type="text"
                                             id="userName"
-                                            placeholder="이름을 입력하세요"
+                                            placeholder={userInfo.username}
                                             maxLength="8"
                                             minLength="1"
                                             onChange={(e) => inputHandler(e)}
-                                            value={userInfo.username}></input>
+                                            value={userInfo.username}
+                                        />
                                     </form>
                                 </div>
                                 <button className="deleteBtn">
                                     <Image
                                         onClick={deleteSure}
                                         src="https://cdn.discordapp.com/attachments/881710985335934979/892220570425507870/userDeleteBtn.png"
-                                        width="25px"
-                                        height="25px"
+                                        width="18px"
+                                        height="18px"
                                         alt="delete button"
                                     />
                                 </button>
@@ -130,7 +138,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 {alert?.scrap !== [{ title: '', userName: '' }]
                                     ? alert.scrap?.map((el) => {
                                           <li className="alert_scrap_item">
-                                              🙌 {userInfo.username}벌님의 {el.title}을 {el.userName} 님이
+                                              ✔️ {userInfo.username}벌님의 {el.title}을 {el.userName} 님이 🙌
                                               스크랩했습니다.
                                           </li>;
                                       })
@@ -140,7 +148,8 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 {alert?.like !== [{ title: '', userName: '' }]
                                     ? alert.like?.map((el) => {
                                           <li className="alert_like_item">
-                                              👍 {userInfo.username}벌님의 {el.title}을 {el.userName} 님이 좋아합니다.
+                                              ✔️ {userInfo.username}벌님의 {el.title}을 {el.userName} 님이 👍
+                                              좋아합니다.
                                           </li>;
                                       })
                                     : '알림이 없습니다.'}

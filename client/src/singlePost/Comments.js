@@ -36,9 +36,6 @@ export default function Comments({ userInfo, post }) {
                     {
                         headers: {
                             Cookie: `accessToken=${userInfo.accessToken}`,
-                            'Content-type': 'application/x-www-form-urlencoded',
-                            'Accept-Encoding': 'gzip, deflate, br',
-                            Connection: 'keep-alive',
                         },
                         withCredentials: true,
                     },

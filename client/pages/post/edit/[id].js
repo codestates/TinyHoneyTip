@@ -122,20 +122,20 @@ export default function Id({ post, userInfo }) {
             console.log(`${key}`);
         }
 
-        // axios
-        //     .patch(apiUrl, formData, {
-        //         headers: {
-        //             Cookie: `accessToken=${userInfo.accessToken}`,
-        //             'content-type': 'multipart/form-data',
-        //         },
-        //         withCredentials: true,
-        //     })
-        //     .then((res) => {
-        //         Router.push(`post/${post.id}`);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        axios
+            .patch(apiUrl, formData, {
+                headers: {
+                    Cookie: `accessToken=${userInfo.accessToken}`,
+                    'content-type': 'multipart/form-data',
+                },
+                withCredentials: true,
+            })
+            .then((res) => {
+                Router.push(`post/${post.id}`);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (

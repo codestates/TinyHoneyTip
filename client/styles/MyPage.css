@@ -220,6 +220,14 @@
         margin: auto;
         border-radius: 7%;
         background-color: #f4c141;
+        overflow: hidden;
+    }
+
+    .my_profile_img img {
+        width: 15vw;
+        height: 15vw;
+        margin: auto;
+        border-radius: 7%;
     }
 
     .edit_my_profile {

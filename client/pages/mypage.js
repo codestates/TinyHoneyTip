@@ -5,20 +5,29 @@ import Image from 'next/image';
 import pic from '../public/honeycomb.png';
 import styles from '../styles/Post.module.css';
 import Link from 'next/link';
+import { userInfo } from 'os';
 
 export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }) {
     console.log(myPost);
     console.log(myScrap);
     console.log(alert);
     const [editBtn, setEditBtn] = useState(false);
+    const [img, setImg] = useState(userInfo.profile_img);
+    console.log('이미지', img);
 
     const inputHandler = (e) => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
         console.log(userInfo);
     };
 
+    const fileUpload = async (e) => {
+        setImg(e.target.files);
+    };
+
     function editMyPage() {
-        axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { userInfo }).then((res) => {
+        const formData = new FormData();
+        formData.append('file', img);
+        axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { userInfo: userInfo, formData }).then((res) => {
             if (res.message === 'ok') {
                 setUserInfo(res.data.userInfo);
                 window.alert('수정이 완료되었습니다.');
@@ -70,13 +79,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                 <div className="my_side_bar">
                     <div className="my_info">
                         <div className="my_profile_img">
-                            <Image
-                                layout="fill"
-                                alt="profile img"
-                                src={
-                                    'data:image/png;base64' + Buffer(userInfo.profile_img, 'binary').toString('base64')
-                                }
-                            />
+                            <Image layout="fill" alt="profile img" src={img} unoptimized={false} />
                         </div>
                         <h3 className="my_user_name">🐝 {userInfo.username} 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
@@ -93,8 +96,13 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                             <>
                                 <div className="my_user_infoBody">
                                     <form>
-                                        <label htmlFor="profile_img_uploader">업로드</label>
-                                        <input type="file" id="profile_img_uploader" onChange="" />
+                                        <input
+                                            type="file"
+                                            id="profile_img_uploader"
+                                            onChange={fileUpload}
+                                            accept="image/png, image/jpeg"
+                                        />
+                                        <br />
                                         이메일: {userInfo.email}
                                         <br />
                                         <br />
@@ -303,10 +311,11 @@ export async function getServerSideProps(context) {
     const res = await axios.get(apiUrl, {
         headers: { cookie: token, 'Content-Type': 'application/json' },
     });
-    console.log('겟마이페이지이이이이', res.data.data);
+    console.log('겟마이페이지이이이이', res.data.data.alert);
     const post = res.data.data.myPost;
     const scrap = res.data.data.myScrap;
     const alert = res.data.data.alert;
+    console.log('alert 알러트!!!', alert);
     return {
         props: {
             myPost: post,

@@ -14,6 +14,7 @@ import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
 import '../styles/MyPage.css';
+import '../styles/contentPost.css';
 import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {

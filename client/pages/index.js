@@ -185,6 +185,13 @@ export default function Home() {
                                     <div className="landing-user-image">
                                         <Image src="/free-icon-bee.png" layout="fill" alt="bee user" />
                                     </div>
+<<<<<<< HEAD
+                                    <span>박은빈 꿀벌님</span>
+                                    <span>
+                                        꿀팁 대박.
+                                        <br /> 왜 안씀?
+                                    </span>
+=======
                                     <span className="landing-user-name">박은빈 꿀벌님</span>
                                     <span className="landing-user-review">몰랐던 정보 많이 알아갑니다.</span>
                                 </li>
@@ -222,6 +229,7 @@ export default function Home() {
                                     </div>
                                     <span className="landing-user-name">박은빈 꿀벌님</span>
                                     <span className="landing-user-review">몰랐던 정보 많이 알아갑니다.</span>
+>>>>>>> 9b1d387c2e8ebe2f75f0294c13cb0d66c13f45a2
                                 </li>
                             </ul>
                         </div>

@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Post.module.css';
 import axios from 'axios';
 import Link from 'next/link';
 import Category from '../src/components/Category';
@@ -95,14 +94,14 @@ export default function Content({ bestList, postList, weatherData }) {
                                             );
                                         })}
                                     </div>
-                                    <div className={styles?.post_list_container}>
-                                        <div className={styles?.post_list_title}>🐝&nbsp;&nbsp;&nbsp;꿀팁 둘러보기</div>
-                                        <div className={styles?.search_line}>
+                                    <div className="post_list_container">
+                                        <div className="post_list_title">🐝&nbsp;&nbsp;&nbsp;꿀팁 둘러보기</div>
+                                        <div className="search_line">
                                             <Category init={init} post={post} setPost={setPost} />
                                             <Select post={post} setPost={setPost} />
                                             <Search inputHandler={inputHandler} />
                                         </div>
-                                        <div className={styles?.post_list}>
+                                        <div className="post_list">
                                             {post?.filter((el) => {
                                                 return el?.title?.indexOf(input) > -1;
                                             })?.length !== 0 ? (
@@ -112,12 +111,12 @@ export default function Content({ bestList, postList, weatherData }) {
                                                     })
                                                     .map((list) => {
                                                         return (
-                                                            <div className={styles?.post_item} key={list.id}>
-                                                                <div className={styles?.post_item_inner}>
-                                                                    <div className={styles?.best_item_header}>
+                                                            <div className="post_item" key={list.id}>
+                                                                <div className="post_item_inner">
+                                                                    <div className="best_item_header">
                                                                         <Link href={`/post/${list?.id}`}>
-                                                                            <div className={styles?.header_image}>
-                                                                                <div className={styles?.img_inner}>
+                                                                            <div className="header_image">
+                                                                                <div className="img_inner">
                                                                                     <Image
                                                                                         layout="fill"
                                                                                         alt={list?.title}
@@ -126,20 +125,17 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                                 </div>
                                                                             </div>
                                                                         </Link>
-                                                                        <div className={styles?.post_desc}>
-                                                                            <div className={styles?.post_desc_title}>
+                                                                        <div className="post_desc">
+                                                                            <div className="post_desc_title">
                                                                                 <Link href={`/post/${list?.id}`}>
-                                                                                    <div
-                                                                                        className={
-                                                                                            styles?.post_title_font
-                                                                                        }>
+                                                                                    <div className="post_title_font">
                                                                                         {list?.title}
                                                                                     </div>
                                                                                 </Link>
                                                                             </div>
-                                                                            <div className={styles?.post_desc_text}>
+                                                                            <div className="post_desc_text">
                                                                                 <Link href={`/post/${list?.id}`}>
-                                                                                    <div className={styles?.post_text}>
+                                                                                    <div className="post_text">
                                                                                         <div>
                                                                                             {
                                                                                                 list?.post_page[0]
@@ -149,18 +145,14 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                                     </div>
                                                                                 </Link>
                                                                             </div>
-                                                                            <div className={styles?.post_desc_category}>
-                                                                                <a className={styles?.post_category}>
+                                                                            <div className="post_desc_category">
+                                                                                <a className="post_category">
                                                                                     {list?.category}
                                                                                 </a>
                                                                             </div>
-                                                                            <div className={styles?.post_desc_user}>
-                                                                                <div
-                                                                                    className={
-                                                                                        styles?.post_desc_userinfo
-                                                                                    }>
-                                                                                    <div
-                                                                                        className={styles?.post_author}>
+                                                                            <div className="post_desc_user">
+                                                                                <div className="post_desc_userinfo">
+                                                                                    <div className="post_author">
                                                                                         💛 {list?.like?.length}
                                                                                     </div>
                                                                                 </div>
@@ -173,9 +165,9 @@ export default function Content({ bestList, postList, weatherData }) {
                                                     })
                                             ) : (
                                                 <>
-                                                    <div className={styles?.result}>
+                                                    <div className="result">
                                                         검색 결과가 없습니다.
-                                                        <div className={styles?.result_img}>
+                                                        <div className="result_img">
                                                             <Image
                                                                 src="https://cdn.discordapp.com/attachments/884717967307321407/892412101031776266/da13e0ed049893a8.png"
                                                                 alt="sign in picture"

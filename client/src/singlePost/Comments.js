@@ -84,8 +84,8 @@ export default function Comments({ userInfo, post }) {
                     id="commentInput"
                     type="text"
                     onChange={handleInput}
-                    placeholder={userInfo.isLogin ? '댓글을 입력해주세요.' : '로그인해 주세요.'}
-                    disabled={userInfo.isLogin ? '' : 'disabled'}
+                    placeholder={userInfo?.isLogin ? '댓글을 입력해주세요.' : '로그인해 주세요.'}
+                    disabled={userInfo?.isLogin ? '' : 'disabled'}
                     onKeyPress={(e) => {
                         if (e.key === 'Enter') {
                             commentSubmit();
@@ -96,7 +96,7 @@ export default function Comments({ userInfo, post }) {
                 <button
                     className="single-post__comment-input__submit"
                     onClick={commentSubmit}
-                    disabled={userInfo.isLogin ? '' : 'disabled'}>
+                    disabled={userInfo?.isLogin ? '' : 'disabled'}>
                     등록
                 </button>
             </div>

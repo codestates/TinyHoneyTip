@@ -52,7 +52,7 @@ export default function Id({ post, userInfo }) {
         } else if (key === 'deleteImage') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
-                    return { ...el, imgFile: '' };
+                    return { ...el, imgFile: '/postDefaultImage.jpg' };
                 } else {
                     return el;
                 }
@@ -74,7 +74,7 @@ export default function Id({ post, userInfo }) {
     };
 
     const addSlideHandler = async () => {
-        let newPage = { imgFile: '', content: '' };
+        let newPage = { imgFile: '/postDefaultImage.jpg', content: '' };
         await setSlide(slide.concat(newPage));
         document.getElementById(`pos${slide.length + 1}`).checked = true;
         setCurrentSlide(slide.length + 1);
@@ -104,12 +104,12 @@ export default function Id({ post, userInfo }) {
         formData.append('category', data.category);
         data.post_page.map((el, idx) => {
             formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
-            if (typeof data.post_page[idx].img === 'string') {
-                formData.append(`post_page[${idx}]['image']`, false);
-                formData.append(`post_page_img`, data.post_page[idx].img);
-            } else if (data.post_page[idx].img.length === 0) {
+            if (data.post_page[idx].img.length === 0 || data.post_page[idx].img === '/postDefaultImage.jpg') {
                 formData.append(`post_page[${idx}]['image']`, false);
                 formData.append(`post_page_img`, undefined);
+            } else if (typeof data.post_page[idx].img === 'string') {
+                formData.append(`post_page[${idx}]['image']`, false);
+                formData.append(`post_page_img`, data.post_page[idx].img);
             } else {
                 formData.append(`post_page[${idx}]['image']`, true);
                 formData.append(`post_page_img`, data.post_page[idx].img);
@@ -118,9 +118,9 @@ export default function Id({ post, userInfo }) {
             return el;
         });
 
-        // for (let key of formData.entries()) {
-        //     console.log(`${key}`);
-        // }
+        for (let key of formData.entries()) {
+            console.log(`${key}`);
+        }
 
         axios
             .patch(apiUrl, formData, {

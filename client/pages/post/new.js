@@ -12,7 +12,7 @@ export default function PostUpload({ userInfo }) {
         }
     });
 
-    const [slide, setSlide] = useState([{ img: '', imgFile: '', content: '' }]);
+    const [slide, setSlide] = useState([{ img: '', imgFile: '/postDefaultImage.jpg', content: '' }]);
 
     const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
 
@@ -46,7 +46,7 @@ export default function PostUpload({ userInfo }) {
         } else if (key === 'deleteImage') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
-                    return { ...el, img: '', imgFile: '' };
+                    return { ...el, img: '', imgFile: '/postDefaultImage.jpg' };
                 } else {
                     return el;
                 }
@@ -68,7 +68,7 @@ export default function PostUpload({ userInfo }) {
     };
 
     const addSlideHandler = async () => {
-        let newPage = { img: '', imgFile: '', content: '' };
+        let newPage = { img: '', imgFile: '/postDefaultImage.jpg', content: '' };
         await setSlide(slide.concat(newPage));
         document.getElementById(`pos${slide.length + 1}`).checked = true;
         setCurrentSlide(slide.length + 1);
@@ -98,7 +98,7 @@ export default function PostUpload({ userInfo }) {
         formData.append('category', data.category);
         data.post_page.map((el, idx) => {
             formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
-            if (data.post_page[idx].img.length === 0) {
+            if (data.post_page[idx].img.length === 0 || data.post_page[idx].img === '/postDefaultImage.jpg') {
                 formData.append(`post_page[${idx}]['image']`, false);
                 formData.append(`post_page_img`, undefined);
             } else {

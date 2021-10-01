@@ -21,7 +21,7 @@ const upload = require('../../multer');
 post.get('/', getpostlist);
 post.post('/', upload.array('post_page_img', 5), uploadpost);
 post.get('/:id', getpostdetail);
-post.patch('/:id', editpost);
+post.patch('/:id', upload.array('post_page_img', 5), editpost);
 post.delete('/:id', deletepost);
 post.get('/like/:id', like);
 post.delete('/like/:id', cancellike);

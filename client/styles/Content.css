@@ -261,7 +261,7 @@
     .best_list_title {
         margin-left: 1.5vw;
         color: black;
-        font-size: 1.5vw;
+        font-size: 20px;
         font-weight: 700;
         height: 3vw;
         position: relative;
@@ -463,7 +463,7 @@
     .best_list_title {
         margin-left: 1vw;
         color: black;
-        font-size: 1.5vw;
+        font-size: 20px;
         font-weight: 700;
         height: 4vw;
         position: relative;
@@ -655,12 +655,12 @@
     }
     .best_list_title {
         color: black;
-        font-size: 2vw;
+        font-size: 15px;
         font-weight: 700;
-        height: 6vw;
-        width: 12vw;
+        height: 30px;
+        width: 120px;
         position: relative;
-        left: 2vw;
+        left: 25px;
     }
     .best_list {
         margin-left: 2vw;
@@ -952,12 +952,22 @@
     }
 }
 .app {
-    background-image: url('../public//18:8.png');
+    border-radius: 20px;
+    background-image: url('../public//building.jpg');
     background-size: cover;
     background-position: bottom;
     transition: 0.4 ease-out;
+    margin: 25px;
 }
-
-.app.warm {
-    background-image: url('../public//honeycomb.png');
+.app.summer {
+    background-image: url('../public//summer.jpg');
+}
+.app.lSummer {
+    background-image: url('../public//lSummer.jpg');
+}
+.app.fall {
+    background-image: url('../public//fall.jpg');
+}
+.app.lFall {
+    background-image: url('../public//lFall.jpg');
 }

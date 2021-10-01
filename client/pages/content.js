@@ -9,7 +9,7 @@ import Select from '../src/components/Select';
 import Search from '../src/components/Search';
 import Weather from '../src/components/Weather';
 
-export default function Content({ bestList, postList }) {
+export default function Content({ bestList, postList, weatherData }) {
     const [itemIndex, setItemIndex] = useState(0);
     const [post, setPost] = useState(postList?.slice(0, 7));
     const [init, setInit] = useState(postList);
@@ -43,11 +43,11 @@ export default function Content({ bestList, postList }) {
                 <div className="content">
                     <div className="best_content_container">
                         <div className="best_container">
-                            <Weather />
+                            <Weather weatherData={weatherData} />
                             <div className="best_title_container"></div>
                             <div className="best_list_container">
                                 <div className="best_list_top">
-                                    <div className="best_list_title">🐝 BEST 꿀팁</div>
+                                    <div className="best_list_title">🐝&nbsp;&nbsp;&nbsp;BEST 꿀팁</div>
                                     <div className="best_list">
                                         {bestList?.slice(0, 5).map((best) => {
                                             return (
@@ -96,7 +96,7 @@ export default function Content({ bestList, postList }) {
                                         })}
                                     </div>
                                     <div className={styles.post_list_container}>
-                                        <div className={styles.post_list_title}>🐝 꿀팁 둘러보기</div>
+                                        <div className={styles.post_list_title}>🐝&nbsp;&nbsp;&nbsp;꿀팁 둘러보기</div>
                                         <div className={styles.search_line}>
                                             <Category init={init} post={post} setPost={setPost} />
                                             <Select post={post} setPost={setPost} />
@@ -216,13 +216,14 @@ export async function getServerSideProps() {
         return 0;
     });
     const post = res.data.data;
-    // const weatherUrl = `${process.env.WEATHER_KEY}`;
-    // const data = await axios.get(weatherUrl);
+    const url = 'https://api.openweathermap.org/data/2.5/';
+    const weatherUrl = `${url}weather?q=seoul&appid=${process.env.WEATHER_KEY}`;
+    const data = await axios.get(weatherUrl);
     return {
         props: {
             bestList: best,
             postList: post,
-            // weatherData: data.data,
+            weatherData: data.data,
         },
     };
 }

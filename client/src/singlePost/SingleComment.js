@@ -38,7 +38,7 @@ export default function SingleComment({ userInfo, comment, commentList, setComme
                 <span className="single-comment__profile__username">{comment.userName}</span>
                 {comment.txt}
             </p>
-            {comment.user_id === userInfo.id ? (
+            {comment.user_id === userInfo?.id ? (
                 <img
                     className="single-comment__delete"
                     onClick={deleteComment}

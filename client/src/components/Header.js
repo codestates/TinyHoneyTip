@@ -66,6 +66,9 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
                 </div>
                 {userInfo && userInfo.isLogin ? (
                     <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
+                        <Link href="/content" passHref>
+                            <a className="header__btn">Content</a>
+                        </Link>
                         <Link href="/post/new" passHref>
                             <a className="header__btn">New Post</a>
                         </Link>
@@ -78,6 +81,9 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
                     </div>
                 ) : (
                     <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
+                        <Link href="/content" passHref>
+                            <a className="header__btn">Content</a>
+                        </Link>
                         <a onClick={openInModal} className="header__btn">
                             New Post
                         </a>

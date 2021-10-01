@@ -185,6 +185,7 @@ module.exports = {
     },
     editpost: async (req, res) => {
         try {
+            const obj = JSON.parse(JSON.stringify(req.body.post_page));
             const id = req.params.id;
             const { title, category } = req.body;
             if (title && category) {
@@ -197,7 +198,7 @@ module.exports = {
                 );
                 await post.destroy({ where: { id } });
                 for (let i = 0; i < req.files.length; i++) {
-                    // console.log(req.files, obj[i][content]);
+                    console.log(req.files, req.body, obj[i]["'content'"]);
                     if (req.files[i] !== undefined)
                         post.create({
                             post_id: findcontainer.id,

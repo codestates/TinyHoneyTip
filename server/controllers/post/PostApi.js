@@ -103,7 +103,7 @@ module.exports = {
                             post.create({
                                 post_id: findcontainer.id,
                                 img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
-                                content: obj[i].content,
+                                content: obj[i]["'content'"],
                             });
                         }
                     }
@@ -196,13 +196,21 @@ module.exports = {
                     { where: { id } },
                 );
                 await post.destroy({ where: { id } });
-                for (let el of req.body.post_page) {
-                    //post_page 이름 바꿔야함
-                    post.create({
-                        post_id: id,
-                        img: el.img,
-                        content: el.content,
-                    });
+                for (let i = 0; i < req.files.length; i++) {
+                    // console.log(req.files, obj[i][content]);
+                    if (req.files[i] !== undefined)
+                        post.create({
+                            post_id: findcontainer.id,
+                            img: req.files[i].location,
+                            content: obj[i]["'content'"],
+                        });
+                    else {
+                        post.create({
+                            post_id: findcontainer.id,
+                            img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
+                            content: obj[i]["'content'"],
+                        });
+                    }
                 }
                 res.status(200).json({ message: 'ok' });
             } else {
@@ -345,6 +353,7 @@ module.exports = {
         try {
             const accessToken = req.cookies.accessToken;
             const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            console.log('comment', req.body);
             await comment.create({
                 user_id: userinfo.id,
                 post_id: req.params.id,

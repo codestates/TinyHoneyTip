@@ -109,6 +109,7 @@ export default function Id({ post, userInfo }) {
                 formData.append(`post_page_img`, data.post_page[idx].img);
             } else if (data.post_page[idx].img.length === 0) {
                 formData.append(`post_page[${idx}]['image']`, false);
+                formData.append(`post_page_img`, undefined);
             } else {
                 formData.append(`post_page[${idx}]['image']`, true);
                 formData.append(`post_page_img`, data.post_page[idx].img);

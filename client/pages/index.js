@@ -177,7 +177,7 @@ export default function Home() {
                     </section>
                     <section className="landing__section landing__section4" id="section4">
                         <div className="landing__section4__text">
-                            <span>4</span>명의 유저들이 Tiny Honey Tip을 이용하고 있습니다!
+                            <span>320</span>명의 유저들이 Tiny Honey Tip을 이용하고 있습니다!
                         </div>
                         <div className="landing__section4__slide">
                             <ul>

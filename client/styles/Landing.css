@@ -37,7 +37,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    width: 100%;
+    width: 100vw;
     background-color: rgba(244, 193, 65, 0.8);
 }
 

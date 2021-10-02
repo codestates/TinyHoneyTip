@@ -197,7 +197,6 @@ export default function PostUpload({ userInfo }) {
                 submitName="업로드"
                 modalHandler={modalHandler}
             />
-
             {modalOpened ? (
                 <ImageEditModal
                     currentEditingImg={currentEditingImg}

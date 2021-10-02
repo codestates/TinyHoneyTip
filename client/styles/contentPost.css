@@ -45,7 +45,7 @@
     border-radius: 20px;
 }
 .img_inner {
-    border-radius: 20px;
+    border-radius: 20px 20px 0px 0px;
     height: 250px;
     width: 100%;
     background-position: 50%;
@@ -186,7 +186,7 @@
     }
     .img_inner {
         max-height: 250px;
-        border-radius: 1vw;
+        border-radius: 1vw 1vw 0 0;
         height: 19.5vw;
         width: 100%;
         background-position: 50%;
@@ -331,7 +331,7 @@
         border-radius: 1vw;
     }
     .img_inner {
-        border-radius: 1vw;
+        border-radius: 1vw 1vw 0 0;
         height: 19.5vw;
         width: 100%;
         background-position: 50%;
@@ -490,7 +490,7 @@
         border-radius: 2vw;
     }
     .img_inner {
-        border-radius: 2vw;
+        border-radius: 2vw 2vw 0 0;
         height: 26.5vw;
         width: 100%;
         background-position: 50%;
@@ -629,7 +629,7 @@
         border-radius: 4vw;
     }
     .img_inner {
-        border-radius: 4vw;
+        border-radius: 4vw 4vw 0 0;
         height: 56vw;
         width: 100%;
         background-position: 50%;

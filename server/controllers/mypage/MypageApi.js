@@ -5,7 +5,6 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        console.log(req);
         console.log('쿠키' + req.cookies.accessToken);
         const accessToken = req.cookies.accessToken;
         try {
@@ -59,10 +58,14 @@ module.exports = {
                         where: { user_id: Token.id },
                         attributes: ['post_id'],
                     });
+
                     // ⬆️ 유저아이디로 내가 스크랩한 포스트 아이디 찾기.
 
                     // ⬇️ findScrap에서 post_id와 id가 같은 포스트컨테이너를 배열로 리턴
                     let scrapPost_c = [];
+                    if (findScrap.length === 0) {
+                    }
+
                     for (let el of findScrap) {
                         let postContainer = await post_container.findOne({
                             attributes: ['title', 'category', 'user_id', 'id'],
@@ -92,64 +95,66 @@ module.exports = {
                         });
                     }
 
-                    // alert - scrap 시작
-                    // const alertScrapArr = [];
-                    // const alertScrapId = [];
-                    // for (let el of findMyPost_container) {
-                    //     alertScrapId.push({
-                    //         userId: await scrap.findAll({
-                    //             where: {
-                    //                 post_id: el.id,
-                    //             },
-                    //             createdAt: {
-                    //                 [Op.lt]: new Date(),
-                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                    //             },
-                    //             attributes: ['user_id'],
-                    //         }),
-                    //         title: el.title,
-                    //     });
-                    // }
+                    //alert - scrap 시작
+                    const alertScrapArr = [];
+                    const alertScrapId = [];
+                    for (let el of findMyPost_container) {
+                        alertScrapId.push({
+                            userId: await scrap.findOne({
+                                where: {
+                                    post_id: el.id,
+                                },
+                                createdAt: {
+                                    [Op.lt]: new Date(),
+                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                },
+                                attributes: ['user_id'],
+                            }),
+                            title: el.title,
+                        });
+                    }
 
-                    // for (let id of alertScrapId) {
-                    //     alertScrapArr.push({
-                    //         title: id.title,
-                    //         userName: await User.findOne({
-                    //             where: { id: id.user_id }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
-                    //             attributes: ['username'],
-                    //         }),
-                    //     });
-                    // }
+                    console.log('ddddddddd', alertScrapId);
 
-                    // // alert - like 시작
+                    for (let id of alertScrapId) {
+                        alertScrapArr.push({
+                            title: id.title,
+                            userName: await User.findOne({
+                                where: { id: id.userId }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
+                                attributes: ['username'],
+                            }),
+                        });
+                    }
 
-                    // const alertLikeArr = [];
-                    // const alertLikeId = [];
-                    // for (let el of findMyPost_container) {
-                    //     alertLikeId.push({
-                    //         userId: await like.findAll({
-                    //             where: {
-                    //                 post_id: el.id,
-                    //             },
-                    //             createdAt: {
-                    //                 [Op.lt]: new Date(),
-                    //                 [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                    //             },
-                    //             attributes: ['user_id'],
-                    //         }),
-                    //         title: el.title,
-                    //     });
-                    // }
+                    // alert - like 시작
 
-                    // for (let id of alertLikeId) {
-                    //     alertLikeArr.push({
-                    //         title: id.title,
-                    //         userName: await User.findOne({
-                    //             where: { id: id.user_id },
-                    //             attributes: ['username'],
-                    //         }),
-                    //     });
-                    // }
+                    const alertLikeArr = [];
+                    const alertLikeId = [];
+                    for (let el of findMyPost_container) {
+                        alertLikeId.push({
+                            userId: await like.findOne({
+                                where: {
+                                    post_id: el.id,
+                                },
+                                createdAt: {
+                                    [Op.lt]: new Date(),
+                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                },
+                                attributes: ['user_id'],
+                            }),
+                            title: el.title,
+                        });
+                    }
+
+                    for (let id of alertLikeId) {
+                        alertLikeArr.push({
+                            title: id.title,
+                            userName: await User.findOne({
+                                where: { id: id.userId },
+                                attributes: ['username'],
+                            }),
+                        });
+                    }
 
                     console.log('성공');
 

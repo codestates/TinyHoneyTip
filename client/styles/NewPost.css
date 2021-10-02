@@ -102,9 +102,14 @@
 }
 
 .post-upload-modal-edit-area {
+    position: relative;
     background-color: rgba(242, 180, 24, 0.4);
     margin-bottom: 15px;
     border-radius: 4px;
+}
+
+.post-upload-modal-edit-area img {
+    object-fit: contain;
 }
 
 .post-upload-modal-btns {

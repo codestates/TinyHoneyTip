@@ -2,9 +2,14 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 export default function Home() {
     const sectionCount = 5;
-
+    useEffect(() => {
+        AOS.init();
+    }, []);
     // let init = function () {};
     // useEffect(() => {
     //     init = function () {
@@ -71,7 +76,7 @@ export default function Home() {
             <div className="landing">
                 <div className="landing__sections">
                     <section className="landing__section" id="section1">
-                        <div className="landing__section1__text">
+                        <div className="landing__section1__text" data-aos="fade-right" data-aos-duration="3000">
                             <h1 className="landing__section1__title">Tiny Honey Tip</h1>
                             <h2 className="landing__section1__p">
                                 당신의 작고 소중한 꿀팁을 <br />
@@ -84,7 +89,7 @@ export default function Home() {
                                 <button className="landing__start-btn">바로 시작하기</button>
                             </Link>
                         </div>
-                        <div className="landing__section1__pic-div">
+                        <div className="landing__section1__pic-div" data-aos="fade-right" data-aos-duration="3000">
                             <Image
                                 className="landing__section1__pic"
                                 src="/honeycomb.png"
@@ -235,17 +240,19 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section5">
-                        <div className="landing__section1__text">
-                            <h1 className="landing__section1__title">Tiny Honey Tip</h1>
-                            <h2 className="landing__section1__p">
-                                혹시 알아요? <br />
-                                <br />
-                                대박 HoneyTip 기다리고 있을지...!
-                            </h2>
+                        <div data-aos="fade-right" data-aos-duration="3000">
+                            <div className="landing__section1__text">
+                                <h1 className="landing__section1__title">Tiny Honey Tip</h1>
+                                <h2 className="landing__section1__p">
+                                    혹시 알아요? <br />
+                                    <br />
+                                    대박 HoneyTip 기다리고 있을지...!
+                                </h2>
+                            </div>
+                            <Link href="/content" passHref>
+                                <button className="landing__start-btn">시작하기</button>
+                            </Link>
                         </div>
-                        <Link href="/content" passHref>
-                            <button className="landing__start-btn">시작하기</button>
-                        </Link>
                     </section>
                     <a
                         className="top-btn"

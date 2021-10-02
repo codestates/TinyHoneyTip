@@ -14,16 +14,23 @@ export default function Id({ post, userInfo }) {
         }
     });
 
-    const [slide, setSlide] = useState(post.post_page);
+    const [slide, setSlide] = useState(
+        post?.post_page.map((el) => {
+            return { imgFile: el.img, content: el.content };
+        }),
+    );
 
-    const [currentSlide, setCurrentSlide] = useState(1);
+    const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
 
     const [postInfo, setPostInfo] = useState({
         title: post.title,
         category: post.category,
     });
 
+    const [currentSlide, setCurrentSlide] = useState(1);
+
     const slideTextHandler = (index, key) => (e) => {
+        setCannotSubmitMessage(false);
         if (key === 'content') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
@@ -34,25 +41,18 @@ export default function Id({ post, userInfo }) {
             });
             setSlide(editedContent);
         } else if (key === 'image') {
-            e.preventDefault();
-            let reader = new FileReader();
-            let file = e.target.files[0];
-
-            reader.onloadend = () => {
-                let editedContent = slide.map((el, idx) => {
-                    if (idx === index) {
-                        return { ...el, img: reader.result, imgFile: file };
-                    } else {
-                        return el;
-                    }
-                });
-                setSlide(editedContent);
-            };
-            reader.readAsDataURL(file);
+            let editedContent = slide.map((el, idx) => {
+                if (idx === index) {
+                    return { ...el, imgFile: e.target.files[0] };
+                } else {
+                    return el;
+                }
+            });
+            setSlide(editedContent);
         } else if (key === 'deleteImage') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
-                    return { ...el, img: '', imgFile: '' };
+                    return { ...el, imgFile: '/postDefaultImage.jpg' };
                 } else {
                     return el;
                 }
@@ -62,21 +62,81 @@ export default function Id({ post, userInfo }) {
     };
 
     const postInfoHandler = (key) => (e) => {
+        setCannotSubmitMessage(false);
         setPostInfo({ ...postInfo, [key]: e.target.value });
     };
 
     const deleteSlideHandler = (index) => (e) => {
         let editedSlide = slide.filter((el, idx) => idx !== index);
-        setCurrentSlide(1);
         setSlide(editedSlide);
+        document.getElementById(`pos${currentSlide - 1}`).checked = true;
+        setCurrentSlide(currentSlide - 1);
     };
 
-    const addSlideHandler = () => {
-        let newPage = { img: '', imgFile: '', content: '' };
-        setSlide(slide.concat(newPage));
+    const addSlideHandler = async () => {
+        let newPage = { imgFile: '/postDefaultImage.jpg', content: '' };
+        await setSlide(slide.concat(newPage));
+        document.getElementById(`pos${slide.length + 1}`).checked = true;
+        setCurrentSlide(slide.length + 1);
     };
 
-    const postEditSubmitHandler = () => {};
+    const postEditSubmitHandler = () => {
+        if (postInfo.title.length === 0 || postInfo.category === '카테고리') {
+            setCannotSubmitMessage(true);
+            return;
+        }
+        const postPage = slide.map((el, idx) => {
+            return { id: idx + 1, img: el.imgFile, content: el.content };
+        });
+        const category = postInfo.category;
+        const title = postInfo.title;
+        const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/${post.id}`;
+
+        const data = {
+            post_page: postPage,
+            category: category,
+            title: title,
+        };
+
+        const formData = new FormData();
+
+        formData.append('title', data.title);
+        formData.append('category', data.category);
+        data.post_page.map((el, idx) => {
+            formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
+            if (data.post_page[idx].img.length === 0 || data.post_page[idx].img === '/postDefaultImage.jpg') {
+                formData.append(`post_page[${idx}]['image']`, false);
+                formData.append(`post_page_img`, undefined);
+            } else if (typeof data.post_page[idx].img === 'string') {
+                formData.append(`post_page[${idx}]['image']`, false);
+                formData.append(`post_page_img`, data.post_page[idx].img);
+            } else {
+                formData.append(`post_page[${idx}]['image']`, true);
+                formData.append(`post_page_img`, data.post_page[idx].img);
+            }
+            formData.append(`post_page[${idx}]['content']`, data.post_page[idx].content);
+            return el;
+        });
+
+        for (let key of formData.entries()) {
+            console.log(`${key}`);
+        }
+
+        axios
+            .patch(apiUrl, formData, {
+                headers: {
+                    Cookie: `accessToken=${userInfo.accessToken}`,
+                    'content-type': 'multipart/form-data',
+                },
+                withCredentials: true,
+            })
+            .then((res) => {
+                Router.push(`post/${post.id}`);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
         <div className="post-upload-page">
@@ -96,6 +156,7 @@ export default function Id({ post, userInfo }) {
                 setCurrentSlide={setCurrentSlide}
                 postInfo={postInfo}
                 submitHandler={postEditSubmitHandler}
+                cannotSubmitMessage={cannotSubmitMessage}
                 submitName="수정하기"
             />
         </div>

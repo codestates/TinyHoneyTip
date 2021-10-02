@@ -185,7 +185,6 @@ export default function Content({ bestList, postList, weatherData }) {
                     </div>
                 </div>
             </div>
-
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
                 <Image
                     src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"

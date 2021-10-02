@@ -120,7 +120,7 @@ html {
     right: 0;
     z-index: 9999;
     cursor: pointer;
-    background-color: rgba(244, 193, 65, 0.8);
+    background-color: rgba(244, 193, 65, 1);
 }
 
 .scroll-down {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
+import Head from 'next/head';
 
 import UploadPostContent from '../../../src/post/PostContent';
 import ToolBar from '../../../src/post/ToolBar';
@@ -140,6 +141,9 @@ export default function Id({ post, userInfo }) {
 
     return (
         <div className="post-upload-page">
+            <Head>
+                <title>Edit Post | Tiny Honey Tip</title>
+            </Head>
             <UploadPostContent
                 slide={slide}
                 postInfo={postInfo}

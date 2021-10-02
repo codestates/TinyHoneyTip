@@ -25,6 +25,11 @@
     white-space: nowrap;
     font-family: 'Lobster', cursive;
     cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.header__btn:hover {
+    color: rgba(253, 242, 217, 1);
 }
 
 .header__menu__btn {
@@ -359,8 +364,13 @@ html {
     .header__menu__btn {
         width: 36px;
         height: 36px;
-        margin-right: 10px;
+        margin-right: 30px;
         cursor: pointer;
+        transition: all ease-in-out 0.3s;
+    }
+
+    .header__menu__btn:hover {
+        filter: invert(90%) sepia(28%) saturate(330%) hue-rotate(322deg) brightness(106%) contrast(98%);
     }
 
     .header__btns {

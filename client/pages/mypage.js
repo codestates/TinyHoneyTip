@@ -2,22 +2,19 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import pic from '../public/honeycomb.png';
-import styles from '../styles/Post.module.css';
 import Link from 'next/link';
-import { userInfo } from 'os';
 
 export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }) {
     console.log(myPost);
     console.log(myScrap);
     console.log(alert);
+    console.log(userInfo);
     const [editBtn, setEditBtn] = useState(false);
-    const [img, setImg] = useState(userInfo.profile_img);
+    const [img, setImg] = useState(userInfo?.profile_img);
     console.log('이미지', img);
 
     const inputHandler = (e) => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-        console.log(userInfo);
     };
 
     const fileUpload = async (e) => {
@@ -79,7 +76,12 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                 <div className="my_side_bar">
                     <div className="my_info">
                         <div className="my_profile_img">
-                            <Image layout="fill" alt="profile img" src={img} unoptimized={false} />
+                            <Image
+                                layout="fill"
+                                alt="profile img"
+                                src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
+                                unoptimized={false}
+                            />
                         </div>
                         <h3 className="my_user_name">🐝 {userInfo.username} 벌님 안녕하세요</h3>
                         <button className="edit_my_profile">
@@ -172,17 +174,14 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                         <h3 className="my_post">My Posts</h3>
                         <div className="my_post_container">
                             {myPost ? (
-                                myPost.map((el) => {
+                                myPost?.map((el) => {
                                     return (
                                         <div className="my_post_item" key={el?.id}>
                                             <div className="my_post_item_inner">
-                                                <div className={styles.post_item_option}>
-                                                    <div className={styles.post_overlay}></div>
-                                                </div>
-                                                <div className={styles.best_item_header}>
+                                                <div className="best_item_header">
                                                     <Link href={`/post/${el?.id}`}>
-                                                        <div className={styles.header_image}>
-                                                            <div className={styles.img_inner}>
+                                                        <div className="header_image">
+                                                            <div className="img_inner">
                                                                 <Image
                                                                     layout="fill"
                                                                     alt={el?.title}
@@ -198,29 +197,25 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    <div className={styles.post_desc}>
-                                                        <div className={styles.post_desc_title}>
+                                                    <div className="post_desc">
+                                                        <div className="post_desc_title">
                                                             <Link href={`/post/${el?.id}`}>
-                                                                <div className={styles.post_title_font}>
-                                                                    {el?.title}
-                                                                </div>
+                                                                <div className="post_title_font">{el?.title}</div>
                                                             </Link>
                                                         </div>
-                                                        <div className={styles.post_desc_text}>
+                                                        <div className="post_desc_text">
                                                             <Link href={`/post/${el?.id}`}>
-                                                                <div className={styles.post_text}>
+                                                                <div className="post_text">
                                                                     <div>{el?.post_page[0]?.content}</div>
                                                                 </div>
                                                             </Link>
                                                         </div>
-                                                        <div className={styles.post_desc_category}>
-                                                            <a className={styles.post_category}>{el?.category}</a>
+                                                        <div className="post_desc_category">
+                                                            <a className="post_category">{el?.category}</a>
                                                         </div>
-                                                        <div className={styles.post_desc_user}>
-                                                            <div className={styles.post_desc_userinfo}>
-                                                                <div className={styles.post_author}>
-                                                                    💛 {el?.like.length}
-                                                                </div>
+                                                        <div className="post_desc_user">
+                                                            <div className="post_desc_userinfo">
+                                                                <div className="post_author">💛 {el?.like.length}</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -242,14 +237,11 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                     return (
                                         <div className="my_post_item" key={el?.id}>
                                             <div className="my_post_item_inner">
-                                                <div className={styles.post_item_option}>
-                                                    <div className={styles.post_overlay}></div>
-                                                </div>
-                                                <div className={styles.best_item_header}>
+                                                <div className="best_item_header">
                                                     <Link href={`/post/${el?.id}`}>
-                                                        <a className={styles.header_image}>
+                                                        <a className="header_image">
                                                             <Image
-                                                                className={styles.img_inner}
+                                                                className="img_inner"
                                                                 alt={el?.title}
                                                                 layout="fill"
                                                                 src={
@@ -262,27 +254,23 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                             />
                                                         </a>
                                                     </Link>
-                                                    <div className={styles.post_desc}>
-                                                        <div className={styles.post_desc_title}>
+                                                    <div className="post_desc">
+                                                        <div className="post_desc_title">
                                                             <Link href={`/post/${el?.id}`}>
-                                                                <a className={styles.post_title_font}>{el?.title}</a>
+                                                                <a className="post_title_font">{el?.title}</a>
                                                             </Link>
                                                         </div>
-                                                        <div className={styles.post_desc_text}>
+                                                        <div className="post_desc_text">
                                                             <Link href={`/post/${el?.id}`}>
-                                                                <a className={styles.post_text}>
-                                                                    {el?.post_page[0].content}
-                                                                </a>
+                                                                <a className="post_text">{el?.post_page[0].content}</a>
                                                             </Link>
                                                         </div>
-                                                        <div className={styles.post_desc_category}>
-                                                            <a className={styles.post_category}>{el?.category}</a>
+                                                        <div className="post_desc_category">
+                                                            <a className="post_category">{el?.category}</a>
                                                         </div>
-                                                        <div className={styles.post_desc_user}>
-                                                            <div className={styles.post_desc_userinfo}>
-                                                                <div className={styles.post_author}>
-                                                                    💛 {el?.like.length}
-                                                                </div>
+                                                        <div className="post_desc_user">
+                                                            <div className="post_desc_userinfo">
+                                                                <div className="post_author">💛 {el?.like.length}</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -299,7 +287,12 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                 </div>
             </div>
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
-                <Image src={pic} alt="top-button" width="7vw" height="5vw" />
+                <Image
+                    src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
+                    alt="top-button"
+                    layout="fill"
+                    unoptimized="true"
+                />
             </a>
         </>
     );

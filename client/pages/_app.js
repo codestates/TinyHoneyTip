@@ -34,10 +34,11 @@ function MyApp({ Component, pageProps }) {
             isSocial: false,
             id: data.userInfo.id,
             email: data.userInfo.email,
-            accessToken: data.accessToken,
+            accessToken: data.cookie,
             username: data.userInfo.username,
             profile_img: data.userInfo.profile_img,
         });
+        console.log(data.accessToken);
     };
 
     const socialHandler = (data) => {

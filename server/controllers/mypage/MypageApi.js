@@ -5,14 +5,14 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        console.log(req);
-        console.log('쿠키' + req.cookies.accessToken);
+        console.log('쿠키', req.cookies.accessToken);
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
                 res.status(404).json({ message: 'Bad Request' });
             } else {
                 const Token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                console.log(Token);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
                     const findMyPost_container = await post_container.findAll({
@@ -100,30 +100,33 @@ module.exports = {
                     const alertScrapArr = [];
                     const alertScrapId = [];
                     for (let el of findMyPost_container) {
-                        alertScrapId.push({
-                            userId: await scrap.findOne({
-                                where: {
-                                    post_id: el.id,
-                                },
-                                createdAt: {
-                                    [Op.lt]: new Date(),
-                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                                },
-                                attributes: ['user_id'],
-                            }),
-                            title: el.title,
+                        const Id = await scrap.findOne({
+                            where: {
+                                post_id: el.id,
+                            },
+                            createdAt: {
+                                [Op.lt]: new Date(),
+                                [Op.gt]: new Date(new Date() - 0 * 7 * 0 * 0),
+                            },
+                            attributes: ['user_id'],
                         });
+                        if (Id !== null) {
+                            alertScrapId.push({
+                                userId: Id,
+                                title: el.title,
+                            });
+                        }
                     }
 
-                    console.log('ddddddddd', alertScrapId);
-
                     for (let id of alertScrapId) {
+                        const username = await User.findOne({
+                            where: { id: id.userId }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
+                            attributes: ['username'],
+                        }).username;
+                        console.log(username);
                         alertScrapArr.push({
                             title: id.title,
-                            userName: await User.findOne({
-                                where: { id: id.userId }, //이게 배열이어서 문제생김... 유저아이디 어떻게 찾을지 생각해보기.
-                                attributes: ['username'],
-                            }),
+                            userName: username,
                         });
                     }
 
@@ -132,31 +135,37 @@ module.exports = {
                     const alertLikeArr = [];
                     const alertLikeId = [];
                     for (let el of findMyPost_container) {
-                        alertLikeId.push({
-                            userId: await like.findOne({
-                                where: {
-                                    post_id: el.id,
-                                },
-                                createdAt: {
-                                    [Op.lt]: new Date(),
-                                    [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
-                                },
-                                attributes: ['user_id'],
-                            }),
-                            title: el.title,
+                        const Id = await like.findOne({
+                            where: {
+                                post_id: el.id,
+                            },
+                            createdAt: {
+                                [Op.lt]: new Date(),
+                                [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                            },
+                            attributes: ['user_id'],
                         });
+
+                        if (Id) {
+                            alertLikeId.push({
+                                userId: Id,
+                                title: el.title,
+                            });
+                        }
                     }
 
                     for (let id of alertLikeId) {
+                        const username = await User.findOne({
+                            where: { id: id.userId },
+                            attributes: ['username'],
+                        }).username;
+
                         alertLikeArr.push({
                             title: id.title,
-                            userName: await User.findOne({
-                                where: { id: id.userId },
-                                attributes: ['username'],
-                            }),
+                            userName: username,
                         });
                     }
-
+                    console.log(alertLikeId[0].username);
                     console.log('성공');
 
                     res.status(200).json({

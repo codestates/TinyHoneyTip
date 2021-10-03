@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            models.comment.hasOne(models.post_container, { foreignKey: 'post_id' });
+            models.comment.hasOne(models.User, { foreignKey: 'user_id' });
         }
     }
     comment.init(
         {
-            user_id: DataTypes.INTEGER,
-            post_id: DataTypes.INTEGER,
             txt: DataTypes.STRING,
         },
         {

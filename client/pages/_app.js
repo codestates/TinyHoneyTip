@@ -14,6 +14,7 @@ import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
 import '../styles/MyPage.css';
+import '../styles/contentPost.css';
 import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
@@ -34,10 +35,11 @@ function MyApp({ Component, pageProps }) {
             isSocial: false,
             id: data.userInfo.id,
             email: data.userInfo.email,
-            accessToken: data.accessToken,
+            accessToken: data.cookie,
             username: data.userInfo.username,
             profile_img: data.userInfo.profile_img,
         });
+        console.log(data.accessToken);
     };
 
     const socialHandler = (data) => {
@@ -99,6 +101,7 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width user-scalable=yes" />
+                {/* <link rel="icon" href="./public/odxkZuVe.ico"></link> */}
             </Head>
             <Header
                 userInfo={userInfo}

@@ -2,8 +2,6 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import pic from '../public/honeycomb.png';
-import styles from '../styles/Post.module.css';
 import Link from 'next/link';
 
 export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }) {
@@ -15,7 +13,6 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 
     const inputHandler = (e) => {
         setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-        console.log(userInfo);
     };
 
     const fileUpload = async (e) => {
@@ -85,10 +82,10 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                     alt="profile img"
                                     src={img}
                                     layout="fill"
-                                    width={500}
-                                    height={500}
+                                    // width={500}
+                                    // height={500}
+                                    unoptimized={false}
                                 />
-                                {/* layout fill 로 하면 이미지가 너무 커지고 responsive로 하면 새로고침했을 때 src 없다고 함.... */}
                             </div>
                             <h3 className="my_user_name">🐝 {userInfo.username} 벌님 안녕하세요</h3>
                             <button className="edit_my_profile">
@@ -185,49 +182,50 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                         return (
                                             <div className="my_post_item" key={el?.id}>
                                                 <div className="my_post_item_inner">
-                                                    <div className={styles.post_item_option}>
-                                                        <div className={styles.post_overlay}></div>
+                                                    <div className="my_post_item_option">
+                                                        <div className="my_post_overlay"></div>
                                                     </div>
-                                                    <div className={styles.best_item_header}>
+                                                    <div className="my_item_header">
                                                         <Link href={`/post/${el?.id}`}>
-                                                            <div className={styles.header_image}>
-                                                                <div className={styles.img_inner}>
+                                                            <div className="header_image">
+                                                                <div className="img_inner">
                                                                     <Image
                                                                         layout="fill"
                                                                         alt={el?.title}
-                                                                        src={
-                                                                            'data:image/png;base64' +
-                                                                            Buffer(
-                                                                                el?.post_page[0]?.img,
-                                                                                'binary',
-                                                                            ).toString('base64')
-                                                                        }
+                                                                        // src={
+                                                                        //     'data:image/png;base64' +
+                                                                        //     Buffer(
+                                                                        //         el?.post_page[0]?.img,
+                                                                        //         'binary',
+                                                                        //     ).toString('base64')
+                                                                        // }
+                                                                        src={el?.post_page[0]?.img}
                                                                         unoptimized="false"
                                                                     />
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                        <div className={styles.post_desc}>
-                                                            <div className={styles.post_desc_title}>
+                                                        <div className="my_post_desc">
+                                                            <div className="my_post_desc_title">
                                                                 <Link href={`/post/${el?.id}`}>
-                                                                    <div className={styles.post_title_font}>
+                                                                    <div className="my_post_title_font">
                                                                         {el?.title}
                                                                     </div>
                                                                 </Link>
                                                             </div>
-                                                            <div className={styles.post_desc_text}>
+                                                            <div className="my_post_desc_text">
                                                                 <Link href={`/post/${el?.id}`}>
-                                                                    <div className={styles.post_text}>
+                                                                    <div className="my_post_text">
                                                                         <div>{el?.post_page[0]?.content}</div>
                                                                     </div>
                                                                 </Link>
                                                             </div>
-                                                            <div className={styles.post_desc_category}>
-                                                                <a className={styles.post_category}>{el?.category}</a>
+                                                            <div className="my_post_desc_category">
+                                                                <a className="my_post_category">{el?.category}</a>
                                                             </div>
-                                                            <div className={styles.post_desc_user}>
-                                                                <div className={styles.post_desc_userinfo}>
-                                                                    <div className={styles.post_author}>
+                                                            <div className="my_post_desc_user">
+                                                                <div className="my_post_desc_userinfo">
+                                                                    <div className="my_post_author">
                                                                         💛 {el?.like.length}
                                                                     </div>
                                                                 </div>
@@ -251,47 +249,43 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                         return (
                                             <div className="my_post_item" key={el?.id}>
                                                 <div className="my_post_item_inner">
-                                                    <div className={styles.post_item_option}>
-                                                        <div className={styles.post_overlay}></div>
+                                                    <div className="my_post_item_option">
+                                                        <div className="my_post_overlay"></div>
                                                     </div>
-                                                    <div className={styles.best_item_header}>
+                                                    <div className="my_item_header">
                                                         <Link href={`/post/${el?.id}`}>
-                                                            <a className={styles.header_image}>
-                                                                <Image
-                                                                    className={styles.img_inner}
-                                                                    alt={el?.title}
-                                                                    layout="fill"
-                                                                    src={
-                                                                        'data:image/png;base64' +
-                                                                        Buffer(el?.post_page[0].img, 'binary').toString(
-                                                                            'base64',
-                                                                        )
-                                                                    }
-                                                                    unoptimized={false}
-                                                                />
-                                                            </a>
+                                                            <div className="header_image">
+                                                                <div className="img_inner">
+                                                                    <Image
+                                                                        layout="fill"
+                                                                        alt={el?.title}
+                                                                        src={el?.post_page[0]?.img}
+                                                                        unoptimized="false"
+                                                                    />
+                                                                </div>
+                                                            </div>
                                                         </Link>
-                                                        <div className={styles.post_desc}>
-                                                            <div className={styles.post_desc_title}>
+                                                        <div className="my_post_desc">
+                                                            <div className="my_post_desc_title">
                                                                 <Link href={`/post/${el?.id}`}>
-                                                                    <a className={styles.post_title_font}>
+                                                                    <div className="my_post_title_font">
                                                                         {el?.title}
-                                                                    </a>
+                                                                    </div>
                                                                 </Link>
                                                             </div>
-                                                            <div className={styles.post_desc_text}>
+                                                            <div className="my_post_desc_text">
                                                                 <Link href={`/post/${el?.id}`}>
-                                                                    <a className={styles.post_text}>
-                                                                        {el?.post_page[0].content}
-                                                                    </a>
+                                                                    <div className="my_post_text">
+                                                                        <div>{el?.post_page[0]?.content}</div>
+                                                                    </div>
                                                                 </Link>
                                                             </div>
-                                                            <div className={styles.post_desc_category}>
-                                                                <a className={styles.post_category}>{el?.category}</a>
+                                                            <div className="my_post_desc_category">
+                                                                <a className="my_post_category">{el?.category}</a>
                                                             </div>
-                                                            <div className={styles.post_desc_user}>
-                                                                <div className={styles.post_desc_userinfo}>
-                                                                    <div className={styles.post_author}>
+                                                            <div className="my_post_desc_user">
+                                                                <div className="my_post_desc_userinfo">
+                                                                    <div className="my_post_author">
                                                                         💛 {el?.like.length}
                                                                     </div>
                                                                 </div>
@@ -313,7 +307,12 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                 <div id="no_data">페이지를 다시 불러와 주세요</div>
             )}
             <a className="top-btn" onClick={() => window.scrollTo(0, 0)}>
-                <Image src={pic} alt="top-button" width="7vw" height="5vw" />
+                <Image
+                    src="https://img.icons8.com/ios/50/000000/collapse-arrow--v1.png"
+                    alt="top-button"
+                    layout="fill"
+                    unoptimized="false"
+                />
             </a>
         </>
     );

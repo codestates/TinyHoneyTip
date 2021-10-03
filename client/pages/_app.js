@@ -14,6 +14,7 @@ import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
 import '../styles/MyPage.css';
+import '../styles/contentPost.css';
 import axios from 'axios';
 
 function MyApp({ Component, pageProps }) {
@@ -100,6 +101,7 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width user-scalable=yes" />
+                {/* <link rel="icon" href="./public/odxkZuVe.ico"></link> */}
             </Head>
             <Header
                 userInfo={userInfo}

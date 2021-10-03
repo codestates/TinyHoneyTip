@@ -7,7 +7,13 @@ export default function ImageEditModal({
     return (
         <div className="post-upload-image-modal">
             <div className="post-upload-modal-edit-area">
-                <img src={currentEditingImg} />
+                <div className="post-upload-modal-edit-area-inner">
+                    <img
+                        id="image"
+                        src={currentEditingImg ? URL.createObjectURL(currentEditingImg) : '/postDefaultImage.jpg'}
+                        alt="target image"
+                    />
+                </div>
             </div>
             <label className="post-upload-modal-btn-select">
                 이미지 선택
@@ -23,7 +29,7 @@ export default function ImageEditModal({
                 <button className="post-upload-modal-btn" onClick={modalEditHandler}>
                     확인
                 </button>
-                <button className="post-upload-modal-btn" onClick={modalHandler}>
+                <button className="post-upload-modal-btn" onClick={() => modalHandler()}>
                     취소
                 </button>
             </div>

@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Cropper from 'cropperjs';
 
+import 'cropperjs/dist/cropper.css';
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
 import ImageEditModal from '../../src/post/ImageEditModal';
@@ -51,6 +52,20 @@ export default function PostUpload({ userInfo }) {
 
     const currentEditingImgHandler = (key) => (e) => {
         // 편집할 이미지 원본은 currentEditingImg에 저장
+        setCurrentEditingImg(e.target.files[0]);
+        const image = document.getElementById('image');
+        const cropper = new Cropper(image, {
+            aspectRatio: 16 / 9,
+            crop(event) {
+                console.log(event.detail.x);
+                console.log(event.detail.y);
+                console.log(event.detail.width);
+                console.log(event.detail.height);
+                console.log(event.detail.rotate);
+                console.log(event.detail.scaleX);
+                console.log(event.detail.scaleY);
+            },
+        });
         // const cropper = new Cropper(e.target.files[0], {
         //     aspectRatio: 16 / 9,
         //     crop(event) {

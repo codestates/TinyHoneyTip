@@ -120,7 +120,7 @@
 }
 
 .post-upload-modal-edit-area img {
-    /* object-fit: contain; */
+    object-fit: contain;
     display: block;
     max-height: 100%;
     max-width: 100%;

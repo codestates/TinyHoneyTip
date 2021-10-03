@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../styles/Select.module.css';
 
 export default function Select({ post, setPost }) {
     const selectHandler = (e) => {
@@ -55,8 +54,8 @@ export default function Select({ post, setPost }) {
     };
     return (
         <>
-            <div className={styles.select_container}>
-                <select className={styles.select} onChange={selectHandler}>
+            <div className="select_container">
+                <select className="select" onChange={selectHandler}>
                     <option value>선택</option>
                     <option value="title">이름순</option>
                     <option value="like">인기순</option>

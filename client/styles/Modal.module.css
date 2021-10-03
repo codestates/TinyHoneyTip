@@ -4,7 +4,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(253, 242, 217, 1);
 }
 .Modal {
     width: 100vw;
@@ -18,7 +17,7 @@
     z-index: 10;
     left: 0px;
     top: 0px;
-    background: rgba(244, 193, 65, 0.8);
+    background: rgba(102, 102, 102, 0.5);
 }
 .Modal_container {
     border-radius: 20px;
@@ -41,14 +40,25 @@
     z-index: 10;
     left: 0px;
     top: 0px;
-    background: rgba(244, 193, 65, 0.8);
+    background: rgba(102, 102, 102, 0.5);
 }
 .close_btn {
     cursor: pointer;
     background: none;
     border: none;
     margin: 20px;
-    right: 0px;
+    margin-right: -220px;
+    top: 40px;
+    position: absolute;
+    font-size: 20px;
+    z-index: 15;
+}
+.close_btn_up {
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin: 20px;
+    margin-right: -220px;
     top: 0px;
     position: absolute;
     font-size: 20px;
@@ -75,6 +85,8 @@
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
+    color: rgba(244, 193, 65, 1);
+    font-family: Lobster, cursive;
 }
 
 .label {
@@ -128,30 +140,30 @@
 .signin_btn {
     background: rgba(244, 193, 65, 1);
     color: black;
-    height: 30px;
+    height: 40px;
     border: none;
     opacity: 1;
     margin: 0.5em 1em;
     padding: 0.25em 1em;
-    border-radius: 20px;
+    border-radius: 12px;
     cursor: pointer;
 }
 .kakao_btn {
-    background: #f7e600;
+    background: #fee500;
     color: #3a1d1d;
-    height: 30px;
+    height: 40px;
     border: none;
     opacity: 1;
     margin: 0.25em 1em;
     padding: 0.25em 1em;
-    border-radius: 20px;
+    border-radius: 12px;
     cursor: pointer;
 }
 .kakaoLogo {
     position: relative;
-    top: 0.15em;
-    height: 0.8vw;
-    width: 0.8vw;
+    top: 0.3em;
+    height: 16px;
+    width: 16px;
 }
 
 .modal_img {
@@ -176,6 +188,6 @@
     border: none;
 }
 .Convert_btn:hover {
-    color: red;
+    color: rgba(244, 193, 65, 1);
     cursor: pointer;
 }

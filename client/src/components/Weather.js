@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import styles from '../../styles/Weather.module.css';
 import Image from 'next/image';
 
 export default function Weather({ weatherData }) {
@@ -45,9 +44,9 @@ export default function Weather({ weatherData }) {
     };
 
     return (
-        <div className={styles.weather_container}>
-            <div className={styles.weather_title}>
-                <p className={styles.weatherIcon}>
+        <div className="weather_container">
+            <div className="weather_title">
+                <p className="weatherIcon">
                     <Image src={weatherIcon} width="50px" height="50px" />
                 </p>
                 오늘의 날씨 꿀팁
@@ -66,11 +65,11 @@ export default function Weather({ weatherData }) {
                             : 'app'
                         : 'app'
                 }>
-                <div className={styles.main}>
-                    <div className={styles.search_container}>
+                <div className="main">
+                    <div className="search_container">
                         <input
                             type="text"
-                            className={styles.search_input}
+                            className="search_input"
                             placeholder="도시를 검색하세요"
                             onChange={(e) => setCity(e.target.value)}
                             value={city}
@@ -79,15 +78,15 @@ export default function Weather({ weatherData }) {
                     </div>
                     {typeof weather.main !== 'undefined' ? (
                         <div>
-                            <div className={styles.location}>
-                                <div className={styles.location_container}>
+                            <div className="location">
+                                <div className="location_container">
                                     {weather.name}, {weather.sys.country}
                                 </div>
-                                <div className={styles.date}>{dateBuilder(new Date())}</div>
+                                <div className="date">{dateBuilder(new Date())}</div>
                             </div>
-                            <div className={styles.weather_box}>
-                                <div className={styles.temp}>{Math.round(weather.main.temp - 273)}°C</div>
-                                <div className={styles.weather}>{weather.weather[0].main}</div>
+                            <div className="weather_box">
+                                <div className="temp">{Math.round(weather.main.temp - 273)}°C</div>
+                                <div className="weather">{weather.weather[0].main}</div>
                             </div>
                         </div>
                     ) : (

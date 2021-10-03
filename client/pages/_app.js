@@ -15,7 +15,10 @@ import '../styles/Content.css';
 import '../styles/NewPost.css';
 import '../styles/MyPage.css';
 import '../styles/contentPost.css';
-import axios from 'axios';
+import '../styles/Search.css';
+import '../styles/Select.css';
+import '../styles/Alert.css';
+import '../styles/Loading.css';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({
@@ -83,19 +86,15 @@ function MyApp({ Component, pageProps }) {
     const [isPageLoading, setPageLoading] = useState(false);
     useEffect(() => {
         router.events.on('routeChangeStart', (url) => {
-            console.log('router is changing');
             setPageLoading(true);
-        }); //페이지 바뀌면 실행
+        });
         router.events.on('routeChangeComplete', (url) => {
-            console.log('router is complete');
             setPageLoading(false);
-        }); // 완료하면 실행
+        });
         router.events.on('routeChangeError', (url) => {
-            console.log('router is err');
             setPageLoading(false);
-        }); // 에러나면 실행
+        });
     }, [router]);
-    //
 
     return (
         <>

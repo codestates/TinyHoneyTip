@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
+import Head from 'next/head';
 
 import UploadPostContent from '../../../src/post/PostContent';
 import ToolBar from '../../../src/post/ToolBar';
 
 export default function Id({ post, userInfo }) {
-    useEffect(() => {
-        if (!userInfo.isLogin) {
-            Router.push('/content');
-        } else if (userInfo.id !== post.writerInfo.id) {
-            Router.push(`/content`);
-        }
-    });
+    // useEffect(() => {
+    //     if (!JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
+    //         Router.push('/content');
+    //     } else if (JSON.parse(sessionStorage.getItem('userInfo')).id !== post.writerInfo.id) {
+    //         Router.push(`/content`);
+    //     }
+    // });
 
     const [slide, setSlide] = useState(
         post?.post_page.map((el) => {
@@ -140,6 +141,9 @@ export default function Id({ post, userInfo }) {
 
     return (
         <div className="post-upload-page">
+            <Head>
+                <title>Edit Post | Tiny Honey Tip</title>
+            </Head>
             <UploadPostContent
                 slide={slide}
                 postInfo={postInfo}

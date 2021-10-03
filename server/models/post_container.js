@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            models.post_container.belongsTo(models.comment, { foreignKey: 'post_id' });
-            models.post_container.belongsTo(models.scrap, { foreignKey: 'post_id' });
-            models.post_container.belongsTo(models.like, { foreignKey: 'post_id' });
-            models.post_container.belongsTo(models.dislike, { foreignKey: 'post_id' });
+            models.post_container.hasOne(models.comment, { foreignKey: 'post_id' });
+            models.post_container.hasOne(models.scrap, { foreignKey: 'post_id' });
+            models.post_container.hasOne(models.like, { foreignKey: 'post_id' });
+            models.post_container.hasOne(models.dislike, { foreignKey: 'post_id' });
             models.post_container.hasMany(models.post, { foreignKey: 'post_id' });
             models.post_container.belongsTo(models.User, { foreignKey: 'user_id' });
         }

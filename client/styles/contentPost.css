@@ -28,22 +28,14 @@
     background: rgba(244, 193, 65, 0.8);
     border-radius: 20px;
 }
-.post_item:hover {
-    box-shadow: rgba(0, 0, 0, 0.6) 0px 15px 15px;
-    background-color: transparent;
-    border-radius: 20px;
-    transform: translate(-15px, -15px);
-}
+
 .post_item_inner {
     height: 380px;
     width: 350px;
     transition: all 0.35s;
     position: relative;
 }
-.post_item_inner:hover {
-    background-color: rgba(244, 193, 65, 1);
-    border-radius: 20px;
-}
+
 .img_inner {
     border-radius: 20px 20px 0px 0px;
     height: 250px;
@@ -57,8 +49,28 @@
     overflow: hidden;
     vertical-align: top;
 }
+
 .img_center {
     object-position: center;
+}
+.post_img {
+    border-radius: 20px 20px 0px 0px;
+    height: 250px;
+    width: 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 30px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+.post_img:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 .post_desc {
     border-top: 2px solid rgba(253, 242, 217, 1);
@@ -166,12 +178,6 @@
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
     }
-    .post_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
-        background-color: transparent;
-        border-radius: 1vw;
-        transform: translate(-1vw, -1vw);
-    }
     .post_item_inner {
         max-height: 380px;
         max-width: 350px;
@@ -179,10 +185,6 @@
         height: 28vw;
         width: 26vw;
         position: relative;
-    }
-    .post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 1vw;
     }
     .img_inner {
         max-height: 250px;
@@ -197,6 +199,12 @@
         display: inline-block;
         overflow: hidden;
         vertical-align: top;
+    }
+    .post_img {
+        max-height: 250px;
+        border-radius: 1vw 1vw 0 0;
+        height: 19.5vw;
+        background-size: 3vw;
     }
     .img_center {
         object-position: center;
@@ -314,34 +322,19 @@
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
     }
-    .post_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
-        background-color: transparent;
-        border-radius: 1vw;
-        transform: translate(-1vw, -1vw);
-    }
     .post_item_inner {
         transition: all 0.15s;
         height: 28vw;
         width: 26vw;
         position: relative;
     }
-    .post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 1vw;
-    }
     .img_inner {
         border-radius: 1vw 1vw 0 0;
         height: 19.5vw;
-        width: 100%;
-        background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: 3vw;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
+    }
+    .post_img {
+        border-radius: 1vw 1vw 0 0;
+        height: 19.5vw;
     }
     .img_center {
         object-position: center;
@@ -474,33 +467,18 @@
         border-radius: 2vw;
         transition: all 0.15s;
     }
-    .post_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
-        background-color: transparent;
-        border-radius: 2vw;
-        transform: translate(-1vw, -1vw);
-    }
     .post_item_inner {
         height: 40vw;
         width: 38vw;
         position: relative;
     }
-    .post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 2vw;
-    }
     .img_inner {
         border-radius: 2vw 2vw 0 0;
         height: 26.5vw;
-        width: 100%;
-        background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: 3vw;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
+    }
+    .post_img {
+        border-radius: 2vw 2vw 0 0;
+        height: 26.5vw;
     }
     .img_center {
         object-position: center;
@@ -612,34 +590,21 @@
         border-radius: 4vw;
         transition: all 0.15s;
     }
-    .post_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
-        background-color: transparent;
-        border-radius: 4vw;
-        transform: translate(-3vw, -3vw);
-    }
     .post_item_inner {
         border-radius: 4vw;
         height: 100%;
         width: 76vw;
         position: relative;
     }
-    .post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 4vw;
-    }
     .img_inner {
         border-radius: 4vw 4vw 0 0;
         height: 56vw;
-        width: 100%;
         background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: 3vw;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
+    }
+    .post_img {
+        border-radius: 4vw 4vw 0 0;
+        height: 56vw;
+        background-position: 50%;
     }
     .img_center {
         object-position: center;

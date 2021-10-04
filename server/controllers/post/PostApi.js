@@ -1,5 +1,5 @@
 const { User, like, dislike, comment, scrap, post_container, post } = require('../../models');
-
+const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 const { QueryTypes } = require('sequelize');
 require('dotenv').config();
@@ -13,22 +13,44 @@ module.exports = {
                     {
                         model: post,
                         attributes: ['content', 'img', 'id'],
+                        raw: true,
                     },
                     {
                         model: like,
                         attributes: ['user_id'],
+                        raw: true,
                     },
                     {
                         model: dislike,
                         attributes: ['user_id'],
+                        raw: true,
                     },
                     {
                         model: scrap,
                         attributes: ['user_id'],
+                        raw: true,
                     },
                 ],
             });
-            console.log('포스트리스트', allpost[0]);
+            // .then((result) => {
+            //     for (let el of result) {
+            //         if (Array.isArray(el.like) === false) {
+            //             el.like = [el.like];
+            //         }
+            //         if (!Array.isArray(el.dislike) === false) {
+            //             el.like = [el.dislike];
+            //         }
+            //         if (!Array.isArray(el.scrap) === false) {
+            //             el.like = [el.scrap];
+            //         }
+            //         if (!Array.isArray(el.comment) === false) {
+            //             el.like = [el.comment];
+            //         }
+            //     }
+            //     return result;
+            // });
+
+            console.log('포스트리스트', allpost);
 
             res.status(200).json({ data: allpost });
         } catch (err) {
@@ -151,27 +173,30 @@ module.exports = {
                         model: post,
                         attributes: ['content', 'id', 'img'],
                     },
+                ],
+            });
+
+            postDetail.dataValues.like = await like.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['user_id'],
+            });
+            postDetail.dataValues.dislike = await dislike.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['user_id'],
+            });
+            postDetail.dataValues.scrap = await scrap.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['user_id'],
+            });
+            console.log('포스트디테일', postDetail);
+            postDetail.dataValues.comment = await comment.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['id', 'txt', 'user_id'],
+                include: [
                     {
-                        model: scrap,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: like,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: dislike,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: comment,
-                        attributes: ['user_id', 'txt', 'id'],
-                        include: [
-                            {
-                                model: User,
-                                attributes: ['username', 'profile_img'],
-                            },
-                        ],
+                        model: User,
+                        attributes: ['username', 'profile_img'],
+                        required: true,
                     },
                 ],
             });

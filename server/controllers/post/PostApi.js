@@ -12,7 +12,7 @@ module.exports = {
                 include: [
                     {
                         model: post,
-                        attributes: ['content', 'img'],
+                        attributes: ['content', 'img', 'id'],
                     },
                     {
                         model: like,
@@ -177,7 +177,7 @@ module.exports = {
             });
 
             res.status(200).json({
-                data: postDetail,
+                postDetail,
                 // {
                 //     post: {
                 //         id: postInfo.id,

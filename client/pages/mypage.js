@@ -7,6 +7,7 @@ import Link from 'next/link';
 export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }) {
     console.log(myPost);
     console.log(myScrap);
+    console.log(userInfo);
 
     const [editBtn, setEditBtn] = useState(false);
     const [img, setImg] = useState(userInfo.profile_img);
@@ -71,9 +72,9 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 
     return (
         <>
-            {myPost || myScrap || alert || userInfo ? (
+            {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
-                    {console.log('알러트트ㅡ틑', alert)}
+                    {console.log('알러트트ㅡ틑', userInfo)}
                     <div className="my_side_bar">
                         <div className="my_info">
                             <div className="my_profile_img">
@@ -149,20 +150,20 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                             <div id="my_alert">
                                 <h3 id="my_alert_title">my alert</h3>
                                 <ul className="alert_scrap_list">
-                                    {alert.scrap.length > 0
+                                    {alert.scrap
                                         ? alert.scrap?.map((el) => {
                                               <li className="alert_scrap_item">
-                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.userName} 님이 🙌
+                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 🙌
                                                   스크랩했습니다.
                                               </li>;
                                           })
                                         : '알림이 없습니다.'}
                                 </ul>
                                 <ul className="alert_like_list">
-                                    {alert.like.length > 0
+                                    {alert.like
                                         ? alert.like?.map((el) => {
                                               <li className="alert_like_item">
-                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.userName} 님이 👍
+                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 👍
                                                   좋아합니다.
                                               </li>;
                                           })
@@ -199,7 +200,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                                         //         'binary',
                                                                         //     ).toString('base64')
                                                                         // }
-                                                                        src={el?.post_page[0]?.img}
+                                                                        src={el?.posts?.img}
                                                                         unoptimized="false"
                                                                     />
                                                                 </div>
@@ -216,7 +217,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                             <div className="my_post_desc_text">
                                                                 <Link href={`/post/${el?.id}`}>
                                                                     <div className="my_post_text">
-                                                                        <div>{el?.post_page[0]?.content}</div>
+                                                                        <div>{el?.posts[0].content}</div>
                                                                     </div>
                                                                 </Link>
                                                             </div>
@@ -226,7 +227,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                             <div className="my_post_desc_user">
                                                                 <div className="my_post_desc_userinfo">
                                                                     <div className="my_post_author">
-                                                                        💛 {el?.like.length}
+                                                                        💛 {el?.like?.length}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -259,7 +260,12 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                                     <Image
                                                                         layout="fill"
                                                                         alt={el?.title}
-                                                                        src={el?.post_page[0]?.img}
+                                                                        src={
+                                                                            el?.post_container.posts[0]?.img
+                                                                                ? el?.post_container.posts[0]?.img
+                                                                                : 'https://media.discordapp.net/attachments/881710985335934979/894413797043871784/Violet_PawletteTM_Gift_Set___Build-A-Bear_Workshop.png'
+                                                                        }
+                                                                        //src="https://media.discordapp.net/attachments/881710985335934979/894413797043871784/Violet_PawletteTM_Gift_Set___Build-A-Bear_Workshop.png"
                                                                         unoptimized="false"
                                                                     />
                                                                 </div>
@@ -276,7 +282,9 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                             <div className="my_post_desc_text">
                                                                 <Link href={`/post/${el?.id}`}>
                                                                     <div className="my_post_text">
-                                                                        <div>{el?.post_page[0]?.content}</div>
+                                                                        <div>
+                                                                            {el?.post_container.posts[0]?.content}
+                                                                        </div>
                                                                     </div>
                                                                 </Link>
                                                             </div>
@@ -286,7 +294,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                             <div className="my_post_desc_user">
                                                                 <div className="my_post_desc_userinfo">
                                                                     <div className="my_post_author">
-                                                                        💛 {el?.like.length}
+                                                                        💛 {el?.like?.length ? el?.like?.length : 1}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -324,11 +332,15 @@ export async function getServerSideProps(context) {
     const res = await axios.get(apiUrl, {
         headers: { cookie: token, 'Content-Type': 'application/json' },
     });
-    console.log('겟마이페이지이이이이', res.data.data.alert);
+
     const post = res.data.data.myPost;
     const scrap = res.data.data.myScrap;
-    const alert = res.data.data.alert;
-    console.log('alert 알러트!!!', alert.scrap);
+    const alert = {
+        like: res.data.data.myPost.like || null,
+        dislike: res.data.data.myPost.dislike || null,
+        scrap: res.data.data.myPost.scrap || null,
+        comment: res.data.data.myPost.comment || null,
+    };
 
     return {
         props: {

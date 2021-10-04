@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import Router from 'next/router';
 
 export default function PostContent({ userInfo, post }) {
+    console.log(post);
+    console.log(userInfo);
     const router = useRouter();
     const { id } = router.query;
 
@@ -12,7 +14,7 @@ export default function PostContent({ userInfo, post }) {
 
     const didIL = () => {
         if (userInfo?.isLogin) {
-            let myLike = post.like.userLike.filter((el) => {
+            let myLike = post.like.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myLike.length > 0) {
@@ -24,10 +26,15 @@ export default function PostContent({ userInfo, post }) {
             return false;
         }
     };
+    const [feeling, setFeeling] = useState({
+        like: didIL(),
+        dislike: false,
+        scrap: false,
+    });
 
     const didIDisL = () => {
         if (userInfo?.isLogin) {
-            let myDisLike = post.dislike.userDisLike.filter((el) => {
+            let myDisLike = post.dislike.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myDisLike.length > 0) {
@@ -42,7 +49,7 @@ export default function PostContent({ userInfo, post }) {
 
     const amIScrapped = () => {
         if (userInfo?.isLogin) {
-            let myScrap = post.scrap.scrapList.filter((el) => {
+            let myScrap = post.scrap.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myScrap.length > 0) {
@@ -55,15 +62,9 @@ export default function PostContent({ userInfo, post }) {
         }
     };
 
-    const [feeling, setFeeling] = useState({
-        like: didIL(),
-        dislike: didIDisL(),
-        scrap: amIScrapped(),
-    });
-
     const deleteFeelingHandler = (key) => {
         axios
-            .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${post?.id}`, {
+            .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
                     cookie: userInfo.accessToken,
                 },
@@ -77,20 +78,22 @@ export default function PostContent({ userInfo, post }) {
 
     const postFeelingHandler = (key) => {
         axios
-            .get(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${post?.id}`, {
+            .get(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
                     cookie: userInfo.accessToken,
                 },
                 withCredentials: true,
             })
-            .then((res) => {})
+            .then((res) => {
+                console.log(res);
+            })
             .catch((error) => {
                 console.log(error);
             });
     };
 
     const feelingHandler = (key) => {
-        if (!!userInfo.isLogin) {
+        if (!!userInfo?.isLogin) {
             if (!!feeling[key]) {
                 deleteFeelingHandler(key);
             } else {
@@ -107,7 +110,7 @@ export default function PostContent({ userInfo, post }) {
         axios
             .delete(apiUrl, {
                 headers: {
-                    Cookie: `accessToken=${userInfo.accessToken}`,
+                    Cookie: `accessToken=${userInfo?.accessToken}`,
                     'Accept-Encoding': 'gzip, deflate, br',
                     Connection: 'keep-alive',
                 },
@@ -127,7 +130,7 @@ export default function PostContent({ userInfo, post }) {
                 {post.title}
             </h1>
             <div className="single-post__post">
-                {post.post_page.map((el, idx) => {
+                {post.posts.map((el, idx) => {
                     return (
                         <input
                             key={idx}
@@ -138,10 +141,10 @@ export default function PostContent({ userInfo, post }) {
                         />
                     );
                 })}
-                <ul style={{ width: `calc(100% * ${post.post_page.length})` }}>
-                    {post.post_page.map((el, idx) => {
+                <ul style={{ width: `calc(100% * ${post.posts.length})` }}>
+                    {post.posts.map((el, idx) => {
                         return (
-                            <li key={idx} style={{ width: `calc(100% / ${post.post_page.length})` }}>
+                            <li key={idx} style={{ width: `calc(100% / ${post.posts.length})` }}>
                                 {el.img ? (
                                     <img className="single-post__post__pic" src={el.img} />
                                 ) : (
@@ -162,9 +165,7 @@ export default function PostContent({ userInfo, post }) {
                 </label>
                 <label
                     htmlFor={
-                        currentSlide === post.post_page.length
-                            ? 'pos' + post.post_page.length
-                            : 'pos' + (currentSlide + 1)
+                        currentSlide === post.posts.length ? 'pos' + post.posts.length : 'pos' + (currentSlide + 1)
                     }>
                     <img
                         className="single-post__post__next-page-btn"
@@ -205,8 +206,8 @@ export default function PostContent({ userInfo, post }) {
                         }
                     />
                 </div>
-                <p className="single-post__page">{`${currentSlide}/${post.post_page.length}`}</p>
-                {post.writerInfo.id === userInfo?.id ? (
+                <p className="single-post__page">{`${currentSlide}/${post.posts.length}`}</p>
+                {post.user_id === userInfo?.id ? (
                     <div className="single-post__btns__post">
                         <Link href={`/post/edit/${id}`} passHref>
                             <img

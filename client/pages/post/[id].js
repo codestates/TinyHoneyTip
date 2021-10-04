@@ -18,7 +18,7 @@ export async function getServerSideProps(context) {
     const id = context.params.id;
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/${id}`;
     const res = await axios.get(apiUrl);
-    const data = await res.data.data.post;
+    const data = await res.data.postDetail;
     return {
         props: {
             post: data,

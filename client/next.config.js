@@ -2,7 +2,7 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     images: {
-        domains: ['cdn.discordapp.com', 'thtimg.s3.ap-northeast-2.amazonaws.com', 'openweathermap.org'],
+        domains: ['cdn.discordapp.com', 'thtimg.s3.ap-northeast-2.amazonaws.com', 'openweathermap.org', 'ggultip.com'],
     },
     reactStrictMode: true,
     node: {

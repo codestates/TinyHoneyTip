@@ -9,10 +9,11 @@ import Search from '../src/components/Search';
 import Weather from '../src/components/Weather';
 import default_img from '../public/postDefaultImage.jpg';
 
-export default function Content({ bestList, postList, weatherData }) {
+export default function Content({ bestList, postList, weatherData, result }) {
     console.log('best', bestList);
+    console.log('post', postList);
     const [itemIndex, setItemIndex] = useState(0);
-    const [post, setPost] = useState(postList?.slice(0, 7));
+    const [post, setPost] = useState(postList?.slice(0, 6));
     const [init, setInit] = useState(postList);
     const [input, setInput] = useState('');
 
@@ -63,9 +64,9 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                                 alt={best?.title}
                                                                                 layout="fill"
                                                                                 src={
-                                                                                    best?.post_page[0]?.img.length === 0
+                                                                                    best?.posts[0]?.img === null
                                                                                         ? { default_img }
-                                                                                        : best?.post_page[0]?.img
+                                                                                        : best?.posts[0]?.img
                                                                                 }
                                                                             />
                                                                         </div>
@@ -81,17 +82,24 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                 <div className="best_desc_text">
                                                                     <Link href={`/post/${best?.id}`}>
                                                                         <a className="best_text">
-                                                                            <div>{best?.post_page[0]?.content}</div>
+                                                                            <div>{best?.posts[0]?.content}</div>
                                                                         </a>
                                                                     </Link>
                                                                 </div>
                                                                 <div className="best_desc_category">
                                                                     <a className="best_category">{best?.category}</a>
                                                                 </div>
-                                                                <div className="best_desc_user">
-                                                                    <div className="best_desc_userinfo">
-                                                                        <div className="best_author">
-                                                                            ❤️ {best?.like?.length}
+                                                                <div className="post_desc_user">
+                                                                    <div className="post_desc_userinfo">
+                                                                        <div className="post_author">
+                                                                            💛 &nbsp;&nbsp;
+                                                                            {best?.like?.length}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="post_desc_userinfo">
+                                                                        <div className="post_author">
+                                                                            💔 &nbsp;&nbsp;
+                                                                            {best?.dislike?.length}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -130,10 +138,10 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                                             layout="fill"
                                                                                             alt={list?.title}
                                                                                             src={
-                                                                                                list?.post_page[0]?.img
-                                                                                                    .length === 0
+                                                                                                list?.posts[0]?.img ===
+                                                                                                null
                                                                                                     ? { default_img }
-                                                                                                    : list?.post_page[0]
+                                                                                                    : list?.posts[0]
                                                                                                           ?.img
                                                                                             }
                                                                                         />
@@ -153,10 +161,7 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                                 <Link href={`/post/${list?.id}`}>
                                                                                     <div className="post_text">
                                                                                         <div>
-                                                                                            {
-                                                                                                list?.post_page[0]
-                                                                                                    ?.content
-                                                                                            }
+                                                                                            {list?.posts[0]?.content}
                                                                                         </div>
                                                                                     </div>
                                                                                 </Link>
@@ -169,7 +174,14 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                             <div className="post_desc_user">
                                                                                 <div className="post_desc_userinfo">
                                                                                     <div className="post_author">
-                                                                                        💛 {list?.like?.length}
+                                                                                        💛 &nbsp;&nbsp;
+                                                                                        {list?.like?.length}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="post_desc_userinfo">
+                                                                                    <div className="post_author">
+                                                                                        💔 &nbsp;&nbsp;
+                                                                                        {list?.dislike?.length}
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -216,6 +228,7 @@ export default function Content({ bestList, postList, weatherData }) {
 export async function getServerSideProps() {
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post`;
     const res = await axios.get(apiUrl);
+
     const best = res.data.data.sort(function (a, b) {
         let likeA = a.like.length;
         let likeB = b.like.length;
@@ -224,11 +237,14 @@ export async function getServerSideProps() {
         return 0;
     });
     const post = res.data.data;
+
     const url = 'https://api.openweathermap.org/data/2.5/';
     const weatherUrl = `${url}weather?q=seoul&appid=${process.env.WEATHER_KEY}`;
     const data = await axios.get(weatherUrl);
+
     return {
         props: {
+            result: res.data.data,
             bestList: best,
             postList: post,
             weatherData: data.data,

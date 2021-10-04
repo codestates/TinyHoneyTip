@@ -6,6 +6,7 @@ import Router from 'next/router';
 
 export default function PostContent({ userInfo, post }) {
     console.log(post);
+    console.log(userInfo);
     const router = useRouter();
     const { id } = router.query;
 

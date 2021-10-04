@@ -39,11 +39,10 @@ function MyApp({ Component, pageProps }) {
             isSocial: false,
             id: data.userInfo.id,
             email: data.userInfo.email,
-            accessToken: data.cookie,
+            accessToken: data.accessToken,
             username: data.userInfo.username,
             profile_img: data.userInfo.profile_img,
         });
-        console.log(data.accessToken);
     };
 
     const socialHandler = (data) => {
@@ -76,6 +75,7 @@ function MyApp({ Component, pageProps }) {
     useEffect(() => {
         setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
     }, []);
+
     useEffect(() => {
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
         sessionStorage.setItem('accessToken', userInfo?.accessToken);

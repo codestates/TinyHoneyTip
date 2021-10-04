@@ -11,7 +11,6 @@ export default function Signin({
     openUpModal,
     closeInModal,
     setIsOk,
-    message,
     setMessage,
     socialHandler,
 }) {

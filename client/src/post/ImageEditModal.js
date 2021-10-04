@@ -1,29 +1,42 @@
-export default function ImageEditModal({
-    currentEditingImg,
-    currentEditingImgHandler,
-    modalEditHandler,
-    modalHandler,
-}) {
+import React, { useState, useEffect } from 'react';
+import Cropper from '../components/Cropper';
+
+export default function ImageEditModal({ currentSlide, slide, modalHandler, croppedImage, setCroppedImage }) {
+    const [imageToCrop, setImageToCrop] = useState(undefined);
+
+    const onUploadFile = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const reader = new FileReader();
+
+            reader.addEventListener('load', () => {
+                const image = reader.result;
+                setImageToCrop(image);
+            });
+
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    };
+
     return (
         <div className="post-upload-image-modal">
             <div className="post-upload-modal-edit-area">
-                <img src={currentEditingImg} />
+                <div className="post-upload-modal-edit-area-inner">
+                    <div className="cropper">
+                        <input type="file" accept="image/*" onChange={onUploadFile} />
+                        <div>
+                            <Cropper
+                                imageToCrop={imageToCrop}
+                                onImageCropped={(croppedImage) => setCroppedImage(croppedImage)}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <label className="post-upload-modal-btn-select">
-                이미지 선택
-                <input
-                    className="post__toolbar__image-input"
-                    type="file"
-                    accept="image/jpg, image/png, image/jpeg"
-                    name="image"
-                    onChange={currentEditingImgHandler()}
-                />
-            </label>
             <div className="post-upload-modal-btns">
-                <button className="post-upload-modal-btn" onClick={modalEditHandler}>
+                <button className="post-upload-modal-btn" onClick={() => modalHandler()}>
                     확인
                 </button>
-                <button className="post-upload-modal-btn" onClick={modalHandler}>
+                <button className="post-upload-modal-btn" onClick={() => modalHandler()}>
                     취소
                 </button>
             </div>

@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Cropper from 'cropperjs';
 
+import 'cropperjs/dist/cropper.css';
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
 import ImageEditModal from '../../src/post/ImageEditModal';
@@ -15,12 +16,12 @@ export default function PostUpload({ userInfo }) {
     //         Router.push('/content');
     //     }
     // });
-
+    const [croppedImage, setCroppedImage] = useState(undefined);
     const [slide, setSlide] = useState([{ img: '', imgFile: '/postDefaultImage.jpg', content: '' }]);
 
     const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
 
-    const [currentEditingImg, setCurrentEditingImg] = useState('');
+    // const [currentEditingImg, setCurrentEditingImg] = useState('');
 
     const [postInfo, setPostInfo] = useState({
         title: '',
@@ -35,36 +36,42 @@ export default function PostUpload({ userInfo }) {
         setModalOpened(!modalOpened);
     };
 
-    const modalEditHandler = (imgFile) => {
-        // 자른 이미지 slide state에 알맞은 page에 저장
-        // 함수 대충 틀만 잡아놓음 수정 필요
-        let editedContent = slide.map((el, idx) => {
-            if (idx === index) {
-                return { ...el, img: '', imgFile: imgFile };
-            } else {
-                return el;
-            }
-        });
-        setSlide(editedContent);
-        modalHandler();
-    };
+    // const modalEditHandler = (imgFile) => {
+    //     // 자른 이미지 slide state에 알맞은 page에 저장
+    //     // 함수 대충 틀만 잡아놓음 수정 필요
+    //     let editedContent = slide.map((el, idx) => {
+    //         if (idx === index) {
+    //             return { ...el, img: '', imgFile: imgFile };
+    //         } else {
+    //             return el;
+    //         }
+    //     });
+    //     setSlide(editedContent);
+    //     modalHandler();
+    // };
 
-    const currentEditingImgHandler = (key) => (e) => {
-        // 편집할 이미지 원본은 currentEditingImg에 저장
-        // const cropper = new Cropper(e.target.files[0], {
-        //     aspectRatio: 16 / 9,
-        //     crop(event) {
-        //       console.log(event.detail.x);
-        //       console.log(event.detail.y);
-        //       console.log(event.detail.width);
-        //       console.log(event.detail.height);
-        //       console.log(event.detail.rotate);
-        //       console.log(event.detail.scaleX);
-        //       console.log(event.detail.scaleY);
-        //     },
-        //   })
-        // setCurrentEditingImg(cropper);
-    };
+    // const currentEditingImgHandler = (key) => async (e) => {
+    //     // 편집할 이미지 원본은 currentEditingImg에 저장
+    //     setCurrentEditingImg(e.target.files[0]);
+    //     // document.getElementsByClassName('cropper-hide')[0]?.setAttribute('src', URL.createObjectURL(e.target.files[0]));
+    //     const image = await document.getElementById('image');
+    //     console.log(image);
+    //     const cropper = new Cropper(image, {
+    //         aspectRatio: 1 / 1,
+    //         crop(event) {
+    //             console.log(event.detail.x);
+    //             console.log(event.detail.y);
+    //             console.log(event.detail.width);
+    //             console.log(event.detail.height);
+    //             console.log(event.detail.rotate);
+    //             console.log(event.detail.scaleX);
+    //             console.log(event.detail.scaleY);
+    //         },
+    //     });
+    //     console.log(cropper);
+    //     const file = cropper.getCroppedCanvas({ maxWidth: 4096, maxHeight: 4096 });
+    //     console.log(file);
+    // };
 
     const slideTextHandler = (index, key) => (e) => {
         setCannotSubmitMessage(false);
@@ -80,7 +87,7 @@ export default function PostUpload({ userInfo }) {
         } else if (key === 'image') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
-                    return { ...el, img: '', imgFile: e.target.files[0] };
+                    return { ...el, img: '', imgFile: { croppedImage } };
                 } else {
                     return el;
                 }
@@ -178,6 +185,7 @@ export default function PostUpload({ userInfo }) {
                 <title>New Post | Tiny Honey Tip</title>
             </Head>
             <UploadPostContent
+                croppedImage={croppedImage}
                 slide={slide}
                 postInfo={postInfo}
                 currentSlide={currentSlide}
@@ -199,9 +207,10 @@ export default function PostUpload({ userInfo }) {
             />
             {modalOpened ? (
                 <ImageEditModal
-                    currentEditingImg={currentEditingImg}
-                    currentEditingImgHandler={currentEditingImgHandler}
-                    modalEditHandler={modalEditHandler}
+                    croppedImage={croppedImage}
+                    setCroppedImage={setCroppedImage}
+                    currentSlide={currentSlide}
+                    slide={slide}
                     modalHandler={modalHandler}
                 />
             ) : (

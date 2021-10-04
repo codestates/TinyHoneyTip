@@ -103,13 +103,27 @@
 
 .post-upload-modal-edit-area {
     position: relative;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
     background-color: rgba(242, 180, 24, 0.4);
     margin-bottom: 15px;
     border-radius: 4px;
 }
 
+.post-upload-modal-edit-area-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .post-upload-modal-edit-area img {
     object-fit: contain;
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .post-upload-modal-btns {
@@ -236,6 +250,7 @@
     border: none;
     border-radius: 3px;
     transition: all ease-in-out 0.3s;
+    cursor: pointer;
 }
 
 .post__toolbar__image-label:hover {
@@ -257,6 +272,7 @@
     border-radius: 3px;
     border: none;
     transition: all ease-in-out 0.3s;
+    cursor: pointer;
 }
 
 .post__toolbar__delete-page:hover,

@@ -11,7 +11,11 @@ export default function PostContent({ userInfo, post }) {
     const { id } = router.query;
 
     const [currentSlide, setCurrentSlide] = useState(1);
-
+    const [feeling, setFeeling] = useState({
+        like: false,
+        dislike: false,
+        scrap: false,
+    });
     const didIL = () => {
         if (userInfo?.isLogin) {
             let myLike = post.like.filter((el) => {
@@ -26,11 +30,6 @@ export default function PostContent({ userInfo, post }) {
             return false;
         }
     };
-    const [feeling, setFeeling] = useState({
-        like: didIL(),
-        dislike: false,
-        scrap: false,
-    });
 
     const didIDisL = () => {
         if (userInfo?.isLogin) {

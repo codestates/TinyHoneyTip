@@ -60,8 +60,8 @@ function ImageCropper({ imageToCrop, onImageCropped }) {
 
                 blob.name = fileName;
                 // creating a Object URL representing the Blob object given
-                const croppedImageUrl = window.URL.createObjectURL(blob);
-                resolve(croppedImageUrl);
+
+                resolve(new File([blob], blob.name));
             }, 'image/jpeg');
         });
     }

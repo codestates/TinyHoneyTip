@@ -30,9 +30,9 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
                                     src={
                                         el.imgFile
                                             ? typeof el.imgFile === 'object'
-                                                ? URL.createObjectURL(croppedImage)
-                                                : croppedImage
-                                            : ''
+                                                ? URL.createObjectURL(el.imgFile)
+                                                : el.imgFile
+                                            : '/postDefaultImage.jpg'
                                     }
                                 />
                                 <pre className="upload-post__post__text">{el.content}</pre>

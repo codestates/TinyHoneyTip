@@ -25,11 +25,15 @@ export default function ImageEditModal({ currentSlide, slide, modalHandler }) {
     const modalEditHandler = (imgFile) => {
         // 자른 이미지 slide state에 알맞은 page에 저장
         // 함수 대충 틀만 잡아놓음 수정 필요
-        console.log(currentSlide);
-        const file = cropper.getCroppedCanvas().toBlob((blob) => {
-            console.log(blob);
-        });
-        console.log(file);
+        console.log(cropper);
+        // console.log(currentSlide);
+        // if (cropper.ready === true) {
+        //     console.log('ready');
+        // } else {
+        //     console.log('not ready');
+        // }
+        // const file = cropper.getCroppedCanvas();
+        // console.log(file);
         // let editedContent = slide.map((el, idx) => {
         //     if (idx === index) {
         //         return { ...el, img: '', imgFile: imgFile };
@@ -43,11 +47,11 @@ export default function ImageEditModal({ currentSlide, slide, modalHandler }) {
 
     const currentEditingImgHandler = (key) => async (e) => {
         // 편집할 이미지 원본은 currentEditingImg에 저장
-        cropper.destroy();
         setCurrentEditingImg(e.target.files[0]);
         // document.getElementsByClassName('cropper-hide')[0]?.setAttribute('src', URL.createObjectURL(e.target.files[0]));
         const image = await document.getElementById('image');
         console.log(image);
+        cropper.destroy();
         cropper = new Cropper(image, {
             aspectRatio: 1 / 1,
             crop(event) {
@@ -60,6 +64,7 @@ export default function ImageEditModal({ currentSlide, slide, modalHandler }) {
                 console.log(event.detail.scaleY);
             },
         });
+        console.log(cropper);
     };
     return (
         <div className="post-upload-image-modal">

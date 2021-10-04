@@ -12,7 +12,7 @@ export default function PostContent({ userInfo, post }) {
 
     const didIL = () => {
         if (userInfo?.isLogin) {
-            let myLike = post.like.userLike.filter((el) => {
+            let myLike = post.like.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myLike.length > 0) {
@@ -27,7 +27,7 @@ export default function PostContent({ userInfo, post }) {
 
     const didIDisL = () => {
         if (userInfo?.isLogin) {
-            let myDisLike = post.dislike.userDisLike.filter((el) => {
+            let myDisLike = post.dislike.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myDisLike.length > 0) {
@@ -42,7 +42,7 @@ export default function PostContent({ userInfo, post }) {
 
     const amIScrapped = () => {
         if (userInfo?.isLogin) {
-            let myScrap = post.scrap.scrapList.filter((el) => {
+            let myScrap = post.scrap.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myScrap.length > 0) {

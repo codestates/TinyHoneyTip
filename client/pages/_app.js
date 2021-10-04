@@ -15,7 +15,11 @@ import '../styles/Content.css';
 import '../styles/NewPost.css';
 import '../styles/MyPage.css';
 import '../styles/contentPost.css';
-import axios from 'axios';
+import '../styles/Search.css';
+import '../styles/Select.css';
+import '../styles/Alert.css';
+import '../styles/Loading.css';
+import '../styles/Weather.css';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({
@@ -35,10 +39,11 @@ function MyApp({ Component, pageProps }) {
             isSocial: false,
             id: data.userInfo.id,
             email: data.userInfo.email,
-            accessToken: data.accessToken,
+            accessToken: data.cookie,
             username: data.userInfo.username,
             profile_img: data.userInfo.profile_img,
         });
+        console.log(data.accessToken);
     };
 
     const socialHandler = (data) => {
@@ -82,24 +87,21 @@ function MyApp({ Component, pageProps }) {
     const [isPageLoading, setPageLoading] = useState(false);
     useEffect(() => {
         router.events.on('routeChangeStart', (url) => {
-            console.log('router is changing');
             setPageLoading(true);
-        }); //페이지 바뀌면 실행
+        });
         router.events.on('routeChangeComplete', (url) => {
-            console.log('router is complete');
             setPageLoading(false);
-        }); // 완료하면 실행
+        });
         router.events.on('routeChangeError', (url) => {
-            console.log('router is err');
             setPageLoading(false);
-        }); // 에러나면 실행
+        });
     }, [router]);
-    //
 
     return (
         <>
             <Head>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width user-scalable=yes" />
+                {/* <link rel="icon" href="./public/odxkZuVe.ico"></link> */}
             </Head>
             <Header
                 userInfo={userInfo}

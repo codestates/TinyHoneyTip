@@ -9,6 +9,8 @@ export default function Comments({ userInfo, post }) {
     const { id } = router.query;
     const [commentInput, setCommentInput] = useState('');
     const [commentList, setCommentList] = useState(post.comment);
+    console.log(commentList);
+    console.log(userInfo);
 
     const handleInput = (e) => {
         setCommentInput(e.target.value);
@@ -43,7 +45,11 @@ export default function Comments({ userInfo, post }) {
                 .then((res) => {
                     setCommentList([
                         ...commentList,
-                        { userName: userInfo.username, user_id: userInfo.id, txt: commentInput },
+                        {
+                            User: { username: userInfo.username, profile_img: userInfo.profile_img },
+                            user_id: userInfo.id,
+                            txt: commentInput,
+                        },
                     ]);
                     let commentForm = document.getElementById('commentInput');
                     commentForm.value = '';
@@ -62,8 +68,8 @@ export default function Comments({ userInfo, post }) {
     return (
         <div className="single-post__comment-area">
             <div className="single-post__profile">
-                <img className="single-post__profile__img" src={post.writerInfo.profile_img} />
-                <h1 className="single-post__profile__username">{post.writerInfo.username}</h1>
+                <img className="single-post__profile__img" src={post.User.profile_img} />
+                <h1 className="single-post__profile__username">{post.User.username}</h1>
             </div>
             <div className="single-post__comments" id="single-post__comments">
                 {commentList.map((el, idx) => {

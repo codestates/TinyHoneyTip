@@ -7,8 +7,10 @@ import Category from '../src/components/Category';
 import Select from '../src/components/Select';
 import Search from '../src/components/Search';
 import Weather from '../src/components/Weather';
+import default_img from '../public/postDefaultImage.jpg';
 
 export default function Content({ bestList, postList, weatherData }) {
+    console.log('best', bestList);
     const [itemIndex, setItemIndex] = useState(0);
     const [post, setPost] = useState(postList?.slice(0, 7));
     const [init, setInit] = useState(postList);
@@ -20,8 +22,8 @@ export default function Content({ bestList, postList, weatherData }) {
         let clientHeight = document.documentElement.clientHeight;
 
         if (scrollTop + clientHeight === scrollHeight) {
-            setItemIndex(itemIndex + 7);
-            setPost(post.concat(postList?.slice(itemIndex + 7, itemIndex + 14)));
+            setItemIndex(itemIndex + 6);
+            setPost(post.concat(postList?.slice(itemIndex + 6, itemIndex + 12)));
         }
     }, [itemIndex, post]);
 
@@ -56,11 +58,17 @@ export default function Content({ bestList, postList, weatherData }) {
                                                             <Link href={`/post/${best?.id}`}>
                                                                 <div className="header_image">
                                                                     <div className="img_inner">
-                                                                        <Image
-                                                                            alt={best?.title}
-                                                                            layout="fill"
-                                                                            src={best?.post_page[0]?.img}
-                                                                        />
+                                                                        <div className="best_img">
+                                                                            <Image
+                                                                                alt={best?.title}
+                                                                                layout="fill"
+                                                                                src={
+                                                                                    best?.post_page[0]?.img.length === 0
+                                                                                        ? { default_img }
+                                                                                        : best?.post_page[0]?.img
+                                                                                }
+                                                                            />
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </Link>
@@ -117,11 +125,19 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                         <Link href={`/post/${list?.id}`}>
                                                                             <div className="header_image">
                                                                                 <div className="img_inner">
-                                                                                    <Image
-                                                                                        layout="fill"
-                                                                                        alt={list?.title}
-                                                                                        src={list?.post_page[0]?.img}
-                                                                                    />
+                                                                                    <div className="post_img">
+                                                                                        <Image
+                                                                                            layout="fill"
+                                                                                            alt={list?.title}
+                                                                                            src={
+                                                                                                list?.post_page[0]?.img
+                                                                                                    .length === 0
+                                                                                                    ? { default_img }
+                                                                                                    : list?.post_page[0]
+                                                                                                          ?.img
+                                                                                            }
+                                                                                        />
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </Link>

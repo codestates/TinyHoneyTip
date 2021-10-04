@@ -2,9 +2,14 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 export default function Home() {
     const sectionCount = 5;
-
+    useEffect(() => {
+        AOS.init();
+    }, []);
     // let init = function () {};
     // useEffect(() => {
     //     init = function () {
@@ -71,7 +76,7 @@ export default function Home() {
             <div className="landing">
                 <div className="landing__sections">
                     <section className="landing__section" id="section1">
-                        <div className="landing__section1__text">
+                        <div className="landing__section1__text" data-aos="fade-right" data-aos-duration="3000">
                             <h1 className="landing__section1__title">Tiny Honey Tip</h1>
                             <h2 className="landing__section1__p">
                                 당신의 작고 소중한 꿀팁을 <br />
@@ -84,7 +89,7 @@ export default function Home() {
                                 <button className="landing__start-btn">바로 시작하기</button>
                             </Link>
                         </div>
-                        <div className="landing__section1__pic-div">
+                        <div className="landing__section1__pic-div" data-aos="fade-right" data-aos-duration="3000">
                             <Image
                                 className="landing__section1__pic"
                                 src="/honeycomb.png"
@@ -103,7 +108,7 @@ export default function Home() {
                     </section>
                     <section className="landing__section" id="section2">
                         <div className="landing__section1__text">
-                            <h2 className="landing__section1__p">
+                            <h2 className="landing__section1__p landing__section1__p__desc">
                                 일상에서 꼭 필요한 <br />
                                 <br />
                                 각종 사소한 꿀팁을 <br />
@@ -111,7 +116,8 @@ export default function Home() {
                                 시간 낭비없이 본론만 얻으세요!
                             </h2>
                         </div>
-                        <div className="landing__section2__slide">
+                        <div className="landing__section__image"></div>
+                        {/* <div className="landing__section2__slide">
                             <ul style={{ width: `calc(100% * 4)` }}>
                                 <li style={{ width: `calc(100% / 4)` }}>
                                     <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
@@ -126,7 +132,7 @@ export default function Home() {
                                     <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                         <a
                             onClick={() => {
                                 let nextSection = document.getElementById('section3').offsetTop;
@@ -137,10 +143,15 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section3">
+                        <div className="landing__section__image"></div>
                         <div className="landing__section1__text">
-                            <h2 className="landing__section1__p">뭐시기</h2>
+                            <h2 className="landing__section1__p landing__section1__p__desc">
+                                당신만의 꿀팁을 <br />
+                                <br />
+                                다른 사람들과 공유해보세요.
+                            </h2>
                         </div>
-                        <div className="landing__section3__slide">
+                        {/* <div className="landing__section3__slide">
                             <input type="radio" name="section3-pos" id="section-pos1" />
                             <input type="radio" name="section3-pos" id="section-pos2" />
                             <input type="radio" name="section3-pos" id="section-pos3" />
@@ -165,7 +176,7 @@ export default function Home() {
                                 <label htmlFor="section-pos3">3</label>
                                 <label htmlFor="section-pos4">4</label>
                             </p>
-                        </div>
+                        </div> */}
                         <a
                             onClick={() => {
                                 let nextSection = document.getElementById('section4').offsetTop;
@@ -175,9 +186,43 @@ export default function Home() {
                             <div className="scroll-down"></div>
                         </a>
                     </section>
-                    <section className="landing__section landing__section4" id="section4">
+                    <section className="landing__section" id="section4">
+                        <div className="landing__section1__text">
+                            <h2 className="landing__section1__p landing__section1__p__desc">
+                                당신의 꿀팁들을 <br />
+                                <br />
+                                스크랩하여 모아보세요.
+                            </h2>
+                        </div>
+                        <div className="landing__section__image"></div>
+                        {/* <div className="landing__section2__slide">
+                            <ul style={{ width: `calc(100% * 4)` }}>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                                <li style={{ width: `calc(100% / 4)` }}>
+                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
+                                </li>
+                            </ul>
+                        </div> */}
+                        <a
+                            onClick={() => {
+                                let nextSection = document.getElementById('section5').offsetTop;
+                                nextSection += document.getElementById('section3').offsetParent.offsetTop;
+                                window.scrollTo(0, nextSection);
+                            }}>
+                            <div className="scroll-down"></div>
+                        </a>
+                    </section>
+                    <section className="landing__section landing__section4" id="section5">
                         <div className="landing__section4__text">
-                            <span>320</span>명의 유저들이 Tiny Honey Tip을 이용하고 있습니다!
+                            <span>320</span> 명의 유저들이 Tiny Honey Tip을 이용하고 있습니다!
                         </div>
                         <div className="landing__section4__slide">
                             <ul>
@@ -227,25 +272,27 @@ export default function Home() {
                         </div>
                         <a
                             onClick={() => {
-                                let nextSection = document.getElementById('section5').offsetTop;
-                                nextSection += document.getElementById('section3').offsetParent.offsetTop;
+                                let nextSection = document.getElementById('section6').offsetTop;
+                                nextSection += document.getElementById('section4').offsetParent.offsetTop;
                                 window.scrollTo(0, nextSection);
                             }}>
                             <div className="scroll-down"></div>
                         </a>
                     </section>
-                    <section className="landing__section" id="section5">
-                        <div className="landing__section1__text">
-                            <h1 className="landing__section1__title">Tiny Honey Tip</h1>
-                            <h2 className="landing__section1__p">
-                                혹시 알아요? <br />
-                                <br />
-                                대박 HoneyTip 기다리고 있을지...!
-                            </h2>
+                    <section className="landing__section" id="section6">
+                        <div data-aos="fade-right" data-aos-duration="3000">
+                            <div className="landing__section1__text">
+                                <h1 className="landing__section1__title">Tiny Honey Tip</h1>
+                                <h2 className="landing__section1__p">
+                                    혹시 알아요? <br />
+                                    <br />
+                                    대박 HoneyTip 기다리고 있을지...!
+                                </h2>
+                            </div>
+                            <Link href="/content" passHref>
+                                <button className="landing__start-btn">시작하기</button>
+                            </Link>
                         </div>
-                        <Link href="/content" passHref>
-                            <button className="landing__start-btn">시작하기</button>
-                        </Link>
                     </section>
                     <a
                         className="top-btn"

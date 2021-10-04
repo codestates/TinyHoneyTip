@@ -88,21 +88,14 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
                             New Post
                         </a>
                         <Signin
-                            socialHandler={socialHandler}
-                            message={message}
-                            setMessage={setMessage}
-                            isOk={isOk}
-                            setIsOk={setIsOk}
-                            isInClick={isInClick}
-                            setIsInClick={setIsInClick}
-                            userInfo={userInfo}
-                            setUserInfo={setUserInfo}
                             loginHandler={loginHandler}
-                            openUpModal={openUpModal}
+                            isInClick={isInClick}
                             openInModal={openInModal}
-                            closeUpModal={closeUpModal}
+                            openUpModal={openUpModal}
                             closeInModal={closeInModal}
-                            okHandler={okHandler}
+                            setIsOk={setIsOk}
+                            setMessage={setMessage}
+                            socialHandler={socialHandler}
                         />
                         <Signup
                             message={message}

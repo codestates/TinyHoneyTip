@@ -9,9 +9,7 @@ import Search from '../src/components/Search';
 import Weather from '../src/components/Weather';
 import default_img from '../public/postDefaultImage.jpg';
 
-export default function Content({ bestList, postList, weatherData, result }) {
-    console.log('best', bestList);
-    console.log('post', postList);
+export default function Content({ bestList, postList, weatherData }) {
     const [itemIndex, setItemIndex] = useState(0);
     const [post, setPost] = useState(postList?.slice(0, 6));
     const [init, setInit] = useState(postList);
@@ -244,7 +242,6 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            result: res.data.data,
             bestList: best,
             postList: post,
             weatherData: data.data,

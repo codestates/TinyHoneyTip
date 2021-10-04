@@ -16,55 +16,41 @@ module.exports = {
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
                     const myPostArr = await post_container.findAll({
-                        attributes: ['title', 'category', 'user_id', 'id'],
                         where: { user_id: Token.id },
+                        attributes: ['id', 'title', 'category'],
                         include: [
                             {
                                 model: post,
                                 attributes: ['content', 'img'],
                             },
-                            {
-                                model: like,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
-                            },
-                            {
-                                model: dislike,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
-                            },
-                            {
-                                model: scrap,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
-                            },
-                            {
-                                model: comment,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
-                            },
                         ],
                     });
+
+                    for (let onePost of myPostArr) {
+                        onePost.dataValues.like = await like.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                        });
+                        onePost.dataValues.dislike = await dislike.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                        });
+                        onePost.dataValues.scrap = await scrap.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                        });
+                        onePost.dataValues.comment = await comment.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['txt', 'id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
+                        });
+                    }
+
                     console.log('마이포스트', myPostArr[0]);
 
                     const myScrapArr = await scrap.findAll({

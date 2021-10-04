@@ -74,7 +74,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
         <>
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
-                    {console.log('알러트트ㅡ틑', userInfo)}
+                    {console.log('포스트: ', myPost, '스크랩', myScrap, '알러트', alert, '이미지', img)}
                     <div className="my_side_bar">
                         <div className="my_info">
                             <div className="my_profile_img">
@@ -83,8 +83,6 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                     alt="profile img"
                                     src={img}
                                     layout="fill"
-                                    // width={500}
-                                    // height={500}
                                     unoptimized={false}
                                 />
                             </div>
@@ -150,9 +148,9 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                             <div id="my_alert">
                                 <h3 id="my_alert_title">my alert</h3>
                                 <ul className="alert_scrap_list">
-                                    {alert.scrap
+                                    {alert[0].scrap
                                         ? alert.scrap?.map((el) => {
-                                              <li className="alert_scrap_item">
+                                              <li className="alert_scrap_item" key={el.post_id}>
                                                   ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 🙌
                                                   스크랩했습니다.
                                               </li>;
@@ -160,7 +158,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                         : '알림이 없습니다.'}
                                 </ul>
                                 <ul className="alert_like_list">
-                                    {alert.like
+                                    {alert[0].like
                                         ? alert.like?.map((el) => {
                                               <li className="alert_like_item">
                                                   ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 👍
@@ -193,14 +191,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                                     <Image
                                                                         layout="fill"
                                                                         alt={el?.title}
-                                                                        // src={
-                                                                        //     'data:image/png;base64' +
-                                                                        //     Buffer(
-                                                                        //         el?.post_page[0]?.img,
-                                                                        //         'binary',
-                                                                        //     ).toString('base64')
-                                                                        // }
-                                                                        src={el?.posts?.img}
+                                                                        src={el?.posts[0]?.img}
                                                                         unoptimized="false"
                                                                     />
                                                                 </div>
@@ -260,11 +251,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                                     <Image
                                                                         layout="fill"
                                                                         alt={el?.title}
-                                                                        src={
-                                                                            el?.post_container.posts[0]?.img
-                                                                                ? el?.post_container.posts[0]?.img
-                                                                                : 'https://media.discordapp.net/attachments/881710985335934979/894413797043871784/Violet_PawletteTM_Gift_Set___Build-A-Bear_Workshop.png'
-                                                                        }
+                                                                        src={el.post_container.posts[0]?.img}
                                                                         //src="https://media.discordapp.net/attachments/881710985335934979/894413797043871784/Violet_PawletteTM_Gift_Set___Build-A-Bear_Workshop.png"
                                                                         unoptimized="false"
                                                                     />
@@ -335,12 +322,20 @@ export async function getServerSideProps(context) {
 
     const post = res.data.data.myPost;
     const scrap = res.data.data.myScrap;
-    const alert = {
-        like: res.data.data.myPost.like || null,
-        dislike: res.data.data.myPost.dislike || null,
-        scrap: res.data.data.myPost.scrap || null,
-        comment: res.data.data.myPost.comment || null,
-    };
+    const alert = [];
+
+    for (let el of post) {
+        alert.push({
+            like: el.like || null,
+            dislike: el.dislike || null,
+            scrap: el.scrap || null,
+            comment: el.comment || null,
+        });
+    }
+
+    // console.log('마이포스트', post);
+    // console.log('마이스크랩', scrap);
+    // console.log('마이알러트', alert);
 
     return {
         props: {

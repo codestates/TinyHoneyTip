@@ -278,6 +278,7 @@ module.exports = {
                 }
             }
         } catch (err) {
+            console.log('라이크 에러', err);
             res.status(400).json({ message: 'Bad Request' });
         }
     },

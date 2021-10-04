@@ -35,7 +35,7 @@ export default function SingleComment({ userInfo, comment, commentList, setComme
         <div className="single-comment">
             <img className="single-comment__profile__img" src="" />
             <div className="single-comment__comment">
-                <span className="single-comment__profile__username">{comment.userName}</span>
+                <span className="single-comment__profile__username">{comment.User.username}</span>
                 {comment.txt}
             </div>
             {comment.user_id === userInfo?.id ? (

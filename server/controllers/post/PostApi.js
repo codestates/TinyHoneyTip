@@ -68,7 +68,7 @@ module.exports = {
             // const file = req.file;
 
             const obj = JSON.parse(JSON.stringify(req.body.post_page));
-            console.log('upload', req, obj[0]["'content'"]);
+            console.log('upload', req, obj[0]["'content'"], obj);
             const accessToken = req.cookies.accessToken;
             // console.log(req);
             const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
@@ -91,19 +91,22 @@ module.exports = {
                 });
                 // console.log(req.body.post_page[0]);
                 if (findcontainer) {
-                    for (let i = 0; i < req.files.length; i++) {
-                        // console.log(req.files, obj[i][content]);
-                        if (req.files[i] !== undefined)
+                    let filenum = 0;
+                    for (let el of obj) {
+                        console.log('반복문', el["'image'"]);
+                        if (el["'image'"] === 'true') {
                             post.create({
                                 post_id: findcontainer.id,
-                                img: req.files[i].location,
-                                content: obj[i]["'content'"],
+                                img: req.files[filenum].location,
+                                content: el["'content'"],
                             });
-                        else {
+                            filenum = filenum + 1;
+                            console.log('true');
+                        } else {
                             post.create({
                                 post_id: findcontainer.id,
                                 img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
-                                content: obj[i]["'content'"],
+                                content: el["'content'"],
                             });
                         }
                     }
@@ -196,23 +199,79 @@ module.exports = {
                     },
                     { where: { id } },
                 );
-                await post.destroy({ where: { id } });
-                for (let i = 0; i < req.files.length; i++) {
-                    console.log(req.files, req.body, obj[i]["'content'"]);
-                    if (req.files[i] !== undefined)
+                await post.destroy({ where: { post_id: id } });
+                console.log(req.body.post_page[0]["'image'"]);
+                const filenum = 0;
+                const urlnum = 0;
+                for (let el of obj) {
+                    console.log('반복문', el["'image'"]);
+                    if (el["'image'"] === 'true') {
                         post.create({
                             post_id: findcontainer.id,
-                            img: req.files[i].location,
-                            content: obj[i]["'content'"],
+                            img: req.files[filenum].location,
+                            content: el["'content'"],
                         });
-                    else {
-                        post.create({
-                            post_id: findcontainer.id,
-                            img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
-                            content: obj[i]["'content'"],
-                        });
+                        filenum = filenum + 1;
+                        console.log('true');
+                    } else {
+                        if (req.body.post_page_img) {
+                            post.create({
+                                post_id: findcontainer.id,
+                                img: req.body.post_page_img[urlnum],
+                                content: obj[i]["'content'"],
+                            });
+                            urlnum = urlnum + 1;
+                        } else {
+                            post.create({
+                                post_id: findcontainer.id,
+                                img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
+                                content: obj[i]["'content'"],
+                            });
+                        }
                     }
                 }
+
+                // for (let i = 0; i < req.body.post_page.length; i++) {
+                //     if (req.body.post_page[i]["'image'"] === 'true') {
+                //         post.create({
+                //             post_id: findcontainer.id,
+                //             img: req.files[filenum].location,
+                //             content: obj[i]["'content'"],
+                //         });
+                //         filenum = filenum + 1;
+                //     } else if (req.body.post_page[i]["'image'"] === 'false') {
+                //         if (req.body.post_page_img) {
+                //             post.create({
+                //                 post_id: findcontainer.id,
+                //                 img: req.body.post_page_img[urlnum],
+                //                 content: obj[i]["'content'"],
+                //             });
+                //             urlnum = urlnum + 1;
+                //         } else {
+                //             post.create({
+                //                 post_id: findcontainer.id,
+                //                 img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
+                //                 content: obj[i]["'content'"],
+                //             });
+                //         }
+                //     }
+                // }
+                // for (let i = 0; i < req.files.length; i++) {
+                //     console.log(req.files, req.body, obj[i]["'content'"]);
+                //     if (req.files[i] !== undefined)
+                //         post.create({
+                //             post_id: findcontainer.id,
+                //             img: req.files[i].location,
+                //             content: obj[i]["'content'"],
+                //         });
+                //     else {
+                //         post.create({
+                //             post_id: findcontainer.id,
+                //             img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
+                //             content: obj[i]["'content'"],
+                //         });
+                //     }
+                // }
                 res.status(200).json({ message: 'ok' });
             } else {
                 res.status(400).json({ message: '빈칸이 있나?' });

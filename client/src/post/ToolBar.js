@@ -68,18 +68,9 @@ export default function ToolBar({
                             <option>쇼핑</option>
                         </select>
                     </form>
-                    {/* <h1>현재 페이지 : {currentSlide}</h1> */}
                     <div className="post__toolbar__image">
-                        {/* <img className="post__toolbar__image-preview" src={slide[currentSlide - 1].img} /> */}
                         <label className="post__toolbar__image-label" onClick={modalHandler}>
                             이미지 업로드
-                            {/* <input
-                            className="post__toolbar__image-input"
-                            type="file"
-                            accept="image/jpg, image/png, image/jpeg"
-                            name="image"
-                            onChange={slideTextHandler(currentSlide - 1, 'image')}
-                        /> */}
                         </label>
                         <button
                             onClick={slideTextHandler(currentSlide - 1, 'deleteImage')}

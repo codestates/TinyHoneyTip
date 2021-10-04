@@ -22,6 +22,7 @@
         "next-images": "^1.8.1",
         "react": "17.0.2",
         "react-dom": "17.0.2",
+        "react-image-crop": "^9.0.4",
         "react-scripts": "^4.0.3",
         "react-web-editor": "^2.2.6"
     },

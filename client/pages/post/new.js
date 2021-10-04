@@ -16,7 +16,7 @@ export default function PostUpload({ userInfo }) {
     //         Router.push('/content');
     //     }
     // });
-
+    const [croppedImage, setCroppedImage] = useState(undefined);
     const [slide, setSlide] = useState([{ img: '', imgFile: '/postDefaultImage.jpg', content: '' }]);
 
     const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
@@ -87,7 +87,7 @@ export default function PostUpload({ userInfo }) {
         } else if (key === 'image') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
-                    return { ...el, img: '', imgFile: e.target.files[0] };
+                    return { ...el, img: '', imgFile: { croppedImage } };
                 } else {
                     return el;
                 }
@@ -185,6 +185,7 @@ export default function PostUpload({ userInfo }) {
                 <title>New Post | Tiny Honey Tip</title>
             </Head>
             <UploadPostContent
+                croppedImage={croppedImage}
                 slide={slide}
                 postInfo={postInfo}
                 currentSlide={currentSlide}
@@ -205,7 +206,13 @@ export default function PostUpload({ userInfo }) {
                 modalHandler={modalHandler}
             />
             {modalOpened ? (
-                <ImageEditModal currentSlide={currentSlide} slide={slide} modalHandler={modalHandler} />
+                <ImageEditModal
+                    croppedImage={croppedImage}
+                    setCroppedImage={setCroppedImage}
+                    currentSlide={currentSlide}
+                    slide={slide}
+                    modalHandler={modalHandler}
+                />
             ) : (
                 ''
             )}

@@ -19,6 +19,7 @@ import '../styles/Search.css';
 import '../styles/Select.css';
 import '../styles/Alert.css';
 import '../styles/Loading.css';
+import '../styles/Weather.css';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({

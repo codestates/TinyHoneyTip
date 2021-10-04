@@ -11,15 +11,13 @@ export default function PostContent({ userInfo, post }) {
     const { id } = router.query;
 
     const [currentSlide, setCurrentSlide] = useState(1);
-    const [feeling, setFeeling] = useState({
-        like: false,
-        dislike: false,
-        scrap: false,
-    });
-    const didIL = () => {
-        if (userInfo?.isLogin) {
+
+    let didIL = () => {
+        console.log(userInfo);
+        console.log(post);
+        if (JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
             let myLike = post.like.filter((el) => {
-                return el.user_id === userInfo.id;
+                return el.user_id === JSON.parse(sessionStorage.getItem('userInfo')).id;
             });
             if (myLike.length > 0) {
                 return true;
@@ -31,10 +29,10 @@ export default function PostContent({ userInfo, post }) {
         }
     };
 
-    const didIDisL = () => {
-        if (userInfo?.isLogin) {
+    let didIDisL = () => {
+        if (JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
             let myDisLike = post.dislike.filter((el) => {
-                return el.user_id === userInfo.id;
+                return el.user_id === JSON.parse(sessionStorage.getItem('userInfo')).id;
             });
             if (myDisLike.length > 0) {
                 return true;
@@ -46,10 +44,10 @@ export default function PostContent({ userInfo, post }) {
         }
     };
 
-    const amIScrapped = () => {
-        if (userInfo?.isLogin) {
+    let amIScrapped = () => {
+        if (JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
             let myScrap = post.scrap.filter((el) => {
-                return el.user_id === userInfo.id;
+                return el.user_id === JSON.parse(sessionStorage.getItem('userInfo')).id;
             });
             if (myScrap.length > 0) {
                 return true;
@@ -60,7 +58,21 @@ export default function PostContent({ userInfo, post }) {
             return false;
         }
     };
-
+    const [feeling, setFeeling] = useState({
+        like: false,
+        dislike: false,
+        scrap: false,
+    });
+    console.log(feeling);
+    useEffect(() => {
+        console.log('useEffect');
+        console.log(JSON.parse(sessionStorage.getItem('userInfo')));
+        setFeeling({
+            like: didIL(),
+            dislike: didIDisL(),
+            scrap: amIScrapped(),
+        });
+    }, []);
     const deleteFeelingHandler = (key) => {
         axios
             .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
@@ -92,6 +104,8 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const feelingHandler = (key) => {
+        if (key === 'like') {
+        }
         if (!!userInfo?.isLogin) {
             if (!!feeling[key]) {
                 deleteFeelingHandler(key);

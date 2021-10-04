@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 import Head from 'next/head';
-import Image from 'next/image';
-import Cropper from 'cropperjs';
 
-import 'cropperjs/dist/cropper.css';
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
 import ImageEditModal from '../../src/post/ImageEditModal';
@@ -73,7 +70,7 @@ export default function PostUpload({ userInfo }) {
     //     console.log(file);
     // };
 
-    const slideTextHandler = (index, key) => (e) => {
+    const slideTextHandler = (index, key, imgFile) => (e) => {
         setCannotSubmitMessage(false);
         if (key === 'content') {
             let editedContent = slide.map((el, idx) => {
@@ -87,7 +84,7 @@ export default function PostUpload({ userInfo }) {
         } else if (key === 'image') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
-                    return { ...el, img: '', imgFile: { croppedImage } };
+                    return { ...el, img: '', imgFile: { imgFile } };
                 } else {
                     return el;
                 }
@@ -159,9 +156,9 @@ export default function PostUpload({ userInfo }) {
             return el;
         });
 
-        // for (let key of formData.entries()) {
-        //     console.log(`${key}`);
-        // }
+        for (let key of formData.entries()) {
+            console.log(`${key}`);
+        }
 
         axios
             .post(apiUrl, formData, {
@@ -211,7 +208,9 @@ export default function PostUpload({ userInfo }) {
                     setCroppedImage={setCroppedImage}
                     currentSlide={currentSlide}
                     slide={slide}
+                    setSlide={setSlide}
                     modalHandler={modalHandler}
+                    slideTextHandler={slideTextHandler}
                 />
             ) : (
                 ''

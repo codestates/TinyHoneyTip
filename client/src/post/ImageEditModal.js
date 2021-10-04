@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Cropper from '../components/Cropper';
 
-export default function ImageEditModal({ currentSlide, slide, modalHandler, croppedImage, setCroppedImage }) {
+export default function ImageEditModal({
+    currentSlide,
+    slide,
+    setSlide,
+    modalHandler,
+    croppedImage,
+    setCroppedImage,
+    slideTextHandler,
+}) {
     const [imageToCrop, setImageToCrop] = useState(undefined);
+    const [croppedImg, setCroppedImg] = useState(undefined);
 
     const onUploadFile = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             const reader = new FileReader();
+            const file = e.target.files[0];
+            setCroppedImage(file);
 
             reader.addEventListener('load', () => {
                 const image = reader.result;
@@ -17,13 +28,24 @@ export default function ImageEditModal({ currentSlide, slide, modalHandler, crop
         }
     };
 
+    const editSubmitHandler = () => {
+        let editedContent = slide.map((el, idx) => {
+            if (idx === currentSlide - 1) {
+                return { ...el, img: '', imgFile: croppedImage };
+            } else {
+                return el;
+            }
+        });
+        setSlide(editedContent);
+        modalHandler();
+    };
+
     return (
         <div className="post-upload-image-modal">
             <div className="post-upload-modal-edit-area">
                 <div className="post-upload-modal-edit-area-inner">
                     <div className="cropper">
-                        <input type="file" accept="image/*" onChange={onUploadFile} />
-                        <div>
+                        <div className="cropper-div">
                             <Cropper
                                 imageToCrop={imageToCrop}
                                 onImageCropped={(croppedImage) => setCroppedImage(croppedImage)}
@@ -32,8 +54,12 @@ export default function ImageEditModal({ currentSlide, slide, modalHandler, crop
                     </div>
                 </div>
             </div>
+            <label className="post-upload-modal-btn-select">
+                파일 선택
+                <input className="post__toolbar__image-input" type="file" accept="image/*" onChange={onUploadFile} />
+            </label>
             <div className="post-upload-modal-btns">
-                <button className="post-upload-modal-btn" onClick={() => modalHandler()}>
+                <button className="post-upload-modal-btn" onClick={() => editSubmitHandler()}>
                     확인
                 </button>
                 <button className="post-upload-modal-btn" onClick={() => modalHandler()}>

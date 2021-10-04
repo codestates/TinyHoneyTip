@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            models.scrap.belongsTo(models.post_container, { foreignKey: 'post_id' });
+            models.scrap.belongsTo(models.User, { foreignKey: 'user_id' });
         }
     }
     scrap.init(

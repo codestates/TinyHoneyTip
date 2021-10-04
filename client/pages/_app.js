@@ -19,6 +19,7 @@ import '../styles/Search.css';
 import '../styles/Select.css';
 import '../styles/Alert.css';
 import '../styles/Loading.css';
+import '../styles/Weather.css';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({
@@ -38,10 +39,11 @@ function MyApp({ Component, pageProps }) {
             isSocial: false,
             id: data.userInfo.id,
             email: data.userInfo.email,
-            accessToken: data.accessToken,
+            accessToken: data.cookie,
             username: data.userInfo.username,
             profile_img: data.userInfo.profile_img,
         });
+        console.log(data.accessToken);
     };
 
     const socialHandler = (data) => {
@@ -99,6 +101,7 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width user-scalable=yes" />
+                {/* <link rel="icon" href="./public/odxkZuVe.ico"></link> */}
             </Head>
             <Header
                 userInfo={userInfo}

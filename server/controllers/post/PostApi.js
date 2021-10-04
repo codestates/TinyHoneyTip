@@ -15,40 +15,23 @@ module.exports = {
                         attributes: ['content', 'img', 'id'],
                         raw: true,
                     },
-                    {
-                        model: like,
-                        attributes: ['user_id'],
-                        raw: true,
-                    },
-                    {
-                        model: dislike,
-                        attributes: ['user_id'],
-                        raw: true,
-                    },
-                    {
-                        model: scrap,
-                        attributes: ['user_id'],
-                        raw: true,
-                    },
                 ],
             });
-            // .then((result) => {
-            //     for (let el of result) {
-            //         if (Array.isArray(el.like) === false) {
-            //             el.like = [el.like];
-            //         }
-            //         if (!Array.isArray(el.dislike) === false) {
-            //             el.like = [el.dislike];
-            //         }
-            //         if (!Array.isArray(el.scrap) === false) {
-            //             el.like = [el.scrap];
-            //         }
-            //         if (!Array.isArray(el.comment) === false) {
-            //             el.like = [el.comment];
-            //         }
-            //     }
-            //     return result;
-            // });
+
+            for (let onePost of allpost) {
+                onePost.dataValues.like = await like.findAll({
+                    where: { post_id: onePost.id },
+                    attributes: ['user_id'],
+                });
+                onePost.dataValues.dislike = await dislike.findAll({
+                    where: { post_id: onePost.id },
+                    attributes: ['user_id'],
+                });
+                onePost.dataValues.scrap = await scrap.findAll({
+                    where: { post_id: onePost.id },
+                    attributes: ['user_id'],
+                });
+            }
 
             console.log('포스트리스트', allpost);
 

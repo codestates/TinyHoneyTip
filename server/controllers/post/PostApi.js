@@ -222,14 +222,14 @@ module.exports = {
                     { where: { id } },
                 );
                 await post.destroy({ where: { post_id: id } });
-                console.log(req.body.post_page[0]["'image'"]);
+                console.log(req.body.post_page[0]["'image'"], req.body);
                 const filenum = 0;
                 const urlnum = 0;
                 for (let el of obj) {
                     console.log('반복문', el["'image'"]);
                     if (el["'image'"] === 'true') {
                         post.create({
-                            post_id: findcontainer.id,
+                            post_id: id,
                             img: req.files[filenum].location,
                             content: el["'content'"],
                         });
@@ -237,22 +237,34 @@ module.exports = {
                         console.log('true');
                     } else {
                         if (req.body.post_page_img) {
-                            post.create({
-                                post_id: findcontainer.id,
-                                img: req.body.post_page_img[urlnum],
-                                content: obj[i]["'content'"],
-                            });
-                            urlnum = urlnum + 1;
+                            console.log('여기1');
+                            if (Array.isArray(req.body.post_page_img)) {
+                                console.log('여기2');
+                                await post.create({
+                                    post_id: id,
+                                    img: req.body.post_page_img[urlnum],
+                                    content: el["'content'"],
+                                });
+                                urlnum = urlnum + 1;
+                            } else {
+                                console.log('여기3');
+                                await post.create({
+                                    post_id: id,
+                                    img: req.body.post_page_img,
+                                    content: el["'content'"],
+                                });
+                            }
                         } else {
-                            post.create({
-                                post_id: findcontainer.id,
-                                img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
-                                content: obj[i]["'content'"],
+                            console.log('여기4');
+                            await post.create({
+                                post_id: id,
+                                img: 'https://cdn.discordapp.com/attachments/884717967307321407/893330609873764362/384f42c50d441c9b.png',
+                                content: el["'content'"],
                             });
                         }
                     }
                 }
-
+                res.status(200).json({ message: 'ok' });
                 // for (let i = 0; i < req.body.post_page.length; i++) {
                 //     if (req.body.post_page[i]["'image'"] === 'true') {
                 //         post.create({
@@ -294,7 +306,6 @@ module.exports = {
                 //         });
                 //     }
                 // }
-                res.status(200).json({ message: 'ok' });
             } else {
                 res.status(400).json({ message: '빈칸이 있나?' });
             }

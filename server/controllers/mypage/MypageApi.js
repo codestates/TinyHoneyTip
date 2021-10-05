@@ -124,27 +124,41 @@ module.exports = {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    const email = req.body.email;
                     const username = req.body.username;
-
-                    if (email)
+                    if (username && req.file.location) {
                         await User.update(
                             {
-                                email,
                                 username,
                                 profile_img: req.file.location,
                             },
                             { where: { email: token.email } },
                         );
+                    } else if (username && !req.file.location) {
+                        await User.update(
+                            {
+                                username,
+                            },
+                            { where: { email: token.email } },
+                        );
+                    } else if (!username && req.file.location) {
+                        await User.update(
+                            {
+                                profile_img: req.file.location,
+                            },
+                            { where: { email: token.email } },
+                        );
+                    }
 
                     const updateInfo = await User.findOne({
                         where: { id: token.id },
                         attributes: ['email', 'username', 'profile_img'],
                     });
+                    const newToken = await jwt.sign(token, process.env.ACCESS_SECRET);
                     res.status(200).json({
                         message: 'ok',
                         data: {
                             userInfo: updateInfo,
+                            newToken: newToken,
                         },
                     });
                 }

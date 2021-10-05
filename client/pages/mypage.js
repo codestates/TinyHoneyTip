@@ -22,30 +22,29 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 
     const editHandler = () => {
         setEditBtn(editBtn ? false : true);
+        console.log('유저인퐅오옹롸ㅓ라', userInfo);
         if (editBtn) editMyPage();
     };
 
     function editMyPage() {
-        console.log('유저인퐅오옹롸ㅓ라', userInfo);
+        const formData = new FormData();
+        formData.append('imgFile', img);
+        formData.append('username', userInfo.username);
         axios
             .patch(
                 `${process.env.NEXT_PUBLIC_URL}/mypage`,
                 { userInfo: userInfo, img: img },
-                { headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' } },
+                {
+                    headers: { cookie: userInfo.accessToken, 'content-type': 'multipart/form-data' },
+                    withCredentials: true,
+                },
             )
             .then((res) => {
-                const formData = new FormData();
-                formData.append('file', img);
-                axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData, {
-                    headers: {
-                        cookie: `accessToken=${userInfo.accessToken}`,
-                        'content-type': 'multipart/form-data',
-                    },
-                    withCredentials: true,
-                });
                 if (res.data.message === 'ok') {
                     setUserInfo(res.data.userInfo);
                     window.alert('수정이 완료되었습니다.');
+                } else {
+                    window.alert('수정 오류입니다.');
                 }
             });
     }

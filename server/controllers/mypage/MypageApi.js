@@ -5,8 +5,8 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        console.log('쿠키', req.cookies.accessToken);
-        const accessToken = req.cookies.accessToken;
+        console.log('쿠키', req.body.userInfo.accessToken);
+        const accessToken = req.body.userInfo.accessToken;
         try {
             if (!accessToken) {
                 res.status(404).json({ message: 'Bad Request' });
@@ -117,9 +117,10 @@ module.exports = {
 
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
+        console.log(req.cookies);
         try {
             if (!accessToken) {
-                console.log('토큰어디감', req.cookies);
+                console.log(req);
                 res.status(400).json({ message: 'Bad Request' });
             } else {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
@@ -128,20 +129,21 @@ module.exports = {
                     console.log(req.body);
                     const { email, username, password } = req.body;
 
-                    if (email)
+                    if (!req.body.userInfo) {
                         await User.update(
                             {
                                 email,
                                 username,
                                 password,
-                                profile_img: req.file.location,
+                                profile_img: req.body.img,
                             },
                             { where: { email: token.email } },
                         );
+                    }
 
                     const updateInfo = await User.findOne({
                         where: { id: token.id },
-                        attributes: [email, username, profile_img],
+                        attributes: ['email', 'username', 'profile_img'],
                     });
                     res.status(200).json({
                         message: 'ok',

@@ -4,6 +4,7 @@
 
 .header-container {
     width: 100vw;
+    background-color: rgba(253, 242, 217, 0.3);
 }
 
 .header {
@@ -13,7 +14,7 @@
     align-items: center;
     width: 100vw;
     z-index: 3;
-    background-color: rgba(244, 193, 65, 0.8);
+    background-color: transparent;
 }
 
 .header__logo {
@@ -43,7 +44,7 @@
     flex-wrap: wrap;
     align-items: center;
     width: 100vw;
-    background-color: rgba(244, 193, 65, 0.8);
+    background-color: rgba(253, 242, 217, 0.3);
 }
 
 .footer__logo-box {
@@ -103,7 +104,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(253, 242, 217, 1);
+    background-color: rgba(253, 242, 217, 0.3);
 }
 
 .landing__start-btn {

@@ -33,7 +33,7 @@ export default function SingleComment({ userInfo, comment, commentList, setComme
 
     return (
         <div className="single-comment">
-            <img className="single-comment__profile__img" src="" />
+            <img className="single-comment__profile__img" src={comment.User.profile_img} />
             <div className="single-comment__comment">
                 <span className="single-comment__profile__username">{comment.User.username}</span>
                 {comment.txt}

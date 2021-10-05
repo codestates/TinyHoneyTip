@@ -48,7 +48,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                 setUserInfo({
                     ...userInfo,
                     username: res.data.data.userInfo.username,
-                    profile_img: res.data.data.profile_img,
+                    profile_img: res.data.data.userInfo.profile_img,
                 });
             })
             .catch((error) => {
@@ -121,7 +121,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 <Image
                                     className="my_profile_img"
                                     alt="profile img"
-                                    src={userInfo.profile_img}
+                                    src={userInfo.profile_img ? userInfo.profile_img : '/postDefaultImage.jpg'}
                                     unoptimized={false}
                                     width={500}
                                     height={500}

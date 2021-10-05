@@ -117,7 +117,6 @@ module.exports = {
 
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
-        console.log(accessToken);
         try {
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });

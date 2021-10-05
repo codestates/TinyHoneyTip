@@ -110,27 +110,19 @@
     }
 
     #my_alert_title {
-        font-size: 18px;
+        font-size: 20px;
         height: 3vw;
         text-align: center;
         line-height: 3vw;
     }
 
-    .alert_scrap_list,
-    .alert_like_list {
-        overflow: scroll;
-        width: 100%;
-        height: 9vw;
-        background-color: aqua;
-        margin-bottom: 1vw;
-    }
-
-    .alert_scrap_item,
-    .alert_like_item {
-        font-size: 10px;
+    .alert_list {
+        font-size: 14px;
         color: #666;
         width: 100%;
         border-bottom: 1px solid #ccc;
+        height: 22px;
+        line-height: 22px;
     }
 
     /* ------------------- mypost / myscrap 시작 --------------------------- */

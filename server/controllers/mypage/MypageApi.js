@@ -1,6 +1,6 @@
 const { User, like, dislike, comment, scrap, post_container, post } = require('../../models');
 const jwt = require('jsonwebtoken');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 require('dotenv').config();
 
 module.exports = {
@@ -80,20 +80,21 @@ module.exports = {
 
                     console.log(myScrap[0], '마이스크랩222');
 
-                    // for (let oneScrap of myScrap) {
-                    //     oneScrap.post_container.post_container.like = await like.findAll({
-                    //         where: { post_id: oneScrap.post_container.id },
-                    //         attributes: ['user_id'],
-                    //     });
-                    // oneScrap.post_container.post_container.dislike = await dislike.findAll({
-                    //     where: { post_id: oneScrap.post_container.post_container.id },
-                    //     attributes: ['user_id'],
-                    // });
-                    // oneScrap.post_container.post_container.scrap = await scrap.findAll({
-                    //     where: { post_id: oneScrap.post_container.post_container.id },
-                    //     attributes: ['user_id'],
-                    // });
-                    // }
+                    for (let oneScrap of myScrap) {
+                        console.log(oneScrap);
+                        oneScrap.dataValues.like = await like.findAll({
+                            where: { post_id: oneScrap.dataValues.post_id },
+                            attributes: ['user_id'],
+                        });
+                        oneScrap.dataValues.dislike = await dislike.findAll({
+                            where: { post_id: oneScrap.dataValues.post_id },
+                            attributes: ['user_id'],
+                        });
+                        oneScrap.dataValues.scrap = await scrap.findAll({
+                            where: { post_id: oneScrap.dataValues.post_id },
+                            attributes: ['user_id'],
+                        });
+                    }
 
                     // ---------------------------------------- alert 시작 -------------------------------------------------------
 
@@ -118,13 +119,13 @@ module.exports = {
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
-                console.log('에러');
-                res.status(404).json({ message: 'Bad Request' });
+                console.log('토큰어디감', req.cookies);
+                res.status(400).json({ message: 'Bad Request' });
             } else {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-                if (!token) res.status(404).json({ message: 'Bad Request' });
+                if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    //console.log(req.body);
+                    console.log(req.body);
                     const { email, username, password } = req.body;
 
                     if (email)
@@ -151,6 +152,7 @@ module.exports = {
                 }
             }
         } catch (err) {
+            console.log(err);
             res.status(400).json({ message: 'Bad Request' });
         }
     },

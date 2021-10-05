@@ -345,14 +345,15 @@ module.exports = {
                     const exist = await like.findOne({
                         where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    if (!exist) {
+                    if (exist !== null) {
+                        res.status(400).json({ message: 'already liked!' });
+                        console.log(exist);
+                    } else {
                         await like.create({
                             user_id: userInfo.id,
                             post_id: req.params.id,
                         });
                         res.status(200).json({ message: 'ok' });
-                    } else {
-                        res.status(400).json({ message: 'already liked!' });
                     }
                 }
             }
@@ -368,24 +369,13 @@ module.exports = {
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });
             } else {
-                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                const userInfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    const findlike = await like.findOne({
-                        where: {
-                            user_id: userInfo.id,
-                            post_id: req.params.id,
-                        },
+                    await like.destroy({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    if (findlike) {
-                        await like.destroy({
-                            where: { user_id: userInfo.id, post_id: req.params.id },
-                        });
-                        res.status(200).json({ message: 'ok' });
-                    } else {
-                        res.status(500).json({ message: 'not liked' });
-                    }
                 }
             }
         } catch (err) {
@@ -399,7 +389,7 @@ module.exports = {
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });
             } else {
-                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                const userInfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
@@ -428,21 +418,13 @@ module.exports = {
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });
             } else {
-                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                const userInfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    const finddislike = await dislike.findOne({
-                        wehre: { user_id: userInfo.id, post_id: req.params.id },
+                    await dislike.destroy({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    if (finddislike) {
-                        await dislike.destroy({
-                            where: { user_id: userInfo.id, post_id: req.params.id },
-                        });
-                        res.status(200).json({ message: 'ok' });
-                    } else {
-                        res.status(500).json({ message: 'not disliked' });
-                    }
                 }
             }
         } catch (err) {
@@ -454,10 +436,10 @@ module.exports = {
             const accessToken = req.cookies.accessToken;
             if (!accessToken) res.status(400).json({ message: 'No token' });
             else {
-                const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!userinfo) res.status(400).json({ message: 'Expired token' });
                 else {
-                    const exist = scrap.findOne({ where: { user_id: userinfo.id, post_id: req.params.id } });
+                    const exist = await scrap.findOne({ where: { user_id: userinfo.id, post_id: req.params.id } });
                     if (!exist) {
                         await scrap.create({
                             user_id: userinfo.id,
@@ -475,8 +457,8 @@ module.exports = {
     cancelscrap: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
-            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
-            scrap.destroy({
+            const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            await scrap.destroy({
                 where: {
                     user_id: userinfo.id,
                     post_id: req.params.id,

@@ -101,10 +101,12 @@ html {
 .landing__section:first-child,
 .landing__section:nth-child(6) {
     padding-top: 60px;
-    background-image: url('../public/landingBackgroundLight.png');
-    background-position: 400px 0;
-    background-repeat: no-repeat;
+    background: url('../public/landingBackgroundLight.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
+    background-position: left top;
 }
 
 .landing__section:nth-child(3):before {
@@ -114,10 +116,14 @@ html {
     height: 100%;
     top: 0;
     left: 0;
-    background-repeat: no-repeat;
     z-index: -1;
-    background-image: url('../public/landingBackgroundLight.png');
     transform: rotate(-180deg);
+    background: url('../public/landingBackgroundLight.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: left top;
 }
 
 .scroll-down {

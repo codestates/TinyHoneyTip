@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }) {
             profile_img: '',
         });
         sessionStorage.clear();
-        Router.push('/');
+        Router.push('/content');
     };
     useEffect(() => {
         setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));

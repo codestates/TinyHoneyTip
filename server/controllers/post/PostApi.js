@@ -73,7 +73,7 @@ module.exports = {
                     for (let el of obj) {
                         console.log('반복문', el["'image'"]);
                         if (el["'image'"] === 'true') {
-                            post.create({
+                            await post.create({
                                 post_id: findcontainer.id,
                                 img: req.files[filenum].location,
                                 content: el["'content'"],
@@ -81,16 +81,16 @@ module.exports = {
                             filenum = filenum + 1;
                             console.log('true');
                         } else {
-                            post.create({
+                            await post.create({
                                 post_id: findcontainer.id,
                                 img: 'https://cdn.discordapp.com/attachments/884717967307321407/893330609873764362/384f42c50d441c9b.png',
                                 content: el["'content'"],
                             });
                         }
                     }
+                    res.status(200).json({ messasge: 'upload complete', post_id: findcontainer.id });
                 }
             }
-            res.status(200).json({ messasge: 'upload complete', post_id: findcontainer.id });
         } catch (err) {
             res.status(500).json({ message: 'Bad Request' });
         }
@@ -223,12 +223,12 @@ module.exports = {
                 );
                 await post.destroy({ where: { post_id: id } });
                 console.log(req.body.post_page[0]["'image'"], req.body);
-                const filenum = 0;
-                const urlnum = 0;
+                let filenum = 0;
+                let urlnum = 0;
                 for (let el of obj) {
                     console.log('반복문', el["'image'"]);
                     if (el["'image'"] === 'true') {
-                        post.create({
+                        await post.create({
                             post_id: id,
                             img: req.files[filenum].location,
                             content: el["'content'"],
@@ -346,7 +346,7 @@ module.exports = {
                         where: { user_id: userInfo.id, post_id: req.params.id },
                     });
                     if (!exist) {
-                        await dislike.create({
+                        await like.create({
                             user_id: userInfo.id,
                             post_id: req.params.id,
                         });

@@ -144,7 +144,7 @@ export default function Id({ post, userInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                Router.push(`post/${post.id}`);
+                Router.push(`post/${id}`);
             })
             .catch((error) => {
                 console.log(error);

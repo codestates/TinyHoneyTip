@@ -90,7 +90,7 @@ module.exports = {
                     }
                 }
             }
-            res.status(200).json({ messasge: 'upload complete' });
+            res.status(200).json({ messasge: 'upload complete', post_id: findcontainer.id });
         } catch (err) {
             res.status(500).json({ message: 'Bad Request' });
         }
@@ -341,14 +341,16 @@ module.exports = {
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    const like = like.findOne({
-                        user_id: userInfo.id,
-                        post_id: req.params.id,
+                    const findlike = await like.findOne({
+                        where: {
+                            user_id: userInfo.id,
+                            post_id: req.params.id,
+                        },
                     });
-                    if (like) {
+                    if (findlike) {
                         res.status(500).json({ message: 'already liked' });
                     } else {
-                        like.create({
+                        await like.create({
                             user_id: userInfo.id,
                             post_id: req.params.id,
                         });
@@ -371,10 +373,20 @@ module.exports = {
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    like.destroy({
-                        where: { user_id: userInfo.id, post_id: req.params.id },
+                    const findlike = await like.findOne({
+                        where: {
+                            user_id: userInfo.id,
+                            post_id: req.params.id,
+                        },
                     });
-                    res.status(200).json({ message: 'ok' });
+                    if (findlike) {
+                        await like.destroy({
+                            where: { user_id: userInfo.id, post_id: req.params.id },
+                        });
+                        res.status(200).json({ message: 'ok' });
+                    } else {
+                        res.status(500).json({ message: 'not liked' });
+                    }
                 }
             }
         } catch (err) {
@@ -391,11 +403,21 @@ module.exports = {
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    dislike.create({
-                        user_id: userInfo.id,
-                        post_id: req.params.id,
+                    const finddislike = await dislike.findOne({
+                        where: {
+                            user_id: userInfo.id,
+                            post_id: req.params.id,
+                        },
                     });
-                    res.status(200).json({ message: 'ok' });
+                    if (finddislike) {
+                        res.status(500).json({ message: 'already disliked' });
+                    } else {
+                        await dislike.create({
+                            user_id: userInfo.id,
+                            post_id: req.params.id,
+                        });
+                        res.status(200).json({ message: 'ok' });
+                    }
                 }
             }
         } catch (err) {
@@ -413,10 +435,17 @@ module.exports = {
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    dislike.destroy({
-                        where: { user_id: userInfo.id, post_id: req.params.id },
+                    const finddislike = await dislike.findOne({
+                        wehre: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    res.status(200).json({ message: 'ok' });
+                    if (finddislike) {
+                        await dislike.destroy({
+                            where: { user_id: userInfo.id, post_id: req.params.id },
+                        });
+                        res.status(200).json({ message: 'ok' });
+                    } else {
+                        res.status(500).json({ message: 'not disliked' });
+                    }
                 }
             }
         } catch (err) {

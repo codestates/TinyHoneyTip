@@ -62,10 +62,13 @@ export default function ToolBar({
                             value={postInfo.category}
                             onChange={postInfoHandler('category')}>
                             <option>카테고리</option>
+                            <option>취미</option>
+                            <option>건강</option>
                             <option>운동</option>
                             <option>생활</option>
                             <option>동물</option>
                             <option>쇼핑</option>
+                            <option>기타</option>
                         </select>
                     </form>
                     <div className="post__toolbar__image">

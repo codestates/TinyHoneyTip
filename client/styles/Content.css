@@ -3,7 +3,12 @@
     justify-content: center;
     padding: 0 auto;
     position: relative;
-    background-color: rgba(253, 242, 217, 1);
+    background-color: rgba(253, 242, 217, 0.3);
+    background: url('../public//backimage.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 .nav_btn {
     cursor: pointer;
@@ -84,17 +89,30 @@
 }
 
 .best_list {
-    position: flex;
+    position: relative;
     display: grid;
     margin-bottom: 80px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
     width: 84.5vw;
     max-width: 1200px;
-    max-height: 410px;
+    max-height: 430px;
     grid-template-columns: repeat(5, auto);
 }
-
+.best_list:hover {
+    overflow-x: scroll;
+}
+.best_list::-webkit-scrollbar {
+    /* 스크롤바 전체 */
+    background-color: rgba(244, 193, 65, 0.4);
+    width: 12px;
+    border-radius: 30px;
+}
+.best_list::-webkit-scrollbar-thumb {
+    /* 스크롤 막대 */
+    background-color: rgba(244, 193, 65, 0.4);
+    border-radius: 30px;
+}
 .best_item {
     height: 380px;
     width: 350px;
@@ -102,8 +120,21 @@
     display: block;
     background: rgba(244, 193, 65, 0.8);
     border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 5px 5px 5px;
+    animation-duration: 3s;
+    animation-name: best_item;
 }
+@keyframes best_item {
+    from {
+        margin-left: 100%;
+        /* width: 300%; */
+    }
 
+    to {
+        margin-left: 0%;
+        /* width: 100%; */
+    }
+}
 .best_item_inner {
     height: 380px;
     width: 350px;
@@ -204,13 +235,6 @@
     float: right;
 }
 @media screen and (max-width: 1440px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: -10vw;
         border-radius: 1vw;
@@ -286,11 +310,9 @@
         position: flex;
         display: grid;
         margin-bottom: 80px;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 84.5vw;
         max-width: 1150px;
-        max-height: 400px;
+        max-height: 420px;
         grid-template-columns: repeat(5, auto);
     }
 
@@ -395,13 +417,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: -9vw;
         border-radius: 1vw;
@@ -476,10 +491,8 @@
         position: flex;
         display: grid;
         margin-bottom: 4vw;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 84.5vw;
-        height: 30vw;
+        height: 31vw;
         grid-template-columns: repeat(5, auto);
     }
 
@@ -578,13 +591,6 @@
 }
 
 @media screen and (max-width: 768px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: 0vw;
         margin-left: 0;
@@ -656,10 +662,8 @@
         margin-left: 2vw;
         margin-bottom: 3vw;
         display: flex;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 82vw;
-        height: 42vw;
+        height: 45vw;
         grid-template-columns: repeat(5, auto);
     }
     .best_item {
@@ -753,13 +757,6 @@
     }
 }
 @media screen and (max-width: 425px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: 0;
         width: 16vw;
@@ -815,10 +812,8 @@
         margin-left: 4vw;
         margin-bottom: 5vw;
         display: grid;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 81vw;
-        height: 86vw;
+        height: 90vw;
         grid-template-columns: repeat(5, auto);
     }
     .best_item {
@@ -922,6 +917,7 @@
     background-size: cover;
     background-position: bottom;
     transition: 0.4 ease-out;
+    box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 10px;
     margin: 25px;
 }
 .app.summer {

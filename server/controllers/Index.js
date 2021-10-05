@@ -68,7 +68,7 @@ module.exports = {
                     password,
                     username,
                     profile_img:
-                        'https://cdn.discordapp.com/attachments/884717966824992792/894579325108633600/a3f886d1e8eda2be.png',
+                        'https://cdn.discordapp.com/attachments/884717967307321407/893317307156275280/729d9643bda34c71.png',
                 });
                 res.status(200).json({ message: 'ok' });
             }

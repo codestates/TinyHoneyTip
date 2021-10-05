@@ -7,6 +7,7 @@ import Router from 'next/router';
 export default function PostContent({ userInfo, post }) {
     const router = useRouter();
     const { id } = router.query;
+    console.log(userInfo);
 
     const [currentSlide, setCurrentSlide] = useState(1);
     let didIL = () => {

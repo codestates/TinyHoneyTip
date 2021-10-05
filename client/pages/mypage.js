@@ -121,7 +121,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 <Image
                                     className="my_profile_img"
                                     alt="profile img"
-                                    src={userInfo.profile_img}
+                                    src={userInfo.profile_img ? userInfo.profile_img : '/postDefaultImage.jpg'}
                                     unoptimized={false}
                                     width={500}
                                     height={500}

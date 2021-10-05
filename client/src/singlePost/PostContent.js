@@ -11,13 +11,10 @@ export default function PostContent({ userInfo, post }) {
     const { id } = router.query;
 
     const [currentSlide, setCurrentSlide] = useState(1);
-
     let didIL = () => {
-        console.log(userInfo);
-        console.log(post);
-        if (JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
+        if (userInfo?.isLogin) {
             let myLike = post.like.filter((el) => {
-                return el.user_id === JSON.parse(sessionStorage.getItem('userInfo')).id;
+                return el.user_id === userInfo.id;
             });
             if (myLike.length > 0) {
                 return true;
@@ -30,9 +27,9 @@ export default function PostContent({ userInfo, post }) {
     };
 
     let didIDisL = () => {
-        if (JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
+        if (userInfo?.isLogin) {
             let myDisLike = post.dislike.filter((el) => {
-                return el.user_id === JSON.parse(sessionStorage.getItem('userInfo')).id;
+                return el.user_id === userInfo.id;
             });
             if (myDisLike.length > 0) {
                 return true;
@@ -43,11 +40,13 @@ export default function PostContent({ userInfo, post }) {
             return false;
         }
     };
+    console.log('scrap선언');
+    console.log(userInfo);
 
     let amIScrapped = () => {
-        if (JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
+        if (userInfo?.isLogin) {
             let myScrap = post.scrap.filter((el) => {
-                return el.user_id === JSON.parse(sessionStorage.getItem('userInfo')).id;
+                return el.user_id === userInfo.id;
             });
             if (myScrap.length > 0) {
                 return true;
@@ -58,6 +57,12 @@ export default function PostContent({ userInfo, post }) {
             return false;
         }
     };
+
+    // let feeling = {
+    //     like: didIL(),
+    //     dislike: didIDisL(),
+    //     scrap: amIScrapped(),
+    // };
     const [feeling, setFeeling] = useState({
         like: false,
         dislike: false,
@@ -66,14 +71,18 @@ export default function PostContent({ userInfo, post }) {
     console.log(feeling);
     useEffect(() => {
         console.log('useEffect');
-        console.log(JSON.parse(sessionStorage.getItem('userInfo')));
+        console.log(userInfo);
+        console.log(didIL);
+        console.log(didIL());
         setFeeling({
             like: didIL(),
             dislike: didIDisL(),
             scrap: amIScrapped(),
         });
-    }, []);
+    }, [userInfo]);
     const deleteFeelingHandler = (key) => {
+        console.log(`${key} 해제`);
+        console.log(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`);
         axios
             .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
@@ -81,13 +90,17 @@ export default function PostContent({ userInfo, post }) {
                 },
                 withCredentials: true,
             })
-            .then((res) => {})
+            .then((res) => {
+                console.log(res);
+            })
             .catch((error) => {
                 console.log(error);
             });
     };
 
     const postFeelingHandler = (key) => {
+        console.log(`${key} 등록`);
+        console.log(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`);
         axios
             .get(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
@@ -104,8 +117,10 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const feelingHandler = (key) => {
-        if (key === 'like') {
-        }
+        console.log('handler 진입');
+        console.log(key);
+        console.log(userInfo?.accessToken);
+        console.log(userInfo);
         if (!!userInfo?.isLogin) {
             if (!!feeling[key]) {
                 deleteFeelingHandler(key);

@@ -1,5 +1,5 @@
 const { User, like, dislike, comment, scrap, post_container, post } = require('../../models');
-
+const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 const { QueryTypes } = require('sequelize');
 require('dotenv').config();
@@ -13,22 +13,27 @@ module.exports = {
                     {
                         model: post,
                         attributes: ['content', 'img', 'id'],
-                    },
-                    {
-                        model: like,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: dislike,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: scrap,
-                        attributes: ['user_id'],
+                        raw: true,
                     },
                 ],
             });
-            console.log('포스트리스트', allpost[0]);
+
+            for (let onePost of allpost) {
+                onePost.dataValues.like = await like.findAll({
+                    where: { post_id: onePost.id },
+                    attributes: ['user_id'],
+                });
+                onePost.dataValues.dislike = await dislike.findAll({
+                    where: { post_id: onePost.id },
+                    attributes: ['user_id'],
+                });
+                onePost.dataValues.scrap = await scrap.findAll({
+                    where: { post_id: onePost.id },
+                    attributes: ['user_id'],
+                });
+            }
+
+            console.log('포스트리스트', allpost);
 
             res.status(200).json({ data: allpost });
         } catch (err) {
@@ -41,7 +46,7 @@ module.exports = {
             // const file = req.file;
 
             const obj = JSON.parse(JSON.stringify(req.body.post_page));
-            console.log('upload', req, obj[0]["'content'"]);
+            console.log('upload', req, obj[0]["'content'"], obj);
             const accessToken = req.cookies.accessToken;
             // console.log(req);
             const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
@@ -64,25 +69,28 @@ module.exports = {
                 });
                 // console.log(req.body.post_page[0]);
                 if (findcontainer) {
-                    for (let i = 0; i < req.files.length; i++) {
-                        // console.log(req.files, obj[i][content]);
-                        if (req.files[i] !== undefined)
-                            post.create({
+                    let filenum = 0;
+                    for (let el of obj) {
+                        console.log('반복문', el["'image'"]);
+                        if (el["'image'"] === 'true') {
+                            await post.create({
                                 post_id: findcontainer.id,
-                                img: req.files[i].location,
-                                content: obj[i]["'content'"],
+                                img: req.files[filenum].location,
+                                content: el["'content'"],
                             });
-                        else {
-                            post.create({
+                            filenum = filenum + 1;
+                            console.log('true');
+                        } else {
+                            await post.create({
                                 post_id: findcontainer.id,
-                                img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
-                                content: obj[i]["'content'"],
+                                img: 'https://cdn.discordapp.com/attachments/884717967307321407/893330609873764362/384f42c50d441c9b.png',
+                                content: el["'content'"],
                             });
                         }
                     }
+                    res.status(200).json({ messasge: 'upload complete', post_id: findcontainer.id });
                 }
             }
-            res.status(200).json({ messasge: 'upload complete' });
         } catch (err) {
             res.status(500).json({ message: 'Bad Request' });
         }
@@ -151,27 +159,30 @@ module.exports = {
                         model: post,
                         attributes: ['content', 'id', 'img'],
                     },
+                ],
+            });
+
+            postDetail.dataValues.like = await like.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['user_id'],
+            });
+            postDetail.dataValues.dislike = await dislike.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['user_id'],
+            });
+            postDetail.dataValues.scrap = await scrap.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['user_id'],
+            });
+            console.log('포스트디테일', postDetail);
+            postDetail.dataValues.comment = await comment.findAll({
+                where: { post_id: req.params.id },
+                attributes: ['id', 'txt', 'user_id'],
+                include: [
                     {
-                        model: scrap,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: like,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: dislike,
-                        attributes: ['user_id'],
-                    },
-                    {
-                        model: comment,
-                        attributes: ['user_id', 'txt', 'id'],
-                        include: [
-                            {
-                                model: User,
-                                attributes: ['username', 'profile_img'],
-                            },
-                        ],
+                        model: User,
+                        attributes: ['username', 'profile_img'],
+                        required: true,
                     },
                 ],
             });
@@ -199,6 +210,7 @@ module.exports = {
     },
     editpost: async (req, res) => {
         try {
+            const obj = JSON.parse(JSON.stringify(req.body.post_page));
             const id = req.params.id;
             const { title, category } = req.body;
             if (title && category) {
@@ -209,24 +221,91 @@ module.exports = {
                     },
                     { where: { id } },
                 );
-                await post.destroy({ where: { id } });
-                for (let i = 0; i < req.files.length; i++) {
-                    // console.log(req.files, obj[i][content]);
-                    if (req.files[i] !== undefined)
-                        post.create({
-                            post_id: findcontainer.id,
-                            img: req.files[i].location,
-                            content: obj[i]["'content'"],
+                await post.destroy({ where: { post_id: id } });
+                console.log(req.body.post_page[0]["'image'"], req.body);
+                let filenum = 0;
+                let urlnum = 0;
+                for (let el of obj) {
+                    console.log('반복문', el["'image'"]);
+                    if (el["'image'"] === 'true') {
+                        await post.create({
+                            post_id: id,
+                            img: req.files[filenum].location,
+                            content: el["'content'"],
                         });
-                    else {
-                        post.create({
-                            post_id: findcontainer.id,
-                            img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
-                            content: obj[i]["'content'"],
-                        });
+                        filenum = filenum + 1;
+                        console.log('true');
+                    } else {
+                        if (req.body.post_page_img) {
+                            console.log('여기1');
+                            if (Array.isArray(req.body.post_page_img)) {
+                                console.log('여기2');
+                                await post.create({
+                                    post_id: id,
+                                    img: req.body.post_page_img[urlnum],
+                                    content: el["'content'"],
+                                });
+                                urlnum = urlnum + 1;
+                            } else {
+                                console.log('여기3');
+                                await post.create({
+                                    post_id: id,
+                                    img: req.body.post_page_img,
+                                    content: el["'content'"],
+                                });
+                            }
+                        } else {
+                            console.log('여기4');
+                            await post.create({
+                                post_id: id,
+                                img: 'https://cdn.discordapp.com/attachments/884717967307321407/893330609873764362/384f42c50d441c9b.png',
+                                content: el["'content'"],
+                            });
+                        }
                     }
                 }
                 res.status(200).json({ message: 'ok' });
+                // for (let i = 0; i < req.body.post_page.length; i++) {
+                //     if (req.body.post_page[i]["'image'"] === 'true') {
+                //         post.create({
+                //             post_id: findcontainer.id,
+                //             img: req.files[filenum].location,
+                //             content: obj[i]["'content'"],
+                //         });
+                //         filenum = filenum + 1;
+                //     } else if (req.body.post_page[i]["'image'"] === 'false') {
+                //         if (req.body.post_page_img) {
+                //             post.create({
+                //                 post_id: findcontainer.id,
+                //                 img: req.body.post_page_img[urlnum],
+                //                 content: obj[i]["'content'"],
+                //             });
+                //             urlnum = urlnum + 1;
+                //         } else {
+                //             post.create({
+                //                 post_id: findcontainer.id,
+                //                 img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
+                //                 content: obj[i]["'content'"],
+                //             });
+                //         }
+                //     }
+                // }
+                // for (let i = 0; i < req.files.length; i++) {
+                //     console.log(req.files, req.body, obj[i]["'content'"]);
+                //     if (req.files[i] !== undefined)
+                //         post.create({
+                //             post_id: findcontainer.id,
+                //             img: req.files[i].location,
+                //             content: obj[i]["'content'"],
+                //         });
+                //     else {
+                //         post.create({
+                //             post_id: findcontainer.id,
+                //             img: 'https://cdn.discordapp.com/attachments/881710985335934979/892219210690887730/honeycomb.png',
+                //             content: obj[i]["'content'"],
+                //         });
+                //     }
+                // }
             } else {
                 res.status(400).json({ message: '빈칸이 있나?' });
             }
@@ -234,6 +313,7 @@ module.exports = {
             res.status(500).json({ message: 'Bad Request' });
         }
     },
+
     deletepost: async (req, res) => {
         try {
             await post_container.destroy({
@@ -262,52 +342,69 @@ module.exports = {
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    like.create({
-                        user_id: userInfo.id,
-                        post_id: req.params.id,
+                    const exist = await like.findOne({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    res.status(200).json({ message: 'ok' });
+                    if (exist !== null) {
+                        res.status(400).json({ message: 'already liked!' });
+                        console.log(exist);
+                    } else {
+                        await like.create({
+                            user_id: userInfo.id,
+                            post_id: req.params.id,
+                        });
+                        res.status(200).json({ message: 'ok' });
+                    }
                 }
             }
         } catch (err) {
+            console.log('라이크 에러', err);
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     cancellike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });
             } else {
-                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                const userInfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    like.destroy({
+                    await like.destroy({
                         where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    res.status(200).json({ message: 'ok' });
                 }
             }
         } catch (err) {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     dislike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });
             } else {
-                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                const userInfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    dislike.create({
-                        user_id: userInfo.id,
-                        post_id: req.params.id,
+                    const exist = await dislike.findOne({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    res.status(200).json({ message: 'ok' });
+                    if (!exist) {
+                        await dislike.create({
+                            user_id: userInfo.id,
+                            post_id: req.params.id,
+                        });
+                        res.status(200).json({ message: 'ok' });
+                    } else {
+                        res.status(400).json({ message: 'already disliked!' });
+                    }
                 }
             }
         } catch (err) {
@@ -321,14 +418,13 @@ module.exports = {
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });
             } else {
-                const userInfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                const userInfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    dislike.destroy({
+                    await dislike.destroy({
                         where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    res.status(200).json({ message: 'ok' });
                 }
             }
         } catch (err) {
@@ -338,21 +434,31 @@ module.exports = {
     scrap: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
-            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
-            await scrap.create({
-                user_id: userinfo.id,
-                post_id: req.params.id,
-            });
-            res.status(200).json({ message: 'ok' });
+            if (!accessToken) res.status(400).json({ message: 'No token' });
+            else {
+                const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userinfo) res.status(400).json({ message: 'Expired token' });
+                else {
+                    const exist = await scrap.findOne({ where: { user_id: userinfo.id, post_id: req.params.id } });
+                    if (!exist) {
+                        await scrap.create({
+                            user_id: userinfo.id,
+                            post_id: req.params.id,
+                        });
+                        res.status(200).json({ message: 'ok' });
+                    } else res.status(400).json({ message: 'already disliked!' });
+                }
+            }
         } catch (err) {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     cancelscrap: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
-            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
-            scrap.destroy({
+            const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
+            await scrap.destroy({
                 where: {
                     user_id: userinfo.id,
                     post_id: req.params.id,
@@ -363,6 +469,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     comment: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -378,6 +485,7 @@ module.exports = {
             res.status(400).json({ messasge: 'Bad Request' });
         }
     },
+
     deletecomment: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;

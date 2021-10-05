@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-export default function UploadPostContent({ slide, postInfo, currentSlide, setCurrentSlide }) {
+export default function UploadPostContent({ slide, postInfo, currentSlide, setCurrentSlide, croppedImage }) {
     return (
         <div className="upload-post__post-area">
             <h1 className="upload-post__title">
@@ -25,17 +25,14 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
                     {slide.map((el, idx) => {
                         return (
                             <li key={idx} style={{ width: `calc(100% / ${slide.length})` }}>
-                                {/* <>
-                                    <Editor content={el?.content} />
-                                </> */}
                                 <img
                                     className="upload-post__post__pic"
                                     src={
                                         el.imgFile
                                             ? typeof el.imgFile === 'object'
                                                 ? URL.createObjectURL(el.imgFile)
-                                                : el?.imgFile
-                                            : ''
+                                                : el.imgFile
+                                            : '/postDefaultImage.jpg'
                                     }
                                 />
                                 <pre className="upload-post__post__text">{el.content}</pre>

@@ -20,22 +20,62 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
         setImg(e.target.files);
     };
 
-    function editMyPage() {
-        axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { userInfo: userInfo, img: img }).then((res) => {
-            const formData = new FormData();
-            formData.append('file', img);
-            axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData);
-            if (res.data.message === 'ok') {
-                setUserInfo(res.data.userInfo);
-                window.alert('수정이 완료되었습니다.');
-            }
-        });
-    }
-
     const editHandler = () => {
         setEditBtn(editBtn ? false : true);
         if (editBtn) editMyPage();
     };
+
+    function editMyPage() {
+        console.log('유저인퐅오옹롸ㅓ라', userInfo);
+        const formData = new FormData();
+        formData.append('file', img[0]);
+        formData.append('username', userInfo.username);
+        formData.append('email', userInfo.email);
+        for (let key of formData.entries()) {
+            console.log(`${key}`);
+        }
+        axios
+            .patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, formData, {
+                headers: {
+                    cookie: `accessToken=${userInfo.accessToken}`,
+                    'content-type': 'multipart/form-data',
+                },
+                withCredentials: true,
+            })
+            .then((res) => {
+                console.log(res);
+                console.log('개인정보 수정 userinfo 상태변수 수정 필요');
+                setUserInfo({
+                    ...userInfo,
+                    username: res.data.data.userInfo.username,
+                    profile_img: res.data.data.userInfo.profile_img,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        // axios
+        //     .patch(
+        //         `${process.env.NEXT_PUBLIC_URL}/mypage`,
+        //         { userInfo: userInfo, img: img },
+        //         { headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' } },
+        //     )
+        //     .then((res) => {
+        //         const formData = new FormData();
+        //         formData.append('file', img);
+        //         axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData, {
+        //             headers: {
+        //                 cookie: `accessToken=${userInfo.accessToken}`,
+        //                 'content-type': 'multipart/form-data',
+        //             },
+        //             withCredentials: true,
+        //         });
+        //         if (res.data.message === 'ok') {
+        //             setUserInfo(res.data.userInfo);
+        //             window.alert('수정이 완료되었습니다.');
+        //         }
+        //     });
+    }
 
     const deleteSure = () => {
         if (window.confirm('정말 회원 탈퇴하시겠습니까?')) {
@@ -74,18 +114,17 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
         <>
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
-                    {console.log('알러트트ㅡ틑', userInfo)}
+                    {console.log('알러트!!!!!!!!!!!!!!!!!!!!!!', alert)}
                     <div className="my_side_bar">
                         <div className="my_info">
                             <div className="my_profile_img">
                                 <Image
                                     className="my_profile_img"
                                     alt="profile img"
-                                    src={img}
-                                    layout="fill"
-                                    // width={500}
-                                    // height={500}
+                                    src={userInfo.profile_img}
                                     unoptimized={false}
+                                    width={500}
+                                    height={500}
                                 />
                             </div>
                             <h3 className="my_user_name">🐝 {userInfo.username} 벌님 안녕하세요</h3>
@@ -121,7 +160,8 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                 maxLength="8"
                                                 minLength="1"
                                                 onChange={(e) => inputHandler(e)}
-                                                value={userInfo.username}
+                                                name="username"
+                                                //value={userInfo.username}
                                             />
                                         </form>
                                     </div>
@@ -146,39 +186,53 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 </div>
                             )}
                         </div>
-                        {alert ? (
-                            <div id="my_alert">
-                                <h3 id="my_alert_title">my alert</h3>
-                                <ul className="alert_scrap_list">
-                                    {alert.scrap
-                                        ? alert.scrap?.map((el) => {
-                                              <li className="alert_scrap_item">
-                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 🙌
-                                                  스크랩했습니다.
-                                              </li>;
-                                          })
-                                        : '알림이 없습니다.'}
-                                </ul>
-                                <ul className="alert_like_list">
-                                    {alert.like
-                                        ? alert.like?.map((el) => {
-                                              <li className="alert_like_item">
-                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 👍
-                                                  좋아합니다.
-                                              </li>;
-                                          })
-                                        : '알림이 없습니다.'}
-                                </ul>
-                            </div>
-                        ) : (
-                            <h3 id="no-alert">알림이 없습니다.</h3>
-                        )}
+
+                        <div id="my_alert">
+                            <h3 id="my_alert_title">my alert</h3>
+                            <ul className="alert_list">
+                                {alert.length > 0 ? (
+                                    alert.map((el) => {
+                                        if (el.like.length > 0) {
+                                            return el.like.map((li) => {
+                                                return (
+                                                    <li className="alert_list">
+                                                        ✔️{el.title} 을 {li.User.username} 벌님이 💛를 눌렀습니다.
+                                                    </li>
+                                                );
+                                            });
+                                        } else null;
+
+                                        if (el.dislike.length > 0) {
+                                            return el.dislike.map((dis) => {
+                                                return (
+                                                    <li className="alert_list">
+                                                        ✔️{el.title} 을 {dis.User.username} 벌님이 💔를 눌렀습니다.
+                                                    </li>
+                                                );
+                                            });
+                                        } else null;
+
+                                        if (el.scrap.length > 0) {
+                                            return el.scrap.map((li) => {
+                                                return (
+                                                    <li className="alert_list">
+                                                        ✔️{el.title} 을 {li.User.username} 벌님이 🗂를 눌렀습니다.
+                                                    </li>
+                                                );
+                                            });
+                                        } else null;
+                                    })
+                                ) : (
+                                    <h3 id="no-alert">알림이 없습니다.</h3>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                     <div className="my_Allpost_wrapper">
                         <div className="my_post_wrapper">
                             <h3 className="my_post">My Posts</h3>
                             <div className="my_post_container">
-                                {myPost ? (
+                                {myPost.length > 0 ? (
                                     myPost.map((el) => {
                                         return (
                                             <div className="my_post_item" key={el?.id}>
@@ -193,14 +247,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                                     <Image
                                                                         layout="fill"
                                                                         alt={el?.title}
-                                                                        // src={
-                                                                        //     'data:image/png;base64' +
-                                                                        //     Buffer(
-                                                                        //         el?.post_page[0]?.img,
-                                                                        //         'binary',
-                                                                        //     ).toString('base64')
-                                                                        // }
-                                                                        src={el?.posts?.img}
+                                                                        src={el?.posts[0]?.img}
                                                                         unoptimized="false"
                                                                     />
                                                                 </div>
@@ -245,7 +292,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                         <div className="my_scrap_wrapper">
                             <h3 className="my_scrap">My Scrapped Posts</h3>
                             <div className="my_scrap_container">
-                                {myScrap ? (
+                                {myScrap.length > 0 ? (
                                     myScrap.map((el) => {
                                         return (
                                             <div className="my_post_item" key={el?.id}>
@@ -260,11 +307,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                                     <Image
                                                                         layout="fill"
                                                                         alt={el?.title}
-                                                                        src={
-                                                                            el?.post_container.posts[0]?.img
-                                                                                ? el?.post_container.posts[0]?.img
-                                                                                : 'https://media.discordapp.net/attachments/881710985335934979/894413797043871784/Violet_PawletteTM_Gift_Set___Build-A-Bear_Workshop.png'
-                                                                        }
+                                                                        src={el.post_container.posts[0]?.img}
                                                                         //src="https://media.discordapp.net/attachments/881710985335934979/894413797043871784/Violet_PawletteTM_Gift_Set___Build-A-Bear_Workshop.png"
                                                                         unoptimized="false"
                                                                     />
@@ -335,12 +378,20 @@ export async function getServerSideProps(context) {
 
     const post = res.data.data.myPost;
     const scrap = res.data.data.myScrap;
-    const alert = {
-        like: res.data.data.myPost.like || null,
-        dislike: res.data.data.myPost.dislike || null,
-        scrap: res.data.data.myPost.scrap || null,
-        comment: res.data.data.myPost.comment || null,
-    };
+    const alert = [];
+
+    for (let el of post) {
+        alert.push({
+            title: el.title,
+            like: el.like,
+            dislike: el.dislike,
+            scrap: el.scrap,
+        });
+    }
+
+    // console.log('마이포스트', post);
+    // console.log('마이스크랩', scrap);
+    console.log('마이알러트', alert);
 
     return {
         props: {

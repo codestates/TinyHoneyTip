@@ -1,6 +1,6 @@
 const { User, like, dislike, comment, scrap, post_container, post } = require('../../models');
 const jwt = require('jsonwebtoken');
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 require('dotenv').config();
 
 module.exports = {
@@ -15,59 +15,53 @@ module.exports = {
                 console.log(Token);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
-                    const myPostArr = await post_container.findAll({
-                        attributes: ['title', 'category', 'user_id', 'id'],
+                    const myPost = await post_container.findAll({
                         where: { user_id: Token.id },
+                        attributes: ['id', 'title', 'category'],
                         include: [
                             {
                                 model: post,
-                                attributes: ['content', 'img'],
-                            },
-                            {
-                                model: like,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
-                            },
-                            {
-                                model: dislike,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
-                            },
-                            {
-                                model: scrap,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
-                            },
-                            {
-                                model: comment,
-                                attributes: ['user_id'],
-                                include: [
-                                    {
-                                        model: User,
-                                        attributes: ['username'],
-                                    },
-                                ],
+                                attributes: ['content', 'img', 'id'],
                             },
                         ],
                     });
-                    console.log('마이포스트', myPostArr[0]);
 
-                    const myScrapArr = await scrap.findAll({
+                    for (let onePost of myPost) {
+                        onePost.dataValues.like = await like.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
+                        });
+                        onePost.dataValues.dislike = await dislike.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
+                        });
+                        onePost.dataValues.scrap = await scrap.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
+                        });
+                    }
+
+                    console.log('마이포스트', myPost[0]);
+
+                    const myScrap = await scrap.findAll({
                         where: { user_id: Token.id },
                         attributes: ['post_id'],
                         include: [
@@ -77,24 +71,30 @@ module.exports = {
                                 include: [
                                     {
                                         model: post,
-                                        attributes: ['content', 'img'],
-                                    },
-                                    {
-                                        model: like,
-                                        attributes: ['user_id'],
-                                    },
-                                    {
-                                        model: dislike,
-                                        attributes: ['user_id'],
-                                    },
-                                    {
-                                        model: scrap,
-                                        attributes: ['user_id'],
+                                        attributes: ['content', 'img', 'id'],
                                     },
                                 ],
                             },
                         ],
                     });
+
+                    console.log(myScrap[0], '마이스크랩222');
+
+                    for (let oneScrap of myScrap) {
+                        console.log(oneScrap);
+                        oneScrap.dataValues.like = await like.findAll({
+                            where: { post_id: oneScrap.dataValues.post_id },
+                            attributes: ['user_id'],
+                        });
+                        oneScrap.dataValues.dislike = await dislike.findAll({
+                            where: { post_id: oneScrap.dataValues.post_id },
+                            attributes: ['user_id'],
+                        });
+                        oneScrap.dataValues.scrap = await scrap.findAll({
+                            where: { post_id: oneScrap.dataValues.post_id },
+                            attributes: ['user_id'],
+                        });
+                    }
 
                     // ---------------------------------------- alert 시작 -------------------------------------------------------
 
@@ -103,8 +103,8 @@ module.exports = {
                     res.status(200).json({
                         message: 'ok',
                         data: {
-                            myPost: myPostArr,
-                            myScrap: myScrapArr,
+                            myPost: myPost,
+                            myScrap: myScrap,
                         },
                     });
                 }
@@ -117,23 +117,22 @@ module.exports = {
 
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
+        console.log(accessToken);
         try {
             if (!accessToken) {
-                console.log('에러');
-                res.status(404).json({ message: 'Bad Request' });
+                res.status(400).json({ message: 'Bad Request' });
             } else {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-                if (!token) res.status(404).json({ message: 'Bad Request' });
+                if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    //console.log(req.body);
-                    const { email, username, password } = req.body;
+                    const email = req.body.email;
+                    const username = req.body.username;
 
                     if (email)
                         await User.update(
                             {
                                 email,
                                 username,
-                                password,
                                 profile_img: req.file.location,
                             },
                             { where: { email: token.email } },
@@ -141,17 +140,20 @@ module.exports = {
 
                     const updateInfo = await User.findOne({
                         where: { id: token.id },
-                        attributes: [email, username, profile_img],
+                        attributes: ['email', 'username', 'profile_img'],
                     });
+                    const newToken = await jwt.sign(token, process.env.ACCESS_SECRET);
                     res.status(200).json({
                         message: 'ok',
                         data: {
                             userInfo: updateInfo,
+                            newToken: newToken,
                         },
                     });
                 }
             }
         } catch (err) {
+            console.log(err);
             res.status(400).json({ message: 'Bad Request' });
         }
     },

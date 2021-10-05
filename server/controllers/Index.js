@@ -18,27 +18,34 @@ module.exports = {
     },
     signin: async (req, res) => {
         const { email, password } = req.body;
-        const findemail = await User.findOne({
-            where: { email: email },
-        });
-        const finduser = await User.findOne({
-            where: { email: email, password: password },
-        });
-        if (findemail && !finduser) {
-            res.status(400).json({ message: 'rewrite password' });
-        } else if (!findemail && !finduser) {
-            res.status(400).json({ message: 'rewrite email' });
-        } else {
-            delete finduser.dataValues.password;
-            finduser.profile_img = Buffer.from(finduser.profile_img, 'base64').toString('utf8');
-            const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
-
-            res.cookie('accessToken', accessToken, {
-                sameSite: 'none',
-                secure: true,
-                httpOnly: true,
+        try {
+            const findemail = await User.findOne({
+                where: { email: email },
             });
-            res.status(200).json({ message: 'login complete', data: { accessToken: accessToken, userInfo: finduser } });
+            const finduser = await User.findOne({
+                where: { email: email, password: password },
+                attributes: ['id', 'email', 'profile_img', 'username'],
+            });
+            if (findemail && !finduser) {
+                res.status(400).json({ message: 'rewrite password' });
+            } else if (!findemail && !finduser) {
+                res.status(400).json({ message: 'rewrite email' });
+            } else {
+                const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
+
+                res.cookie('accessToken', accessToken, {
+                    sameSite: 'none',
+                    secure: true,
+                    httpOnly: true,
+                });
+                res.status(200).json({
+                    message: 'login complete',
+                    data: { accessToken: accessToken, userInfo: finduser },
+                });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Bad request' });
         }
     },
     signup: async (req, res) => {
@@ -59,6 +66,8 @@ module.exports = {
                     email,
                     password,
                     username,
+                    profile_img:
+                        'https://cdn.discordapp.com/attachments/884717967307321407/893317307156275280/729d9643bda34c71.png',
                 });
                 res.status(200).json({ message: 'ok' });
             }

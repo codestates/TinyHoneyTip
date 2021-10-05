@@ -4,13 +4,12 @@ export default function Select({ post, setPost }) {
     const selectHandler = (e) => {
         if (e.target.value === 'title') {
             sortedTitle();
-            console.log(post, 'title');
         } else if (e.target.value === 'like') {
             sortedLiked();
-            console.log(post, 'like');
         } else if (e.target.value === 'update') {
             sortedUpdate();
-            console.log(post, 'update');
+        } else if (e.target.value === 'dislike') {
+            sortedDisliked();
         }
     };
 
@@ -52,6 +51,18 @@ export default function Select({ post, setPost }) {
             }),
         );
     };
+    const sortedDisliked = () => {
+        const _post = [...post];
+        setPost(
+            _post.sort(function (a, b) {
+                let likeA = a.dislike.length;
+                let likeB = b.dislike.length;
+                if (likeA < likeB) return 1;
+                if (likeA > likeB) return -1;
+                return 0;
+            }),
+        );
+    };
     return (
         <>
             <div className="select_container">
@@ -59,6 +70,7 @@ export default function Select({ post, setPost }) {
                     <option value>선택</option>
                     <option value="title">이름순</option>
                     <option value="like">인기순</option>
+                    <option value="dislike">삻어요순</option>
                     <option value="update">최신순</option>
                 </select>
             </div>

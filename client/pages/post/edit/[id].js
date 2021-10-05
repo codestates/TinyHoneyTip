@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import UploadPostContent from '../../../src/post/PostContent';
 import ToolBar from '../../../src/post/ToolBar';
+import ImageEditModal from '../../../src/post/ImageEditModal';
 
 export default function Id({ post, userInfo }) {
     // useEffect(() => {
@@ -14,9 +16,13 @@ export default function Id({ post, userInfo }) {
     //         Router.push(`/content`);
     //     }
     // });
+    console.log(post);
+    const router = useRouter();
+    const { id } = router.query;
+    const [croppedImage, setCroppedImage] = useState(undefined);
 
     const [slide, setSlide] = useState(
-        post?.post_page.map((el) => {
+        post?.posts.map((el) => {
             return { imgFile: el.img, content: el.content };
         }),
     );
@@ -29,6 +35,12 @@ export default function Id({ post, userInfo }) {
     });
 
     const [currentSlide, setCurrentSlide] = useState(1);
+
+    const [modalOpened, setModalOpened] = useState(false);
+
+    const modalHandler = () => {
+        setModalOpened(!modalOpened);
+    };
 
     const slideTextHandler = (index, key) => (e) => {
         setCannotSubmitMessage(false);
@@ -91,7 +103,7 @@ export default function Id({ post, userInfo }) {
         });
         const category = postInfo.category;
         const title = postInfo.title;
-        const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/${post.id}`;
+        const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/${id}`;
 
         const data = {
             post_page: postPage,
@@ -132,7 +144,7 @@ export default function Id({ post, userInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                Router.push(`post/${post.id}`);
+                Router.push('/post/' + id);
             })
             .catch((error) => {
                 console.log(error);
@@ -162,7 +174,21 @@ export default function Id({ post, userInfo }) {
                 submitHandler={postEditSubmitHandler}
                 cannotSubmitMessage={cannotSubmitMessage}
                 submitName="수정하기"
+                modalHandler={modalHandler}
             />
+            {modalOpened ? (
+                <ImageEditModal
+                    croppedImage={croppedImage}
+                    setCroppedImage={setCroppedImage}
+                    currentSlide={currentSlide}
+                    slide={slide}
+                    setSlide={setSlide}
+                    modalHandler={modalHandler}
+                    slideTextHandler={slideTextHandler}
+                />
+            ) : (
+                ''
+            )}
         </div>
     );
 }
@@ -171,7 +197,7 @@ export async function getServerSideProps(context) {
     const id = context.params.id;
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post/${id}`;
     const res = await axios.get(apiUrl);
-    const data = await res.data.data.post;
+    const data = await res.data.postDetail;
     return {
         props: {
             post: data,

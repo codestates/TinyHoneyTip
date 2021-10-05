@@ -313,6 +313,7 @@ module.exports = {
             res.status(500).json({ message: 'Bad Request' });
         }
     },
+
     deletepost: async (req, res) => {
         try {
             await post_container.destroy({
@@ -341,20 +342,17 @@ module.exports = {
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    const findlike = await like.findOne({
-                        where: {
-                            user_id: userInfo.id,
-                            post_id: req.params.id,
-                        },
+                    const exist = await like.findOne({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    if (findlike) {
-                        res.status(500).json({ message: 'already liked' });
-                    } else {
-                        await like.create({
+                    if (!exist) {
+                        await dislike.create({
                             user_id: userInfo.id,
                             post_id: req.params.id,
                         });
                         res.status(200).json({ message: 'ok' });
+                    } else {
+                        res.status(400).json({ message: 'already liked!' });
                     }
                 }
             }
@@ -363,6 +361,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     cancellike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -393,6 +392,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     dislike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -403,20 +403,17 @@ module.exports = {
                 if (!userInfo) {
                     res.status(400).json({ message: 'Bad Request' });
                 } else {
-                    const finddislike = await dislike.findOne({
-                        where: {
-                            user_id: userInfo.id,
-                            post_id: req.params.id,
-                        },
+                    const exist = await dislike.findOne({
+                        where: { user_id: userInfo.id, post_id: req.params.id },
                     });
-                    if (finddislike) {
-                        res.status(500).json({ message: 'already disliked' });
-                    } else {
+                    if (!exist) {
                         await dislike.create({
                             user_id: userInfo.id,
                             post_id: req.params.id,
                         });
                         res.status(200).json({ message: 'ok' });
+                    } else {
+                        res.status(400).json({ message: 'already disliked!' });
                     }
                 }
             }
@@ -455,22 +452,26 @@ module.exports = {
     scrap: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
-            const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
-            const findscrap = scrap.findOne({
-                ser_id: userinfo.id,
-                post_id: req.params.id,
-            });
-            if (!findscrap) {
-                await scrap.create({
-                    user_id: userinfo.id,
-                    post_id: req.params.id,
-                });
-                res.status(200).json({ message: 'ok' });
+            if (!accessToken) res.status(400).json({ message: 'No token' });
+            else {
+                const userinfo = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+                if (!userinfo) res.status(400).json({ message: 'Expired token' });
+                else {
+                    const exist = scrap.findOne({ where: { user_id: userinfo.id, post_id: req.params.id } });
+                    if (!exist) {
+                        await scrap.create({
+                            user_id: userinfo.id,
+                            post_id: req.params.id,
+                        });
+                        res.status(200).json({ message: 'ok' });
+                    } else res.status(400).json({ message: 'already disliked!' });
+                }
             }
         } catch (err) {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     cancelscrap: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -486,6 +487,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     comment: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -501,6 +503,7 @@ module.exports = {
             res.status(400).json({ messasge: 'Bad Request' });
         }
     },
+
     deletecomment: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;

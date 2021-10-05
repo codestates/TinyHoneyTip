@@ -80,20 +80,20 @@ module.exports = {
 
                     console.log(myScrap[0], '마이스크랩222');
 
-                    for (let oneScrap of myScrap) {
-                        oneScrap.post_container.post_container.like = await like.findAll({
-                            where: { post_id: oneScrap.post_container.id },
-                            attributes: ['user_id'],
-                        });
-                        // oneScrap.post_container.post_container.dislike = await dislike.findAll({
-                        //     where: { post_id: oneScrap.post_container.post_container.id },
-                        //     attributes: ['user_id'],
-                        // });
-                        // oneScrap.post_container.post_container.scrap = await scrap.findAll({
-                        //     where: { post_id: oneScrap.post_container.post_container.id },
-                        //     attributes: ['user_id'],
-                        // });
-                    }
+                    // for (let oneScrap of myScrap) {
+                    //     oneScrap.post_container.post_container.like = await like.findAll({
+                    //         where: { post_id: oneScrap.post_container.id },
+                    //         attributes: ['user_id'],
+                    //     });
+                    // oneScrap.post_container.post_container.dislike = await dislike.findAll({
+                    //     where: { post_id: oneScrap.post_container.post_container.id },
+                    //     attributes: ['user_id'],
+                    // });
+                    // oneScrap.post_container.post_container.scrap = await scrap.findAll({
+                    //     where: { post_id: oneScrap.post_container.post_container.id },
+                    //     attributes: ['user_id'],
+                    // });
+                    // }
 
                     // ---------------------------------------- alert 시작 -------------------------------------------------------
 

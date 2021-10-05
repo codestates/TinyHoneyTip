@@ -5,8 +5,6 @@ import { useRouter } from 'next/router';
 import Router from 'next/router';
 
 export default function PostContent({ userInfo, post }) {
-    console.log(post);
-    console.log(userInfo);
     const router = useRouter();
     const { id } = router.query;
 
@@ -40,8 +38,6 @@ export default function PostContent({ userInfo, post }) {
             return false;
         }
     };
-    console.log('scrap선언');
-    console.log(userInfo);
 
     let amIScrapped = () => {
         if (userInfo?.isLogin) {
@@ -58,22 +54,13 @@ export default function PostContent({ userInfo, post }) {
         }
     };
 
-    // let feeling = {
-    //     like: didIL(),
-    //     dislike: didIDisL(),
-    //     scrap: amIScrapped(),
-    // };
     const [feeling, setFeeling] = useState({
         like: false,
         dislike: false,
         scrap: false,
     });
-    console.log(feeling);
+
     useEffect(() => {
-        console.log('useEffect');
-        console.log(userInfo);
-        console.log(didIL);
-        console.log(didIL());
         setFeeling({
             like: didIL(),
             dislike: didIDisL(),

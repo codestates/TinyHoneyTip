@@ -119,14 +119,14 @@ module.exports = {
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
-                console.log('토큰어디감', req.cookies);
+                console.log('토큰어디감', req, req.file);
                 res.status(400).json({ message: 'Bad Request' });
             } else {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    console.log(req.body);
-                    const { email, username, password } = req.body;
+                    console.log(req);
+                    const { email, username, password } = req.body.userInfo;
 
                     if (email)
                         await User.update(

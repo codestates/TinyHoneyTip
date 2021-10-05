@@ -95,14 +95,14 @@ export default function Home() {
                                     <button className="landing__start-btn">바로 시작하기</button>
                                 </Link>
                             </div>
-                            <div className="landing__section__pic-div" data-aos="fade-right" data-aos-duration="3000">
+                            {/* <div className="landing__section__pic-div" data-aos="fade-right" data-aos-duration="3000">
                                 <Image
                                     className="landing__section1__pic"
                                     src="/honeycomb.png"
                                     layout="fill"
                                     alt="honeycomb"
                                 />
-                            </div>
+                            </div> */}
                         </div>
                         <a
                             onClick={() => {

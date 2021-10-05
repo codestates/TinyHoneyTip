@@ -142,10 +142,12 @@ module.exports = {
                         where: { id: token.id },
                         attributes: ['email', 'username', 'profile_img'],
                     });
+                    const newToken = await jwt.sign(token, process.env.ACCESS_SECRET);
                     res.status(200).json({
                         message: 'ok',
                         data: {
                             userInfo: updateInfo,
+                            newToken: newToken,
                         },
                     });
                 }

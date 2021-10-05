@@ -117,25 +117,26 @@ module.exports = {
 
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
-        console.log(req.cookies);
+
+        console.log(accessToken);
         try {
             if (!accessToken) {
-                console.log(req);
+
                 res.status(400).json({ message: 'Bad Request' });
             } else {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    console.log(req.body);
-                    const { email, username, password } = req.body;
+                    const email = req.body.email;
+                    const username = req.body.username;
 
                     if (!req.body.userInfo) {
                         await User.update(
                             {
                                 email,
                                 username,
-                                password,
-                                profile_img: req.body.img,
+                                profile_img: req.file.location,
+
                             },
                             { where: { email: token.email } },
                         );

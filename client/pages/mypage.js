@@ -27,26 +27,57 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
     };
 
     function editMyPage() {
+        
+        console.log('유저인퐅오옹롸ㅓ라', userInfo);
         const formData = new FormData();
-        formData.append('imgFile', img);
+        formData.append('file', img[0]);
         formData.append('username', userInfo.username);
+        formData.append('email', userInfo.email);
+        for (let key of formData.entries()) {
+            console.log(`${key}`);
+        }
         axios
-            .patch(
-                `${process.env.NEXT_PUBLIC_URL}/mypage`,
-                { userInfo: userInfo, img: img },
-                {
-                    headers: { cookie: userInfo.accessToken, 'content-type': 'multipart/form-data' },
-                    withCredentials: true,
+            .patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, formData, {
+                headers: {
+                    cookie: `accessToken=${userInfo.accessToken}`,
+                    'content-type': 'multipart/form-data',
                 },
-            )
+                withCredentials: true,
+            })
             .then((res) => {
-                if (res.data.message === 'ok') {
-                    setUserInfo(res.data.userInfo);
-                    window.alert('수정이 완료되었습니다.');
-                } else {
-                    window.alert('수정 오류입니다.');
-                }
+                console.log(res);
+                console.log('개인정보 수정 userinfo 상태변수 수정 필요');
+                setUserInfo({
+                    ...userInfo,
+                    username: res.data.data.userInfo.username,
+                    profile_img: res.data.data.profile_img,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+
             });
+        // axios
+        //     .patch(
+        //         `${process.env.NEXT_PUBLIC_URL}/mypage`,
+        //         { userInfo: userInfo, img: img },
+        //         { headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' } },
+        //     )
+        //     .then((res) => {
+        //         const formData = new FormData();
+        //         formData.append('file', img);
+        //         axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData, {
+        //             headers: {
+        //                 cookie: `accessToken=${userInfo.accessToken}`,
+        //                 'content-type': 'multipart/form-data',
+        //             },
+        //             withCredentials: true,
+        //         });
+        //         if (res.data.message === 'ok') {
+        //             setUserInfo(res.data.userInfo);
+        //             window.alert('수정이 완료되었습니다.');
+        //         }
+        //     });
     }
 
     const deleteSure = () => {

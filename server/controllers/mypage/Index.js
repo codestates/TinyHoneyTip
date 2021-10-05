@@ -4,6 +4,6 @@ const { getmypage, editmypage } = require('./MypageApi');
 const upload = require('../../multer');
 
 mypage.get('/', getmypage);
-mypage.patch('/', upload.single('profile_img'), editmypage);
+mypage.patch('/', upload.single('file'), editmypage);
 
 module.exports = mypage;

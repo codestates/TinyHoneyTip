@@ -117,23 +117,22 @@ module.exports = {
 
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
+        console.log(accessToken);
         try {
             if (!accessToken) {
-                console.log('토큰어디감', req.cookies);
                 res.status(400).json({ message: 'Bad Request' });
             } else {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    console.log(req.body);
-                    const { email, username, password } = req.body;
+                    const email = req.body.email;
+                    const username = req.body.username;
 
                     if (email)
                         await User.update(
                             {
                                 email,
                                 username,
-                                password,
                                 profile_img: req.file.location,
                             },
                             { where: { email: token.email } },
@@ -141,7 +140,7 @@ module.exports = {
 
                     const updateInfo = await User.findOne({
                         where: { id: token.id },
-                        attributes: [email, username, profile_img],
+                        attributes: ['email', 'username', 'profile_img'],
                     });
                     res.status(200).json({
                         message: 'ok',

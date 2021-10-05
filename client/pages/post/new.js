@@ -132,7 +132,7 @@ export default function PostUpload({ userInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                Router.push('/content');
+                Router.push('/post/' + res.data.post_id);
             })
             .catch((error) => {
                 console.log(error);

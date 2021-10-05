@@ -7,6 +7,7 @@ import Router from 'next/router';
 export default function PostContent({ userInfo, post }) {
     const router = useRouter();
     const { id } = router.query;
+    console.log(userInfo);
 
     const [currentSlide, setCurrentSlide] = useState(1);
     let didIL = () => {
@@ -165,7 +166,9 @@ export default function PostContent({ userInfo, post }) {
                                 ) : (
                                     <div className="single-post__post__pic"></div>
                                 )}
-                                <pre className="single-post__post__text">{el.content}</pre>
+                                <pre className="single-post__post__text">
+                                    <div className="single-post__post__text__back">{el.content}</div>
+                                </pre>
                             </li>
                         );
                     })}

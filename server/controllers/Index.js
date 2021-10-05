@@ -31,7 +31,6 @@ module.exports = {
             } else if (!findemail && !finduser) {
                 res.status(400).json({ message: 'rewrite email' });
             } else {
-                finduser.profile_img = Buffer.from(finduser.profile_img, 'base64').toString('utf8');
                 const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
 
                 res.cookie('accessToken', accessToken, {

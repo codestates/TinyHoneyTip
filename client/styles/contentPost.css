@@ -21,12 +21,14 @@
 }
 
 .post_item {
+    cursor: pointer;
     height: 380px;
     width: 350px;
     margin: 25px;
     display: block;
     background: rgba(244, 193, 65, 0.8);
     border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.4) 5px 5px 5px;
 }
 
 .post_item_inner {
@@ -169,7 +171,7 @@
         overflow-y: hidden;
         margin-bottom: 80px;
         width: 84.5vw;
-        max-width: 1200px;
+        max-width: 1150px;
         grid-template-columns: repeat(3, auto);
     }
     .post_item {
@@ -180,6 +182,7 @@
         height: 28vw;
         width: 26vw;
         background: rgba(244, 193, 65, 0.8);
+
         border-radius: 1vw;
     }
     .post_item_inner {
@@ -264,7 +267,7 @@
         top: 6vw;
     }
     .post_desc_userinfo {
-        left: 17vw;
+        left: 16vw;
         position: relative;
     }
     .post_author {
@@ -390,7 +393,7 @@
         top: 6.5vw;
     }
     .post_desc_userinfo {
-        left: 16vw;
+        left: 17vw;
     }
     .post_author {
         color: #717278;
@@ -516,7 +519,7 @@
     }
     .post_desc_userinfo {
         position: relative;
-        left: 20vw;
+        left: 25vw;
     }
     .post_author {
         color: #717278;

@@ -10,6 +10,7 @@ import Weather from '../src/components/Weather';
 import default_img from '../public/postDefaultImage.jpg';
 
 export default function Content({ bestList, postList, weatherData }) {
+    console.log(bestList);
     const [itemIndex, setItemIndex] = useState(0);
     const [post, setPost] = useState(postList?.slice(0, 6));
     const [init, setInit] = useState(postList);
@@ -228,8 +229,8 @@ export default function Content({ bestList, postList, weatherData }) {
 export async function getServerSideProps() {
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/post`;
     const res = await axios.get(apiUrl);
-
-    const best = res.data.data.sort(function (a, b) {
+    const bRes = await axios.get(apiUrl);
+    const best = bRes.data.data.sort(function (a, b) {
         let likeA = a.like.length;
         let likeB = b.like.length;
         if (likeA < likeB) return 1;

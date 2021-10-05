@@ -349,7 +349,7 @@ module.exports = {
                         res.status(400).json({ message: 'already liked!' });
                         console.log(exist);
                     } else {
-                        await dislike.create({
+                        await like.create({
                             user_id: userInfo.id,
                             post_id: req.params.id,
                         });

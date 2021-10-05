@@ -22,10 +22,12 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 
     const editHandler = () => {
         setEditBtn(editBtn ? false : true);
+        console.log('유저인퐅오옹롸ㅓ라', userInfo);
         if (editBtn) editMyPage();
     };
 
     function editMyPage() {
+        
         console.log('유저인퐅오옹롸ㅓ라', userInfo);
         const formData = new FormData();
         formData.append('file', img[0]);
@@ -53,6 +55,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
             })
             .catch((error) => {
                 console.log(error);
+
             });
         // axios
         //     .patch(

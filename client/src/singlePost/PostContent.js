@@ -166,7 +166,9 @@ export default function PostContent({ userInfo, post }) {
                                 ) : (
                                     <div className="single-post__post__pic"></div>
                                 )}
-                                <pre className="single-post__post__text">{el.content}</pre>
+                                <pre className="single-post__post__text">
+                                    <div className="single-post__post__text__back">{el.content}</div>
+                                </pre>
                             </li>
                         );
                     })}

@@ -66,7 +66,12 @@
     word-break: break-all;
     overflow: auto;
 }
-
+.single-post__post__text__back {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    height: auto;
+    width: auto;
+}
 .single-post__post__text::-webkit-scrollbar {
     /* 스크롤바 전체 */
     background-color: rgba(244, 193, 65, 0.4);

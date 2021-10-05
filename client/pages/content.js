@@ -236,7 +236,13 @@ export async function getServerSideProps() {
         if (likeA > likeB) return -1;
         return 0;
     });
-    const post = res.data.data;
+    const post = res.data.data.sort(function (a, b) {
+        let dateA = a.id;
+        let dateB = b.id;
+        if (dateA < dateB) return 1;
+        if (dateA > dateB) return -1;
+        return 0;
+    });
 
     const url = 'https://api.openweathermap.org/data/2.5/';
     const weatherUrl = `${url}weather?q=seoul&appid=${process.env.WEATHER_KEY}`;

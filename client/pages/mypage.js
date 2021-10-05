@@ -20,28 +20,35 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
         setImg(e.target.files);
     };
 
-    function editMyPage() {
-        axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { userInfo: userInfo, img: img }).then((res) => {
-            const formData = new FormData();
-            formData.append('file', img);
-            axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData, {
-                headers: {
-                    cookie: `accessToken=${userInfo.accessToken}`,
-                    'content-type': 'multipart/form-data',
-                },
-                withCredentials: true,
-            });
-            if (res.data.message === 'ok') {
-                setUserInfo(res.data.userInfo);
-                window.alert('수정이 완료되었습니다.');
-            }
-        });
-    }
-
     const editHandler = () => {
         setEditBtn(editBtn ? false : true);
         if (editBtn) editMyPage();
     };
+
+    function editMyPage() {
+        console.log('유저인퐅오옹롸ㅓ라', userInfo);
+        axios
+            .patch(
+                `${process.env.NEXT_PUBLIC_URL}/mypage`,
+                { userInfo: userInfo, img: img },
+                { headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' } },
+            )
+            .then((res) => {
+                const formData = new FormData();
+                formData.append('file', img);
+                axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData, {
+                    headers: {
+                        cookie: `accessToken=${userInfo.accessToken}`,
+                        'content-type': 'multipart/form-data',
+                    },
+                    withCredentials: true,
+                });
+                if (res.data.message === 'ok') {
+                    setUserInfo(res.data.userInfo);
+                    window.alert('수정이 완료되었습니다.');
+                }
+            });
+    }
 
     const deleteSure = () => {
         if (window.confirm('정말 회원 탈퇴하시겠습니까?')) {
@@ -80,7 +87,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
         <>
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
-                    {console.log('포스트: ', myPost, '스크랩', myScrap, '알러트', alert, '이미지', img)}
+                    {console.log('알러트!!!!!!!!!!!!!!!!!!!!!!', alert)}
                     <div className="my_side_bar">
                         <div className="my_info">
                             <div className="my_profile_img">
@@ -126,7 +133,8 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                                 maxLength="8"
                                                 minLength="1"
                                                 onChange={(e) => inputHandler(e)}
-                                                value={userInfo.username}
+                                                name="username"
+                                                //value={userInfo.username}
                                             />
                                         </form>
                                     </div>
@@ -151,33 +159,47 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 </div>
                             )}
                         </div>
-                        {/* {alert ? (
-                            <div id="my_alert">
-                                <h3 id="my_alert_title">my alert</h3>
-                                <ul className="alert_scrap_list">
-                                    {alert[0].scrap
-                                        ? alert.scrap?.map((el) => {
-                                              <li className="alert_scrap_item" key={el.post_id}>
-                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 🙌
-                                                  스크랩했습니다.
-                                              </li>;
-                                          })
-                                        : '알림이 없습니다.'}
-                                </ul>
-                                <ul className="alert_like_list">
-                                    {alert[0].like
-                                        ? alert.like?.map((el) => {
-                                              <li className="alert_like_item">
-                                                  ✔️ {userInfo.username}벌님의 {el.title}을 {el.User.username} 님이 👍
-                                                  좋아합니다.
-                                              </li>;
-                                          })
-                                        : '알림이 없습니다.'}
-                                </ul>
-                            </div>
-                        ) : (
-                            <h3 id="no-alert">알림이 없습니다.</h3>
-                        )} */}
+
+                        <div id="my_alert">
+                            <h3 id="my_alert_title">my alert</h3>
+                            <ul className="alert_list">
+                                {alert.length > 0 ? (
+                                    alert.map((el) => {
+                                        if (el.like.length > 0) {
+                                            return el.like.map((li) => {
+                                                return (
+                                                    <li className="alert_list">
+                                                        ✔️{el.title} 을 {li.User.username} 벌님이 💛를 눌렀습니다.
+                                                    </li>
+                                                );
+                                            });
+                                        } else null;
+
+                                        if (el.dislike.length > 0) {
+                                            return el.dislike.map((dis) => {
+                                                return (
+                                                    <li className="alert_list">
+                                                        ✔️{el.title} 을 {dis.User.username} 벌님이 💔를 눌렀습니다.
+                                                    </li>
+                                                );
+                                            });
+                                        } else null;
+
+                                        if (el.scrap.length > 0) {
+                                            return el.scrap.map((li) => {
+                                                return (
+                                                    <li className="alert_list">
+                                                        ✔️{el.title} 을 {li.User.username} 벌님이 🗂를 눌렀습니다.
+                                                    </li>
+                                                );
+                                            });
+                                        } else null;
+                                    })
+                                ) : (
+                                    <h3 id="no-alert">알림이 없습니다.</h3>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                     <div className="my_Allpost_wrapper">
                         <div className="my_post_wrapper">
@@ -333,16 +355,16 @@ export async function getServerSideProps(context) {
 
     for (let el of post) {
         alert.push({
-            like: el.like || null,
-            dislike: el.dislike || null,
-            scrap: el.scrap || null,
-            comment: el.comment || null,
+            title: el.title,
+            like: el.like,
+            dislike: el.dislike,
+            scrap: el.scrap,
         });
     }
 
     // console.log('마이포스트', post);
     // console.log('마이스크랩', scrap);
-    // console.log('마이알러트', alert);
+    console.log('마이알러트', alert);
 
     return {
         props: {

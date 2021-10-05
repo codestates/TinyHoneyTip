@@ -33,11 +33,11 @@ module.exports = {
                 });
             }
 
-            console.log('포스트리스트', allpost);
+            // console.log('포스트리스트', allpost);
 
             res.status(200).json({ data: allpost });
         } catch (err) {
-            console.log('에러', err);
+            // console.log('에러', err);
             res.status(500).json({ message: 'err' });
         }
     },

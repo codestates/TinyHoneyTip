@@ -84,20 +84,22 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                         </a>
                                                                     </Link>
                                                                 </div>
-                                                                <div className="best_desc_category">
-                                                                    <a className="best_category">{best?.category}</a>
-                                                                </div>
-                                                                <div className="post_desc_user">
-                                                                    <div className="post_desc_userinfo">
-                                                                        <div className="post_author">
-                                                                            💛 &nbsp;&nbsp;
-                                                                            {best?.like?.length}
-                                                                        </div>
+                                                                <div className="post_bot">
+                                                                    <div className="post_desc_category">
+                                                                        <a className="post_category">
+                                                                            {best?.category}
+                                                                        </a>
                                                                     </div>
-                                                                    <div className="post_desc_userinfo">
-                                                                        <div className="post_author">
-                                                                            💔 &nbsp;&nbsp;
-                                                                            {best?.dislike?.length}
+                                                                    <div className="post_desc_user">
+                                                                        <div className="post_desc_userinfo">
+                                                                            <div className="post_author">
+                                                                                💔 &nbsp;
+                                                                                {best?.dislike?.length}
+                                                                            </div>
+                                                                            <div className="post_author">
+                                                                                ❤️ &nbsp;
+                                                                                {best?.like?.length}
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -164,22 +166,22 @@ export default function Content({ bestList, postList, weatherData }) {
                                                                                     </div>
                                                                                 </Link>
                                                                             </div>
-                                                                            <div className="post_desc_category">
-                                                                                <a className="post_category">
-                                                                                    {list?.category}
-                                                                                </a>
-                                                                            </div>
-                                                                            <div className="post_desc_user">
-                                                                                <div className="post_desc_userinfo">
-                                                                                    <div className="post_author">
-                                                                                        💛 &nbsp;&nbsp;
-                                                                                        {list?.like?.length}
-                                                                                    </div>
+                                                                            <div className="post_bot">
+                                                                                <div className="post_desc_category">
+                                                                                    <a className="post_category">
+                                                                                        {list?.category}
+                                                                                    </a>
                                                                                 </div>
-                                                                                <div className="post_desc_userinfo">
-                                                                                    <div className="post_author">
-                                                                                        💔 &nbsp;&nbsp;
-                                                                                        {list?.dislike?.length}
+                                                                                <div className="post_desc_user">
+                                                                                    <div className="post_desc_userinfo">
+                                                                                        <div className="post_author">
+                                                                                            💔 &nbsp;
+                                                                                            {list?.dislike?.length}
+                                                                                        </div>
+                                                                                        <div className="post_author">
+                                                                                            💛 &nbsp;
+                                                                                            {list?.like?.length}
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

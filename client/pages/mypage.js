@@ -24,7 +24,13 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
         axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, { userInfo: userInfo, img: img }).then((res) => {
             const formData = new FormData();
             formData.append('file', img);
-            axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData);
+            axios.patch(`${process.env.NEXT_PUBLIC_URL}/mypage/uploads`, formData, {
+                headers: {
+                    cookie: `accessToken=${userInfo.accessToken}`,
+                    'content-type': 'multipart/form-data',
+                },
+                withCredentials: true,
+            });
             if (res.data.message === 'ok') {
                 setUserInfo(res.data.userInfo);
                 window.alert('수정이 완료되었습니다.');
@@ -81,9 +87,10 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 <Image
                                     className="my_profile_img"
                                     alt="profile img"
-                                    src={img}
-                                    layout="fill"
+                                    src={userInfo.profile_img}
                                     unoptimized={false}
+                                    width={500}
+                                    height={500}
                                 />
                             </div>
                             <h3 className="my_user_name">🐝 {userInfo.username} 벌님 안녕하세요</h3>
@@ -144,7 +151,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 </div>
                             )}
                         </div>
-                        {alert ? (
+                        {/* {alert ? (
                             <div id="my_alert">
                                 <h3 id="my_alert_title">my alert</h3>
                                 <ul className="alert_scrap_list">
@@ -170,13 +177,13 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                             </div>
                         ) : (
                             <h3 id="no-alert">알림이 없습니다.</h3>
-                        )}
+                        )} */}
                     </div>
                     <div className="my_Allpost_wrapper">
                         <div className="my_post_wrapper">
                             <h3 className="my_post">My Posts</h3>
                             <div className="my_post_container">
-                                {myPost ? (
+                                {myPost.length > 0 ? (
                                     myPost.map((el) => {
                                         return (
                                             <div className="my_post_item" key={el?.id}>
@@ -236,7 +243,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                         <div className="my_scrap_wrapper">
                             <h3 className="my_scrap">My Scrapped Posts</h3>
                             <div className="my_scrap_container">
-                                {myScrap ? (
+                                {myScrap.length > 0 ? (
                                     myScrap.map((el) => {
                                         return (
                                             <div className="my_post_item" key={el?.id}>

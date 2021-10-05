@@ -11,7 +11,6 @@ export default function Signin({
     openUpModal,
     closeInModal,
     setIsOk,
-    message,
     setMessage,
     socialHandler,
 }) {
@@ -71,13 +70,17 @@ export default function Signin({
         const url = new URL(window.location.href);
         const authorizationCode = url.searchParams.get('code');
         const getAccessToken = async (authorizationCode) => {
-            await axios.post('http://localhost:80/signin/kakao', { authorizationCode }).then((res) => {
-                console.log(res.data);
-                setMessage('로그인 완료');
-                setIsOk(true);
-                socialHandler(res.data.data);
-                closeInModal();
-            });
+            await axios
+                .post(`${process.env.NEXT_PUBLIC_URL}/signin/kakao`, { authorizationCode })
+                .then((res) => {
+                    console.log(res.data.data);
+                    // console.log(res);
+                    setMessage('로그인 완료');
+                    setIsOk(true);
+                    socialHandler(res.data.data);
+                    closeInModal();
+                })
+                .then((res) => {});
         };
 
         if (authorizationCode) {
@@ -89,21 +92,21 @@ export default function Signin({
         <>
             {isInClick === true ? (
                 <>
-                    <svg
-                        className={styles.close_btn}
-                        onClick={closeInModal}
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12 10.5858L5.63604 4.22182L4.22182 5.63604L10.5858 12L4.22182 18.364L5.63604 19.7782L12 13.4142L18.364 19.7782L19.7782 18.364L13.4142 12L19.7782 5.63604L18.364 4.22182L12 10.5858Z"
-                            fill="black"
-                        />
-                    </svg>
                     <div className={styles.Modal_back}>
                         <div className={styles.Modal}>
                             <div className={styles.Modal_container}>
+                                <svg
+                                    className={styles.close_btn}
+                                    onClick={closeInModal}
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 10.5858L5.63604 4.22182L4.22182 5.63604L10.5858 12L4.22182 18.364L5.63604 19.7782L12 13.4142L18.364 19.7782L19.7782 18.364L13.4142 12L19.7782 5.63604L18.364 4.22182L12 10.5858Z"
+                                        fill="black"
+                                    />
+                                </svg>
                                 <h1 className={styles.Modal_logo}>Tiny Honey Tip</h1>
                                 <h2 className={styles.title}>Sign In</h2>
                                 <div className={styles.input_cont}>
@@ -142,11 +145,11 @@ export default function Signin({
                                             Sign In
                                         </button>
                                         <button className={styles.kakao_btn} onClick={kakaoRequestHandler}>
-                                            카카오 로그인
                                             <img
                                                 className={styles.kakaoLogo}
                                                 src="https://developers.kakao.com/tool/resource/static/img/button/kakaolink/kakaolink_btn_medium.png"
                                             />
+                                            카카오 로그인
                                         </button>
                                     </div>
                                     <div className={styles.Signup_footer}>

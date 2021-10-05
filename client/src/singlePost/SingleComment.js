@@ -33,12 +33,12 @@ export default function SingleComment({ userInfo, comment, commentList, setComme
 
     return (
         <div className="single-comment">
-            <img className="single-comment__profile__img" src="" />
-            <p className="single-comment__comment">
-                <span className="single-comment__profile__username">{comment.userName}</span>
+            <img className="single-comment__profile__img" src={comment.User.profile_img} />
+            <div className="single-comment__comment">
+                <span className="single-comment__profile__username">{comment.User.username}</span>
                 {comment.txt}
-            </p>
-            {comment.user_id === userInfo.id ? (
+            </div>
+            {comment.user_id === userInfo?.id ? (
                 <img
                     className="single-comment__delete"
                     onClick={deleteComment}

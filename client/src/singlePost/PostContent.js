@@ -7,12 +7,12 @@ import Router from 'next/router';
 export default function PostContent({ userInfo, post }) {
     const router = useRouter();
     const { id } = router.query;
+    console.log(userInfo);
 
     const [currentSlide, setCurrentSlide] = useState(1);
-
-    const didIL = () => {
+    let didIL = () => {
         if (userInfo?.isLogin) {
-            let myLike = post.like.userLike.filter((el) => {
+            let myLike = post.like.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myLike.length > 0) {
@@ -25,9 +25,9 @@ export default function PostContent({ userInfo, post }) {
         }
     };
 
-    const didIDisL = () => {
+    let didIDisL = () => {
         if (userInfo?.isLogin) {
-            let myDisLike = post.dislike.userDisLike.filter((el) => {
+            let myDisLike = post.dislike.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myDisLike.length > 0) {
@@ -40,9 +40,9 @@ export default function PostContent({ userInfo, post }) {
         }
     };
 
-    const amIScrapped = () => {
+    let amIScrapped = () => {
         if (userInfo?.isLogin) {
-            let myScrap = post.scrap.scrapList.filter((el) => {
+            let myScrap = post.scrap.filter((el) => {
                 return el.user_id === userInfo.id;
             });
             if (myScrap.length > 0) {
@@ -56,41 +56,60 @@ export default function PostContent({ userInfo, post }) {
     };
 
     const [feeling, setFeeling] = useState({
-        like: didIL(),
-        dislike: didIDisL(),
-        scrap: amIScrapped(),
+        like: false,
+        dislike: false,
+        scrap: false,
     });
 
+    useEffect(() => {
+        setFeeling({
+            like: didIL(),
+            dislike: didIDisL(),
+            scrap: amIScrapped(),
+        });
+    }, [userInfo]);
     const deleteFeelingHandler = (key) => {
+        console.log(`${key} 해제`);
+        console.log(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`);
         axios
-            .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${post?.id}`, {
+            .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
                     cookie: userInfo.accessToken,
                 },
                 withCredentials: true,
             })
-            .then((res) => {})
+            .then((res) => {
+                console.log(res);
+            })
             .catch((error) => {
                 console.log(error);
             });
     };
 
     const postFeelingHandler = (key) => {
+        console.log(`${key} 등록`);
+        console.log(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`);
         axios
-            .get(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${post?.id}`, {
+            .get(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
                     cookie: userInfo.accessToken,
                 },
                 withCredentials: true,
             })
-            .then((res) => {})
+            .then((res) => {
+                console.log(res);
+            })
             .catch((error) => {
                 console.log(error);
             });
     };
 
     const feelingHandler = (key) => {
-        if (!!userInfo.isLogin) {
+        console.log('handler 진입');
+        console.log(key);
+        console.log(userInfo?.accessToken);
+        console.log(userInfo);
+        if (!!userInfo?.isLogin) {
             if (!!feeling[key]) {
                 deleteFeelingHandler(key);
             } else {
@@ -107,7 +126,7 @@ export default function PostContent({ userInfo, post }) {
         axios
             .delete(apiUrl, {
                 headers: {
-                    Cookie: `accessToken=${userInfo.accessToken}`,
+                    Cookie: `accessToken=${userInfo?.accessToken}`,
                     'Accept-Encoding': 'gzip, deflate, br',
                     Connection: 'keep-alive',
                 },
@@ -127,7 +146,7 @@ export default function PostContent({ userInfo, post }) {
                 {post.title}
             </h1>
             <div className="single-post__post">
-                {post.post_page.map((el, idx) => {
+                {post.posts.map((el, idx) => {
                     return (
                         <input
                             key={idx}
@@ -138,16 +157,18 @@ export default function PostContent({ userInfo, post }) {
                         />
                     );
                 })}
-                <ul style={{ width: `calc(100% * ${post.post_page.length})` }}>
-                    {post.post_page.map((el, idx) => {
+                <ul style={{ width: `calc(100% * ${post.posts.length})` }}>
+                    {post.posts.map((el, idx) => {
                         return (
-                            <li key={idx} style={{ width: `calc(100% / ${post.post_page.length})` }}>
+                            <li key={idx} style={{ width: `calc(100% / ${post.posts.length})` }}>
                                 {el.img ? (
                                     <img className="single-post__post__pic" src={el.img} />
                                 ) : (
                                     <div className="single-post__post__pic"></div>
                                 )}
-                                <pre className="single-post__post__text">{el.content}</pre>
+                                <pre className="single-post__post__text">
+                                    <div className="single-post__post__text__back">{el.content}</div>
+                                </pre>
                             </li>
                         );
                     })}
@@ -162,9 +183,7 @@ export default function PostContent({ userInfo, post }) {
                 </label>
                 <label
                     htmlFor={
-                        currentSlide === post.post_page.length
-                            ? 'pos' + post.post_page.length
-                            : 'pos' + (currentSlide + 1)
+                        currentSlide === post.posts.length ? 'pos' + post.posts.length : 'pos' + (currentSlide + 1)
                     }>
                     <img
                         className="single-post__post__next-page-btn"
@@ -205,8 +224,8 @@ export default function PostContent({ userInfo, post }) {
                         }
                     />
                 </div>
-                <p className="single-post__page">{`${currentSlide}/${post.post_page.length}`}</p>
-                {post.writerInfo.id === userInfo.id ? (
+                <p className="single-post__page">{`${currentSlide}/${post.posts.length}`}</p>
+                {post.user_id === userInfo?.id ? (
                     <div className="single-post__btns__post">
                         <Link href={`/post/edit/${id}`} passHref>
                             <img

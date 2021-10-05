@@ -1,14 +1,12 @@
-import styles from '../../styles/Alert.module.css';
-
 export default function Alert({ isOk, okHandler, message }) {
     return (
         <>
             {isOk ? (
-                <div className={styles.Alert_back}>
-                    <div className={styles.Alert_container}>
-                        <div className={styles.Alert_box}>{message}</div>
+                <div className="Alert_back">
+                    <div className="Alert_container">
+                        <div className="Alert_box">{message}</div>
                         <div>
-                            <button className={styles.Alert_btn} onClick={okHandler}>
+                            <button className="Alert_btn" onClick={okHandler}>
                                 Close
                             </button>
                         </div>

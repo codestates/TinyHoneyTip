@@ -10,9 +10,11 @@
     },
     "dependencies": {
         "acorn-dynamic-import": "^4.0.0",
+        "aos": "^3.0.0-beta.6",
         "axios": "^0.21.4",
         "cookie": "^0.4.1",
         "cookie-parser": "^1.4.5",
+        "cropperjs": "^1.5.12",
         "dotenv": "^10.0.0",
         "dotenv-webpack": "^7.0.3",
         "js-cookie": "^3.0.1",
@@ -20,7 +22,9 @@
         "next-images": "^1.8.1",
         "react": "17.0.2",
         "react-dom": "17.0.2",
-        "react-scripts": "^4.0.3"
+        "react-image-crop": "^9.0.4",
+        "react-scripts": "^4.0.3",
+        "react-web-editor": "^2.2.6"
     },
     "devDependencies": {
         "eslint": "7.32.0",

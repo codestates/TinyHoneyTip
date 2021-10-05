@@ -3,9 +3,15 @@
     justify-content: center;
     padding: 0 auto;
     position: relative;
-    background-color: rgba(253, 242, 217, 1);
+    background-color: rgba(253, 242, 217, 0.3);
+    background: url('../public//backimage.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 .nav_btn {
+    cursor: pointer;
     left: -150px;
     border-radius: 10px;
     width: 100px;
@@ -19,6 +25,7 @@
 }
 
 .nav_items {
+    cursor: pointer;
     top: 40px;
     right: 0vw;
     list-style: none;
@@ -31,6 +38,10 @@
     border: 0;
     border-radius: 10px;
     background-color: rgba(244, 193, 65, 0.8);
+}
+.nav_items:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 .category {
     position: relative;
@@ -78,17 +89,30 @@
 }
 
 .best_list {
-    position: flex;
+    position: relative;
     display: grid;
     margin-bottom: 80px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
     width: 84.5vw;
     max-width: 1200px;
-    max-height: 410px;
+    max-height: 430px;
     grid-template-columns: repeat(5, auto);
 }
-
+.best_list:hover {
+    overflow-x: scroll;
+}
+.best_list::-webkit-scrollbar {
+    /* 스크롤바 전체 */
+    background-color: rgba(244, 193, 65, 0.4);
+    width: 12px;
+    border-radius: 30px;
+}
+.best_list::-webkit-scrollbar-thumb {
+    /* 스크롤 막대 */
+    background-color: rgba(244, 193, 65, 0.4);
+    border-radius: 30px;
+}
 .best_item {
     height: 380px;
     width: 350px;
@@ -96,12 +120,20 @@
     display: block;
     background: rgba(244, 193, 65, 0.8);
     border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 5px 5px 5px;
+    animation-duration: 3s;
+    animation-name: best_item;
 }
-.best_item:hover {
-    box-shadow: rgba(0, 0, 0, 0.6) 0px 15px 15px;
-    background-color: transparent;
-    border-radius: 20px;
-    transform: translate(-15px, -15px);
+@keyframes best_item {
+    from {
+        margin-left: 100%;
+        /* width: 300%; */
+    }
+
+    to {
+        margin-left: 0%;
+        /* width: 100%; */
+    }
 }
 .best_item_inner {
     height: 380px;
@@ -110,12 +142,8 @@
     position: relative;
 }
 
-.best_item_inner:hover {
-    background-color: rgba(244, 193, 65, 1);
-    border-radius: 20px;
-}
 .img_inner {
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0;
     height: 250px;
     width: 100%;
     background-position: 50%;
@@ -127,7 +155,25 @@
     overflow: hidden;
     vertical-align: top;
 }
-
+.best_img {
+    border-radius: 20px 20px 0px 0px;
+    height: 250px;
+    width: 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 30px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+.best_img:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
 .img_center {
     object-position: center;
 }
@@ -189,13 +235,6 @@
     float: right;
 }
 @media screen and (max-width: 1440px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: -10vw;
         border-radius: 1vw;
@@ -271,11 +310,9 @@
         position: flex;
         display: grid;
         margin-bottom: 80px;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 84.5vw;
         max-width: 1150px;
-        max-height: 400px;
+        max-height: 420px;
         grid-template-columns: repeat(5, auto);
     }
 
@@ -289,12 +326,6 @@
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
     }
-    .best_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
-        background-color: transparent;
-        border-radius: 1vw;
-        transform: translate(-1vw, -1vw);
-    }
     .best_item_inner {
         max-height: 380px;
         max-width: 350px;
@@ -304,25 +335,19 @@
         position: relative;
     }
 
-    .best_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 1vw;
-    }
     .img_inner {
         max-height: 250px;
-        border-radius: 1vw;
+        border-radius: 1vw 1vw 0 0;
         height: 19.5vw;
-        width: 100%;
-        background-position: 50%;
-        background-repeat: no-repeat;
         background-size: 3vw;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
     }
 
+    .best_img {
+        max-height: 250px;
+        border-radius: 1vw 1vw 0 0;
+        height: 19.5vw;
+        background-size: 3vw;
+    }
     .img_center {
         object-position: center;
     }
@@ -392,13 +417,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: -9vw;
         border-radius: 1vw;
@@ -473,10 +491,8 @@
         position: flex;
         display: grid;
         margin-bottom: 4vw;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 84.5vw;
-        height: 30vw;
+        height: 31vw;
         grid-template-columns: repeat(5, auto);
     }
 
@@ -488,12 +504,7 @@
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
     }
-    .best_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 1vw 1vw;
-        border-radius: 1vw;
-        background-color: transparent;
-        transform: translate(-1vw, -1vw);
-    }
+
     .best_item_inner {
         transition: all 0.15s;
         height: 28vw;
@@ -501,24 +512,16 @@
         position: relative;
     }
 
-    .best_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 1vw;
-    }
     .img_inner {
-        border-radius: 1vw;
+        border-radius: 1vw 1vw 0 0;
         height: 19.5vw;
-        width: 100%;
-        background-position: 50%;
-        background-repeat: no-repeat;
         background-size: 3vw;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
     }
-
+    .best_img {
+        border-radius: 1vw 1vw 0 0;
+        height: 19.5vw;
+        background-size: 3vw;
+    }
     .img_center {
         object-position: center;
     }
@@ -588,13 +591,6 @@
 }
 
 @media screen and (max-width: 768px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: 0vw;
         margin-left: 0;
@@ -666,10 +662,8 @@
         margin-left: 2vw;
         margin-bottom: 3vw;
         display: flex;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 82vw;
-        height: 42vw;
+        height: 45vw;
         grid-template-columns: repeat(5, auto);
     }
     .best_item {
@@ -680,33 +674,20 @@
         border-radius: 2vw;
         transition: all 0.15s;
     }
-    .best_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 2vw 2vw;
-        background-color: transparent;
-        border-radius: 2vw;
-        transform: translate(-2vw, -2vw);
-    }
+
     .best_item_inner {
         height: 40vw;
         width: 38vw;
         position: relative;
     }
-    .best_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 2vw;
-    }
+
     .img_inner {
-        border-radius: 2vw;
+        border-radius: 2vw 2vw 0 0;
         height: 26.5vw;
-        width: 100%;
-        background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: 3vw;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
+    }
+    .best_img {
+        border-radius: 2vw 2vw 0 0;
+        height: 26.5vw;
     }
     .img_center {
         object-position: center;
@@ -776,13 +757,6 @@
     }
 }
 @media screen and (max-width: 425px) {
-    .content {
-        display: flex;
-        justify-content: center;
-        padding: 0 auto;
-        position: relative;
-        background-color: rgba(253, 242, 217, 1);
-    }
     .nav_btn {
         left: 0;
         width: 16vw;
@@ -838,10 +812,8 @@
         margin-left: 4vw;
         margin-bottom: 5vw;
         display: grid;
-        overflow-x: scroll;
-        overflow-y: hidden;
         width: 81vw;
-        height: 86vw;
+        height: 90vw;
         grid-template-columns: repeat(5, auto);
     }
     .best_item {
@@ -853,12 +825,7 @@
         border-radius: 4vw;
         transition: all 0.15s;
     }
-    .best_item:hover {
-        box-shadow: rgba(0, 0, 0, 0.6) 0px 3vw 3vw;
-        background-color: transparent;
-        border-radius: 4vw;
-        transform: translate(-3vw, -3vw);
-    }
+
     .best_item_inner {
         border-radius: 4vw;
         height: 100%;
@@ -866,22 +833,15 @@
         width: 76vw;
         position: relative;
     }
-    .best_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 4vw;
-    }
     .img_inner {
-        border-radius: 4vw;
+        border-radius: 4vw 4vw 0 0;
         height: 56vw;
-        width: 100%;
         background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: 3vw;
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
+    }
+    .best_img {
+        border-radius: 4vw 4vw 0 0;
+        height: 56vw;
+        background-position: 50%;
     }
     .img_center {
         object-position: center;
@@ -957,6 +917,7 @@
     background-size: cover;
     background-position: bottom;
     transition: 0.4 ease-out;
+    box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 10px;
     margin: 25px;
 }
 .app.summer {

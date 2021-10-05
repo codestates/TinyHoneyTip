@@ -242,6 +242,7 @@ module.exports = {
             res.status(500).json({ message: 'Bad Request' });
         }
     },
+
     deletepost: async (req, res) => {
         try {
             await post_container.destroy({
@@ -282,6 +283,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     cancellike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -302,6 +304,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     dislike: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -357,6 +360,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     cancelscrap: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -372,6 +376,7 @@ module.exports = {
             res.status(400).json({ message: 'Bad Request' });
         }
     },
+
     comment: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;
@@ -387,6 +392,7 @@ module.exports = {
             res.status(400).json({ messasge: 'Bad Request' });
         }
     },
+
     deletecomment: async (req, res) => {
         try {
             const accessToken = req.cookies.accessToken;

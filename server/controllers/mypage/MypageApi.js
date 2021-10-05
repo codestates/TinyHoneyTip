@@ -15,33 +15,41 @@ module.exports = {
                 console.log(Token);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
-                    const myPostArr = await post_container.findAll({
+                    const myPost = await post_container.findAll({
                         where: { user_id: Token.id },
                         attributes: ['id', 'title', 'category'],
                         include: [
                             {
                                 model: post,
-                                attributes: ['content', 'img'],
+                                attributes: ['content', 'img', 'id'],
                             },
                         ],
                     });
 
-                    for (let onePost of myPostArr) {
+                    for (let onePost of myPost) {
                         onePost.dataValues.like = await like.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
                         });
                         onePost.dataValues.dislike = await dislike.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
                         });
                         onePost.dataValues.scrap = await scrap.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
-                        });
-                        onePost.dataValues.comment = await comment.findAll({
-                            where: { post_id: onePost.id },
-                            attributes: ['txt', 'id'],
                             include: [
                                 {
                                     model: User,
@@ -51,9 +59,9 @@ module.exports = {
                         });
                     }
 
-                    console.log('마이포스트', myPostArr[0]);
+                    console.log('마이포스트', myPost[0]);
 
-                    const myScrapArr = await scrap.findAll({
+                    const myScrap = await scrap.findAll({
                         where: { user_id: Token.id },
                         attributes: ['post_id'],
                         include: [
@@ -63,24 +71,29 @@ module.exports = {
                                 include: [
                                     {
                                         model: post,
-                                        attributes: ['content', 'img'],
-                                    },
-                                    {
-                                        model: like,
-                                        attributes: ['user_id'],
-                                    },
-                                    {
-                                        model: dislike,
-                                        attributes: ['user_id'],
-                                    },
-                                    {
-                                        model: scrap,
-                                        attributes: ['user_id'],
+                                        attributes: ['content', 'img', 'id'],
                                     },
                                 ],
                             },
                         ],
                     });
+
+                    console.log(myScrap[0], '마이스크랩222');
+
+                    for (let oneScrap of myScrap) {
+                        oneScrap.post_container.post_container.like = await like.findAll({
+                            where: { post_id: oneScrap.post_container.id },
+                            attributes: ['user_id'],
+                        });
+                        // oneScrap.post_container.post_container.dislike = await dislike.findAll({
+                        //     where: { post_id: oneScrap.post_container.post_container.id },
+                        //     attributes: ['user_id'],
+                        // });
+                        // oneScrap.post_container.post_container.scrap = await scrap.findAll({
+                        //     where: { post_id: oneScrap.post_container.post_container.id },
+                        //     attributes: ['user_id'],
+                        // });
+                    }
 
                     // ---------------------------------------- alert 시작 -------------------------------------------------------
 
@@ -89,8 +102,8 @@ module.exports = {
                     res.status(200).json({
                         message: 'ok',
                         data: {
-                            myPost: myPostArr,
-                            myScrap: myScrapArr,
+                            myPost: myPost,
+                            myScrap: myScrap,
                         },
                     });
                 }

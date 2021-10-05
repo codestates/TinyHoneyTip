@@ -107,7 +107,7 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section2">
-                        <div className="landing__section1__text">
+                        <div className="landing__section1__text landing__section1__text__desc">
                             <h2 className="landing__section1__p landing__section1__p__desc">
                                 일상에서 꼭 필요한 <br />
                                 <br />
@@ -144,7 +144,7 @@ export default function Home() {
                     </section>
                     <section className="landing__section" id="section3">
                         <div className="landing__section__image"></div>
-                        <div className="landing__section1__text">
+                        <div className="landing__section1__text landing__section1__text__desc">
                             <h2 className="landing__section1__p landing__section1__p__desc">
                                 당신만의 꿀팁을 <br />
                                 <br />
@@ -187,7 +187,7 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section4">
-                        <div className="landing__section1__text">
+                        <div className="landing__section1__text landing__section1__text__desc">
                             <h2 className="landing__section1__p landing__section1__p__desc">
                                 당신의 꿀팁들을 <br />
                                 <br />

@@ -500,6 +500,9 @@ html {
         border-radius: 8px;
         background-color: rgba(244, 193, 65, 0.8);
     }
+    .landing__section1__text__desc {
+        width: 80vw;
+    }
 
     .landing__section__image {
         width: 80vw;
@@ -680,8 +683,8 @@ html {
 
     .landing__section {
         flex-direction: row;
-        justify-content: space-between;
         align-items: center;
+        justify-content: center;
         padding-right: 16vw;
         padding-left: 16vw;
     }
@@ -711,6 +714,17 @@ html {
         height: 40px;
         border-radius: 8px;
         background-color: rgba(244, 193, 65, 0.8);
+    }
+
+    .landing__section1__text__desc {
+        width: 55vw;
+    }
+
+    .landing__section__image {
+        background-color: rgba(244, 193, 65, 0.8);
+        width: 55vw;
+        height: 35vw;
+        border-radius: 5px;
     }
 
     .landing__section1__pic-div {
@@ -811,8 +825,8 @@ html {
     /* landing page */
 
     .landing__section {
-        padding-right: 10vw;
-        padding-left: 10vw;
+        /* padding-right: 22vw;
+        padding-left: 22vw; */
     }
 
     .landing__section1__title {
@@ -835,26 +849,18 @@ html {
         height: 60px;
     }
 
+    .landing__section1__text__desc {
+        width: 450px;
+    }
+
     .landing__section1__pic-div {
         width: 450px;
         height: 450px;
         margin-left: auto;
     }
 
-    .top-btn {
-        width: 55px;
-        height: 45px;
-        border-radius: 3px;
-        border: 7px solid rgba(244, 193, 65, 0.8);
-    }
-
     .scroll-down {
-        opacity: 0.7;
-        height: 70px;
-        width: 40px;
-        border: 2.5px solid black;
         bottom: 50px;
-        border-radius: 50px;
     }
 
     .landing__section2__slide,

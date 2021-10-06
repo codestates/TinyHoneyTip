@@ -50,11 +50,11 @@ function MyApp({ Component, pageProps }) {
             ...userInfo,
             isLogin: true,
             isSocial: true,
-            id: data.id,
-            email: data.id,
+            id: data.userInfo.id,
+            email: data.userInfo.email,
             accessToken: data.accessToken,
-            username: data.kakao_account,
-            profile_img: data.kakao_account,
+            username: data.userInfo.username,
+            profile_img: data.userInfo.profile_img,
         });
     };
 

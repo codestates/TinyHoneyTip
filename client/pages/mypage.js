@@ -20,8 +20,18 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                setMyPost(res.data.data.myPost);
-                setMyScrap(res.data.data.myScrap);
+                console.log('마이페이지', res.data);
+                if (res.data.data.myPost) {
+                    setMyPost(res.data.data.myPost);
+                } else {
+                    setMyPost([]);
+                }
+                if (res.data.data.myScrap) {
+                    setMyScrap(res.data.data.myScrap);
+                } else {
+                    setMyScrap([]);
+                }
+
                 let tmpAlert = alert.slice();
                 for (let el of myPost) {
                     tmpAlert.push({
@@ -123,7 +133,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     return (
         <>
-            {console.log('알러틑트', alert)}
+            {/* {console.log('알러틑트', alert)} */}
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
                     <div className="my_back_img"></div>

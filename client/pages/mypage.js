@@ -87,14 +87,14 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 
     return (
         <>
+            {console.log('알러틑트', alert)}
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
                     <div className="my_back_img"></div>
                     <div className="my_side_bar">
                         <div className="my_info">
-                            <div className="my_profile_img my_profile_img_container">
+                            <div className="my_profile_img">
                                 <Image
-                                    className="my_profile_img"
                                     alt="profile img"
                                     src={userInfo.profile_img ? userInfo.profile_img : '/postDefaultImage.jpg'}
                                     unoptimized={false}
@@ -116,7 +116,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 <h3 className="my_user_name">{userInfo.username} 벌님 🐝 안녕하세요</h3>
                                 {editBtn ? (
                                     <>
-                                        <div className="my_user_infoBody">
+                                        <div className="my_user_infoBody edit_user_info">
                                             <form>
                                                 <input
                                                     type="file"
@@ -156,7 +156,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                         </button>
                                     </>
                                 ) : (
-                                    <div className="my_user_infoBody">
+                                    <div className="my_user_infoBody ">
                                         <p id="email">
                                             이메일 <span>{userInfo.email}</span>
                                         </p>
@@ -219,7 +219,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                         return (
                                             <div className="my_post_item" key={el?.id}>
                                                 <div className="my_post_item_inner">
-                                                    <div className="best_item_header">
+                                                    <div className="my_best_item_header">
                                                         <Link href={`/post/${el?.id}`}>
                                                             <div className="my_header_image">
                                                                 <div className="my_img_inner">
@@ -280,7 +280,7 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                         return (
                                             <div className="my_post_item" key={el?.id}>
                                                 <div className="my_post_item_inner">
-                                                    <div className="best_item_header">
+                                                    <div className="my_best_item_header">
                                                         <Link href={`/post/${el?.id}`}>
                                                             <div className="my_header_image">
                                                                 <div className="my_img_inner">

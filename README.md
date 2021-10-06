@@ -30,14 +30,15 @@
 - Position: Front-End
 - Stack: Node.js, Next js, express, html, css, react, javascript
 - Contributions<br />
- content page<br />
- signin, signup <br />
- select <br />
- category<br />
- search<br />
- loading<br />
- infinite scroll<br />
- image src making <br />
+ Content page<br />
+ Signin, signup <br />
+ Select <br />
+ Category<br />
+ Search<br />
+ Loading<br />
+ Infinite scroll<br />
+ Image src making <br />
+ Cropper <br />
 </div>
 </details>
 

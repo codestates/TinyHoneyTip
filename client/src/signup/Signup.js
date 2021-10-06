@@ -68,7 +68,6 @@ export default function Signup({
                     { 'Content-Type': 'application/json', withCredentials: true },
                 )
                 .then((res) => {
-                    console.log(res);
                     if (res.data.message === 'ok') {
                         setMessage('회원가입 완료');
                         okHandler();

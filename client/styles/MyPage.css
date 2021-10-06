@@ -270,12 +270,6 @@
         font-size: 12px;
     }
 
-    .post_desc_text {
-        font-size: 10px;
-        color: #999;
-        height: 20px;
-    }
-
     .my_post_category {
         margin-left: 15px;
         position: relative;
@@ -293,10 +287,28 @@
         width: 200px;
         padding-left: 150px;
     }
+
+    /* .my_post_author {
+        margin-right: 8px;
+        width: 30px;
+    } */
 }
 
 /* tablet */
 @media screen and (min-width: 618px) and (max-width: 1023px) {
+    .my_post_container::-webkit-scrollbar,
+    .my_scrap_container::-webkit-scrollbar,
+    #my_alert::-webkit-scrollbar {
+        /* 스크롤바 전체 */
+        display: none;
+    }
+
+    .my_post__post__text::-webkit-scrollbar-thumb,
+    .my_scrap_container::-webkit-scrollbar-thumb,
+    #my_alert::-webkit-scrollbar-thumb {
+        /* 스크롤 막대 */
+        display: none;
+    }
     .my_wrapper {
         margin: auto;
         color: #666;
@@ -616,6 +628,19 @@
 
 /* mobile */
 @media screen and (max-width: 617px) {
+    .my_post_container::-webkit-scrollbar,
+    .my_scrap_container::-webkit-scrollbar,
+    #my_alert::-webkit-scrollbar {
+        /* 스크롤바 전체 */
+        display: none;
+    }
+
+    .my_post__post__text::-webkit-scrollbar-thumb,
+    .my_scrap_container::-webkit-scrollbar-thumb,
+    #my_alert::-webkit-scrollbar-thumb {
+        /* 스크롤 막대 */
+        display: none;
+    }
     .my_wrapper {
         margin: auto;
         color: #666;

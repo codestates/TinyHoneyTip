@@ -54,7 +54,7 @@ app.post('/signin/kakao', async (req, res) => {
                 async (err, response, body) => {
                     if (!err) {
                         const obj = JSON.parse(response.body);
-                        console.log(obj);
+                        console.log('소셜로그인바디', obj);
                         const finduser = await User.findOne({
                             where: {
                                 email: obj.id,

@@ -71,7 +71,7 @@ export default function Signin({
         const authorizationCode = url.searchParams.get('code');
         const getAccessToken = async (authorizationCode) => {
             await axios.post(`${process.env.NEXT_PUBLIC_URL}/signin/kakao`, { authorizationCode }).then((res) => {
-                console.log(res.data.data);
+                console.log('사인인에 데이터에요', res.data.data);
                 setMessage('로그인 완료');
                 setIsOk(true);
                 socialHandler(res.data.data);

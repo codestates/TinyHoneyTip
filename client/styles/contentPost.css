@@ -13,13 +13,12 @@
     position: relative;
     display: grid;
     margin-bottom: 80px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
     width: 84.5vw;
     max-width: 1200px;
     grid-template-columns: repeat(3, auto);
 }
-
 .post_item {
     cursor: pointer;
     height: 380px;
@@ -451,7 +450,7 @@
         margin-left: 2vw;
         margin-bottom: 3vw;
         display: grid;
-        overflow-x: scroll;
+        overflow-x: hidden;
         overflow-y: hidden;
         width: 82vw;
         grid-template-columns: repeat(2, auto);
@@ -559,7 +558,6 @@
         margin-left: 4vw;
         margin-bottom: 5vw;
         display: grid;
-        overflow-x: scroll;
         overflow-y: hidden;
         width: 81vw;
         grid-template-columns: repeat(1, auto);

@@ -57,9 +57,7 @@ export default function Comments({ userInfo, post }) {
                         behavior: 'smooth',
                     });
                 })
-                .catch((error) => {
-                    console.log(error);
-                });
+                .catch((error) => {});
         }
     };
 

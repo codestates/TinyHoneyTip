@@ -11,8 +11,6 @@ export default function ImageEditModal({
     slideTextHandler,
 }) {
     const [imageToCrop, setImageToCrop] = useState(undefined);
-
-    console.log(croppedImage);
     const onUploadFile = (e) => {
         if (e.target.files && e.target.files.length > 0) {
             const reader = new FileReader();

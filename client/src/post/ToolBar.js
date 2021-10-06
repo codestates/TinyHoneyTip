@@ -63,8 +63,8 @@ export default function ToolBar({
                             onChange={postInfoHandler('category')}>
                             <option>카테고리</option>
                             <option>취미</option>
+                            <option>음식</option>
                             <option>건강</option>
-                            <option>운동</option>
                             <option>생활</option>
                             <option>동물</option>
                             <option>쇼핑</option>

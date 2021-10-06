@@ -41,9 +41,7 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
                     authorization: userInfo.accessToken,
                 },
             })
-            .catch((error) => {
-                console.log('logout error 쿠키 삭제 실패');
-            });
+            .catch((error) => {});
         logoutHandler();
         setIsUpClick(false);
     };

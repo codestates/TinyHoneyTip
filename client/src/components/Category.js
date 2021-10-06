@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export default function Category({ setPost, init }) {
     const [isClick, setClick] = useState(false);
-    const categories = ['🐝 전체', '🎬 취미', '💪 건강', '🏋️‍♀️ 운동', '💡 생활', '🐾 동물', '💸 쇼핑', '⭐️ 기타'];
+    const categories = ['🐝 전체', '🎬 취미', '🍗 음식', '💪 건강', '💡 생활', '🐾 동물', '💸 쇼핑', '⭐️ 기타'];
 
     const categoryHandler = (e) => {
         if (e.target.innerText.indexOf('전체') > -1) {

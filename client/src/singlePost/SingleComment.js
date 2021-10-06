@@ -26,9 +26,7 @@ export default function SingleComment({ userInfo, comment, commentList, setComme
                     }),
                 );
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((error) => {});
     };
 
     return (

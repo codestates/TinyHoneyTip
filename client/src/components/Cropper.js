@@ -25,7 +25,6 @@ function ImageCropper({ imageToCrop, onImageCropped }) {
             // calling the props function to expose
             // croppedImage to the parent component
             onImageCropped(croppedImage);
-            console.log(croppedImage);
         }
     }
 

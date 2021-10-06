@@ -3,13 +3,7 @@
     justify-content: center;
     padding: 0 auto;
     position: relative;
-    background-color: rgba(253, 242, 217, 0.3);
-    background: url('../public//backimage.png') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-position: right;
+    background-color: rgba(253, 242, 217, 0.5);
 }
 .nav_btn {
     cursor: pointer;
@@ -22,6 +16,7 @@
     font-size: 15px;
     text-align: center;
     position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 2px;
     background: rgba(244, 193, 65, 0.8);
 }
 
@@ -60,6 +55,7 @@
 
 /* card */
 .best_content_container {
+    margin-top: 70px;
     width: 100%;
     display: flex;
     -webkit-box-pack: center;
@@ -104,13 +100,11 @@
     overflow-x: scroll;
 }
 .best_list::-webkit-scrollbar {
-    /* 스크롤바 전체 */
     background-color: rgba(244, 193, 65, 0.4);
     width: 12px;
     border-radius: 30px;
 }
 .best_list::-webkit-scrollbar-thumb {
-    /* 스크롤 막대 */
     background-color: rgba(244, 193, 65, 0.4);
     border-radius: 30px;
 }
@@ -121,7 +115,7 @@
     display: block;
     background: rgba(244, 193, 65, 0.8);
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.1) 5px 5px 5px;
+    box-shadow: rgba(0, 0, 0, 0.4) 5px 5px 5px;
     animation-duration: 3s;
     animation-name: best_item;
 }

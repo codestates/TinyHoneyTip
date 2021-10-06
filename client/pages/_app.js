@@ -50,11 +50,11 @@ function MyApp({ Component, pageProps }) {
             ...userInfo,
             isLogin: true,
             isSocial: true,
-            id: data.userInfo.id,
-            email: data.userInfo.email,
+            id: data.id,
+            email: data.id,
             accessToken: data.accessToken,
-            username: data.userInfo.username,
-            profile_img: data.userInfo.profile_img,
+            username: data.kakao_account,
+            profile_img: data.kakao_account,
         });
     };
 
@@ -81,8 +81,6 @@ function MyApp({ Component, pageProps }) {
         sessionStorage.setItem('accessToken', userInfo?.accessToken);
     });
 
-    // loading
-
     const router = useRouter();
     const [isPageLoading, setPageLoading] = useState(false);
     useEffect(() => {
@@ -101,7 +99,6 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width user-scalable=yes" />
-                {/* <link rel="icon" href="./public/odxkZuVe.ico"></link> */}
             </Head>
             <Header
                 userInfo={userInfo}

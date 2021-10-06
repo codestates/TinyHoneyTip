@@ -291,9 +291,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         myPost.map((el) => {
                                             console.log(el);
                                             return (
-                                                <Link href={`/post/${el?.id}`}>
+                                                <Link href={`/post/${el?.id}`} key={el?.id}>
                                                     <div className="my_post_item" key={el?.id}>
-                                                        <div className="my_post_item_inner">
+                                                        <div className="my_post_item_inner" key={el?.id}>
                                                             {/* <div className="my_best_item_header"> */}
 
                                                             <div className="my_img_container">
@@ -350,10 +350,10 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                     {myScrap.length > 0 ? (
                                         myScrap.map((el) => {
                                             return (
-                                                <Link href={`/post/${el?.post_id}`}>
+                                                <Link href={`/post/${el?.post_id}`} key={el?.id}>
                                                     <div className="my_post_item" key={el?.post_id}>
-                                                        <div className="my_post_item_inner">
-                                                            <div className="my_best_item_header">
+                                                        <div className="my_post_item_inner" key={el?.id}>
+                                                            <div className="my_best_item_header" key={el?.id}>
                                                                 <div className="my_img_container">
                                                                     <div className="my_img_inner">
                                                                         <Image

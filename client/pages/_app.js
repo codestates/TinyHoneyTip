@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps }) {
     };
     useEffect(() => {
         setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
-    }, []);
+    }, [userInfo]);
 
     useEffect(() => {
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));

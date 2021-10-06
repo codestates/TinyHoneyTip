@@ -98,10 +98,16 @@ html {
     background-color: rgba(253, 242, 217, 0.5);
 }
 
-.landing__section:first-child,
-.landing__section:nth-child(6) {
-    padding-top: 60px;
-    background: url('../public/landingBackgroundLight.png') no-repeat center center;
+.landing__section:first-child:before,
+.landing__section:nth-child(6):before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: url('../public/landingBackground.png') no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -118,7 +124,7 @@ html {
     left: 0;
     z-index: -1;
     transform: rotate(-180deg);
-    background: url('../public/landingBackgroundLight.png') no-repeat center center;
+    background: url('../public/landingBackground.png') no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

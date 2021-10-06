@@ -291,55 +291,51 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         myPost.map((el) => {
                                             console.log(el);
                                             return (
-                                                <div className="my_post_item" key={el?.id}>
-                                                    <div className="my_post_item_inner">
-                                                        <div className="my_best_item_header">
-                                                            <Link href={`/post/${el?.id}`}>
-                                                                <div className="my_header_image">
-                                                                    <div className="my_img_inner">
-                                                                        <Image
-                                                                            layout="fill"
-                                                                            alt={el?.title}
-                                                                            src={el?.posts[0]?.img}
-                                                                            unoptimized="false"
-                                                                        />
-                                                                    </div>
+                                                <Link href={`/post/${el?.id}`}>
+                                                    <div className="my_post_item" key={el?.id}>
+                                                        <div className="my_post_item_inner">
+                                                            {/* <div className="my_best_item_header"> */}
+                                                            <div className="my_img_inner">
+                                                                <div className="my_img_inner">
+                                                                    <Image
+                                                                        alt={el?.title}
+                                                                        src={el?.posts[0]?.img}
+                                                                        unoptimized="false"
+                                                                        width={250}
+                                                                        height={180}
+                                                                    />
                                                                 </div>
-                                                            </Link>
+                                                            </div>
                                                             <div className="my_post_desc">
                                                                 <div className="post_desc_title">
-                                                                    <Link href={`/post/${el?.id}`}>
-                                                                        <div className="my_post_title_font">
-                                                                            {el?.title}
-                                                                        </div>
-                                                                    </Link>
+                                                                    <div className="my_post_title_font">
+                                                                        {el?.title}
+                                                                    </div>
                                                                 </div>
                                                                 <div className="post_desc_text">
-                                                                    <Link href={`/post/${el?.id}`}>
-                                                                        <div className="post_text">
-                                                                            <div>{el?.posts[0].content}</div>
-                                                                        </div>
-                                                                    </Link>
+                                                                    <div className="post_text">
+                                                                        <div>{el?.posts[0].content}</div>
+                                                                    </div>
                                                                 </div>
                                                                 <div className="my_post_bot">
                                                                     <div className="my_post_category">
                                                                         {el?.category}
                                                                     </div>
-                                                                    <div className="post_desc_user">
-                                                                        <div className="post_desc_userinfo">
-                                                                            <div className="my_post_author post_dislike_num">
-                                                                                💔 &nbsp;{el?.dislike?.length}
-                                                                            </div>
-                                                                            <div className="my_post_author post_like_num">
-                                                                                💛 &nbsp;{el?.like?.length}
-                                                                            </div>
+
+                                                                    <div className="my_post_desc_userinfo">
+                                                                        <div className="my_post_author post_dislike_num">
+                                                                            💔 &nbsp;{el?.dislike?.length}
+                                                                        </div>
+                                                                        <div className="my_post_author post_like_num">
+                                                                            💛 &nbsp;{el?.like?.length}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            {/* </div> */}
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </Link>
                                             );
                                         })
                                     ) : (
@@ -353,44 +349,39 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                     {myScrap.length > 0 ? (
                                         myScrap.map((el) => {
                                             return (
-                                                <div className="my_post_item" key={el?.post_id}>
-                                                    <div className="my_post_item_inner">
-                                                        <div className="my_best_item_header">
-                                                            <Link href={`/post/${el?.post_id}`}>
-                                                                <div className="my_header_image">
-                                                                    <div className="my_img_inner">
-                                                                        <Image
-                                                                            layout="fill"
-                                                                            alt={el?.title}
-                                                                            src={el.post_container.posts[0]?.img}
-                                                                            unoptimized="false"
-                                                                        />
-                                                                    </div>
+                                                <Link href={`/post/${el?.post_id}`}>
+                                                    <div className="my_post_item" key={el?.post_id}>
+                                                        <div className="my_post_item_inner">
+                                                            <div className="my_best_item_header">
+                                                                <div className="my_img_inner">
+                                                                    <Image
+                                                                        alt={el?.title}
+                                                                        src={el.post_container.posts[0]?.img}
+                                                                        unoptimized="false"
+                                                                        width={250}
+                                                                        height={180}
+                                                                    />
                                                                 </div>
-                                                            </Link>
-                                                            <div className="my_post_desc">
-                                                                <div className="post_desc_title">
-                                                                    <Link href={`/post/${el?.post_id}`}>
+
+                                                                <div className="my_post_desc">
+                                                                    <div className="post_desc_title">
                                                                         <div className="my_post_title_font">
                                                                             {el?.post_container?.title}
                                                                         </div>
-                                                                    </Link>
-                                                                </div>
-                                                                <div className="post_desc_text">
-                                                                    <Link href={`/post/${el?.post_id}`}>
+                                                                    </div>
+                                                                    <div className="post_desc_text">
                                                                         <div className="post_text">
                                                                             <div>
                                                                                 {el?.post_container.posts[0]?.content}
                                                                             </div>
                                                                         </div>
-                                                                    </Link>
-                                                                </div>
-                                                                <div className="my_post_bot">
-                                                                    <a className="my_post_category">
-                                                                        {el?.post_container?.category}
-                                                                    </a>
-                                                                    <div className="post_desc_user">
-                                                                        <div className="post_desc_userinfo">
+                                                                    </div>
+                                                                    <div className="my_post_bot">
+                                                                        <div className="my_post_category">
+                                                                            {el?.post_container?.category}
+                                                                        </div>
+
+                                                                        <div className="my_post_desc_userinfo">
                                                                             <div className="my_post_author post_dislike_num">
                                                                                 💔 &nbsp;
                                                                                 {el?.dislike?.length
@@ -409,7 +400,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </Link>
                                             );
                                         })
                                     ) : (

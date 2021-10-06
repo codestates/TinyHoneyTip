@@ -208,7 +208,7 @@
     }
 
     .my_post_item {
-        margin: 1vw;
+        margin: 10px 0;
         height: 250px;
         width: 250px;
         display: block;
@@ -222,6 +222,7 @@
         cursor: pointer;
         flex-basis: 250px;
         min-width: 250px;
+        margin-top: 20px;
     }
 
     @keyframes post_item {
@@ -250,46 +251,36 @@
         background-color: rgba(244, 193, 65, 1);
     }
 
-    .my_img_inner,
-    .my_header_image,
-    .my_best_item_header {
-        position: relative;
-        width: 250px;
-        height: 180px;
+    .post_desc_title {
+        font-size: 12px;
+    }
+
+    .post_desc_text {
         font-size: 10px;
+        color: #999;
+        overflow: hidden;
     }
 
     .my_post_category {
-        position: absolute;
-        left: 5px;
-        bottom: -60px;
-        font-weight: 600;
+        margin-left: 15px;
+        position: relative;
     }
 
-    .my_post_desc {
-        width: 250px;
-        padding: 5px;
+    .my_post_bot {
+        display: flex;
+        flex-direction: row;
     }
 
-    .my_post_author {
-        position: absolute;
-        left: 40px;
-        bottom: -22px;
-    }
-
-    .post_dislike_num {
-        left: 20px;
-    }
-
-    .my_post_title_font {
-        font-size: 14px;
-        font-weight: 500;
-        color: #333;
+    .my_post_desc_userinfo {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
+        padding-left: 150px;
     }
 }
 
 /* tablet */
-@media screen and (min-width: 426px) and (max-width: 1023px) {
+@media screen and (min-width: 618px) and (max-width: 1023px) {
     .my_wrapper {
         margin: auto;
         color: #666;
@@ -526,6 +517,7 @@
         cursor: pointer;
         flex-basis: 250px;
         min-width: 250px;
+        margin-top: 15px;
     }
 
     @keyframes post_item {
@@ -559,52 +551,41 @@
         border-radius: 20px;
     }
 
-    .my_img_inner,
-    .my_header_image,
-    .my_best_item_header {
-        position: relative;
+    .my_img_inner {
         width: 250px;
         height: 180px;
+    }
+
+    .post_desc_title {
+        font-size: 12px;
+    }
+
+    .post_desc_text {
         font-size: 10px;
+        color: #999;
+        overflow: hidden;
     }
 
     .my_post_category {
-        font-weight: 600;
-        margin-left: 20px;
-        position: absolute;
-        bottom: -65px;
+        margin-left: 15px;
+        position: relative;
     }
 
-    .my_post_desc {
-        width: 250px;
-        padding: 5px;
+    .my_post_bot {
+        display: flex;
+        flex-direction: row;
     }
 
-    .my_post_author {
-        position: absolute;
-        left: 10px;
-        bottom: -15px;
-    }
-
-    .post_dislike_num {
-        left: -20px;
-    }
-
-    .post_text {
-        overflow: hidden;
-        height: 10px;
-        font-size: 10px;
-    }
-
-    .my_post_title_font {
-        font-size: 12px;
-        font-weight: 500;
-        color: #333;
+    .my_post_desc_userinfo {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
+        padding-left: 150px;
     }
 }
 
 /* mobile */
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 617px) {
     .my_wrapper {
         margin: auto;
         color: #666;
@@ -856,6 +837,7 @@
         cursor: pointer;
         flex-basis: 250px;
         min-width: 250px;
+        margin-top: 20px;
     }
 
     @keyframes post_item {
@@ -889,46 +871,39 @@
         border-radius: 20px;
     }
 
-    .my_img_inner,
-    .my_header_image,
-    .my_best_item_header {
-        position: relative;
+    .my_img_inner {
         width: 250px;
         height: 180px;
-        font-size: 10px;
-    }
-
-    .my_post_category {
-        font-weight: 600;
-        margin-left: 20px;
-        position: absolute;
-        bottom: -65px;
     }
 
     .my_post_desc {
-        width: 250px;
-        padding: 5px;
+        margin-top: 10px;
     }
 
-    .my_post_author {
-        position: absolute;
-        left: 10px;
-        bottom: -25px;
-    }
-
-    .post_dislike_num {
-        left: -20px;
-    }
-
-    .post_text {
-        overflow: hidden;
-        height: 10px;
-        font-size: 10px;
-    }
-
-    .my_post_title_font {
+    .post_desc_title {
         font-size: 12px;
-        font-weight: 500;
-        color: #333;
+    }
+
+    .post_desc_text {
+        font-size: 10px;
+        color: #999;
+        overflow: hidden;
+    }
+
+    .my_post_category {
+        margin-left: 15px;
+        position: relative;
+    }
+
+    .my_post_bot {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .my_post_desc_userinfo {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
+        padding-left: 150px;
     }
 }

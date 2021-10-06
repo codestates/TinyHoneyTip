@@ -295,7 +295,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                     <div className="my_post_item" key={el?.id}>
                                                         <div className="my_post_item_inner">
                                                             {/* <div className="my_best_item_header"> */}
-                                                            <div className="my_img_inner">
+
+                                                            <div className="my_img_container">
                                                                 <div className="my_img_inner">
                                                                     <Image
                                                                         alt={el?.title}
@@ -353,14 +354,16 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                     <div className="my_post_item" key={el?.post_id}>
                                                         <div className="my_post_item_inner">
                                                             <div className="my_best_item_header">
-                                                                <div className="my_img_inner">
-                                                                    <Image
-                                                                        alt={el?.title}
-                                                                        src={el.post_container.posts[0]?.img}
-                                                                        unoptimized="false"
-                                                                        width={250}
-                                                                        height={180}
-                                                                    />
+                                                                <div className="my_img_container">
+                                                                    <div className="my_img_inner">
+                                                                        <Image
+                                                                            alt={el?.title}
+                                                                            src={el.post_container.posts[0]?.img}
+                                                                            unoptimized="false"
+                                                                            width={250}
+                                                                            height={180}
+                                                                        />
+                                                                    </div>
                                                                 </div>
 
                                                                 <div className="my_post_desc">

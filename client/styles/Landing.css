@@ -4,7 +4,7 @@
 
 .header-container {
     width: 100vw;
-    background-color: rgba(253, 242, 217, 0.3);
+    background-color: rgba(253, 242, 217, 0.5);
 }
 
 .header {
@@ -44,7 +44,7 @@
     flex-wrap: wrap;
     align-items: center;
     width: 100vw;
-    background-color: rgba(253, 242, 217, 0.3);
+    background-color: rgba(253, 242, 217, 0.5);
 }
 
 .footer__logo-box {
@@ -95,7 +95,7 @@ html {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(253, 242, 217, 0.3);
+    background-color: rgba(253, 242, 217, 0.5);
 }
 
 .landing__section:first-child,
@@ -702,6 +702,10 @@ html {
         justify-content: space-between;
         width: 70vw;
         align-items: center;
+    }
+
+    .landing__section__inner:first-child {
+        justify-content: flex-end;
     }
 
     .landing__section__text,

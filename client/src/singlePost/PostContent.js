@@ -68,8 +68,6 @@ export default function PostContent({ userInfo, post }) {
         });
     }, [userInfo]);
     const deleteFeelingHandler = (key) => {
-        console.log(`${key} 해제`);
-        console.log(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`);
         axios
             .delete(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
@@ -77,17 +75,11 @@ export default function PostContent({ userInfo, post }) {
                 },
                 withCredentials: true,
             })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            .then((res) => {})
+            .catch((error) => {});
     };
 
     const postFeelingHandler = (key) => {
-        console.log(`${key} 등록`);
-        console.log(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`);
         axios
             .get(`${process.env.NEXT_PUBLIC_URL}/post/${key}/${id}`, {
                 headers: {
@@ -95,19 +87,11 @@ export default function PostContent({ userInfo, post }) {
                 },
                 withCredentials: true,
             })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            .then((res) => {})
+            .catch((error) => {});
     };
 
     const feelingHandler = (key) => {
-        console.log('handler 진입');
-        console.log(key);
-        console.log(userInfo?.accessToken);
-        console.log(userInfo);
         if (!!userInfo?.isLogin) {
             if (!!feeling[key]) {
                 deleteFeelingHandler(key);
@@ -133,9 +117,7 @@ export default function PostContent({ userInfo, post }) {
             .then((res) => {
                 Router.push('/content');
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((error) => {});
     };
 
     return (
@@ -165,7 +147,9 @@ export default function PostContent({ userInfo, post }) {
                                 ) : (
                                     <div className="single-post__post__pic"></div>
                                 )}
-                                <pre className="single-post__post__text">{el.content}</pre>
+                                <pre className="single-post__post__text">
+                                    <div className="single-post__post__text__back">{el.content}</div>
+                                </pre>
                             </li>
                         );
                     })}

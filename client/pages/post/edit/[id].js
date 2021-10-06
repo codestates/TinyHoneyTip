@@ -9,14 +9,6 @@ import ToolBar from '../../../src/post/ToolBar';
 import ImageEditModal from '../../../src/post/ImageEditModal';
 
 export default function Id({ post, userInfo }) {
-    // useEffect(() => {
-    //     if (!JSON.parse(sessionStorage.getItem('userInfo')).isLogin) {
-    //         Router.push('/content');
-    //     } else if (JSON.parse(sessionStorage.getItem('userInfo')).id !== post.writerInfo.id) {
-    //         Router.push(`/content`);
-    //     }
-    // });
-    console.log(post);
     const router = useRouter();
     const { id } = router.query;
     const [croppedImage, setCroppedImage] = useState(undefined);
@@ -132,7 +124,6 @@ export default function Id({ post, userInfo }) {
         });
 
         for (let key of formData.entries()) {
-            console.log(`${key}`);
         }
 
         axios
@@ -146,9 +137,7 @@ export default function Id({ post, userInfo }) {
             .then((res) => {
                 Router.push('/post/' + id);
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((error) => {});
     };
 
     return (

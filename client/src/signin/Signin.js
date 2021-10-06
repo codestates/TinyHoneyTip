@@ -70,13 +70,15 @@ export default function Signin({
         const url = new URL(window.location.href);
         const authorizationCode = url.searchParams.get('code');
         const getAccessToken = async (authorizationCode) => {
-            await axios.post('http://localhost:80/signin/kakao', { authorizationCode }).then((res) => {
-                console.log(res.data);
-                setMessage('로그인 완료');
-                setIsOk(true);
-                socialHandler(res.data.data);
-                closeInModal();
-            });
+            await axios
+                .post(`${process.env.NEXT_PUBLIC_URL}/signin/kakao`, { authorizationCode })
+                .then((res) => {
+                    setMessage('로그인 완료');
+                    setIsOk(true);
+                    socialHandler(res.data.data);
+                    closeInModal();
+                })
+                .then((res) => {});
         };
 
         if (authorizationCode) {

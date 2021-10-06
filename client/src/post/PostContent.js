@@ -35,7 +35,9 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
                                             : '/postDefaultImage.jpg'
                                     }
                                 />
-                                <pre className="upload-post__post__text">{el.content}</pre>
+                                <pre className="upload-post__post__text">
+                                    <div className="upload-post__post__text__back">{el.content}</div>
+                                </pre>
                             </li>
                         );
                     })}

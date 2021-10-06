@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(253, 242, 217, 1);
+    background-color: rgba(253, 242, 217, 0.5);
 }
 
 .upload-post__post-area {
@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 70px;
 }
 
 .upload-post__post {
@@ -66,7 +67,12 @@
     word-break: break-all;
     overflow: auto;
 }
-
+.upload-post__post__text__back {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    height: auto;
+    width: auto;
+}
 .upload-post__post__text::-webkit-scrollbar {
     /* 스크롤바 전체 */
     background-color: rgba(244, 193, 65, 0.4);

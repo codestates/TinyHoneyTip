@@ -117,7 +117,6 @@ module.exports = {
 
     editmypage: async (req, res) => {
         const accessToken = req.cookies.accessToken;
-        console.log(accessToken);
         try {
             if (!accessToken) {
                 res.status(400).json({ message: 'Bad Request' });
@@ -125,18 +124,33 @@ module.exports = {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
+                    console.log(req.file.location, req.body.username, token);
                     const email = req.body.email;
                     const username = req.body.username;
 
-                    if (email)
+                    if (username && req.file.location) {
                         await User.update(
                             {
-                                email,
                                 username,
                                 profile_img: req.file.location,
                             },
                             { where: { email: token.email } },
                         );
+                    } else if (username && !req.file.location) {
+                        await User.update(
+                            {
+                                username,
+                            },
+                            { where: { email: token.email } },
+                        );
+                    } else if (!username && req.file.location) {
+                        await User.update(
+                            {
+                                profile_img: req.file.location,
+                            },
+                            { where: { email: token.email } },
+                        );
+                    }
 
                     const updateInfo = await User.findOne({
                         where: { id: token.id },

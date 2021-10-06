@@ -704,6 +704,10 @@ html {
         align-items: center;
     }
 
+    .landing__section__inner:first-child {
+        justify-content: flex-end;
+    }
+
     .landing__section__text,
     .landing__section__text__section5 {
         padding: 0 3vw;

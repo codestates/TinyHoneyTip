@@ -223,6 +223,7 @@
         display: block;
         background: rgba(244, 193, 65, 0.8);
         border-radius: 20px;
+        box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
 
         font-size: 12px;
         animation-duration: 3s;
@@ -257,9 +258,13 @@
         overflow: hidden;
     }
 
-    .my_post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
+    .my_img_container {
+        overflow: hidden;
     }
+
+    /* .my_post_item_inner:hover {
+        background-color: rgba(244, 193, 65, 1);
+    } */
 
     .post_desc_title {
         font-size: 12px;
@@ -532,8 +537,9 @@
         width: 250px;
         display: block;
         background: rgba(244, 193, 65, 0.8);
+        box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
+
         border-radius: 20px;
-        box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
@@ -853,7 +859,7 @@
         display: block;
         background: rgba(244, 193, 65, 0.8);
         border-radius: 20px;
-        box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
+        box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
@@ -888,11 +894,6 @@
         transition: all 0.15s;
         height: 250px;
         width: 250px;
-    }
-
-    .my_post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 20px;
     }
 
     .my_img_inner {

@@ -9,11 +9,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const [myPost, setMyPost] = useState([]);
     const [myScrap, setMyScrap] = useState([]);
     const [alert, setAlert] = useState([]);
+    const [noAlert, setNoAlert] = useState(true);
 
     const getData = async () => {
-        console.log(userInfo.accessToken);
-        console.log(apiUrl);
-
         const res = await axios
             .get(apiUrl, {
                 headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
@@ -21,16 +19,10 @@ export default function MyPage({ userInfo, setUserInfo }) {
             })
             .then((res) => {
                 console.log('마이페이지', res.data);
-                if (res.data.data.myPost) {
-                    setMyPost(res.data.data.myPost);
-                } else {
-                    setMyPost([]);
-                }
-                if (res.data.data.myScrap) {
-                    setMyScrap(res.data.data.myScrap);
-                } else {
-                    setMyScrap([]);
-                }
+                setMyPost(res.data.data.myPost);
+                setMyPost([]);
+                setMyScrap(res.data.data.myScrap);
+                setMyScrap([]);
 
                 let tmpAlert = alert.slice();
                 for (let el of myPost) {
@@ -41,8 +33,51 @@ export default function MyPage({ userInfo, setUserInfo }) {
                         scrap: el.scrap,
                     });
                 }
-
-                setAlert(tmpAlert);
+                return tmpAlert;
+            })
+            .then((tmpAlert) => {
+                let filteredAlert = { like: [], dislike: [], scrap: [] };
+                tmpAlert.map((el) => {
+                    if (el.like.length > 0) {
+                        el.like.map((li) => {
+                            filteredAlert.like.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                    if (el.dislike.length > 0) {
+                        el.dislike.map((li) => {
+                            filteredAlert.dislike.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                    if (el.scrap.length > 0) {
+                        el.scrap.map((li) => {
+                            filteredAlert.scrap.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                });
+                return filteredAlert;
+            })
+            .then((filteredAlert) => {
+                if (
+                    filteredAlert.like.length === 0 &&
+                    filteredAlert.dislike.length === 0 &&
+                    filteredAlert.scrap.length === 0
+                ) {
+                } else {
+                    setNoAlert(false);
+                }
+                setAlert(filteredAlert);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
 
@@ -136,252 +171,247 @@ export default function MyPage({ userInfo, setUserInfo }) {
             {/* {console.log('알러틑트', alert)} */}
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
-                    <div className="my_back_img"></div>
-                    <div className="my_side_bar">
-                        <div className="my_info">
-                            <div className="my_profile_img">
-                                <Image
-                                    alt="profile img"
-                                    src={userInfo.profile_img ? userInfo.profile_img : '/postDefaultImage.jpg'}
-                                    unoptimized={false}
-                                    width={500}
-                                    height={500}
-                                />
-                            </div>
-
-                            <button className="edit_my_profile_btn">
-                                <Image
-                                    onClick={editHandler}
-                                    src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
-                                    width={28}
-                                    height={28}
-                                    alt="edit button"
-                                />
-                            </button>
-                            <div className="my_userInfo_container">
-                                <h3 className="my_user_name">{userInfo.username} 벌님 🐝 안녕하세요</h3>
-                                {editBtn ? (
-                                    <>
-                                        <div className="my_user_infoBody edit_user_info">
-                                            <form>
-                                                <input
-                                                    type="file"
-                                                    id="profile_img_uploader"
-                                                    onChange={fileUpload}
-                                                    accept="image/png, image/jpeg"
-                                                />
-                                                <br />
-                                                <span className="my_edit_form">
-                                                    이메일 <br />
-                                                    {userInfo.email}
-                                                </span>
-                                                <br />
-                                                <br />
-                                                <label htmlFor="userName" className="my_edit_form">
-                                                    이름: <br />
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    id="userName"
-                                                    placeholder={userInfo.username}
-                                                    maxLength="8"
-                                                    minLength="1"
-                                                    onChange={(e) => inputHandler(e)}
-                                                    name="username"
-                                                />
-                                            </form>
-                                        </div>
-                                        <button className="deleteBtn">
-                                            <Image
-                                                onClick={deleteSure}
-                                                src="https://cdn.discordapp.com/attachments/881710985335934979/892220570425507870/userDeleteBtn.png"
-                                                width={28}
-                                                height={28}
-                                                alt="delete button"
-                                            />
-                                        </button>
-                                    </>
-                                ) : (
-                                    <div className="my_user_infoBody ">
-                                        <p id="email">
-                                            이메일 <span>{userInfo.email}</span>
-                                        </p>
-                                        <p id="username">
-                                            이름 <span>{userInfo.username}</span>
-                                        </p>
+                    <div className="sidebar_and_post">
+                        <div className="my_side_bar">
+                            <div className="my_info">
+                                <div className="my_pfimg_positioning">
+                                    <div className="my_profile_img">
+                                        <Image
+                                            alt="profile img"
+                                            src={userInfo.profile_img ? userInfo.profile_img : '/postDefaultImage.jpg'}
+                                            unoptimized={false}
+                                            width={500}
+                                            height={500}
+                                        />
                                     </div>
-                                )}
+                                </div>
+
+                                <div className="my_userInfo_container">
+                                    <h3 className="my_user_name">{userInfo.username} 벌님 🐝 안녕하세요</h3>
+                                    {editBtn ? (
+                                        <>
+                                            <div className="my_user_infoBody edit_user_info">
+                                                <form>
+                                                    <input
+                                                        type="file"
+                                                        id="profile_img_uploader"
+                                                        onChange={fileUpload}
+                                                        accept="image/png, image/jpeg"
+                                                    />
+                                                    <br />
+                                                    <span className="my_edit_form">
+                                                        이메일&nbsp;&nbsp;{userInfo.email}
+                                                    </span>
+                                                    <br />
+                                                    <br />
+                                                    <label htmlFor="userName" className="my_edit_form">
+                                                        이름&nbsp;&nbsp;
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="userName"
+                                                        placeholder={userInfo.username}
+                                                        maxLength="8"
+                                                        minLength="1"
+                                                        onChange={(e) => inputHandler(e)}
+                                                        name="username"
+                                                    />
+                                                </form>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className="my_user_infoBody ">
+                                            <p id="email">
+                                                이메일 <span>{userInfo.email}</span>
+                                            </p>
+                                            <p id="username">
+                                                이름 <span>{userInfo.username}</span>
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="user_btn">
+                                    <button className="edit_my_profile_btn">
+                                        <Image
+                                            onClick={editHandler}
+                                            src="https://cdn.discordapp.com/attachments/881710985335934979/892220588406476800/edit.png"
+                                            width={22}
+                                            height={22}
+                                            alt="edit button"
+                                        />
+                                    </button>
+                                    <button className="deleteBtn">
+                                        <Image
+                                            onClick={deleteSure}
+                                            src="https://cdn.discordapp.com/attachments/881710985335934979/892220570425507870/userDeleteBtn.png"
+                                            width={22}
+                                            height={22}
+                                            alt="delete button"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="my_alert">
+                                <h3 id="my_alert_title">my alert</h3>
+                                <ul className="alert_ul">
+                                    {alert.like
+                                        ? alert.like.map((el, idx) => {
+                                              return (
+                                                  <li className="alert_list" key={idx}>
+                                                      ✔️{el.title} 을 {el.username} 벌님이 💛를 눌렀습니다.
+                                                  </li>
+                                              );
+                                          })
+                                        : ''}
+                                    {alert.dislike
+                                        ? alert.dislike.map((el, idx) => {
+                                              return (
+                                                  <li className="alert_list" key={idx}>
+                                                      ✔️{el.title} 을 {el.username} 벌님이 💔를 눌렀습니다.
+                                                  </li>
+                                              );
+                                          })
+                                        : ''}
+                                    {alert.scrap
+                                        ? alert.scrap.map((el, idx) => {
+                                              return (
+                                                  <li className="alert_list" key={idx}>
+                                                      ✔️{el.title} 을 {el.username} 벌님이 🗂를 눌렀습니다.
+                                                  </li>
+                                              );
+                                          })
+                                        : ''}
+                                    {noAlert ? <li id="no_alert">✔️ 알림이 없습니다.</li> : ''}
+                                </ul>
                             </div>
                         </div>
-                        <div id="my_alert">
-                            <h3 id="my_alert_title">my alert</h3>
-                            <ul className="alert_list">
-                                {alert.length > 0 ? (
-                                    (alert.map((el) => {
-                                        if (el.like.length > 0) {
-                                            return el.like.map((li) => {
-                                                return (
-                                                    <li className="alert_list" key={el.user_id}>
-                                                        ✔️{el.title} 을 {li.User.username} 벌님이 💛를 눌렀습니다.
-                                                    </li>
-                                                );
-                                            });
-                                        } else null;
-                                    }),
-                                    alert.map((el) => {
-                                        if (el.dislike.length > 0) {
-                                            return el.dislike.map((dis) => {
-                                                return (
-                                                    <li className="alert_list" key={el.user_id}>
-                                                        ✔️{el.title} 을 {dis.User.username} 벌님이 💔를 눌렀습니다.
-                                                    </li>
-                                                );
-                                            });
-                                        } else null;
-                                    }),
-                                    alert.map((el) => {
-                                        if (el.scrap.length > 0) {
-                                            return el.scrap.map((li) => {
-                                                return (
-                                                    <li className="alert_list" key={el.user_id}>
-                                                        ✔️{el.title} 을 {li.User.username} 벌님이 🗂를 눌렀습니다.
-                                                    </li>
-                                                );
-                                            });
-                                        } else null;
-                                    }))
-                                ) : (
-                                    <h3 id="no_alert">✔️ 알림이 없습니다.</h3>
-                                )}
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="my_Allpost_wrapper">
-                        <div className="my_post_wrapper">
-                            <h3 className="my_post">✍️ My Posts</h3>
-                            <div className="my_post_container">
-                                {myPost.length > 0 ? (
-                                    myPost.map((el) => {
-                                        return (
-                                            <div className="my_post_item" key={el?.id}>
-                                                <div className="my_post_item_inner">
-                                                    <div className="my_best_item_header">
-                                                        <Link href={`/post/${el?.id}`}>
-                                                            <div className="my_header_image">
+                        <div className="my_Allpost_wrapper">
+                            <div className="my_post_wrapper">
+                                <h3 className="my_post">✍️ My Posts</h3>
+                                <div className="my_post_container">
+                                    {myPost.length > 0 ? (
+                                        myPost.map((el) => {
+                                            console.log(el);
+                                            return (
+                                                <Link href={`/post/${el?.id}`}>
+                                                    <div className="my_post_item" key={el?.id}>
+                                                        <div className="my_post_item_inner">
+                                                            {/* <div className="my_best_item_header"> */}
+
+                                                            <div className="my_img_container">
                                                                 <div className="my_img_inner">
                                                                     <Image
-                                                                        layout="fill"
                                                                         alt={el?.title}
                                                                         src={el?.posts[0]?.img}
                                                                         unoptimized="false"
+                                                                        width={250}
+                                                                        height={180}
                                                                     />
                                                                 </div>
                                                             </div>
-                                                        </Link>
-                                                        <div className="my_post_desc">
-                                                            <div className="post_desc_title">
-                                                                <Link href={`/post/${el?.id}`}>
+                                                            <div className="my_post_desc">
+                                                                <div className="post_desc_title">
                                                                     <div className="my_post_title_font">
                                                                         {el?.title}
                                                                     </div>
-                                                                </Link>
-                                                            </div>
-                                                            <div className="post_desc_text">
-                                                                <Link href={`/post/${el?.id}`}>
+                                                                </div>
+                                                                <div className="post_desc_text">
                                                                     <div className="post_text">
                                                                         <div>{el?.posts[0].content}</div>
                                                                     </div>
-                                                                </Link>
-                                                            </div>
-                                                            <div className="my_post_bot">
-                                                                <div className="my_post_category">{el?.category}</div>
-                                                                <div className="post_desc_user">
-                                                                    <div className="post_desc_userinfo">
+                                                                </div>
+                                                                <div className="my_post_bot">
+                                                                    <div className="my_post_category">
+                                                                        {el?.category}
+                                                                    </div>
+
+                                                                    <div className="my_post_desc_userinfo">
+                                                                        <div className="my_post_author post_like_num">
+                                                                            💛 &nbsp;{el?.like?.length}
+                                                                        </div>
                                                                         <div className="my_post_author post_dislike_num">
                                                                             💔 &nbsp;{el?.dislike?.length}
                                                                         </div>
-                                                                        <div className="my_post_author post_like_num">
-                                                                            💛 &nbsp;
-                                                                            {el?.like?.length}
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            {/* </div> */}
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                ) : (
-                                    <h3 className="empty">my post is empty</h3>
-                                )}
+                                                </Link>
+                                            );
+                                        })
+                                    ) : (
+                                        <h3 className="empty">my post is empty</h3>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                        <div className="my_scrap_wrapper">
-                            <h3 className="my_scrap">📒 My Scrapped Posts</h3>
-                            <div className="my_scrap_container">
-                                {myScrap.length > 0 ? (
-                                    myScrap.map((el) => {
-                                        return (
-                                            <div className="my_post_item" key={el?.id}>
-                                                <div className="my_post_item_inner">
-                                                    <div className="my_best_item_header">
-                                                        <Link href={`/post/${el?.id}`}>
-                                                            <div className="my_header_image">
-                                                                <div className="my_img_inner">
-                                                                    <Image
-                                                                        layout="fill"
-                                                                        alt={el?.title}
-                                                                        src={el.post_container.posts[0]?.img}
-                                                                        unoptimized="false"
-                                                                    />
+                            <div className="my_scrap_wrapper">
+                                <h3 className="my_scrap">📒 My Scrapped Posts</h3>
+                                <div className="my_scrap_container">
+                                    {myScrap.length > 0 ? (
+                                        myScrap.map((el) => {
+                                            return (
+                                                <Link href={`/post/${el?.post_id}`}>
+                                                    <div className="my_post_item" key={el?.post_id}>
+                                                        <div className="my_post_item_inner">
+                                                            <div className="my_best_item_header">
+                                                                <div className="my_img_container">
+                                                                    <div className="my_img_inner">
+                                                                        <Image
+                                                                            alt={el?.title}
+                                                                            src={el.post_container.posts[0]?.img}
+                                                                            unoptimized="false"
+                                                                            width={250}
+                                                                            height={180}
+                                                                        />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </Link>
-                                                        <div className="my_post_desc">
-                                                            <div className="post_desc_title">
-                                                                <Link href={`/post/${el?.id}`}>
-                                                                    <div className="my_post_title_font">
-                                                                        {el?.title}
-                                                                    </div>
-                                                                </Link>
-                                                            </div>
-                                                            <div className="post_desc_text">
-                                                                <Link href={`/post/${el?.id}`}>
-                                                                    <div className="post_text">
-                                                                        <div>
-                                                                            {el?.post_container.posts[0]?.content}
+
+                                                                <div className="my_post_desc">
+                                                                    <div className="post_desc_title">
+                                                                        <div className="my_post_title_font">
+                                                                            {el?.post_container?.title}
                                                                         </div>
                                                                     </div>
-                                                                </Link>
-                                                            </div>
-                                                            <div className="my_post_bot">
-                                                                <a className="my_post_category">{el?.category}</a>
-                                                                <div className="post_desc_user">
-                                                                    <div className="post_desc_userinfo">
-                                                                        <div className="my_post_author post_dislike_num">
-                                                                            💔 &nbsp;
-                                                                            {el?.dislike?.length
-                                                                                ? el?.dislike?.length
-                                                                                : 0}
+                                                                    <div className="post_desc_text">
+                                                                        <div className="post_text">
+                                                                            <p>
+                                                                                {el?.post_container.posts[0]?.content}
+                                                                            </p>
                                                                         </div>
-                                                                        <div className="my_post_author">
-                                                                            💛 &nbsp;
-                                                                            {el?.like?.length ? el?.like?.length : 0}
+                                                                    </div>
+                                                                    <div className="my_post_bot">
+                                                                        <div className="my_post_category">
+                                                                            {el?.post_container?.category}
+                                                                        </div>
+
+                                                                        <div className="my_post_desc_userinfo">
+                                                                            <div className="my_post_author post_like_num">
+                                                                                💛
+                                                                                {el?.like?.length
+                                                                                    ? el?.like?.length
+                                                                                    : 0}
+                                                                            </div>
+                                                                            <div className="my_post_author post_dislike_num">
+                                                                                💔
+                                                                                {el?.dislike?.length
+                                                                                    ? el?.dislike?.length
+                                                                                    : 0}
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                ) : (
-                                    <h3 className="empty">my scrap is empty</h3>
-                                )}
+                                                </Link>
+                                            );
+                                        })
+                                    ) : (
+                                        <h3 className="empty">my scrap is empty</h3>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>

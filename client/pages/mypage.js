@@ -1,10 +1,90 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }) {
+export default function MyPage({ userInfo, setUserInfo }) {
+    const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
+    const [myPost, setMyPost] = useState([]);
+    const [myScrap, setMyScrap] = useState([]);
+    const [alert, setAlert] = useState([]);
+    const [noAlert, setNoAlert] = useState(true);
+
+    const getData = async () => {
+        const res = await axios
+            .get(apiUrl, {
+                headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
+                withCredentials: true,
+            })
+            .then((res) => {
+                setMyPost(res.data.data.myPost);
+                setMyScrap(res.data.data.myScrap);
+                return res.data.data.myPost;
+            })
+            .then((post) => {
+                let tmpAlert = [];
+                for (let el of post) {
+                    tmpAlert.push({
+                        title: el.title,
+                        like: el.like,
+                        dislike: el.dislike,
+                        scrap: el.scrap,
+                    });
+                }
+                return tmpAlert;
+            })
+            .then((tmpAlert) => {
+                let filteredAlert = { like: [], dislike: [], scrap: [] };
+                tmpAlert.map((el) => {
+                    if (el.like.length > 0) {
+                        el.like.map((li) => {
+                            filteredAlert.like.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                    if (el.dislike.length > 0) {
+                        el.dislike.map((li) => {
+                            filteredAlert.dislike.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                    if (el.scrap.length > 0) {
+                        el.scrap.map((li) => {
+                            filteredAlert.scrap.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                });
+                return filteredAlert;
+            })
+            .then((filteredAlert) => {
+                if (
+                    filteredAlert.like.length === 0 &&
+                    filteredAlert.dislike.length === 0 &&
+                    filteredAlert.scrap.length === 0
+                ) {
+                } else {
+                    setNoAlert(false);
+                }
+                setAlert(filteredAlert);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        if (!!userInfo.accessToken) {
+            getData();
+        }
+    }, [userInfo]);
     const [editBtn, setEditBtn] = useState(false);
     const [img, setImg] = useState(userInfo.profile_img);
 
@@ -87,7 +167,6 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
 
     return (
         <>
-            {console.log('알러틑트', alert)}
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
                     <div className="sidebar_and_post">
@@ -213,25 +292,75 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
                                 </ul>
                             </div>
                         </div>
-                        <div className="my_Allpost_wrapper">
-                            <div className="my_post_wrapper">
-                                <h3 className="my_post">✍️ My Posts</h3>
-                                <div className="my_post_container">
-                                    {myPost.length > 0 ? (
-                                        myPost.map((el) => {
-                                            return (
-                                                <div className="my_post_item" key={el?.id}>
-                                                    <div className="my_post_item_inner">
-                                                        <div className="my_best_item_header">
-                                                            <Link href={`/post/${el?.id}`}>
-                                                                <div className="my_header_image">
-                                                                    <div className="my_img_inner">
-                                                                        <Image
-                                                                            layout="fill"
-                                                                            alt={el?.title}
-                                                                            src={el?.posts[0]?.img}
-                                                                            unoptimized="false"
-                                                                        />
+                        <div id="my_alert">
+                            <h3 id="my_alert_title">my alert</h3>
+                            <ul className="alert_list">
+                                {alert.like
+                                    ? alert.like.map((el, idx) => {
+                                          return (
+                                              <li className="alert_list" key={idx}>
+                                                  ✔️{el.title} 을 {el.username} 벌님이 💛를 눌렀습니다.
+                                              </li>
+                                          );
+                                      })
+                                    : ''}
+                                {alert.dislike
+                                    ? alert.dislike.map((el, idx) => {
+                                          return (
+                                              <li className="alert_list" key={idx}>
+                                                  ✔️{el.title} 을 {el.username} 벌님이 💔를 눌렀습니다.
+                                              </li>
+                                          );
+                                      })
+                                    : ''}
+                                {alert.scrap
+                                    ? alert.scrap.map((el, idx) => {
+                                          return (
+                                              <li className="alert_list" key={idx}>
+                                                  ✔️{el.title} 을 {el.username} 벌님이 🗂를 눌렀습니다.
+                                              </li>
+                                          );
+                                      })
+                                    : ''}
+                                {noAlert ? <li id="no_alert">✔️ 알림이 없습니다.</li> : ''}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="my_Allpost_wrapper">
+                        <div className="my_post_wrapper">
+                            <h3 className="my_post">✍️ My Posts</h3>
+                            <div className="my_post_container">
+                                {myPost.length > 0 ? (
+                                    myPost.map((el) => {
+                                        console.log(el);
+                                        return (
+                                            <div className="my_post_item" key={el?.id}>
+                                                <div className="my_post_item_inner">
+                                                    <div className="my_best_item_header">
+                                                        <Link href={`/post/${el?.id}`}>
+                                                            <div className="my_header_image">
+                                                                <div className="my_img_inner">
+                                                                    <Image
+                                                                        layout="fill"
+                                                                        alt={el?.title}
+                                                                        src={el?.posts[0]?.img}
+                                                                        unoptimized="false"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                        <div className="my_post_desc">
+                                                            <div className="post_desc_title">
+                                                                <Link href={`/post/${el?.id}`}>
+                                                                    <div className="my_post_title_font">
+                                                                        {el?.title}
+                                                                    </div>
+                                                                </Link>
+                                                            </div>
+                                                            <div className="post_desc_text">
+                                                                <Link href={`/post/${el?.id}`}>
+                                                                    <div className="post_text">
+                                                                        <div>{el?.posts[0].content}</div>
                                                                     </div>
                                                                 </div>
                                                             </Link>
@@ -364,31 +493,31 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
     );
 }
 
-export async function getServerSideProps(context) {
-    const token = context.req.headers.cookie;
-    const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
-    const res = await axios.get(apiUrl, {
-        headers: { cookie: token, 'Content-Type': 'application/json' },
-    });
+// export async function getServerSideProps(context) {
+//     const token = context.req.headers.cookie;
+//     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
+//     const res = await axios.get(apiUrl, {
+//         headers: { cookie: token, 'Content-Type': 'application/json' },
+//     });
 
-    const post = res.data.data.myPost;
-    const scrap = res.data.data.myScrap;
-    const alert = [];
+//     const post = res.data.data.myPost;
+//     const scrap = res.data.data.myScrap;
+//     const alert = [];
 
-    for (let el of post) {
-        alert.push({
-            title: el.title,
-            like: el.like,
-            dislike: el.dislike,
-            scrap: el.scrap,
-        });
-    }
+//     for (let el of post) {
+//         alert.push({
+//             title: el.title,
+//             like: el.like,
+//             dislike: el.dislike,
+//             scrap: el.scrap,
+//         });
+//     }
 
-    return {
-        props: {
-            myPost: post,
-            myScrap: scrap,
-            alert: alert,
-        },
-    };
-}
+//     return {
+//         props: {
+//             myPost: post,
+//             myScrap: scrap,
+//             alert: alert,
+//         },
+//     };
+// }

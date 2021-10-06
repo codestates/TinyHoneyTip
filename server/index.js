@@ -1,5 +1,7 @@
 require('dotenv').config();
 const request = require('request');
+const jwt = require('jsonwebtoken');
+const { User } = require('./models');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const express = require('express');
@@ -51,8 +53,45 @@ app.post('/signin/kakao', async (req, res) => {
                 },
                 async (err, response, body) => {
                     if (!err) {
-                        // console.log(response);
-                        res.status(200).json({ message: 'ok', data: JSON.parse(response.body) });
+                        const obj = JSON.parse(response.body);
+                        console.log(response.body);
+                        const finduser = await User.findOne({
+                            where: {
+                                email: obj.id,
+                            },
+                        });
+                        if (finduser) {
+                            const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
+
+                            res.cookie('accessToken', accessToken, {
+                                sameSite: 'none',
+                                secure: true,
+                                httpOnly: true,
+                            });
+                            res.status(200).json({
+                                message: 'login complete',
+                                data: { accessToken: accessToken, userInfo: finduser },
+                            });
+                        } else {
+                            await User.create({
+                                email: obj.id,
+                                password: obj.id,
+                                username: obj.properties.nickname,
+                                profile_img: obj.properties.thumbnail_image,
+                            });
+                            const finduser = await User.findOne({ where: { email: obj.id } });
+                            const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
+
+                            res.cookie('accessToken', accessToken, {
+                                sameSite: 'none',
+                                secure: true,
+                                httpOnly: true,
+                            });
+                            res.status(200).json({
+                                message: 'login complete',
+                                data: { accessToken: accessToken, userInfo: finduser },
+                            });
+                        }
                     }
                 },
             );

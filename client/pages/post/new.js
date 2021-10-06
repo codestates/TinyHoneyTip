@@ -8,17 +8,10 @@ import ToolBar from '../../src/post/ToolBar';
 import ImageEditModal from '../../src/post/ImageEditModal';
 
 export default function PostUpload({ userInfo }) {
-    // useEffect(() => {
-    //     if (!JSON.parse(sessionStorage.getItem('userInfo'))?.isLogin) {
-    //         Router.push('/content');
-    //     }
-    // });
     const [croppedImage, setCroppedImage] = useState(undefined);
     const [slide, setSlide] = useState([{ img: '', imgFile: '/postDefaultImage.jpg', content: '' }]);
 
     const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
-
-    // const [currentEditingImg, setCurrentEditingImg] = useState('');
 
     const [postInfo, setPostInfo] = useState({
         title: '',
@@ -120,7 +113,6 @@ export default function PostUpload({ userInfo }) {
         });
 
         for (let key of formData.entries()) {
-            console.log(`${key}`);
         }
 
         axios
@@ -134,9 +126,7 @@ export default function PostUpload({ userInfo }) {
             .then((res) => {
                 Router.push('/post/' + res.data.post_id);
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((error) => {});
     };
 
     return (

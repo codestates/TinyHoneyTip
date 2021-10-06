@@ -95,6 +95,35 @@ html {
     align-items: center;
     width: 100vw;
     height: 100vh;
+    background-color: rgba(253, 242, 217, 0.3);
+}
+
+.landing__section:first-child,
+.landing__section:nth-child(6) {
+    padding-top: 60px;
+    background: url('../public/landingBackgroundLight.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: left top;
+}
+
+.landing__section:nth-child(3):before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transform: rotate(-180deg);
+    background: url('../public/landingBackgroundLight.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: left top;
 }
 
 .scroll-down {
@@ -306,10 +335,6 @@ html {
 
     /* landing page */
 
-    .landing__section:first-child {
-        height: calc(100vh - 60px);
-    }
-
     .scroll-down {
         opacity: 0.7;
         height: 50px;
@@ -350,20 +375,28 @@ html {
 
     .landing__start-btn {
         border: none;
-        font-size: 18px;
+        font-size: 17px;
         width: 60vw;
         max-width: 200px;
-        padding: 13px 3px;
+        padding: 12px 3px;
         border-radius: 8px;
         background-color: rgba(244, 193, 65, 0.8);
+        transition: all ease-in-out 0.3s;
+        cursor: pointer;
+    }
+
+    .landing__start-btn:hover {
+        background-color: rgba(244, 193, 65, 1);
+        padding: 11px 3px;
+        font-size: 18px;
     }
 
     .landing__section__pic-div {
         width: 50vw;
-        min-width: 220px;
+        min-width: 200px;
         max-width: 320px;
         height: 50vw;
-        min-height: 220px;
+        min-height: 200px;
         max-height: 320px;
     }
 
@@ -514,10 +547,6 @@ html {
 
     /* landing page */
 
-    .landing__section:first-child {
-        height: calc(100vh - 70px);
-    }
-
     .scroll-down {
         opacity: 0.7;
         height: 70px;
@@ -564,6 +593,14 @@ html {
         padding: 13px 3px;
         border-radius: 8px;
         background-color: rgba(244, 193, 65, 0.8);
+        cursor: pointer;
+        transition: all ease-in-out 0.3s;
+    }
+
+    .landing__start-btn:hover {
+        background-color: rgba(244, 193, 65, 1);
+        padding: 12px 3px;
+        font-size: 26px;
     }
 
     .landing__section__pic-div {
@@ -690,6 +727,12 @@ html {
         padding: 13px 3px;
         border-radius: 8px;
         background-color: rgba(244, 193, 65, 0.8);
+    }
+
+    .landing__start-btn:hover {
+        background-color: rgba(244, 193, 65, 1);
+        padding: 12px 3px;
+        font-size: 29px;
     }
 
     .landing__section__pic-div {

@@ -2,10 +2,21 @@
 @media screen and (min-width: 1024px) {
     .my_wrapper {
         position: relative;
-        padding: 8vw 0 5vw 0;
+        /* padding: 4vw auto 9vw; */
         color: #666;
-        background-color: rgba(253, 242, 217, 1);
+        /* background-color: rgba(253, 242, 217, 0.3); */
         list-style: none;
+        -ms-overflow-style: none;
+        height: 800px;
+    }
+
+    .my_back_img {
+        /* background-color: rgba(244, 193, 65, 0.6); */
+        width: 100vw;
+        height: 200px;
+        padding-top: 4vw;
+        margin-bottom: 500px;
+        background: url('../public/tht_mypage_bg.png');
     }
 
     #no_data {
@@ -16,53 +27,53 @@
     /* ------------------ side bar / user information 시작 ------------------------------------ */
 
     .my_side_bar {
-        margin: 0 5vw 0 5vw;
-        padding: 2vw;
-        width: 25vw;
-        height: 56vw;
-        border: 10px solid rgba(244, 193, 65, 0.8);
-        border-radius: 1.5vw;
-        position: relative;
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        margin: 0 4vw;
+        padding: 1vw;
+        width: 20vw;
+        height: 35vw;
+        /* border: 10px solid rgba(244, 193, 65, 0.8); 
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);*/
+        background-color: rgba(244, 193, 65, 0.3);
+        border-radius: 1vw;
+        position: absolute;
+        top: 8vw;
+        left: 8vw;
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(255, 255, 253, 0.3);
+        overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
-        position: absolute;
-        margin: auto;
-        width: 20vw;
-        padding-bottom: 3vw;
+        position: relative;
     }
 
     .my_user_name {
-        margin: 2vw auto;
+        margin: 12px auto;
         text-align: center;
+        font-weight: 400;
+        font-size: 14px;
     }
 
     .my_profile_img {
-        width: 15vw;
-        height: 15vw;
+        width: 200px;
+        height: 200px;
         margin: auto;
         border-radius: 7%;
         overflow: hidden;
-        min-width: 15vw;
-        min-height: 15vw;
-        max-height: 15vw;
     }
 
-    .edit_my_profile {
-        background-color: rgba(253, 242, 217, 1);
+    .edit_my_profile_btn {
+        background-color: transparent;
         border: none;
         position: absolute;
         right: 0vw;
-        bottom: 4.5vw;
     }
 
     .deleteBtn {
         position: absolute;
-        bottom: 1.7vw;
+        top: 250px;
         right: 0;
-        background-color: rgba(253, 242, 217, 1);
+        background-color: transparent;
         border: none;
     }
 
@@ -76,11 +87,16 @@
 
     #profile_img_uploader {
         background-color: #fff;
-        border: 1px solid #ccc;
+        border: none;
         font-size: 12px;
-        width: 100%;
-        height: 24px;
+        width: 150px;
+        height: 22px;
         margin-bottom: 5px;
+    }
+
+    #email,
+    #username {
+        font-size: 12px;
     }
 
     #email {
@@ -89,53 +105,74 @@
 
     p {
         color: #999;
+        margin-bottom: 1.5vw;
     }
 
     p span {
         font-weight: 600;
-        font-size: 14px;
         color: #666;
+    }
+
+    .my_edit_form {
+        font-size: 14px;
+    }
+
+    .my_user_infoBody {
     }
 
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 20vw;
-        height: 22vw;
+        width: 19vw;
+        height: 20vw;
         margin: auto;
-        position: absolute;
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
         overflow: scroll;
     }
 
+    #my_alert::-webkit-scrollbar-thumb {
+        width: 3px;
+        background: #f4c141;
+    }
+
+    #my_alert::-webkit-scrollbar-track {
+        width: 3px;
+        background: #f7e4b4;
+    }
+
     #my_alert_title {
-        font-size: 20px;
+        font-size: 14px;
+        font-weight: 500;
         height: 3vw;
         text-align: center;
         line-height: 3vw;
     }
 
     .alert_list {
-        font-size: 14px;
+        font-size: 12px;
         color: #666;
         width: 100%;
-        border-bottom: 1px solid #ccc;
         height: 22px;
         line-height: 22px;
+    }
+
+    #no_alert {
+        font-size: 12px;
     }
 
     /* ------------------- mypost / myscrap 시작 --------------------------- */
 
     .my_Allpost_wrapper {
         border: 10px solid rgba(244, 193, 65, 0.8);
-        width: 63vw;
-        height: 56vw;
+        background: rgba(255, 255, 253, 0.9);
+        width: 58vw;
+        height: 660px;
         position: absolute;
         top: 8vw;
-        right: 5vw;
-        overflow: scroll;
-        padding: 2vw;
+        right: 10vw;
+        /* overflow: scroll; */
+        padding: 1vw;
         border-radius: 1.5vw;
         box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
     }
@@ -143,19 +180,15 @@
     .my_post_container,
     .my_scrap_container {
         width: 100%;
-        height: 27.5vw;
-        margin: 1vw auto 4vw;
+        height: 280px;
         overflow-x: scroll;
         display: flex;
         flex-direction: row;
+        overflow-y: hidden;
     }
 
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
-    }
-
-    .my_scrap_container {
-        margin-bottom: 0;
     }
 
     .empty {
@@ -171,22 +204,25 @@
     .my_post,
     .my_scrap {
         color: #666;
-        font-size: 2vw;
+        font-size: 18px;
         font-weight: 500;
         text-align: center;
+        padding: 5px 0;
     }
 
     .my_post_item {
-        margin: 2vw;
+        margin: 1vw;
+        height: 250px;
+        width: 200px;
         display: block;
-        height: 24vw;
-        width: 24vw;
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
         box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
-        font-size: 14px;
+        font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
+        overflow: hidden;
+        cursor: pointer;
     }
 
     @keyframes post_item {
@@ -207,235 +243,146 @@
 
     .my_post_item:hover {
         box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
-        background-color: transparent;
         border-radius: 20px;
         transform: translate(-0.5vw, -0.5vw);
     }
 
     .my_post_item_inner {
         transition: all 0.15s;
-        height: 24vw;
-        width: 24vw;
-        position: relative;
+        height: 210px;
+        width: 210px;
     }
+
     .my_post_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
         border-radius: 20px;
+    }
+
+    .my_img_inner,
+    .my_header_image,
+    .my_best_item_header {
+        position: relative;
+        width: 210px;
+        height: 180px;
+        font-size: 10px;
+    }
+
+    .my_post_category {
+        position: absolute;
+        left: 5px;
+        bottom: -60px;
+    }
+
+    .my_post_desc {
+        width: 210px;
+        padding: 5px;
+    }
+
+    .my_post_author {
+        position: absolute;
+        left: -40px;
+        bottom: -22px;
+    }
+
+    .post_dislike_num {
+        left: -20px;
+    }
+
+    .my_post_title_font {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
     }
 }
 
 @media screen and (max-width: 1023px) {
     .my_wrapper {
         position: relative;
-        padding: 8vw 0 5vw 0;
+        padding: 4vw auto 7vw;
         color: #666;
-        background-color: rgba(253, 242, 217, 1);
+        /* background-color: rgba(253, 242, 217, 0.3); */
         list-style: none;
-        font-size: 12px;
-    }
-    /* ------------------ side bar / user information 시작 ------------------------------------ */
-    .my_side_bar {
-        margin: 0 5vw 0 5vw;
-        padding: 2vw;
-        width: 25vw;
-        height: 50vw;
-        border: 10px solid rgba(244, 193, 65, 0.8);
-        border-radius: 1.5vw;
-        position: relative;
+        -ms-overflow-style: none;
+        background: url('../public/tht_mypage_bg.png');
     }
 
-    .my_info {
-        border-bottom: 5px dotted #f4c141;
-        position: absolute;
-        margin: auto;
-        width: 20vw;
-        padding-bottom: 3vw;
-    }
+    .my_back_img {
+        width: 100vw;
+        height: 1000px;
 
-    .my_user_name {
-        margin: 2vw auto;
-        text-align: center;
-    }
-
-    .my_profile_img {
-        width: 14vw;
-        height: 14vw;
-        margin: auto;
-        border-radius: 7%;
-        background-color: #f4c141;
+        /* background: url('../public/tht_mypage_bg.png'); */
         overflow: hidden;
     }
 
-    .edit_my_profile {
-        background-color: rgba(253, 242, 217, 1);
-        border: none;
-        position: absolute;
-        right: 0vw;
-        bottom: 3.5vw;
+    #no_data {
+        font-size: 30px;
+        font-size: #333;
     }
 
-    .deleteBtn {
-        position: absolute;
-        right: 0;
-        background-color: rgba(253, 242, 217, 1);
-        border: none;
-    }
-
-    .edit_my_profile:hover {
-        cursor: pointer;
-    }
-
-    .deleteBtn:hover {
-        cursor: pointer;
-    }
-
-    #email {
-        margin-bottom: 10px;
-    }
-
-    p {
-        color: #999;
-    }
-
-    p span {
-        font-weight: 700;
-        font-size: 14px;
-        color: #666;
-    }
-
-    /* -------------------- alert 시작 ---------------------- */
-
-    #my_alert {
-        width: 20vw;
-        height: 20vw;
-        margin: auto;
-        background-color: #fff;
-        position: absolute;
-        bottom: 2vw;
-    }
-
-    .alert_scrap_list,
-    .alert_like_list {
-        overflow: scroll;
-    }
-
-    /* ------------------- mypost / myscrap 시작 --------------------------- */
-
-    .my_Allpost_wrapper {
-        background-color: rgba(244, 193, 65, 0.8);
-        width: 63vw;
-        height: 50vw;
-        position: absolute;
-        top: 8vw;
-        right: 5vw;
-        overflow: scroll;
-        padding: 2vw;
-        border-radius: 1.5vw;
-    }
-
-    .my_post_container,
-    .my_scrap_container {
-        width: 54vw;
-        background-color: rgba(253, 242, 217, 1);
-        border-radius: 1.5vw;
-        margin: 2vw auto;
-        padding: 2vw;
-        overflow-x: scroll;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .my_post,
-    .my_scrap {
-        color: #000;
-        font-size: 2vw;
-        text-align: center;
-    }
-
-    .my_post_item {
-        margin: 2vw;
-        display: block;
-        height: 26vw;
-        width: 26vw;
-        background: rgba(244, 193, 65, 0.8);
-        border-radius: 1vw;
-    }
-
-    .my_post_item:hover {
-        background-color: transparent;
-        border: 0.2vw dashed black;
-    }
-
-    .my_post_item_inner {
-        transition: all 0.15s;
-        height: 26vw;
-        width: 26vw;
-        position: relative;
-    }
-    .my_post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        transform: translate(-0.5vw, -0.5vw);
-        border-radius: 1vw;
-    }
-}
-
-/* mobile */
-@media screen and (max-width: 425px) {
-    .my_wrapper {
-        position: relative;
-        padding: 8vw 0 100vw 0;
-        color: #666;
-        background-color: rgba(253, 242, 217, 1);
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        font-size: 12px;
-    }
     /* ------------------ side bar / user information 시작 ------------------------------------ */
+
     .my_side_bar {
         margin: auto;
-        padding: 2vw;
-        width: 100%;
-        height: 60vw;
+        padding: 1vw;
+        width: 70vw;
+        height: 40vw;
         border: 10px solid rgba(244, 193, 65, 0.8);
-        border-radius: 1.5vw;
-        position: relative;
-        display: flex;
-        flex-direction: row;
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 1vw;
+        position: absolute;
+        left: 15vw;
+        top: 9vw;
+        overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
-        margin: auto;
-        width: 20vw;
-        padding-bottom: 3vw;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        height: 65%;
     }
 
     .my_user_name {
-        margin: 2vw auto;
-        text-align: left;
+        margin: 12px auto;
+        text-align: center;
+        font-weight: 400;
+        font-size: 14px;
     }
 
     .my_profile_img {
-        width: 20vw;
-        height: 20vw;
+        width: 15vw;
+        height: 15vw;
         margin: auto;
         border-radius: 7%;
-        background-color: #f4c141;
+        overflow: hidden;
+        min-width: 15vw;
+        min-height: 15vw;
+        max-height: 15vw;
+        position: absolute;
+        left: 65px;
+        top: 3.5vw;
     }
 
-    .edit_my_profile {
-        background-color: rgba(253, 242, 217, 1);
+    .my_userInfo_container {
+        position: absolute;
+        left: 50%;
+        top: 10px;
+    }
+
+    .edit_my_profile_btn {
+        background-color: transparent;
         border: none;
         position: absolute;
         right: 0vw;
-        bottom: 3.5vw;
     }
 
     .deleteBtn {
         position: absolute;
-        right: 0;
-        background-color: rgba(253, 242, 217, 1);
+        top: 20px;
+        right: -95px;
+        background-color: transparent;
         border: none;
     }
 
@@ -445,6 +392,20 @@
 
     .deleteBtn:hover {
         cursor: pointer;
+    }
+
+    #profile_img_uploader {
+        background-color: #fff;
+        border: none;
+        font-size: 12px;
+        width: 150px;
+        height: 22px;
+        margin-bottom: 5px;
+    }
+
+    #email,
+    #username {
+        font-size: 12px;
     }
 
     #email {
@@ -453,86 +414,513 @@
 
     p {
         color: #999;
+        margin-bottom: 1.5vw;
     }
 
     p span {
-        font-weight: 700;
-        font-size: 14px;
+        font-weight: 600;
         color: #666;
+    }
+
+    .my_edit_form {
+        font-size: 14px;
+    }
+
+    .my_user_infoBody {
+        font-size: 12px;
     }
 
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 20vw;
+        width: 45vw;
         height: 20vw;
         margin: auto;
-        background-color: #fff;
-        position: absolute;
-        bottom: 2vw;
+        text-align: center;
+        bottom: 1.5vw;
+        border-radius: 0 0 1.5vw 1.5vw;
+        overflow: scroll;
     }
 
-    .alert_scrap_list,
-    .alert_like_list {
-        overflow: scroll;
+    #my_alert::-webkit-scrollbar-thumb {
+        width: 3px;
+        background: #f4c141;
+    }
+
+    #my_alert::-webkit-scrollbar-track {
+        width: 3px;
+        background: #f7e4b4;
+    }
+
+    #my_alert_title {
+        font-size: 14px;
+        font-weight: 500;
+        height: 3vw;
+        text-align: center;
+        line-height: 3vw;
+    }
+
+    .alert_list {
+        font-size: 12px;
+        color: #666;
+        width: 100%;
+        height: 22px;
+        line-height: 22px;
+    }
+
+    #no_alert {
+        font-size: 12px;
     }
 
     /* ------------------- mypost / myscrap 시작 --------------------------- */
 
     .my_Allpost_wrapper {
-        background-color: rgba(244, 193, 65, 0.8);
-        width: 100%;
-        height: 90vw;
-        position: absolute;
-        right: 0;
-        top: 75vw;
-        overflow: scroll;
+        border: 10px solid rgba(244, 193, 65, 0.8);
+        background: rgba(255, 255, 253, 0.9);
+        width: 70vw;
+        height: 660px;
+        margin: auto;
+        /* overflow: scroll; */
         padding: 2vw;
         border-radius: 1.5vw;
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        position: absolute;
+        left: 15vw;
+        top: 51vw;
     }
 
     .my_post_container,
     .my_scrap_container {
-        width: 96%;
-        background-color: rgba(253, 242, 217, 1);
-        border-radius: 1.5vw;
-        margin: 2vw auto;
-        padding: 2vw;
+        width: 100%;
+        height: 300px;
         overflow-x: scroll;
+        overflow-y: hidden;
         display: flex;
         flex-direction: row;
     }
 
+    .my_post_container {
+        border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
+    }
+
+    .empty {
+        text-align: center;
+        font-size: 1.5vw;
+        width: 15vw;
+        height: 3vw;
+        line-height: 3vw;
+        background-color: #f4c141;
+        margin: auto;
+    }
+
     .my_post,
     .my_scrap {
-        color: #000;
-        font-size: 16px;
+        color: #666;
+        font-size: 18px;
+        font-weight: 500;
         text-align: center;
+        padding: 5px 0;
     }
 
     .my_post_item {
-        margin: 2vw;
+        margin: 1.3vw;
+        height: 250px;
+        width: 200px;
         display: block;
-        height: 26vw;
-        width: 26vw;
         background: rgba(244, 193, 65, 0.8);
         border-radius: 1vw;
+        box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
+        font-size: 12px;
+        animation-duration: 3s;
+        animation-name: post_item;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    @keyframes post_item {
+        from {
+            margin-left: 100%;
+            /* width: 300%; */
+        }
+
+        to {
+            margin-left: 0%;
+            /* width: 100%; */
+        }
+    }
+
+    .my_post_item:first-child {
+        margin-left: 1vw;
     }
 
     .my_post_item:hover {
-        background-color: transparent;
-        border: 0.2vw dashed black;
+        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
+        border-radius: 20px;
+        transform: translate(-0.5vw, -0.5vw);
     }
 
     .my_post_item_inner {
         transition: all 0.15s;
-        height: 26vw;
-        width: 26vw;
-        position: relative;
+        height: 210px;
+        width: 210px;
     }
+
     .my_post_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
-        transform: translate(-0.5vw, -0.5vw);
+        border-radius: 20px;
+    }
+
+    .my_img_inner,
+    .my_header_image,
+    .my_best_item_header {
+        position: relative;
+        width: 210px;
+        height: 180px;
+        font-size: 10px;
+    }
+
+    .my_post_category {
+        position: absolute;
+        left: 5px;
+        bottom: -60px;
+    }
+
+    .my_post_desc {
+        width: 210px;
+        padding: 5px;
+    }
+
+    .my_post_author {
+        position: absolute;
+        left: -40px;
+        bottom: -22px;
+    }
+
+    .post_dislike_num {
+        left: -20px;
+    }
+
+    .my_post_title_font {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+    }
+}
+
+/* mobile */
+@media screen and (max-width: 425px) {
+    .my_wrapper {
+        position: relative;
+        padding: 4vw auto 7vw;
+        color: #666;
+        /* background-color: rgba(253, 242, 217, 0.3); */
+        list-style: none;
+        -ms-overflow-style: none;
+        background: url('../public/tht_mypage_bg.png');
+    }
+
+    #no_data {
+        font-size: 30px;
+        font-size: #333;
+    }
+
+    /* ------------------ side bar / user information 시작 ------------------------------------ */
+
+    .my_side_bar {
+        margin: auto;
+        padding: 1vw;
+        width: 70vw;
+        height: 60vw;
+        border: 10px solid rgba(244, 193, 65, 0.8);
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        background-color: rgba(255, 255, 255, 0.8);
         border-radius: 1vw;
+        position: absolute;
+        left: 15vw;
+        top: 18vw;
+        overflow: hidden;
+    }
+
+    .my_info {
+        border-bottom: 5px dotted #f4c141;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        height: 65%;
+    }
+
+    .my_user_name {
+        margin: 10px auto;
+        text-align: center;
+        font-weight: 500;
+        font-size: 12px;
+    }
+
+    .my_profile_img {
+        width: 20vw;
+        height: 20vw;
+        margin: auto;
+        border-radius: 7%;
+        overflow: hidden;
+        min-width: 15vw;
+        min-height: 15vw;
+        max-height: 15vw;
+        position: absolute;
+        left: 4vw;
+        top: 8vw;
+    }
+
+    .my_userInfo_container {
+        position: absolute;
+        left: 40%;
+        top: 20px;
+    }
+
+    input {
+        font-size: 12px;
+        width: 20vw;
+        height: 5vw;
+    }
+
+    .edit_user_info {
+        background: #fff;
+        width: 30vw;
+        overflow: scroll;
+    }
+
+    .edit_my_profile_btn {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        right: 0vw;
+    }
+
+    .deleteBtn {
+        position: absolute;
+        top: 20px;
+        right: -95px;
+        background-color: transparent;
+        border: none;
+    }
+
+    .edit_my_profile:hover {
+        cursor: pointer;
+    }
+
+    .deleteBtn:hover {
+        cursor: pointer;
+    }
+
+    #profile_img_uploader {
+        background-color: #fff;
+        border: none;
+        font-size: 12px;
+        width: 150px;
+        height: 22px;
+        margin-bottom: 5px;
+    }
+
+    #email,
+    #username {
+        font-size: 12px;
+    }
+
+    #email {
+        margin-bottom: 20px;
+    }
+
+    p {
+        color: #999;
+        margin-bottom: 1.5vw;
+    }
+
+    p span {
+        font-weight: 600;
+        color: #666;
+    }
+
+    .my_edit_form {
+        font-size: 12px;
+    }
+
+    .my_user_infoBody {
+        font-size: 12px;
+    }
+
+    /* -------------------- alert 시작 ---------------------- */
+
+    #my_alert {
+        width: 45vw;
+        height: 20vw;
+        margin: auto;
+        text-align: center;
+        bottom: 1.5vw;
+        border-radius: 0 0 1.5vw 1.5vw;
+        overflow: scroll;
+    }
+
+    #my_alert::-webkit-scrollbar-thumb {
+        width: 3px;
+        background: #f4c141;
+    }
+
+    #my_alert::-webkit-scrollbar-track {
+        width: 3px;
+        background: #f7e4b4;
+    }
+
+    #my_alert_title {
+        font-size: 14px;
+        font-weight: 500;
+        height: 3vw;
+        text-align: center;
+        line-height: 3vw;
+    }
+
+    .alert_list {
+        font-size: 12px;
+        color: #666;
+        width: 100%;
+        height: 22px;
+        line-height: 22px;
+    }
+
+    #no_alert {
+        font-size: 12px;
+    }
+
+    /* ------------------- mypost / myscrap 시작 --------------------------- */
+
+    .my_Allpost_wrapper {
+        border: 10px solid rgba(244, 193, 65, 0.8);
+        background: rgba(255, 255, 253, 0.9);
+        width: 70vw;
+        height: 90vw;
+        margin: auto;
+        /* overflow: scroll; */
+        padding: 2vw;
+        border-radius: 1.5vw;
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        position: absolute;
+        left: 15vw;
+        top: 80vw;
+    }
+
+    .my_post_container,
+    .my_scrap_container {
+        width: 100%;
+        height: 300px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        display: flex;
+        flex-direction: row;
+        padding: auto;
+    }
+
+    .my_post_container {
+        border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
+    }
+
+    .empty {
+        text-align: center;
+        font-size: 1.5vw;
+        width: 15vw;
+        height: 3vw;
+        line-height: 3vw;
+        background-color: #f4c141;
+        margin: auto;
+    }
+
+    .my_post,
+    .my_scrap {
+        color: #666;
+        font-size: 18px;
+        font-weight: 500;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .my_post_item {
+        margin: 1.3vw;
+        height: 250px;
+        width: 200px;
+        display: block;
+        background: rgba(244, 193, 65, 0.8);
+        border-radius: 1vw;
+        box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
+        font-size: 12px;
+        animation-duration: 3s;
+        animation-name: post_item;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    @keyframes post_item {
+        from {
+            margin-left: 100%;
+            /* width: 300%; */
+        }
+
+        to {
+            margin-left: 0%;
+            /* width: 100%; */
+        }
+    }
+
+    .my_post_item:first-child {
+        margin-left: 1vw;
+    }
+
+    .my_post_item:hover {
+        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
+        border-radius: 20px;
+        transform: translate(-0.5vw, -0.5vw);
+    }
+
+    .my_post_item_inner {
+        transition: all 0.15s;
+        height: 210px;
+        width: 210px;
+    }
+
+    .my_post_item_inner:hover {
+        background-color: rgba(244, 193, 65, 1);
+        border-radius: 20px;
+    }
+
+    .my_img_inner,
+    .my_header_image,
+    .my_best_item_header {
+        position: relative;
+        width: 210px;
+        height: 180px;
+        font-size: 10px;
+    }
+
+    .my_post_category {
+        position: absolute;
+        left: 5px;
+        bottom: -60px;
+    }
+
+    .my_post_desc {
+        width: 210px;
+        padding: 5px;
+    }
+
+    .my_post_author {
+        position: absolute;
+        left: -40px;
+        bottom: -22px;
+    }
+
+    .post_dislike_num {
+        left: -20px;
+    }
+
+    .my_post_title_font {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
     }
 }

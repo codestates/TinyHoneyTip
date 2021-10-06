@@ -125,6 +125,7 @@ module.exports = {
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
                     const username = req.body.username;
+
                     if (username && req.file.location) {
                         await User.update(
                             {

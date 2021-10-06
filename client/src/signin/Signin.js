@@ -74,7 +74,6 @@ export default function Signin({
                 .post(`${process.env.NEXT_PUBLIC_URL}/signin/kakao`, { authorizationCode })
                 .then((res) => {
                     console.log(res.data.data);
-                    // console.log(res);
                     setMessage('로그인 완료');
                     setIsOk(true);
                     socialHandler(res.data.data);

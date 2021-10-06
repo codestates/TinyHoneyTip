@@ -60,8 +60,8 @@ export default function Signin({
     };
 
     const kakaoRequestHandler = () => {
-        const id = `${process.env.KAKAO_REST_KEY}`;
-        const clientUrl = `${process.env.KAKAO_REDIRECT_URI}`;
+        const id = 'e2ed2f35d68876df07c519f31cf7541e';
+        const clientUrl = 'https://tiny-honey-tip.vercel.app/content';
         const url = `https://kauth.kakao.com/oauth/authorize?client_id=${id}&redirect_uri=${clientUrl}&response_type=code`;
         window.location.assign(url);
     };

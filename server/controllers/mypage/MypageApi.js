@@ -127,6 +127,7 @@ module.exports = {
                     console.log(req.file.location, req.body.username, token);
                     const email = req.body.email;
                     const username = req.body.username;
+
                     if (username && req.file.location) {
                         await User.update(
                             {

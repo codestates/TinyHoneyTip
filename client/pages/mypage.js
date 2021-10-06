@@ -18,13 +18,12 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
+                console.log('마이페이지', res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
-                return res.data.data.myPost;
-            })
-            .then((post) => {
-                let tmpAlert = [];
-                for (let el of post) {
+
+                let tmpAlert = alert.slice();
+                for (let el of myPost) {
                     tmpAlert.push({
                         title: el.title,
                         like: el.like,
@@ -167,6 +166,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     return (
         <>
+            {/* {console.log('알러틑트', alert)} */}
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
                     <div className="sidebar_and_post">

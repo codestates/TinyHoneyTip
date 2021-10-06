@@ -9,6 +9,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-position: right;
 }
 .nav_btn {
     cursor: pointer;
@@ -206,6 +207,7 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2; /* 라인수 */
+    -webkit-box-orient: vertical;
     word-wrap: break-word;
     line-height: 15px;
     height: 100%;
@@ -549,14 +551,15 @@
         top: 0.5vw;
         position: relative;
         color: #717278;
-        font-size: 0.8vw;
+        font-size: 10px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2; /* 라인수 */
+        -webkit-box-orient: vertical;
         word-wrap: break-word;
-        line-height: 1.6vw;
-        height: 100%;
+        line-height: 10px;
+        height: 20px;
         width: 100%;
         font-weight: 400;
     }
@@ -715,14 +718,8 @@
         position: relative;
         color: #717278;
         font-size: 1vw;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2; /* 라인수 */
-        word-wrap: break-word;
         line-height: 2.1vw;
-        height: 100%;
-        width: 100%;
+        height: 4vw;
         font-weight: 400;
     }
 

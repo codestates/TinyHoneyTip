@@ -22,8 +22,6 @@ import '../styles/Loading.css';
 import '../styles/Weather.css';
 
 function MyApp({ Component, pageProps }) {
-    const [myPost, setMyPost] = useState([]);
-    const [myScrap, setMyScrap] = useState([]);
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
         isSocial: false,
@@ -36,7 +34,7 @@ function MyApp({ Component, pageProps }) {
 
     const loginHandler = (data) => {
         setUserInfo({
-            ...userInfo,
+            // ...userInfo,
             isLogin: true,
             isSocial: false,
             id: data.userInfo.id,
@@ -49,7 +47,7 @@ function MyApp({ Component, pageProps }) {
 
     const socialHandler = (data) => {
         setUserInfo({
-            ...userInfo,
+            // ...userInfo,
             isLogin: true,
             isSocial: true,
             id: data.userInfo.id,
@@ -110,15 +108,7 @@ function MyApp({ Component, pageProps }) {
                 logoutHandler={logoutHandler}
             />
             {isPageLoading && <Loading />}
-            <Component
-                userInfo={userInfo}
-                setUserInfo={setUserInfo}
-                myPost={myPost}
-                myScrap={myScrap}
-                setMyPost={setMyPost}
-                setMyScrap={setMyScrap}
-                {...pageProps}
-            />
+            <Component userInfo={userInfo} setUserInfo={setUserInfo} {...pageProps} />
             <Footer />
         </>
     );

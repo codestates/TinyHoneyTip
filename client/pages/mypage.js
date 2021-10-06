@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function MyPage({ userInfo, setUserInfo, myPost, myScrap, setMyPost, setMyScrap }) {
+export default function MyPage({ userInfo, setUserInfo }) {
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
+    const [myPost, setMyPost] = useState([]);
+    const [myScrap, setMyScrap] = useState([]);
     const [alert, setAlert] = useState([]);
     const [noAlert, setNoAlert] = useState(true);
 

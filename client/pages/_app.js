@@ -22,6 +22,8 @@ import '../styles/Loading.css';
 import '../styles/Weather.css';
 
 function MyApp({ Component, pageProps }) {
+    const [myPost, setMyPost] = useState([]);
+    const [myScrap, setMyScrap] = useState([]);
     const [userInfo, setUserInfo] = useState({
         isLogin: false,
         isSocial: false,
@@ -74,7 +76,7 @@ function MyApp({ Component, pageProps }) {
     };
     useEffect(() => {
         setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
-    }, [userInfo]);
+    }, []);
 
     useEffect(() => {
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
@@ -108,7 +110,15 @@ function MyApp({ Component, pageProps }) {
                 logoutHandler={logoutHandler}
             />
             {isPageLoading && <Loading />}
-            <Component userInfo={userInfo} setUserInfo={setUserInfo} {...pageProps} />
+            <Component
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                myPost={myPost}
+                myScrap={myScrap}
+                setMyPost={setMyPost}
+                setMyScrap={setMyScrap}
+                {...pageProps}
+            />
             <Footer />
         </>
     );

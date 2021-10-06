@@ -9,11 +9,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const [myPost, setMyPost] = useState([]);
     const [myScrap, setMyScrap] = useState([]);
     const [alert, setAlert] = useState([]);
+    const [noAlert, setNoAlert] = useState(true);
 
     const getData = async () => {
-        console.log(userInfo.accessToken);
-        console.log(apiUrl);
-
         const res = await axios
             .get(apiUrl, {
                 headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
@@ -22,8 +20,11 @@ export default function MyPage({ userInfo, setUserInfo }) {
             .then((res) => {
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
-                let tmpAlert = alert.slice();
-                for (let el of myPost) {
+                return res.data.data.myPost;
+            })
+            .then((post) => {
+                let tmpAlert = [];
+                for (let el of post) {
                     tmpAlert.push({
                         title: el.title,
                         like: el.like,
@@ -31,8 +32,51 @@ export default function MyPage({ userInfo, setUserInfo }) {
                         scrap: el.scrap,
                     });
                 }
-
-                setAlert(tmpAlert);
+                return tmpAlert;
+            })
+            .then((tmpAlert) => {
+                let filteredAlert = { like: [], dislike: [], scrap: [] };
+                tmpAlert.map((el) => {
+                    if (el.like.length > 0) {
+                        el.like.map((li) => {
+                            filteredAlert.like.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                    if (el.dislike.length > 0) {
+                        el.dislike.map((li) => {
+                            filteredAlert.dislike.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                    if (el.scrap.length > 0) {
+                        el.scrap.map((li) => {
+                            filteredAlert.scrap.push({
+                                title: el.title,
+                                username: li.User.username,
+                            });
+                        });
+                    }
+                });
+                return filteredAlert;
+            })
+            .then((filteredAlert) => {
+                if (
+                    filteredAlert.like.length === 0 &&
+                    filteredAlert.dislike.length === 0 &&
+                    filteredAlert.scrap.length === 0
+                ) {
+                } else {
+                    setNoAlert(false);
+                }
+                setAlert(filteredAlert);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
 
@@ -123,7 +167,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     return (
         <>
-            {console.log('알러틑트', alert)}
             {myPost || myScrap || alert ? (
                 <div className="my_wrapper">
                     <div className="my_back_img"></div>
@@ -206,43 +249,34 @@ export default function MyPage({ userInfo, setUserInfo }) {
                         <div id="my_alert">
                             <h3 id="my_alert_title">my alert</h3>
                             <ul className="alert_list">
-                                {alert.length > 0 ? (
-                                    (alert.map((el) => {
-                                        if (el.like.length > 0) {
-                                            return el.like.map((li) => {
-                                                return (
-                                                    <li className="alert_list" key={el.user_id}>
-                                                        ✔️{el.title} 을 {li.User.username} 벌님이 💛를 눌렀습니다.
-                                                    </li>
-                                                );
-                                            });
-                                        } else null;
-                                    }),
-                                    alert.map((el) => {
-                                        if (el.dislike.length > 0) {
-                                            return el.dislike.map((dis) => {
-                                                return (
-                                                    <li className="alert_list" key={el.user_id}>
-                                                        ✔️{el.title} 을 {dis.User.username} 벌님이 💔를 눌렀습니다.
-                                                    </li>
-                                                );
-                                            });
-                                        } else null;
-                                    }),
-                                    alert.map((el) => {
-                                        if (el.scrap.length > 0) {
-                                            return el.scrap.map((li) => {
-                                                return (
-                                                    <li className="alert_list" key={el.user_id}>
-                                                        ✔️{el.title} 을 {li.User.username} 벌님이 🗂를 눌렀습니다.
-                                                    </li>
-                                                );
-                                            });
-                                        } else null;
-                                    }))
-                                ) : (
-                                    <h3 id="no_alert">✔️ 알림이 없습니다.</h3>
-                                )}
+                                {alert.like
+                                    ? alert.like.map((el, idx) => {
+                                          return (
+                                              <li className="alert_list" key={idx}>
+                                                  ✔️{el.title} 을 {el.username} 벌님이 💛를 눌렀습니다.
+                                              </li>
+                                          );
+                                      })
+                                    : ''}
+                                {alert.dislike
+                                    ? alert.dislike.map((el, idx) => {
+                                          return (
+                                              <li className="alert_list" key={idx}>
+                                                  ✔️{el.title} 을 {el.username} 벌님이 💔를 눌렀습니다.
+                                              </li>
+                                          );
+                                      })
+                                    : ''}
+                                {alert.scrap
+                                    ? alert.scrap.map((el, idx) => {
+                                          return (
+                                              <li className="alert_list" key={idx}>
+                                                  ✔️{el.title} 을 {el.username} 벌님이 🗂를 눌렀습니다.
+                                              </li>
+                                          );
+                                      })
+                                    : ''}
+                                {noAlert ? <li id="no_alert">✔️ 알림이 없습니다.</li> : ''}
                             </ul>
                         </div>
                     </div>
@@ -252,6 +286,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                             <div className="my_post_container">
                                 {myPost.length > 0 ? (
                                     myPost.map((el) => {
+                                        console.log(el);
                                         return (
                                             <div className="my_post_item" key={el?.id}>
                                                 <div className="my_post_item_inner">
@@ -314,15 +349,15 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                 {myScrap.length > 0 ? (
                                     myScrap.map((el) => {
                                         return (
-                                            <div className="my_post_item" key={el?.id}>
+                                            <div className="my_post_item" key={el?.post_id}>
                                                 <div className="my_post_item_inner">
                                                     <div className="my_best_item_header">
-                                                        <Link href={`/post/${el?.id}`}>
+                                                        <Link href={`/post/${el?.post_id}`}>
                                                             <div className="my_header_image">
                                                                 <div className="my_img_inner">
                                                                     <Image
                                                                         layout="fill"
-                                                                        alt={el?.title}
+                                                                        alt={el?.post_container.title}
                                                                         src={el.post_container.posts[0]?.img}
                                                                         unoptimized="false"
                                                                     />
@@ -331,14 +366,14 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                         </Link>
                                                         <div className="my_post_desc">
                                                             <div className="post_desc_title">
-                                                                <Link href={`/post/${el?.id}`}>
+                                                                <Link href={`/post/${el?.post_id}`}>
                                                                     <div className="my_post_title_font">
-                                                                        {el?.title}
+                                                                        {el?.post_container.title}
                                                                     </div>
                                                                 </Link>
                                                             </div>
                                                             <div className="post_desc_text">
-                                                                <Link href={`/post/${el?.id}`}>
+                                                                <Link href={`/post/${el?.post_id}`}>
                                                                     <div className="post_text">
                                                                         <div>
                                                                             {el?.post_container.posts[0]?.content}
@@ -347,7 +382,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                 </Link>
                                                             </div>
                                                             <div className="my_post_bot">
-                                                                <a className="my_post_category">{el?.category}</a>
+                                                                <a className="my_post_category">
+                                                                    {el?.post_container.category}
+                                                                </a>
                                                                 <div className="post_desc_user">
                                                                     <div className="post_desc_userinfo">
                                                                         <div className="my_post_author post_dislike_num">

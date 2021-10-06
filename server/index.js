@@ -77,7 +77,7 @@ app.post('/signin/kakao', async (req, res) => {
                                 email: obj.id,
                                 password: obj.id,
                                 username: obj.properties.nickname,
-                                profile_img: obj.properties.thumbnail_image_url,
+                                profile_img: obj.properties.thumbnail_image,
                             });
                             const finduser = await User.findOne({ where: { email: obj.id } });
                             const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);

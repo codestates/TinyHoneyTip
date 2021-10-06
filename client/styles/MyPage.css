@@ -1,12 +1,22 @@
 /* pc */
 @media screen and (min-width: 1024px) {
     .my_wrapper {
+        position: relative;
+        /* padding: 4vw auto 9vw; */
         color: #666;
-        font-size: 14px;
+        /* background-color: rgba(253, 242, 217, 0.3); */
         list-style: none;
         -ms-overflow-style: none;
-        margin: auto;
-        padding-top: 50px;
+        height: 800px;
+    }
+
+    .my_back_img {
+        /* background-color: rgba(244, 193, 65, 0.6); */
+        width: 100vw;
+        height: 200px;
+        padding-top: 4vw;
+        margin-bottom: 500px;
+        background: url('../public/tht_mypage_bg.png') no-repeat;
     }
 
     #no_data {
@@ -14,38 +24,27 @@
         font-size: #333;
     }
 
-    .sidebar_and_post {
-        margin: 50px auto;
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 900px;
-        height: 700px;
-    }
-
     /* ------------------ side bar / user information 시작 ------------------------------------ */
 
     .my_side_bar {
-        padding: 8px;
-        width: 250px;
-        height: 500px;
-        border: 10px solid rgba(244, 193, 65, 0.8);
-        border-radius: 20px;
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
-        overflow: hidden;
-    }
-
-    .my_profile_img {
-        margin: auto;
-        border-radius: 20px;
+        margin: 0 4vw;
+        padding: 1vw;
+        width: 20vw;
+        height: 35vw;
+        /* border: 10px solid rgba(244, 193, 65, 0.8); 
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);*/
+        background-color: rgba(244, 193, 65, 0.3);
+        border-radius: 1vw;
+        position: absolute;
+        top: 8vw;
+        left: 8vw;
+        box-shadow: inset 0.3vw 0.5vw 1vw rgba(255, 255, 253, 0.3);
         overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
         position: relative;
-        padding-bottom: 10px;
     }
 
     .my_user_name {
@@ -55,68 +54,80 @@
         font-size: 14px;
     }
 
-    #profile_img_uploader {
+    .my_profile_img {
+        width: 200px;
+        height: 200px;
+        margin: auto;
+        border-radius: 7%;
+        overflow: hidden;
+    }
+
+    .edit_my_profile_btn {
         background-color: transparent;
-        border-bottom: 3px solid #fff;
+        border: none;
+        position: absolute;
+        right: 0vw;
+    }
+
+    .deleteBtn {
+        position: absolute;
+        top: 250px;
+        right: 0;
+        background-color: transparent;
+        border: none;
+    }
+
+    .edit_my_profile:hover {
+        cursor: pointer;
+    }
+
+    .deleteBtn:hover {
+        cursor: pointer;
+    }
+
+    #profile_img_uploader {
+        background-color: #fff;
+        border: none;
         font-size: 12px;
-        width: 220px;
+        width: 150px;
         height: 22px;
-        margin: 5px auto;
+        margin-bottom: 5px;
     }
 
-    input[type='file']::file-selector-button {
-        background: rgb(255, 211, 17);
-        border: 1px solid #fff;
-        border-radius: 5px;
-    }
-
-    input[type='text'] {
-        border: 3px solid #fff;
-    }
-
-    #email span,
-    #username span {
-        font-size: 14px;
-        font-weight: 500;
+    #email,
+    #username {
+        font-size: 12px;
     }
 
     #email {
         margin-bottom: 20px;
     }
 
-    .user_btn {
-        width: 220px;
-        height: 30px;
-        margin: auto;
-        /* border: 1px solid red; */
+    p {
+        color: #999;
+        margin-bottom: 1.5vw;
     }
 
-    .edit_my_profile_btn {
-        background-color: transparent;
-        border: none;
-        overflow: hidden;
-        margin: 8px auto;
-        float: right;
+    p span {
+        font-weight: 600;
+        color: #666;
     }
 
-    .deleteBtn {
-        background-color: transparent;
-        border: none;
-        margin: 8px auto;
-        float: right;
+    .my_edit_form {
+        font-size: 14px;
     }
 
-    .edit_my_profile:hover,
-    .deleteBtn:hover {
-        cursor: pointer;
+    .my_user_infoBody {
     }
 
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 220px;
-        height: 100px;
+        width: 19vw;
+        height: 20vw;
         margin: auto;
+        bottom: 1.5vw;
+        border-radius: 0 0 1.5vw 1.5vw;
         overflow: scroll;
     }
 
@@ -132,10 +143,10 @@
 
     #my_alert_title {
         font-size: 14px;
-        font-weight: 600;
-        height: 30px;
+        font-weight: 500;
+        height: 3vw;
         text-align: center;
-        line-height: 30px;
+        line-height: 3vw;
     }
 
     .alert_list {
@@ -155,10 +166,14 @@
     .my_Allpost_wrapper {
         border: 10px solid rgba(244, 193, 65, 0.8);
         background: rgba(255, 255, 253, 0.9);
-        width: 640px;
+        width: 58vw;
         height: 660px;
-        padding: 10px;
-        border-radius: 20px;
+        position: absolute;
+        top: 8vw;
+        right: 10vw;
+        /* overflow: scroll; */
+        padding: 1vw;
+        border-radius: 1.5vw;
         box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
     }
 
@@ -167,10 +182,9 @@
         width: 100%;
         height: 280px;
         overflow-x: scroll;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
         overflow-y: hidden;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
     }
 
     .my_post_container::-webkit-scrollbar-thumb,
@@ -195,6 +209,7 @@
         width: 15vw;
         height: 3vw;
         line-height: 3vw;
+        background-color: #f4c141;
         margin: auto;
     }
 
@@ -210,18 +225,16 @@
     .my_post_item {
         margin: 1vw;
         height: 250px;
-        width: 250px;
+        width: 200px;
         display: block;
         background: rgba(244, 193, 65, 0.8);
-        border-radius: 20px;
+        border-radius: 1vw;
         box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
         overflow: hidden;
         cursor: pointer;
-        flex-basis: 250px;
-        min-width: 250px;
     }
 
     @keyframes post_item {
@@ -240,21 +253,28 @@
         margin-left: 1vw;
     }
 
-    .my_post_item:hover .my_img_inner {
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-        overflow: hidden;
+    .my_post_item:hover {
+        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
+        border-radius: 20px;
+        transform: translate(-0.5vw, -0.5vw);
+    }
+
+    .my_post_item_inner {
+        transition: all 0.15s;
+        height: 210px;
+        width: 210px;
     }
 
     .my_post_item_inner:hover {
         background-color: rgba(244, 193, 65, 1);
+        border-radius: 20px;
     }
 
     .my_img_inner,
     .my_header_image,
     .my_best_item_header {
         position: relative;
-        width: 250px;
+        width: 210px;
         height: 180px;
         font-size: 10px;
     }
@@ -263,22 +283,21 @@
         position: absolute;
         left: 5px;
         bottom: -60px;
-        font-weight: 600;
     }
 
     .my_post_desc {
-        width: 250px;
+        width: 210px;
         padding: 5px;
     }
 
     .my_post_author {
         position: absolute;
-        left: 40px;
+        left: -40px;
         bottom: -22px;
     }
 
     .post_dislike_num {
-        left: 20px;
+        left: -20px;
     }
 
     .my_post_title_font {
@@ -288,16 +307,23 @@
     }
 }
 
-/* tablet */
-@media screen and (min-width: 426px) {
+@media screen and (max-width: 1023px) {
     .my_wrapper {
-        margin: auto;
+        position: relative;
+        padding: 4vw auto 7vw;
         color: #666;
+        /* background-color: rgba(253, 242, 217, 0.3); */
         list-style: none;
         -ms-overflow-style: none;
+        background: url('../public/tht_mypage_bg.png') no-repeat;
         height: 140vw;
-        padding: 10vw 0;
     }
+
+    /* .my_back_img {
+        width: 100vw;
+        height: 1000px;
+        overflow: hidden;
+    } */
 
     #no_data {
         font-size: 30px;
@@ -313,89 +339,60 @@
         height: 40vw;
         border: 10px solid rgba(244, 193, 65, 0.8);
         box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        background-color: rgba(255, 255, 255, 0.8);
         border-radius: 1vw;
+        position: absolute;
+        left: 15vw;
+        top: 9vw;
         overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
+        position: relative;
         display: flex;
         flex-direction: row;
         height: 65%;
     }
 
     .my_user_name {
-        margin: 2.6vw auto;
+        margin: 12px auto;
         text-align: center;
         font-weight: 400;
         font-size: 14px;
     }
 
-    .my_pfimg_positioning {
-        width: 26.04vw;
-        height: 22.14vw;
-        display: flex;
-    }
-
-    .my_pfimg_positioning::after {
-        display: block;
-        width: 1px;
-        height: 17vw;
-        background: #ccc;
-    }
-
     .my_profile_img {
-        width: 19.53vw;
-        height: 19.53vw;
+        width: 15vw;
+        height: 15vw;
         margin: auto;
         border-radius: 7%;
         overflow: hidden;
+        min-width: 15vw;
+        min-height: 15vw;
+        max-height: 15vw;
+        position: absolute;
+        left: 65px;
+        top: 3.5vw;
     }
 
     .my_userInfo_container {
-        width: 40vw;
-        padding-left: 1vw;
-    }
-
-    #email,
-    #username {
-        font-size: 14px;
-    }
-
-    #email {
-        margin-bottom: 20px;
-    }
-
-    #email span,
-    #username span {
-        font-weight: 500;
-    }
-
-    #profile_img_uploader {
-        background-color: transparent;
-        border-bottom: 3px solid #fff;
-        font-size: 12px;
-        width: 220px;
-        height: 22px;
-        margin: 5px auto;
-    }
-
-    input[type='file']::file-selector-button {
-        background: rgb(255, 211, 17);
-        border: 1px solid #fff;
-        border-radius: 5px;
-    }
-
-    input[type='text'] {
-        border: 3px solid #fff;
+        position: absolute;
+        left: 50%;
+        top: 10px;
     }
 
     .edit_my_profile_btn {
         background-color: transparent;
         border: none;
+        position: absolute;
+        right: 0vw;
     }
 
     .deleteBtn {
+        position: absolute;
+        top: 20px;
+        right: -95px;
         background-color: transparent;
         border: none;
     }
@@ -406,6 +403,42 @@
 
     .deleteBtn:hover {
         cursor: pointer;
+    }
+
+    #profile_img_uploader {
+        background-color: #fff;
+        border: none;
+        font-size: 12px;
+        width: 150px;
+        height: 22px;
+        margin-bottom: 5px;
+    }
+
+    #email,
+    #username {
+        font-size: 12px;
+    }
+
+    #email {
+        margin-bottom: 20px;
+    }
+
+    p {
+        color: #999;
+        margin-bottom: 1.5vw;
+    }
+
+    p span {
+        font-weight: 600;
+        color: #666;
+    }
+
+    .my_edit_form {
+        font-size: 14px;
+    }
+
+    .my_user_infoBody {
+        font-size: 12px;
     }
 
     /* -------------------- alert 시작 ---------------------- */
@@ -458,6 +491,7 @@
         width: 70vw;
         height: 660px;
         margin: 0 auto 300px;
+        /* overflow: scroll; */
         padding: 2vw;
         border-radius: 1.5vw;
         box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
@@ -473,19 +507,8 @@
         overflow-x: scroll;
         overflow-y: hidden;
         display: flex;
-        flex-direction: row;
-    }
-
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    .my_scrap_containe::-webkit-scrollbar-track,
-    .my_post_container::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
+        flex-flow: row wrap;
+        justify-content: flex-start;
     }
 
     .my_post_container {
@@ -514,27 +537,27 @@
     .my_post_item {
         margin: 1.3vw;
         height: 250px;
-        width: 250px;
+        width: 200px;
         display: block;
         background: rgba(244, 193, 65, 0.8);
-        border-radius: 20px;
+        border-radius: 1vw;
         box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
         overflow: hidden;
         cursor: pointer;
-        flex-basis: 250px;
-        min-width: 250px;
     }
 
     @keyframes post_item {
         from {
             margin-left: 100%;
+            /* width: 300%; */
         }
 
         to {
             margin-left: 0%;
+            /* width: 100%; */
         }
     }
 
@@ -543,15 +566,15 @@
     }
 
     .my_post_item:hover {
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-        overflow: hidden;
+        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
+        border-radius: 20px;
+        transform: translate(-0.5vw, -0.5vw);
     }
 
     .my_post_item_inner {
         transition: all 0.15s;
-        height: 250px;
-        width: 250px;
+        height: 210px;
+        width: 210px;
     }
 
     .my_post_item_inner:hover {
@@ -563,41 +586,34 @@
     .my_header_image,
     .my_best_item_header {
         position: relative;
-        width: 250px;
+        width: 210px;
         height: 180px;
         font-size: 10px;
     }
 
     .my_post_category {
-        font-weight: 600;
-        margin-left: 20px;
         position: absolute;
-        bottom: -65px;
+        left: 5px;
+        bottom: -60px;
     }
 
     .my_post_desc {
-        width: 250px;
+        width: 210px;
         padding: 5px;
     }
 
     .my_post_author {
         position: absolute;
-        left: 10px;
-        bottom: -15px;
+        left: -40px;
+        bottom: -22px;
     }
 
     .post_dislike_num {
         left: -20px;
     }
 
-    .post_text {
-        overflow: hidden;
-        height: 10px;
-        font-size: 10px;
-    }
-
     .my_post_title_font {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
         color: #333;
     }
@@ -606,12 +622,13 @@
 /* mobile */
 @media screen and (max-width: 425px) {
     .my_wrapper {
-        margin: auto;
+        position: relative;
+        padding: 4vw auto 7vw;
         color: #666;
+        /* background-color: rgba(253, 242, 217, 0.3); */
         list-style: none;
         -ms-overflow-style: none;
-        height: 1000px;
-        padding: 20vw 0;
+        background: url('../public/tht_mypage_bg.png');
     }
 
     #no_data {
@@ -624,97 +641,76 @@
     .my_side_bar {
         margin: auto;
         padding: 1vw;
-        width: 98vw;
-        height: 65vw;
-        border: 5px solid rgba(244, 193, 65, 0.8);
+        width: 70vw;
+        height: 60vw;
+        border: 10px solid rgba(244, 193, 65, 0.8);
         box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        background-color: rgba(255, 255, 255, 0.8);
         border-radius: 1vw;
+        position: absolute;
+        left: 15vw;
+        top: 18vw;
         overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
+        position: relative;
         display: flex;
         flex-direction: row;
         height: 65%;
     }
 
     .my_user_name {
-        margin: 2.6vw auto;
+        margin: 10px auto;
         text-align: center;
-        font-weight: 400;
-        font-size: 14px;
-    }
-
-    .my_pfimg_positioning {
-        width: 40vw;
-        height: 38vw;
-        display: flex;
-    }
-
-    .my_pfimg_positioning::after {
-        display: block;
-        width: 1px;
-        height: 17vw;
-        background: #ccc;
+        font-weight: 500;
+        font-size: 12px;
     }
 
     .my_profile_img {
-        width: 30vw;
-        height: 30vw;
+        width: 20vw;
+        height: 20vw;
         margin: auto;
         border-radius: 7%;
         overflow: hidden;
+        min-width: 15vw;
+        min-height: 15vw;
+        max-height: 15vw;
+        position: absolute;
+        left: 4vw;
+        top: 8vw;
     }
 
     .my_userInfo_container {
-        width: 60vw;
-        padding-left: 1vw;
+        position: absolute;
+        left: 40%;
+        top: 20px;
     }
 
-    #email,
-    #username {
+    input {
         font-size: 12px;
+        width: 20vw;
+        height: 5vw;
     }
 
-    #email {
-        margin-bottom: 20px;
-    }
-
-    #email span,
-    #username span {
-        font-weight: 500;
-    }
-
-    #profile_img_uploader {
-        background-color: transparent;
-        border-bottom: 3px solid #fff;
-        font-size: 12px;
-        width: 200px;
-        height: 22px;
-        margin: 5px auto;
-    }
-
-    form {
-        font-size: 12px;
-    }
-
-    input[type='file']::file-selector-button {
-        background: rgb(255, 211, 17);
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    input[type='text'] {
-        border: 3px solid #fff;
+    .edit_user_info {
+        background: #fff;
+        width: 30vw;
+        overflow: scroll;
     }
 
     .edit_my_profile_btn {
         background-color: transparent;
         border: none;
+        position: absolute;
+        right: 0vw;
     }
 
     .deleteBtn {
+        position: absolute;
+        top: 20px;
+        right: -95px;
         background-color: transparent;
         border: none;
     }
@@ -727,6 +723,42 @@
         cursor: pointer;
     }
 
+    #profile_img_uploader {
+        background-color: #fff;
+        border: none;
+        font-size: 12px;
+        width: 150px;
+        height: 22px;
+        margin-bottom: 5px;
+    }
+
+    #email,
+    #username {
+        font-size: 12px;
+    }
+
+    #email {
+        margin-bottom: 20px;
+    }
+
+    p {
+        color: #999;
+        margin-bottom: 1.5vw;
+    }
+
+    p span {
+        font-weight: 600;
+        color: #666;
+    }
+
+    .my_edit_form {
+        font-size: 12px;
+    }
+
+    .my_user_infoBody {
+        font-size: 12px;
+    }
+
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
@@ -737,7 +769,6 @@
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
         overflow: scroll;
-        padding: 10px 0;
     }
 
     #my_alert::-webkit-scrollbar-thumb {
@@ -773,14 +804,18 @@
     /* ------------------- mypost / myscrap 시작 --------------------------- */
 
     .my_Allpost_wrapper {
-        border: 5px solid rgba(244, 193, 65, 0.8);
+        border: 10px solid rgba(244, 193, 65, 0.8);
         background: rgba(255, 255, 253, 0.9);
-        width: 98vw;
-        height: 660px;
-        margin: 10px auto 300px;
+        width: 70vw;
+        height: 90vw;
+        margin: auto;
+        /* overflow: scroll; */
         padding: 2vw;
         border-radius: 1.5vw;
         box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        position: absolute;
+        left: 15vw;
+        top: 80vw;
     }
 
     .my_post_container,
@@ -791,18 +826,7 @@
         overflow-y: hidden;
         display: flex;
         flex-direction: row;
-    }
-
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    .my_scrap_containe::-webkit-scrollbar-track,
-    .my_post_container::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
+        padding: auto;
     }
 
     .my_post_container {
@@ -831,27 +855,27 @@
     .my_post_item {
         margin: 1.3vw;
         height: 250px;
-        width: 250px;
+        width: 200px;
         display: block;
         background: rgba(244, 193, 65, 0.8);
-        border-radius: 20px;
+        border-radius: 1vw;
         box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
         overflow: hidden;
         cursor: pointer;
-        flex-basis: 250px;
-        min-width: 250px;
     }
 
     @keyframes post_item {
         from {
             margin-left: 100%;
+            /* width: 300%; */
         }
 
         to {
             margin-left: 0%;
+            /* width: 100%; */
         }
     }
 
@@ -860,15 +884,15 @@
     }
 
     .my_post_item:hover {
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-        overflow: hidden;
+        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
+        border-radius: 20px;
+        transform: translate(-0.5vw, -0.5vw);
     }
 
     .my_post_item_inner {
         transition: all 0.15s;
-        height: 250px;
-        width: 250px;
+        height: 210px;
+        width: 210px;
     }
 
     .my_post_item_inner:hover {
@@ -880,41 +904,34 @@
     .my_header_image,
     .my_best_item_header {
         position: relative;
-        width: 250px;
+        width: 210px;
         height: 180px;
         font-size: 10px;
     }
 
     .my_post_category {
-        font-weight: 600;
-        margin-left: 20px;
         position: absolute;
-        bottom: -65px;
+        left: 5px;
+        bottom: -60px;
     }
 
     .my_post_desc {
-        width: 250px;
+        width: 210px;
         padding: 5px;
     }
 
     .my_post_author {
         position: absolute;
-        left: 10px;
-        bottom: -25px;
+        left: -40px;
+        bottom: -22px;
     }
 
     .post_dislike_num {
         left: -20px;
     }
 
-    .post_text {
-        overflow: hidden;
-        height: 10px;
-        font-size: 10px;
-    }
-
     .my_post_title_font {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
         color: #333;
     }

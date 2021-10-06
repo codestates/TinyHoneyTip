@@ -1,10 +1,46 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }) {
+export default function MyPage({ userInfo, setUserInfo }) {
+    const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
+    const [myPost, setMyPost] = useState([]);
+    const [myScrap, setMyScrap] = useState([]);
+    const [alert, setAlert] = useState([]);
+
+    const getData = async () => {
+        console.log(userInfo.accessToken);
+        console.log(apiUrl);
+
+        const res = await axios
+            .get(apiUrl, {
+                headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
+                withCredentials: true,
+            })
+            .then((res) => {
+                setMyPost(res.data.data.myPost);
+                setMyScrap(res.data.data.myScrap);
+                let tmpAlert = alert.slice();
+                for (let el of myPost) {
+                    tmpAlert.push({
+                        title: el.title,
+                        like: el.like,
+                        dislike: el.dislike,
+                        scrap: el.scrap,
+                    });
+                }
+
+                setAlert(tmpAlert);
+            });
+    };
+
+    useEffect(() => {
+        if (!!userInfo.accessToken) {
+            getData();
+        }
+    }, [userInfo]);
     const [editBtn, setEditBtn] = useState(false);
     const [img, setImg] = useState(userInfo.profile_img);
 
@@ -355,31 +391,31 @@ export default function MyPage({ myPost, myScrap, alert, userInfo, setUserInfo }
     );
 }
 
-export async function getServerSideProps(context) {
-    const token = context.req.headers.cookie;
-    const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
-    const res = await axios.get(apiUrl, {
-        headers: { cookie: token, 'Content-Type': 'application/json' },
-    });
+// export async function getServerSideProps(context) {
+//     const token = context.req.headers.cookie;
+//     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
+//     const res = await axios.get(apiUrl, {
+//         headers: { cookie: token, 'Content-Type': 'application/json' },
+//     });
 
-    const post = res.data.data.myPost;
-    const scrap = res.data.data.myScrap;
-    const alert = [];
+//     const post = res.data.data.myPost;
+//     const scrap = res.data.data.myScrap;
+//     const alert = [];
 
-    for (let el of post) {
-        alert.push({
-            title: el.title,
-            like: el.like,
-            dislike: el.dislike,
-            scrap: el.scrap,
-        });
-    }
+//     for (let el of post) {
+//         alert.push({
+//             title: el.title,
+//             like: el.like,
+//             dislike: el.dislike,
+//             scrap: el.scrap,
+//         });
+//     }
 
-    return {
-        props: {
-            myPost: post,
-            myScrap: scrap,
-            alert: alert,
-        },
-    };
-}
+//     return {
+//         props: {
+//             myPost: post,
+//             myScrap: scrap,
+//             alert: alert,
+//         },
+//     };
+// }

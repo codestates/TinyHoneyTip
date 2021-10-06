@@ -20,9 +20,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
             .then((res) => {
                 console.log('마이페이지', res.data);
                 setMyPost(res.data.data.myPost);
-                setMyPost([]);
                 setMyScrap(res.data.data.myScrap);
-                setMyScrap([]);
 
                 let tmpAlert = alert.slice();
                 for (let el of myPost) {

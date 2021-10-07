@@ -10,6 +10,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const [myScrap, setMyScrap] = useState([]);
     const [alert, setAlert] = useState([]);
     const [noAlert, setNoAlert] = useState(true);
+    const router = useRouter;
 
     const getData = async () => {
         const res = await axios
@@ -132,48 +133,40 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     const deleteSure = () => {
         if (window.confirm('정말 회원 탈퇴하시겠습니까?')) {
-            window.open('exit.html', 'Thanks for Visiting!');
             userDelete;
         }
     };
 
     const userDelete = () => {
-        axios
-            .delete(`${process.env.NEXT_PUBLIC_URL}/user`, {
-                headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
-                withCredentials: true,
-            })
-            .then((res) => {
-                try {
-                    console.log(res.data);
-                    if (res.data.message === 'byebye') {
-                        axios
-                            .get(`${process.env.NEXT_PUBLIC_URL}/signout`, {
-                                headers: {
-                                    accessToken: userInfo.accessToken,
-                                },
-                            })
-                            .then((res) => {
-                                if (res.data.message !== 'byebye') {
-                                    window.alert('탈퇴가 완료되었습니다.');
-                                    useRouter.push({
-                                        pathname: '/',
-                                    });
-                                }
-                            });
-                    } else {
-                        console.log(res);
-                    }
-                } catch (err) {
-                    console.log(err);
+        axios.delete(`${process.env.NEXT_PUBLIC_URL}/user`, { withCredentials: true }).then((res) => {
+            try {
+                console.log(res.data);
+                if (res.data.message === 'byebye') {
+                    axios
+                        .get(`${process.env.NEXT_PUBLIC_URL}/signout`, {
+                            headers: {
+                                accessToken: userInfo.accessToken,
+                            },
+                        })
+                        .then((res) => {
+                            if (res.data.message !== 'byebye') {
+                                window.alert('탈퇴가 완료되었습니다.');
+                                router.push('/');
+                            }
+                        });
+                } else {
+                    console.log(res);
                 }
-            });
+            } catch (err) {
+                console.log(err);
+            }
+        });
     };
 
     return (
         <>
             {/* {console.log('알러틑트', alert)} */}
-            {myPost || myScrap || alert ? (
+            {myPost || myScrap ? (
                 <div className="my_wrapper">
                     <div className="sidebar_and_post">
                         <div className="my_side_bar">

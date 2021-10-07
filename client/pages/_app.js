@@ -56,6 +56,7 @@ function MyApp({ Component, pageProps }) {
             username: data.userInfo.username,
             profile_img: data.userInfo.profile_img,
         });
+        document.cookie = `accessToken=${data.accessToken}`;
     };
 
     const logoutHandler = () => {
@@ -69,6 +70,9 @@ function MyApp({ Component, pageProps }) {
             username: '',
             profile_img: '',
         });
+        let date = new Date();
+        date.setDate(date.getDate() - 100);
+        document.cookie = `accessToken=; expires=${date.toUTCString()};`;
         sessionStorage.clear();
         Router.push('/content');
     };

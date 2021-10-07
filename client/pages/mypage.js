@@ -80,9 +80,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
     };
 
     useEffect(() => {
-        if (!!userInfo.accessToken) {
-            getData();
-        }
+        // if (!!userInfo.accessToken) {
+        getData();
+        //}
     }, [userInfo]);
     const [editBtn, setEditBtn] = useState(false);
     const [img, setImg] = useState(userInfo.profile_img);
@@ -106,7 +106,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
         formData.append('username', userInfo.username);
         formData.append('email', userInfo.email);
         for (let key of formData.entries()) {
-            console.log(`${key}`);
+            console.log(`키: ${key}`);
         }
         axios
             .patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, formData, {
@@ -117,6 +117,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
+                console.log(res);
                 setUserInfo({
                     ...userInfo,
                     username: res.data.data.userInfo.username,
@@ -139,27 +140,32 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const userDelete = () => {
         axios
             .delete(`${process.env.NEXT_PUBLIC_URL}/user`, {
-                data: { token: userInfo.token },
+                headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
                 withCredentials: true,
             })
             .then((res) => {
-                if (res.message === 'byebye') {
-                    window.alert('회원탈퇴가 완료되었습니다.');
-
-                    axios
-                        .get(`${process.env.NEXT_PUBLIC_URL}/signout`, {
-                            headers: {
-                                authorization: userInfo.accessToken,
-                            },
-                        })
-                        .then((res) => {
-                            if (res.data.message !== 'byebye') {
-                                window.alert('탈퇴가 완료되었습니다.');
-                                useRouter.push({
-                                    pathname: '/',
-                                });
-                            }
-                        });
+                try {
+                    console.log(res.data);
+                    if (res.data.message === 'byebye') {
+                        axios
+                            .get(`${process.env.NEXT_PUBLIC_URL}/signout`, {
+                                headers: {
+                                    accessToken: userInfo.accessToken,
+                                },
+                            })
+                            .then((res) => {
+                                if (res.data.message !== 'byebye') {
+                                    window.alert('탈퇴가 완료되었습니다.');
+                                    useRouter.push({
+                                        pathname: '/',
+                                    });
+                                }
+                            });
+                    } else {
+                        console.log(res);
+                    }
+                } catch (err) {
+                    console.log(err);
                 }
             });
     };
@@ -189,7 +195,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                     {editBtn ? (
                                         <>
                                             <div className="my_user_infoBody edit_user_info">
-                                                <form>
+                                                <form id="my_form">
                                                     <input
                                                         type="file"
                                                         id="profile_img_uploader"
@@ -207,7 +213,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        id="userName"
+                                                        id="userName_input"
                                                         placeholder={userInfo.username}
                                                         maxLength="8"
                                                         minLength="1"

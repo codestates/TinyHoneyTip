@@ -124,8 +124,6 @@ module.exports = {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    console.log(req.file.location, req.body.username, token);
-                    const email = req.body.email;
                     const username = req.body.username;
 
                     if (username && req.file.location) {

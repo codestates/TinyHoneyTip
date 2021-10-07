@@ -40,6 +40,7 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
                 headers: {
                     authorization: userInfo.accessToken,
                 },
+                withCredentials: true,
             })
             .catch((error) => {});
         logoutHandler();

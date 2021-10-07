@@ -74,7 +74,7 @@ export default function Signin({
                 console.log('사인인에 데이터에요', res.data.data);
                 setMessage('로그인 완료');
                 setIsOk(true);
-                loginHandler(res.data.data);
+                socialHandler(res.data.data);
                 closeInModal();
             });
         };

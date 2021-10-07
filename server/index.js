@@ -41,8 +41,8 @@ app.post('/signin/kakao', async (req, res) => {
     };
 
     function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // console.log('바디', JSON.parse(response.body).access_token);
+        if (!error) {
+            // console.log('바디', JSON.parse(response.body));
             request.get(
                 {
                     url: 'https://kapi.kakao.com/v2/user/me',
@@ -51,47 +51,64 @@ app.post('/signin/kakao', async (req, res) => {
                         Authorization: `Bearer ${JSON.parse(response.body).access_token}`,
                     },
                 },
-                async (err, response, body) => {
+                async (err, response1, body) => {
                     if (!err) {
-                        const obj = JSON.parse(response.body);
-                        console.log('소셜로그인바디', obj);
-                        const finduser = await User.findOne({
-                            where: {
-                                email: obj.id,
-                            },
-                        });
-                        if (finduser) {
-                            const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
-
-                            res.cookie('accessToken', accessToken, {
-                                sameSite: 'none',
-                                secure: true,
-                                httpOnly: true,
-                            });
-                            res.status(200).json({
-                                message: 'login complete',
-                                data: { accessToken: accessToken, userInfo: finduser },
-                            });
+                        const obj = JSON.parse(response1.body);
+                        console.log('obj', obj);
+                        if (!obj.id) {
+                            request.post(
+                                {
+                                    url: 'https://kauth.kakao.com/oauth/token',
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                    body: `grant_type=refresh_token&client_id=${
+                                        process.env.KAKAO_REST_KEY
+                                    }&refresh_token=${JSON.parse(response.body).refresh_token}`,
+                                },
+                                async (err, resp, body) => {
+                                    // console.log('resp', resp);
+                                    // return request(options, callback);
+                                },
+                            );
                         } else {
-                            await User.create({
-                                email: obj.id,
-                                password: obj.id,
-                                username: obj.properties.nickname,
-                                profile_img: obj.kakao_account.profile.profile_image_url,
+                            const finduser = await User.findOne({
+                                where: {
+                                    email: obj.id,
+                                },
                             });
-                            const finduser1 = await User.findOne({ where: { email: obj.id } });
-                            const accessToken1 = jwt.sign(finduser1.dataValues, process.env.ACCESS_SECRET);
+                            if (finduser) {
+                                const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
 
-                            res.cookie('accessToken', accessToken1, {
-                                sameSite: 'none',
-                                secure: true,
-                                httpOnly: true,
-                            });
-                            res.status(200).json({
-                                message: 'login complete',
-                                data: { accessToken: accessToken1, userInfo: finduser1 },
-                            });
+                                res.cookie('accessToken', accessToken, {
+                                    sameSite: 'none',
+                                    secure: true,
+                                    httpOnly: true,
+                                });
+                                return res.status(200).json({
+                                    message: 'login complete',
+                                    data: { accessToken: accessToken, userInfo: finduser },
+                                });
+                            } else {
+                                await User.create({
+                                    email: obj.id,
+                                    password: obj.id,
+                                    username: obj.properties.nickname,
+                                    profile_img: obj.kakao_account.profile.profile_image_url,
+                                });
+                                const finduser1 = await User.findOne({ where: { email: obj.id } });
+                                const accessToken1 = jwt.sign(finduser1.dataValues, process.env.ACCESS_SECRET);
+
+                                res.cookie('accessToken', accessToken1, {
+                                    sameSite: 'none',
+                                    secure: true,
+                                    httpOnly: true,
+                                });
+                                return res.status(200).json({
+                                    message: 'login complete',
+                                    data: { accessToken: accessToken1, userInfo: finduser1 },
+                                });
+                            }
                         }
+                        // console.log('소셜로그인바디', obj, response1);
                     }
                 },
             );

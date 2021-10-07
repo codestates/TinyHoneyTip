@@ -76,7 +76,7 @@
 |--|--|
 - 팀원
 - Position: Front-End
-- Stack: Node.js, Next js, express, html, css, react, javascript
+- Stack: React, Next js, axios, html, css, javascript
 - Contributions<br />
  landing page<br />
  header, footer<br />

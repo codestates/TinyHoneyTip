@@ -62,7 +62,7 @@ function MyApp({ Component, pageProps }) {
         setUserInfo({
             ...userInfo,
             isLogin: false,
-            isSocal: false,
+            isSocial: false,
             id: '',
             email: '',
             accessToken: '',

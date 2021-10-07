@@ -31,7 +31,7 @@ module.exports = {
             } else if (!findemail && !finduser) {
                 res.status(400).json({ message: 'rewrite email' });
             } else {
-                const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET, { expiresIn: '2s' });
+                const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
 
                 res.cookie('accessToken', accessToken, {
                     sameSite: 'none',

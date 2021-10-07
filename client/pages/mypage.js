@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import Router from 'next/router';
 
 export default function MyPage({ userInfo, setUserInfo }) {
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
@@ -13,9 +14,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const router = useRouter;
 
     const getData = async () => {
-        const res = await axios
+        await axios
             .get(apiUrl, {
-                headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             })
             .then((res) => {
@@ -151,7 +152,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                         .then((res) => {
                             if (res.data.message !== 'byebye') {
                                 window.alert('탈퇴가 완료되었습니다.');
-                                router.push('/');
+                                sessionStorage.clear();
+                                Router.push('/content');
                             }
                         });
                 } else {
@@ -165,7 +167,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     return (
         <>
-            {/* {console.log('알러틑트', alert)} */}
             {myPost || myScrap ? (
                 <div className="my_wrapper">
                     <div className="sidebar_and_post">
@@ -293,8 +294,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                 <Link href={`/post/${el?.id}`} key={el?.id}>
                                                     <div className="my_post_item" key={el?.id}>
                                                         <div className="my_post_item_inner" key={el?.id}>
-                                                            {/* <div className="my_best_item_header"> */}
-
                                                             <div className="my_img_container">
                                                                 <div className="my_img_inner">
                                                                     <Image
@@ -332,7 +331,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {/* </div> */}
                                                         </div>
                                                     </div>
                                                 </Link>

@@ -3,19 +3,20 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import Router from 'next/router';
 
 export default function MyPage({ userInfo, setUserInfo }) {
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
     const [myPost, setMyPost] = useState([]);
     const [myScrap, setMyScrap] = useState([]);
-    const [alert, setAlert] = useState([]);
+    const [alert, setAlert] = useState({ like: [], dislike: [], scrap: [] });
     const [noAlert, setNoAlert] = useState(true);
     const router = useRouter;
 
     const getData = async () => {
-        const res = await axios
+        await axios
             .get(apiUrl, {
-                headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             })
             .then((res) => {
@@ -23,57 +24,20 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
 
-                let tmpAlert = alert.slice();
-                for (let el of myPost) {
-                    tmpAlert.push({
-                        title: el.title,
-                        like: el.like,
-                        dislike: el.dislike,
-                        scrap: el.scrap,
-                    });
+                const tempAlert = { like: [], dislike: [], scrap: [] };
+                for (let el of res.data.data.alert.like) {
+                    tempAlert.like.push(...el);
                 }
-                return tmpAlert;
-            })
-            .then((tmpAlert) => {
-                let filteredAlert = { like: [], dislike: [], scrap: [] };
-                tmpAlert.map((el) => {
-                    if (el.like.length > 0) {
-                        el.like.map((li) => {
-                            filteredAlert.like.push({
-                                title: el.title,
-                                username: li.User.username,
-                            });
-                        });
-                    }
-                    if (el.dislike.length > 0) {
-                        el.dislike.map((li) => {
-                            filteredAlert.dislike.push({
-                                title: el.title,
-                                username: li.User.username,
-                            });
-                        });
-                    }
-                    if (el.scrap.length > 0) {
-                        el.scrap.map((li) => {
-                            filteredAlert.scrap.push({
-                                title: el.title,
-                                username: li.User.username,
-                            });
-                        });
-                    }
-                });
-                return filteredAlert;
-            })
-            .then((filteredAlert) => {
-                if (
-                    filteredAlert.like.length === 0 &&
-                    filteredAlert.dislike.length === 0 &&
-                    filteredAlert.scrap.length === 0
-                ) {
-                } else {
-                    setNoAlert(false);
+                for (let el of res.data.data.alert.dislike) {
+                    tempAlert.dislike.push(...el);
                 }
-                setAlert(filteredAlert);
+                for (let el of res.data.data.alert.scrap) {
+                    tempAlert.scrap.push(...el);
+                }
+
+                console.log('임시알러트', tempAlert);
+
+                setAlert(tempAlert);
             })
             .catch((error) => {
                 console.log(error);
@@ -83,7 +47,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
     useEffect(() => {
         // if (!!userInfo.accessToken) {
         getData();
-        //}
+        // }
     }, [userInfo]);
     const [editBtn, setEditBtn] = useState(false);
     const [img, setImg] = useState(userInfo.profile_img);
@@ -151,7 +115,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                         .then((res) => {
                             if (res.data.message !== 'byebye') {
                                 window.alert('탈퇴가 완료되었습니다.');
-                                router.push('/');
+                                sessionStorage.clear();
+                                router.push('/content');
                             }
                         });
                 } else {
@@ -165,7 +130,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     return (
         <>
-            {/* {console.log('알러틑트', alert)} */}
             {myPost || myScrap ? (
                 <div className="my_wrapper">
                     <div className="sidebar_and_post">
@@ -255,7 +219,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         ? alert.like.map((el, idx) => {
                                               return (
                                                   <li className="alert_list" key={idx}>
-                                                      ✔️{el.title} 을 {el.username} 벌님이 💛를 눌렀습니다.
+                                                      ✔️{el?.post_container?.title} 을 {el?.User?.username} 벌님이 💛를
+                                                      눌렀습니다.
                                                   </li>
                                               );
                                           })
@@ -264,7 +229,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         ? alert.dislike.map((el, idx) => {
                                               return (
                                                   <li className="alert_list" key={idx}>
-                                                      ✔️{el.title} 을 {el.username} 벌님이 💔를 눌렀습니다.
+                                                      ✔️{el?.post_container?.title} 을 {el?.User?.username} 벌님이 💔를
+                                                      눌렀습니다.
                                                   </li>
                                               );
                                           })
@@ -273,7 +239,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         ? alert.scrap.map((el, idx) => {
                                               return (
                                                   <li className="alert_list" key={idx}>
-                                                      ✔️{el.title} 을 {el.username} 벌님이 🗂를 눌렀습니다.
+                                                      ✔️{el?.post_container?.title} 을 {el?.User?.username} 벌님이 🗂를
+                                                      눌렀습니다.
                                                   </li>
                                               );
                                           })
@@ -288,13 +255,10 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                 <div className="my_post_container">
                                     {myPost.length > 0 ? (
                                         myPost.map((el) => {
-                                            console.log(el);
                                             return (
                                                 <Link href={`/post/${el?.id}`} key={el?.id}>
                                                     <div className="my_post_item" key={el?.id}>
                                                         <div className="my_post_item_inner" key={el?.id}>
-                                                            {/* <div className="my_best_item_header"> */}
-
                                                             <div className="my_img_container">
                                                                 <div className="my_img_inner">
                                                                     <Image
@@ -332,7 +296,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {/* </div> */}
                                                         </div>
                                                     </div>
                                                 </Link>

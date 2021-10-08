@@ -10,6 +10,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const [myScrap, setMyScrap] = useState([]);
     const [alert, setAlert] = useState([]);
     const [noAlert, setNoAlert] = useState(true);
+    const router = useRouter;
 
     const getData = async () => {
         const res = await axios
@@ -18,13 +19,12 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
+                console.log('마이페이지', res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
-                return res.data.data.myPost;
-            })
-            .then((post) => {
-                let tmpAlert = [];
-                for (let el of post) {
+
+                let tmpAlert = alert.slice();
+                for (let el of myPost) {
                     tmpAlert.push({
                         title: el.title,
                         like: el.like,
@@ -81,9 +81,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
     };
 
     useEffect(() => {
-        if (!!userInfo.accessToken) {
-            getData();
-        }
+        // if (!!userInfo.accessToken) {
+        getData();
+        //}
     }, [userInfo]);
     const [editBtn, setEditBtn] = useState(false);
     const [img, setImg] = useState(userInfo.profile_img);
@@ -107,7 +107,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
         formData.append('username', userInfo.username);
         formData.append('email', userInfo.email);
         for (let key of formData.entries()) {
-            console.log(`${key}`);
+            console.log(`키: ${key}`);
         }
         axios
             .patch(`${process.env.NEXT_PUBLIC_URL}/mypage`, formData, {
@@ -118,6 +118,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
+                console.log(res);
                 setUserInfo({
                     ...userInfo,
                     username: res.data.data.userInfo.username,
@@ -132,42 +133,40 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     const deleteSure = () => {
         if (window.confirm('정말 회원 탈퇴하시겠습니까?')) {
-            window.open('exit.html', 'Thanks for Visiting!');
             userDelete;
         }
     };
 
     const userDelete = () => {
-        axios
-            .delete(`${process.env.NEXT_PUBLIC_URL}/user`, {
-                data: { token: userInfo.token },
-                withCredentials: true,
-            })
-            .then((res) => {
-                if (res.message === 'byebye') {
-                    window.alert('회원탈퇴가 완료되었습니다.');
-
+        axios.delete(`${process.env.NEXT_PUBLIC_URL}/user`, { withCredentials: true }).then((res) => {
+            try {
+                console.log(res.data);
+                if (res.data.message === 'byebye') {
                     axios
                         .get(`${process.env.NEXT_PUBLIC_URL}/signout`, {
                             headers: {
-                                authorization: userInfo.accessToken,
+                                accessToken: userInfo.accessToken,
                             },
                         })
                         .then((res) => {
                             if (res.data.message !== 'byebye') {
                                 window.alert('탈퇴가 완료되었습니다.');
-                                useRouter.push({
-                                    pathname: '/',
-                                });
+                                router.push('/');
                             }
                         });
+                } else {
+                    console.log(res);
                 }
-            });
+            } catch (err) {
+                console.log(err);
+            }
+        });
     };
 
     return (
         <>
-            {myPost || myScrap || alert ? (
+            {/* {console.log('알러틑트', alert)} */}
+            {myPost || myScrap ? (
                 <div className="my_wrapper">
                     <div className="sidebar_and_post">
                         <div className="my_side_bar">
@@ -189,7 +188,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                     {editBtn ? (
                                         <>
                                             <div className="my_user_infoBody edit_user_info">
-                                                <form>
+                                                <form id="my_form">
                                                     <input
                                                         type="file"
                                                         id="profile_img_uploader"
@@ -207,7 +206,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        id="userName"
+                                                        id="userName_input"
                                                         placeholder={userInfo.username}
                                                         maxLength="8"
                                                         minLength="1"

@@ -54,7 +54,7 @@ app.post('/signin/kakao', async (req, res) => {
                 async (err, response, body) => {
                     if (!err) {
                         const obj = JSON.parse(response.body);
-                        console.log(response.body);
+                        console.log(obj);
                         const finduser = await User.findOne({
                             where: {
                                 email: obj.id,
@@ -77,19 +77,19 @@ app.post('/signin/kakao', async (req, res) => {
                                 email: obj.id,
                                 password: obj.id,
                                 username: obj.properties.nickname,
-                                profile_img: obj.properties.thumbnail_image,
+                                profile_img: obj.kakao_account.profile.profile_image_url,
                             });
-                            const finduser = await User.findOne({ where: { email: obj.id } });
-                            const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
+                            const finduser1 = await User.findOne({ where: { email: obj.id } });
+                            const accessToken1 = jwt.sign(finduser1.dataValues, process.env.ACCESS_SECRET);
 
-                            res.cookie('accessToken', accessToken, {
+                            res.cookie('accessToken', accessToken1, {
                                 sameSite: 'none',
                                 secure: true,
                                 httpOnly: true,
                             });
                             res.status(200).json({
                                 message: 'login complete',
-                                data: { accessToken: accessToken, userInfo: finduser },
+                                data: { accessToken: accessToken1, userInfo: finduser1 },
                             });
                         }
                     }
@@ -99,7 +99,6 @@ app.post('/signin/kakao', async (req, res) => {
             res.status(400).json({ message: 'err' });
         }
     }
-
     request(options, callback);
 });
 app.post('/signin', controllers.signin);

@@ -5,14 +5,14 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        console.log('쿠키', req.cookies.accessToken);
+        console.log('쿠키', req);
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
                 res.status(404).json({ message: 'Bad Request' });
             } else {
                 const Token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-                console.log(Token);
+                console.log('마이페이지토큰', Token);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
                     const myPost = await post_container.findAll({
@@ -59,7 +59,7 @@ module.exports = {
                         });
                     }
 
-                    console.log('마이포스트', myPost[0]);
+                    // console.log('마이포스트', myPost[0]);
 
                     const myScrap = await scrap.findAll({
                         where: { user_id: Token.id },
@@ -78,10 +78,10 @@ module.exports = {
                         ],
                     });
 
-                    console.log(myScrap[0], '마이스크랩222');
+                    // console.log(myScrap[0], '마이스크랩222');
 
                     for (let oneScrap of myScrap) {
-                        console.log(oneScrap);
+                        // console.log(oneScrap);
                         oneScrap.dataValues.like = await like.findAll({
                             where: { post_id: oneScrap.dataValues.post_id },
                             attributes: ['user_id'],
@@ -124,8 +124,6 @@ module.exports = {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
-                    console.log(req.file.location, req.body.username, token);
-                    const email = req.body.email;
                     const username = req.body.username;
 
                     if (username && req.file.location) {

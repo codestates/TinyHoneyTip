@@ -273,7 +273,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                 </div>
                                                                 <div className="my_post_desc_text">
                                                                     <div className="my_post_text">
-                                                                        <div>{el?.posts[0].content}</div>
+                                                                        <div>{el?.posts[0].content.slice(0, 70)}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="my_post_bot">
@@ -286,7 +286,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                             💛&nbsp;{el?.like?.length}
                                                                         </div>
                                                                         <div className="my_post_author post_dislike_num">
-                                                                            &nbsp;💔 &nbsp;{el?.dislike?.length}
+                                                                            💔&nbsp;{el?.dislike?.length}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -297,7 +297,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                             );
                                         })
                                     ) : (
-                                        <h3 className="empty">my post is empty</h3>
+                                        <h3 className="empty">게시물을 작성해봐요!</h3>
                                     )}
                                 </div>
                             </div>
@@ -332,7 +332,10 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                     <div className="my_post_desc_text">
                                                                         <div className="my_post_text">
                                                                             <p>
-                                                                                {el?.post_container.posts[0]?.content}
+                                                                                {el?.post_container.posts[0]?.content.slice(
+                                                                                    0,
+                                                                                    70,
+                                                                                )}
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -349,7 +352,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                                     : 0}
                                                                             </div>
                                                                             <div className="my_post_author post_dislike_num">
-                                                                                &nbsp;💔 &nbsp;
+                                                                                💔&nbsp;
                                                                                 {el?.dislike?.length
                                                                                     ? el?.dislike?.length
                                                                                     : 0}
@@ -364,7 +367,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                             );
                                         })
                                     ) : (
-                                        <h3 className="empty">my scrap is empty</h3>
+                                        <h3 className="empty">꿀팁들을 스크랩해보세요!</h3>
                                     )}
                                 </div>
                             </div>

@@ -123,7 +123,7 @@ export default function Content({ bestList, postList, weatherData }) {
                                             })?.length !== 0 ? (
                                                 post
                                                     ?.filter((el) => {
-                                                        return el.title.indexOf(input) > -1;
+                                                        return el?.title?.indexOf(input) > -1;
                                                     })
                                                     .map((list) => {
                                                         return (

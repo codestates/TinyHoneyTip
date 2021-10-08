@@ -38,6 +38,7 @@
  Loading<br />
  Infinite scroll<br />
  Image src making <br />
+ Weather widget<br/>
  Cropper <br />
 </div>
 </details>

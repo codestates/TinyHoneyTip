@@ -38,6 +38,7 @@
  Loading<br />
  Infinite scroll<br />
  Image src making <br />
+ Weather widget<br/>
  Cropper <br />
 </div>
 </details>
@@ -50,8 +51,13 @@
 |--|--|
 - 팀원
 - Position: Full-stack
-- Stack:
-- Contributions
+- Stack: React, Next js, axios, html, css, javascript, node js, sequelize, RDS, mysql, express
+- Contributions<br />
+ mypage client<br />
+ mypage server<br />
+ post detail api <br />
+ like, cancle like, dislike, cancle dislike, scrap, cancle scrap api
+ database<br />
 </div>
 </details>
 
@@ -63,7 +69,7 @@
 |--|--|
 - 팀원
 - Position: Back-End
-- Stack:
+- Stack: node js, sequelize, mysql, S3, vercel, ngrok, express, javascript, multer
 - Contributions
 </div>
 </details>
@@ -76,7 +82,7 @@
 |--|--|
 - 팀원
 - Position: Front-End
-- Stack: Node.js, Next js, express, html, css, react, javascript
+- Stack: React, Next js, axios, html, css, javascript
 - Contributions<br />
  landing page<br />
  header, footer<br />

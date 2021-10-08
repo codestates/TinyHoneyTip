@@ -7,14 +7,16 @@ module.exports = {
     mypage: require('./mypage/Index'),
     post: require('./post/Index'),
     user: async (req, res) => {
+        await console.log(req.cookie);
         const accessToken = req.cookies.accessToken;
         const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
         try {
             if (userinfo) {
-                User.destroy({ where: { email: userinfo.email } });
-                await res.clearCookie('accessToken').status(200).json({ message: 'byebye' });
+                await User.destroy({ where: { email: userinfo.email } }).then(
+                    res.clearCookie('accessToken').status(200).json({ message: 'byebye' }),
+                );
             } else {
-                res.status(500).json({ message: 'error!!' });
+                res.status(500).json({ message: 'no token!!' });
             }
         } catch (err) {
             console.log(err);

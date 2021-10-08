@@ -28,32 +28,14 @@ module.exports = {
                         onePost.dataValues.like = await like.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
                         });
                         onePost.dataValues.dislike = await dislike.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
                         });
                         onePost.dataValues.scrap = await scrap.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
                         });
                     }
 
@@ -81,6 +63,7 @@ module.exports = {
                                 ],
                             }),
                         );
+
                         alert.dislike.push(
                             await dislike.findAll({
                                 where: {
@@ -103,6 +86,7 @@ module.exports = {
                                 ],
                             }),
                         );
+
                         alert.scrap.push(
                             await scrap.findAll({
                                 where: {
@@ -126,8 +110,6 @@ module.exports = {
                             }),
                         );
                     }
-
-                    // console.log('마이포스트', myPost[0]);
 
                     const myScrap = await scrap.findAll({
                         where: { user_id: Token.id },
@@ -161,8 +143,6 @@ module.exports = {
                         });
                     }
 
-                    // ---------------------------------------- alert 시작 -------------------------------------------------------
-
                     res.status(200).json({
                         message: 'ok',
                         data: {
@@ -175,7 +155,7 @@ module.exports = {
             }
         } catch (err) {
             console.log(err);
-            res.status(400).json({ message: 'Bad Request', data: User });
+            res.status(400).json({ message: 'Bad Request' });
         }
     },
 

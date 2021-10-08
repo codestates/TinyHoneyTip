@@ -516,18 +516,6 @@
         flex-direction: row;
     }
 
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    .my_scrap_containe::-webkit-scrollbar-track,
-    .my_post_container::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
-    }
-
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
     }
@@ -789,7 +777,8 @@
         text-align: center;
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
-        overflow: scroll;
+        overflow-y: scroll;
+
         padding: 10px 0;
     }
 
@@ -821,6 +810,7 @@
         color: #666;
         width: 100%;
         line-height: 22px;
+        text-align: center;
     }
 
     #no_alert {
@@ -847,20 +837,6 @@
         overflow-y: hidden;
         display: flex;
         flex-direction: row;
-    }
-
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-        display: block;
-    }
-
-    .my_scrap_containe::-webkit-scrollbar-track,
-    .my_post_container::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
-        display: block;
     }
 
     .my_post_container {
@@ -973,22 +949,24 @@
     }
 }
 
-.my_post_container:hover.my_post_container::-webkit-scrollbar,
-.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar,
-#my_alert:hover#my_alert::-webkit-scrollbar {
+.my_post_container::-webkit-scrollbar,
+.my_scrap_container::-webkit-scrollbar,
+#my_alert::-webkit-scrollbar {
     /* 스크롤바 전체 */
     background-color: rgba(244, 193, 65, 0.4);
-    height: 10px;
-    border-radius: 50%;
+    height: 7px;
+    width: 5px;
+    border-radius: 10px;
     display: block;
 }
 
-.my_scrap_container:hover.my_post_container::-webkit-scrollbar-thumb,
-.my_post_container:hover.my_scrap_container::-webkit-scrollbar-thumb,
-#my_alert:hover#my_alert::-webkit-scrollbar-thumb {
+.my_post_container::-webkit-scrollbar-thumb,
+.my_scrap_container::-webkit-scrollbar-thumb,
+#my_alert::-webkit-scrollbar-thumb {
     /* 스크롤 막대 */
-    background-color: rgba(244, 193, 65, 0.4);
-    border-radius: 50%;
+    background-color: rgba(244, 193, 65, 0.7);
+    border-radius: 10px;
     display: block;
-    width: 7px;
+    height: 7px;
+    width: 5px;
 }

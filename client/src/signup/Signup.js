@@ -72,6 +72,10 @@ export default function Signup({
                         setMessage('회원가입 완료');
                         okHandler();
                         closeUpModal();
+                    } else if (res.data.message === 'already email exist') {
+                        window.alert('already email exist');
+                    } else if (res.data.message === 'already username exist') {
+                        window.alert('already username exist');
                     }
                 });
         }

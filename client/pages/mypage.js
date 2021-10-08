@@ -36,8 +36,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 }
 
                 console.log('임시알러트', tempAlert);
-
                 setAlert(tempAlert);
+                if (tempAlert !== { like: [], dislike: [], scrap: [] }) setNoAlert(false);
             })
             .catch((error) => {
                 console.log(error);

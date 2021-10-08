@@ -20,7 +20,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log('마이페이지', res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
 
@@ -35,7 +34,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                     tempAlert.scrap.push(...el);
                 }
 
-                console.log('임시알러트', tempAlert);
                 setAlert(tempAlert);
                 if (tempAlert !== { like: [], dislike: [], scrap: [] }) setNoAlert(false);
             })
@@ -82,7 +80,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log(res);
                 setUserInfo({
                     ...userInfo,
                     username: res.data.data.userInfo.username,
@@ -104,7 +101,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const userDelete = () => {
         axios.delete(`${process.env.NEXT_PUBLIC_URL}/user`, { withCredentials: true }).then((res) => {
             try {
-                console.log(res.data);
                 if (res.data.message === 'byebye') {
                     axios
                         .get(`${process.env.NEXT_PUBLIC_URL}/signout`, {
@@ -120,7 +116,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                             }
                         });
                 } else {
-                    console.log(res);
                 }
             } catch (err) {
                 console.log(err);

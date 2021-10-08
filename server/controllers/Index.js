@@ -7,7 +7,6 @@ module.exports = {
     mypage: require('./mypage/Index'),
     post: require('./post/Index'),
     user: async (req, res) => {
-        await console.log(req.cookie);
         const accessToken = req.cookies.accessToken;
         const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
         try {
@@ -65,9 +64,9 @@ module.exports = {
                 where: { username: username },
             });
             if (emailCheck) {
-                res.status(400).json({ message: 'already email exist' });
+                res.status(200).json({ message: 'already email exist' });
             } else if (usernameCheck) {
-                res.status(400).json({ message: 'already username exist' });
+                res.status(200).json({ message: 'already username exist' });
             } else {
                 await User.create({
                     email,

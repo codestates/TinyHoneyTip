@@ -71,7 +71,8 @@
 - Position: Back-End
 - Stack: node.js, sequelize, mysql, aws, vercel, express, javascript
 - Contributions<br />
- server API<br />
+ Server API<br />
+ Image upload<br />
  Database<br />
  Deploy<br />
  Social login<br />

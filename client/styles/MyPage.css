@@ -2,6 +2,38 @@
     background-color: rgba(253, 242, 217, 0.5);
 }
 
+.my_post_container::-webkit-scrollbar,
+.my_scrap_container::-webkit-scrollbar,
+#my_alert::-webkit-scrollbar {
+    background-color: rgba(244, 193, 65, 0.4);
+    height: 7px;
+    width: 5px;
+    border-radius: 10px;
+    display: none;
+}
+
+.my_post_container:hover.my_post_container::-webkit-scrollbar,
+.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar,
+#my_alert:hover#my_alert::-webkit-scrollbar {
+    display: block;
+}
+
+.my_post_container::-webkit-scrollbar-thumb,
+.my_scrap_container::-webkit-scrollbar-thumb,
+#my_alert::-webkit-scrollbar-thumb {
+    background-color: rgba(244, 193, 65, 0.7);
+    border-radius: 10px;
+    display: none;
+    height: 7px;
+    width: 5px;
+}
+
+.my_post_container:hover.my_post_container::-webkit-scrollbar-thumb,
+.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar-thumb,
+#my_alert:hover#my_alert::-webkit-scrollbar-thumb {
+    display: block;
+}
+
 /* pc */
 @media screen and (min-width: 1024px) {
     .my_wrapper {
@@ -125,16 +157,6 @@
         padding: 1vw;
     }
 
-    #my_alert::-webkit-scrollbar {
-        /* 스크롤바 전체 */
-        display: none;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        /* 스크롤 막대 */
-        display: none;
-    }
-
     #my_alert_title {
         font-size: 14px;
         font-weight: 600;
@@ -149,6 +171,9 @@
         width: 100%;
         line-height: 22px;
         text-align: justify;
+        padding-bottom: 7px;
+        /* text-decoration: underline; */
+        border-bottom: 1px solid #ccc;
     }
 
     #no_alert {
@@ -175,20 +200,6 @@
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-    }
-
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 2px;
-        background: #f4c141;
-        display: block;
-    }
-
-    .my_post_container::-webkit-scrollbar-track,
-    .my_scrap_container::-webkit-scrollbar-track {
-        width: 2px;
-        background: #fae8bb;
-        display: block;
     }
 
     .my_post_container {
@@ -334,13 +345,6 @@
         color: #333;
     }
 
-    .my_post_container::-webkit-scrollbar,
-    .my_scrap_container::-webkit-scrollbar,
-    #my_alert::-webkit-scrollbar {
-        /* 스크롤바 전체 */
-        display: none;
-    }
-
     /* ------------------ side bar / user information 시작 ------------------------------------ */
 
     .my_side_bar {
@@ -458,19 +462,6 @@
         overflow: scroll;
     }
 
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-        display: block;
-    }
-    .my_scrap_container::-webkit-scrollbar-track,
-    .my_post_container::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
-        display: block;
-    }
-
     #my_alert_title {
         font-size: 14px;
         font-weight: 500;
@@ -489,6 +480,10 @@
 
     #no_alert {
         font-size: 12px;
+    }
+
+    .alert_ul {
+        padding-bottom: 20px;
     }
 
     /* ------------------- mypost / myscrap 시작 --------------------------- */
@@ -544,7 +539,6 @@
         display: block;
         background: rgba(244, 193, 65, 0.8);
         box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
-
         border-radius: 20px;
         font-size: 12px;
         animation-duration: 3s;
@@ -630,13 +624,6 @@
 
 /* mobile */
 @media screen and (max-width: 617px) {
-    /* #my_alert::-webkit-scrollbar {
-        display: none;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        display: none;
-    } */
     .my_wrapper {
         margin: auto;
         color: #666;
@@ -778,18 +765,7 @@
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
         overflow-y: scroll;
-
         padding: 10px 0;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    #my_alert::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
     }
 
     #my_alert_title {
@@ -811,6 +787,7 @@
         width: 100%;
         line-height: 22px;
         text-align: center;
+        border-bottom: 1px solid #ccc;
     }
 
     #no_alert {
@@ -947,26 +924,4 @@
         width: 30px;
         font-size: 8px;
     }
-}
-
-.my_post_container::-webkit-scrollbar,
-.my_scrap_container::-webkit-scrollbar,
-#my_alert::-webkit-scrollbar {
-    /* 스크롤바 전체 */
-    background-color: rgba(244, 193, 65, 0.4);
-    height: 7px;
-    width: 5px;
-    border-radius: 10px;
-    display: block;
-}
-
-.my_post_container::-webkit-scrollbar-thumb,
-.my_scrap_container::-webkit-scrollbar-thumb,
-#my_alert::-webkit-scrollbar-thumb {
-    /* 스크롤 막대 */
-    background-color: rgba(244, 193, 65, 0.7);
-    border-radius: 10px;
-    display: block;
-    height: 7px;
-    width: 5px;
 }

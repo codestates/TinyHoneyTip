@@ -5,7 +5,6 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        console.log('쿠키', req);
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
@@ -26,37 +25,56 @@ module.exports = {
                         ],
                     });
 
+                    const alert = { like: [], dislike: [], scrap: [] };
                     for (let onePost of myPost) {
-                        onePost.dataValues.like = await like.findAll({
-                            where: { post_id: onePost.id },
-                            attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
-                        });
-                        onePost.dataValues.dislike = await dislike.findAll({
-                            where: { post_id: onePost.id },
-                            attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
-                        });
-                        onePost.dataValues.scrap = await scrap.findAll({
-                            where: { post_id: onePost.id },
-                            attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
-                        });
+                        alert.like.push(
+                            await like.findAll({
+                                where: { post_id: onePost.id },
+                                attributes: ['user_id'],
+                                include: [
+                                    {
+                                        model: User,
+                                        attributes: ['username'],
+                                    },
+                                    {
+                                        model: post_container,
+                                        attributes: ['title'],
+                                    },
+                                ],
+                            }),
+                        );
+                        alert.dislike.push(
+                            await dislike.findAll({
+                                where: { post_id: onePost.id },
+                                attributes: ['user_id'],
+                                include: [
+                                    {
+                                        model: User,
+                                        attributes: ['username'],
+                                    },
+                                    {
+                                        model: post_container,
+                                        attributes: ['title'],
+                                    },
+                                ],
+                            }),
+                        );
+                        alert.scrap.push(
+                            await scrap.findAll({
+                                where: { post_id: onePost.id },
+                                attributes: ['user_id'],
+                                include: [
+                                    {
+                                        model: User,
+                                        attributes: ['username'],
+                                    },
+                                    {
+                                        model: post_container,
+                                        attributes: ['title'],
+                                    },
+                                ],
+                            }),
+                        );
                     }
 
                     // console.log('마이포스트', myPost[0]);
@@ -78,10 +96,7 @@ module.exports = {
                         ],
                     });
 
-                    // console.log(myScrap[0], '마이스크랩222');
-
                     for (let oneScrap of myScrap) {
-                        // console.log(oneScrap);
                         oneScrap.dataValues.like = await like.findAll({
                             where: { post_id: oneScrap.dataValues.post_id },
                             attributes: ['user_id'],
@@ -105,6 +120,7 @@ module.exports = {
                         data: {
                             myPost: myPost,
                             myScrap: myScrap,
+                            alert: alert,
                         },
                     });
                 }

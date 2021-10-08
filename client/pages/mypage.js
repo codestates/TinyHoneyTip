@@ -271,8 +271,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                         {el?.title}
                                                                     </div>
                                                                 </div>
-                                                                <div className="post_desc_text">
-                                                                    <div className="post_text">
+                                                                <div className="my_post_desc_text">
+                                                                    <div className="my_post_text">
                                                                         <div>{el?.posts[0].content}</div>
                                                                     </div>
                                                                 </div>
@@ -283,10 +283,10 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
                                                                     <div className="my_post_desc_userinfo">
                                                                         <div className="my_post_author post_like_num">
-                                                                            💛 &nbsp;{el?.like?.length}
+                                                                            💛&nbsp;{el?.like?.length}
                                                                         </div>
                                                                         <div className="my_post_author post_dislike_num">
-                                                                            💔 &nbsp;{el?.dislike?.length}
+                                                                            &nbsp;💔 &nbsp;{el?.dislike?.length}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -329,8 +329,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                             {el?.post_container?.title}
                                                                         </div>
                                                                     </div>
-                                                                    <div className="post_desc_text">
-                                                                        <div className="post_text">
+                                                                    <div className="my_post_desc_text">
+                                                                        <div className="my_post_text">
                                                                             <p>
                                                                                 {el?.post_container.posts[0]?.content}
                                                                             </p>
@@ -343,13 +343,13 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
                                                                         <div className="my_post_desc_userinfo">
                                                                             <div className="my_post_author post_like_num">
-                                                                                💛
+                                                                                💛&nbsp;
                                                                                 {el?.like?.length
                                                                                     ? el?.like?.length
                                                                                     : 0}
                                                                             </div>
                                                                             <div className="my_post_author post_dislike_num">
-                                                                                💔
+                                                                                &nbsp;💔 &nbsp;
                                                                                 {el?.dislike?.length
                                                                                     ? el?.dislike?.length
                                                                                     : 0}

@@ -79,12 +79,12 @@ export default function Signin({
                     closeInModal();
                 })
                 .then((res) => {});
-        };
 
+        };
         if (authorizationCode) {
             await getAccessToken(authorizationCode);
         }
-    }, []);
+    });
 
     return (
         <>

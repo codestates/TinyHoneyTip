@@ -55,8 +55,7 @@
 - Contributions<br />
  mypage client<br />
  mypage server<br />
- post detail api <br />
- like, cancle like, dislike, cancle dislike, scrap, cancle scrap api
+ server api<br />
  database<br />
 </div>
 </details>

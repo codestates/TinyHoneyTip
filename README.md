@@ -50,8 +50,13 @@
 |--|--|
 - 팀원
 - Position: Full-stack
-- Stack:
-- Contributions
+- Stack: React, Next js, axios, html, css, javascript, node js, sequelize, RDS
+- Contributions<br />
+ mypage client<br />
+ mypage server<br />
+ post detail api <br />
+ like, cancle like, dislike, cancle dislike, scrap, cancle scrap api
+ database<br />
 </div>
 </details>
 

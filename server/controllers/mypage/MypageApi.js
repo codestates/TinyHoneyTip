@@ -25,11 +25,50 @@ module.exports = {
                         ],
                     });
 
+                    for (let onePost of myPost) {
+                        onePost.dataValues.like = await like.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
+                        });
+                        onePost.dataValues.dislike = await dislike.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
+                        });
+                        onePost.dataValues.scrap = await scrap.findAll({
+                            where: { post_id: onePost.id },
+                            attributes: ['user_id'],
+                            include: [
+                                {
+                                    model: User,
+                                    attributes: ['username'],
+                                },
+                            ],
+                        });
+                    }
+
                     const alert = { like: [], dislike: [], scrap: [] };
                     for (let onePost of myPost) {
                         alert.like.push(
                             await like.findAll({
-                                where: { post_id: onePost.id },
+                                where: {
+                                    post_id: onePost.id,
+                                    createdAt: {
+                                        [Op.lt]: new Date(),
+                                        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                    },
+                                },
                                 attributes: ['user_id'],
                                 include: [
                                     {
@@ -45,7 +84,13 @@ module.exports = {
                         );
                         alert.dislike.push(
                             await dislike.findAll({
-                                where: { post_id: onePost.id },
+                                where: {
+                                    post_id: onePost.id,
+                                    createdAt: {
+                                        [Op.lt]: new Date(),
+                                        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                    },
+                                },
                                 attributes: ['user_id'],
                                 include: [
                                     {
@@ -61,7 +106,13 @@ module.exports = {
                         );
                         alert.scrap.push(
                             await scrap.findAll({
-                                where: { post_id: onePost.id },
+                                where: {
+                                    post_id: onePost.id,
+                                    createdAt: {
+                                        [Op.lt]: new Date(),
+                                        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                    },
+                                },
                                 attributes: ['user_id'],
                                 include: [
                                     {

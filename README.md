@@ -51,7 +51,7 @@
 |--|--|
 - 팀원
 - Position: Full-stack
-- Stack: React, Next js, axios, html, css, javascript, node js, sequelize, RDS
+- Stack: React, Next js, axios, html, css, javascript, node js, sequelize, RDS, mysql, express
 - Contributions<br />
  mypage client<br />
  mypage server<br />
@@ -69,7 +69,7 @@
 |--|--|
 - 팀원
 - Position: Back-End
-- Stack:
+- Stack: node js, sequelize, mysql, S3, vercel, ngrok, express, javascript, multer
 - Contributions
 </div>
 </details>

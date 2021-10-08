@@ -11,7 +11,6 @@ module.exports = {
                 res.status(404).json({ message: 'Bad Request' });
             } else {
                 const Token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-                console.log('마이페이지토큰', Token);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
                     const myPost = await post_container.findAll({
@@ -164,8 +163,6 @@ module.exports = {
 
                     // ---------------------------------------- alert 시작 -------------------------------------------------------
 
-                    console.log('성공');
-
                     res.status(200).json({
                         message: 'ok',
                         data: {
@@ -177,7 +174,7 @@ module.exports = {
                 }
             }
         } catch (err) {
-            console.log('캐치에러다', err);
+            console.log(err);
             res.status(400).json({ message: 'Bad Request', data: User });
         }
     },

@@ -69,8 +69,12 @@
 |--|--|
 - 팀원
 - Position: Back-End
-- Stack: node js, sequelize, mysql, S3, vercel, ngrok, express, javascript, multer
+- Stack: node.js, sequelize, mysql, aws, vercel, express, javascript
 - Contributions
+ server API<br />
+ Database<br />
+ Deploy<br />
+ Social login<br />
 </div>
 </details>
 

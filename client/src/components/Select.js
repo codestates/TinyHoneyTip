@@ -70,7 +70,7 @@ export default function Select({ post, setPost }) {
                     <option value>선택</option>
                     <option value="title">이름순</option>
                     <option value="like">인기순</option>
-                    <option value="dislike">삻어요순</option>
+                    <option value="dislike">싫어요순</option>
                     <option value="update">최신순</option>
                 </select>
             </div>

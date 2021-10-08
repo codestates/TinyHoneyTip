@@ -94,14 +94,6 @@ export default function Weather({ weatherData }) {
                     )}
                 </div>
             </div>
-
-            {/* <div>{weatherData?.main?.temp - 273}</div> */}
-            {/* <div>{weatherData?.weather[0]?.main}</div> */}
-            {/* <div><Image src={iconUrl} /></div> */}
-            {/* <div>{weatherData?.wind?.speed}</div> */}
-            {/* <div>{weatherData?.sys?.country}</div> */}
-            {/* <div>{weatherData?.name}</div> */}
-            {/* <div>{weatherData?.clouds?.all + '%'}</div> */}
         </div>
     );
 }

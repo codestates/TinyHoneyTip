@@ -70,7 +70,7 @@
 - 팀원
 - Position: Back-End
 - Stack: node.js, sequelize, mysql, aws, vercel, express, javascript
-- Contributions
+- Contributions<br />
  server API<br />
  Database<br />
  Deploy<br />

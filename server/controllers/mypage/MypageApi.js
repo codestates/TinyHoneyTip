@@ -46,8 +46,8 @@ module.exports = {
                                 where: {
                                     post_id: onePost.id,
                                     createdAt: {
-                                        [Op.lt]: new Date(),
-                                        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                        [Op.lte]: new Date(),
+                                        [Op.gte]: new Date(new Date() - 168 * 60 * 60 * 1000),
                                     },
                                 },
                                 attributes: ['user_id'],

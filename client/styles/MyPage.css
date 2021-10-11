@@ -2,36 +2,36 @@
     background-color: rgba(253, 242, 217, 0.5);
 }
 
-.my_post_container::-webkit-scrollbar,
-.my_scrap_container::-webkit-scrollbar,
-#my_alert::-webkit-scrollbar {
-    background-color: rgba(244, 193, 65, 0.4);
-    height: 7px;
-    width: 5px;
-    border-radius: 10px;
-    display: none;
-}
-
-.my_post_container:hover.my_post_container::-webkit-scrollbar,
-.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar,
-#my_alert:hover#my_alert::-webkit-scrollbar {
-    display: block;
-}
-
 .my_post_container::-webkit-scrollbar-thumb,
 .my_scrap_container::-webkit-scrollbar-thumb,
 #my_alert::-webkit-scrollbar-thumb {
-    background-color: rgba(244, 193, 65, 0.7);
-    border-radius: 10px;
     display: none;
-    height: 7px;
-    width: 5px;
+}
+
+.my_post_container::-webkit-scrollbar,
+.my_scrap_container::-webkit-scrollbar,
+#my_alert::-webkit-scrollbar {
+    display: none;
 }
 
 .my_post_container:hover.my_post_container::-webkit-scrollbar-thumb,
 .my_scrap_container:hover.my_scrap_container::-webkit-scrollbar-thumb,
 #my_alert:hover#my_alert::-webkit-scrollbar-thumb {
     display: block;
+    height: 7px;
+    width: 5px;
+    background-color: rgba(244, 193, 65, 0.8);
+    border-radius: 10px;
+}
+
+.my_post_container:hover.my_post_container::-webkit-scrollbar,
+.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar,
+#my_alert:hover#my_alert::-webkit-scrollbar {
+    display: block;
+    height: 7px;
+    width: 5px;
+    background-color: rgba(244, 193, 65, 0.4);
+    border-radius: 10px;
 }
 
 /* pc */
@@ -153,8 +153,8 @@
         width: 220px;
         height: 80%;
         margin: auto;
-        overflow-x: hidden;
-        padding: 1vw;
+        overflow: scroll;
+        padding: 1vw 1vw 20px 1vw;
     }
 
     #my_alert_title {
@@ -163,6 +163,10 @@
         height: 30px;
         text-align: center;
         line-height: 30px;
+    }
+
+    .alert_ul {
+        overflow-y: scroll;
     }
 
     .alert_list {
@@ -194,7 +198,6 @@
     .my_post_container,
     .my_scrap_container {
         width: 100%;
-        height: 280px;
         overflow-x: scroll;
         overflow-y: hidden;
         display: flex;
@@ -204,6 +207,12 @@
 
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
+        /* margin-bottom: 10px; */
+        height: 292px;
+    }
+
+    .my_scrap_container {
+        height: 280px;
     }
 
     .empty {
@@ -287,11 +296,13 @@
 
     .my_post_desc_text {
         height: 15px;
+        padding: 0 5px;
     }
 
     .post_desc_title {
-        font-size: 12px;
-        color: #333;
+        font-size: 14px;
+        padding: 2px 5px;
+        font-weight: 600;
     }
 
     .my_post_category {
@@ -321,22 +332,13 @@
 }
 
 /* tablet */
-@media screen and (min-width: 618px) and (max-width: 1023px) {
-    #my_alert::-webkit-scrollbar {
-        /* 스크롤바 전체 */
-        display: none;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        /* 스크롤 막대 */
-        display: none;
-    }
+@media screen and (max-width: 1023px) {
     .my_wrapper {
         margin: auto;
         color: #666;
         list-style: none;
         -ms-overflow-style: none;
-        height: 140vw;
+        height: 160vw;
         padding: 10vw 0;
     }
 
@@ -453,7 +455,7 @@
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 45vw;
+        width: 100%;
         height: 20vw;
         margin: auto;
         text-align: center;
@@ -484,6 +486,7 @@
 
     .alert_ul {
         padding-bottom: 20px;
+        overflow: scroll;
     }
 
     /* ------------------- mypost / myscrap 시작 --------------------------- */
@@ -492,19 +495,19 @@
         border: 10px solid rgba(244, 193, 65, 0.8);
         width: 70vw;
         height: 660px;
-        margin: 0 auto 300px;
+        margin: 2vw auto 300px;
         padding: 2vw;
         border-radius: 1.5vw;
         box-shadow: 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
-        position: absolute;
+        /* position: absolute;
         left: 15vw;
-        top: 51vw;
+        top: 51vw; */
     }
 
     .my_post_container,
     .my_scrap_container {
         width: 100%;
-        height: 300px;
+        height: 283px;
         overflow-x: scroll;
         overflow-y: hidden;
         display: flex;
@@ -595,6 +598,7 @@
         font-size: 10px;
         color: #666;
         height: 15px;
+        padding: 0 5px;
     }
 
     .my_post_category {

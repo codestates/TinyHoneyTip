@@ -9,11 +9,17 @@ module.exports = {
     user: async (req, res) => {
         const accessToken = req.cookies.accessToken;
         const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-        if (userinfo) {
-            User.destroy({ where: { email: userinfo.email } });
-            res.status(200).json({ message: 'byebye' });
-        } else {
-            res.status(500).json({ message: 'error!!' });
+        try {
+            if (userinfo) {
+                await User.destroy({ where: { email: userinfo.email } }).then(
+                    res.clearCookie('accessToken').status(200).json({ message: 'byebye' }),
+                );
+            } else {
+                res.status(500).json({ message: 'no token!!' });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'error!!' });
         }
     },
     signin: async (req, res) => {
@@ -58,9 +64,9 @@ module.exports = {
                 where: { username: username },
             });
             if (emailCheck) {
-                res.status(400).json({ message: 'already email exist' });
+                res.status(200).json({ message: 'already email exist' });
             } else if (usernameCheck) {
-                res.status(400).json({ message: 'already username exist' });
+                res.status(200).json({ message: 'already username exist' });
             } else {
                 await User.create({
                     email,

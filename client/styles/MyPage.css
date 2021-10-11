@@ -1,50 +1,87 @@
+.my_wrapper {
+    background-color: rgba(253, 242, 217, 0.5);
+}
+
+.my_post_container::-webkit-scrollbar-thumb,
+.my_scrap_container::-webkit-scrollbar-thumb,
+#my_alert::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.my_post_container::-webkit-scrollbar,
+.my_scrap_container::-webkit-scrollbar,
+#my_alert::-webkit-scrollbar {
+    display: none;
+}
+
+.my_post_container:hover.my_post_container::-webkit-scrollbar-thumb,
+.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar-thumb,
+#my_alert:hover#my_alert::-webkit-scrollbar-thumb {
+    display: block;
+    height: 7px;
+    width: 5px;
+    background-color: rgba(244, 193, 65, 0.8);
+    border-radius: 10px;
+}
+
+.my_post_container:hover.my_post_container::-webkit-scrollbar,
+.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar,
+#my_alert:hover#my_alert::-webkit-scrollbar {
+    display: block;
+    height: 7px;
+    width: 5px;
+    background-color: rgba(244, 193, 65, 0.4);
+    border-radius: 10px;
+}
+
 /* pc */
 @media screen and (min-width: 1024px) {
     .my_wrapper {
-        position: relative;
-        /* padding: 4vw auto 9vw; */
         color: #666;
-        /* background-color: rgba(253, 242, 217, 0.3); */
+        font-size: 14px;
         list-style: none;
         -ms-overflow-style: none;
-        height: 800px;
-    }
-
-    .my_back_img {
-        /* background-color: rgba(244, 193, 65, 0.6); */
-        width: 100vw;
-        height: 200px;
-        padding-top: 4vw;
-        margin-bottom: 500px;
-        background: url('../public/tht_mypage_bg.png') no-repeat;
+        margin: auto;
+        padding-top: 80px;
     }
 
     #no_data {
         font-size: 30px;
-        font-size: #333;
+        color: #333;
+    }
+
+    .sidebar_and_post {
+        padding: 50px auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 900px;
+        height: 700px;
+        margin: auto;
     }
 
     /* ------------------ side bar / user information 시작 ------------------------------------ */
 
     .my_side_bar {
-        margin: 0 4vw;
-        padding: 1vw;
-        width: 20vw;
-        height: 35vw;
-        /* border: 10px solid rgba(244, 193, 65, 0.8); 
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);*/
-        background-color: rgba(244, 193, 65, 0.3);
-        border-radius: 1vw;
-        position: absolute;
-        top: 8vw;
-        left: 8vw;
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(255, 255, 253, 0.3);
+        padding: 8px;
+        width: 250px;
+        height: 660px;
+        border: 10px solid rgba(244, 193, 65, 0.8);
+        border-radius: 20px;
+        box-shadow: 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        overflow: hidden;
+    }
+
+    .my_profile_img {
+        margin: auto;
+        border-radius: 20px;
         overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
         position: relative;
+        padding-bottom: 10px;
     }
 
     .my_user_name {
@@ -54,107 +91,93 @@
         font-size: 14px;
     }
 
-    .my_profile_img {
-        width: 200px;
-        height: 200px;
-        margin: auto;
-        border-radius: 7%;
-        overflow: hidden;
-    }
-
-    .edit_my_profile_btn {
-        background-color: transparent;
-        border: none;
-        position: absolute;
-        right: 0vw;
-    }
-
-    .deleteBtn {
-        position: absolute;
-        top: 250px;
-        right: 0;
-        background-color: transparent;
-        border: none;
-    }
-
-    .edit_my_profile:hover {
-        cursor: pointer;
-    }
-
-    .deleteBtn:hover {
-        cursor: pointer;
-    }
-
     #profile_img_uploader {
-        background-color: #fff;
-        border: none;
+        background-color: transparent;
+        border-bottom: 3px solid #fff;
         font-size: 12px;
-        width: 150px;
+        width: 220px;
         height: 22px;
-        margin-bottom: 5px;
+        margin: 5px auto;
     }
 
-    #email,
-    #username {
-        font-size: 12px;
+    #profile_img_uploader::file-selector-button {
+        background: rgb(255, 211, 17);
+        border: 1px solid #fff;
+        border-radius: 5px;
+    }
+
+    #userName_input {
+        border: 3px solid #fff;
+    }
+
+    #email span,
+    #username span {
+        font-size: 14px;
+        font-weight: 500;
     }
 
     #email {
         margin-bottom: 20px;
     }
 
-    p {
-        color: #999;
-        margin-bottom: 1.5vw;
+    .user_btn {
+        width: 220px;
+        height: 30px;
+        margin: auto;
+        /* border: 1px solid red; */
     }
 
-    p span {
-        font-weight: 600;
-        color: #666;
+    .edit_my_profile_btn {
+        background-color: transparent;
+        border: none;
+        overflow: hidden;
+        margin: 8px auto;
+        float: right;
     }
 
-    .my_edit_form {
-        font-size: 14px;
+    .deleteBtn {
+        background-color: transparent;
+        border: none;
+        margin: 8px auto;
+        float: right;
     }
 
-    .my_user_infoBody {
+    .edit_my_profile:hover,
+    .deleteBtn:hover {
+        cursor: pointer;
     }
 
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 19vw;
-        height: 20vw;
+        width: 220px;
+        height: 80%;
         margin: auto;
-        bottom: 1.5vw;
-        border-radius: 0 0 1.5vw 1.5vw;
         overflow: scroll;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    #my_alert::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
+        padding: 1vw 1vw 20px 1vw;
     }
 
     #my_alert_title {
         font-size: 14px;
-        font-weight: 500;
-        height: 3vw;
+        font-weight: 600;
+        height: 30px;
         text-align: center;
-        line-height: 3vw;
+        line-height: 30px;
+    }
+
+    .alert_ul {
+        overflow-y: scroll;
     }
 
     .alert_list {
         font-size: 12px;
         color: #666;
         width: 100%;
-        height: 22px;
         line-height: 22px;
+        text-align: justify;
+        padding-bottom: 7px;
+        /* text-decoration: underline; */
+        border-bottom: 1px solid #ccc;
     }
 
     #no_alert {
@@ -165,51 +188,38 @@
 
     .my_Allpost_wrapper {
         border: 10px solid rgba(244, 193, 65, 0.8);
-        background: rgba(255, 255, 253, 0.9);
-        width: 58vw;
+        width: 640px;
         height: 660px;
-        position: absolute;
-        top: 8vw;
-        right: 10vw;
-        /* overflow: scroll; */
-        padding: 1vw;
-        border-radius: 1.5vw;
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
     }
 
     .my_post_container,
     .my_scrap_container {
         width: 100%;
-        height: 280px;
         overflow-x: scroll;
-        display: grid;
-        grid-template-columns: repeat(5, auto);
         overflow-y: hidden;
-    }
-
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 2px;
-        background: #f4c141;
-    }
-
-    .my_post_container::-webkit-scrollbar-track,
-    .my_scrap_container::-webkit-scrollbar-track {
-        width: 2px;
-        background: #fae8bb;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
     }
 
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
+        /* margin-bottom: 10px; */
+        height: 292px;
+    }
+
+    .my_scrap_container {
+        height: 280px;
     }
 
     .empty {
         text-align: center;
         font-size: 1.5vw;
-        width: 15vw;
-        height: 3vw;
+
         line-height: 3vw;
-        background-color: #f4c141;
         margin: auto;
     }
 
@@ -223,18 +233,22 @@
     }
 
     .my_post_item {
-        margin: 1vw;
+        margin: 10px 0;
         height: 250px;
-        width: 200px;
+        width: 250px;
         display: block;
         background: rgba(244, 193, 65, 0.8);
-        border-radius: 1vw;
-        box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
+        border-radius: 20px;
+        box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
         overflow: hidden;
         cursor: pointer;
+        flex-basis: 250px;
+        min-width: 250px;
+        margin-top: 20px;
+        margin-right: 2vw;
     }
 
     @keyframes post_item {
@@ -253,81 +267,84 @@
         margin-left: 1vw;
     }
 
-    .my_post_item:hover {
-        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
-        border-radius: 20px;
-        transform: translate(-0.5vw, -0.5vw);
+    .my_post_item:hover .my_img_inner {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        overflow: hidden;
     }
 
-    .my_post_item_inner {
-        transition: all 0.15s;
-        height: 210px;
-        width: 210px;
+    .my_img_container {
+        overflow: hidden;
     }
 
-    .my_post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 20px;
-    }
-
-    .my_img_inner,
-    .my_header_image,
-    .my_best_item_header {
+    .my_post_text {
+        top: 5px;
         position: relative;
-        width: 210px;
-        height: 180px;
-        font-size: 10px;
+        color: #666;
+        font-size: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 라인수 */
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        line-height: 15px;
+        height: 100%;
+        width: 100%;
+        font-weight: 400;
+    }
+
+    .my_post_desc_text {
+        height: 15px;
+        padding: 0 5px;
+    }
+
+    .post_desc_title {
+        font-size: 14px;
+        padding: 2px 5px;
+        font-weight: 600;
     }
 
     .my_post_category {
-        position: absolute;
-        left: 5px;
-        bottom: -60px;
+        margin-left: 15px;
+        position: relative;
     }
 
-    .my_post_desc {
-        width: 210px;
-        padding: 5px;
+    .my_post_bot {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+    }
+
+    .my_post_desc_userinfo {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
+        padding-left: 150px;
     }
 
     .my_post_author {
-        position: absolute;
-        left: -40px;
-        bottom: -22px;
-    }
-
-    .post_dislike_num {
-        left: -20px;
-    }
-
-    .my_post_title_font {
-        font-size: 14px;
-        font-weight: 500;
-        color: #333;
+        margin-right: 8px;
+        width: 20px;
+        font-size: 8px;
+        min-width: 17px;
     }
 }
 
+/* tablet */
 @media screen and (max-width: 1023px) {
     .my_wrapper {
-        position: relative;
-        padding: 4vw auto 7vw;
+        margin: auto;
         color: #666;
-        /* background-color: rgba(253, 242, 217, 0.3); */
         list-style: none;
         -ms-overflow-style: none;
-        background: url('../public/tht_mypage_bg.png') no-repeat;
-        height: 140vw;
+        height: 160vw;
+        padding: 10vw 0;
     }
-
-    /* .my_back_img {
-        width: 100vw;
-        height: 1000px;
-        overflow: hidden;
-    } */
 
     #no_data {
         font-size: 30px;
-        font-size: #333;
+        color: #333;
     }
 
     /* ------------------ side bar / user information 시작 ------------------------------------ */
@@ -338,61 +355,91 @@
         width: 70vw;
         height: 40vw;
         border: 10px solid rgba(244, 193, 65, 0.8);
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
-        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
         border-radius: 1vw;
-        position: absolute;
-        left: 15vw;
-        top: 9vw;
         overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
-        position: relative;
         display: flex;
         flex-direction: row;
         height: 65%;
     }
 
     .my_user_name {
-        margin: 12px auto;
+        margin: 2.6vw auto;
         text-align: center;
         font-weight: 400;
         font-size: 14px;
     }
 
+    .my_pfimg_positioning {
+        width: 26.04vw;
+        height: 22.14vw;
+        display: flex;
+    }
+
+    .my_pfimg_positioning::after {
+        display: block;
+        width: 1px;
+        height: 17vw;
+        background: #ccc;
+    }
+
     .my_profile_img {
-        width: 15vw;
-        height: 15vw;
+        width: 19.53vw;
+        height: 19.53vw;
         margin: auto;
         border-radius: 7%;
         overflow: hidden;
-        min-width: 15vw;
-        min-height: 15vw;
-        max-height: 15vw;
-        position: absolute;
-        left: 65px;
-        top: 3.5vw;
     }
 
     .my_userInfo_container {
-        position: absolute;
-        left: 50%;
-        top: 10px;
+        width: 40vw;
+        padding-left: 1vw;
+    }
+
+    #email,
+    #username {
+        font-size: 14px;
+    }
+
+    #email {
+        margin-bottom: 20px;
+    }
+
+    #email span,
+    #username span {
+        font-weight: 500;
+    }
+
+    #profile_img_uploader {
+        background-color: transparent;
+        border-bottom: 3px solid #fff;
+        font-size: 12px;
+        width: 220px;
+        height: 22px;
+        margin: 5px auto;
+    }
+
+    #profile_img_uploader::file-selector-button {
+        background: rgb(255, 211, 17);
+        border: 1px solid #fff;
+        border-radius: 5px;
+    }
+
+    /* input[type='text'] */
+    #userName_input {
+        border: 3px solid #fff;
     }
 
     .edit_my_profile_btn {
         background-color: transparent;
         border: none;
-        position: absolute;
-        right: 0vw;
     }
 
     .deleteBtn {
-        position: absolute;
-        top: 20px;
-        right: -95px;
         background-color: transparent;
         border: none;
     }
@@ -405,62 +452,16 @@
         cursor: pointer;
     }
 
-    #profile_img_uploader {
-        background-color: #fff;
-        border: none;
-        font-size: 12px;
-        width: 150px;
-        height: 22px;
-        margin-bottom: 5px;
-    }
-
-    #email,
-    #username {
-        font-size: 12px;
-    }
-
-    #email {
-        margin-bottom: 20px;
-    }
-
-    p {
-        color: #999;
-        margin-bottom: 1.5vw;
-    }
-
-    p span {
-        font-weight: 600;
-        color: #666;
-    }
-
-    .my_edit_form {
-        font-size: 14px;
-    }
-
-    .my_user_infoBody {
-        font-size: 12px;
-    }
-
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 45vw;
+        width: 100%;
         height: 20vw;
         margin: auto;
         text-align: center;
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
         overflow: scroll;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    #my_alert::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
     }
 
     #my_alert_title {
@@ -483,32 +484,34 @@
         font-size: 12px;
     }
 
+    .alert_ul {
+        padding-bottom: 20px;
+        overflow: scroll;
+    }
+
     /* ------------------- mypost / myscrap 시작 --------------------------- */
 
     .my_Allpost_wrapper {
         border: 10px solid rgba(244, 193, 65, 0.8);
-        background: rgba(255, 255, 253, 0.9);
         width: 70vw;
         height: 660px;
-        margin: 0 auto 300px;
-        /* overflow: scroll; */
+        margin: 2vw auto 300px;
         padding: 2vw;
         border-radius: 1.5vw;
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
-        position: absolute;
+        box-shadow: 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
+        /* position: absolute;
         left: 15vw;
-        top: 51vw;
+        top: 51vw; */
     }
 
     .my_post_container,
     .my_scrap_container {
         width: 100%;
-        height: 300px;
+        height: 283px;
         overflow-x: scroll;
         overflow-y: hidden;
         display: flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
+        flex-direction: row;
     }
 
     .my_post_container {
@@ -518,10 +521,8 @@
     .empty {
         text-align: center;
         font-size: 1.5vw;
-        width: 15vw;
-        height: 3vw;
+
         line-height: 3vw;
-        background-color: #f4c141;
         margin: auto;
     }
 
@@ -537,27 +538,28 @@
     .my_post_item {
         margin: 1.3vw;
         height: 250px;
-        width: 200px;
+        width: 250px;
         display: block;
         background: rgba(244, 193, 65, 0.8);
-        border-radius: 1vw;
-        box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
+        box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
+        border-radius: 20px;
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
         overflow: hidden;
         cursor: pointer;
+        flex-basis: 250px;
+        min-width: 250px;
+        margin-top: 15px;
     }
 
     @keyframes post_item {
         from {
             margin-left: 100%;
-            /* width: 300%; */
         }
 
         to {
             margin-left: 0%;
-            /* width: 100%; */
         }
     }
 
@@ -566,15 +568,15 @@
     }
 
     .my_post_item:hover {
-        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
-        border-radius: 20px;
-        transform: translate(-0.5vw, -0.5vw);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        overflow: hidden;
     }
 
     .my_post_item_inner {
         transition: all 0.15s;
-        height: 210px;
-        width: 210px;
+        height: 250px;
+        width: 250px;
     }
 
     .my_post_item_inner:hover {
@@ -582,58 +584,62 @@
         border-radius: 20px;
     }
 
-    .my_img_inner,
-    .my_header_image,
-    .my_best_item_header {
-        position: relative;
-        width: 210px;
+    .my_img_inner {
+        width: 250px;
         height: 180px;
+    }
+
+    .post_desc_title {
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .my_post_desc_text {
         font-size: 10px;
+        color: #666;
+        height: 15px;
+        padding: 0 5px;
     }
 
     .my_post_category {
-        position: absolute;
-        left: 5px;
-        bottom: -60px;
+        margin-left: 15px;
+        position: relative;
     }
 
-    .my_post_desc {
-        width: 210px;
-        padding: 5px;
+    .my_post_bot {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+    }
+
+    .my_post_desc_userinfo {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
+        padding-left: 150px;
     }
 
     .my_post_author {
-        position: absolute;
-        left: -40px;
-        bottom: -22px;
-    }
-
-    .post_dislike_num {
-        left: -20px;
-    }
-
-    .my_post_title_font {
-        font-size: 14px;
-        font-weight: 500;
-        color: #333;
+        margin-right: 8px;
+        width: 30px;
+        font-size: 8px;
     }
 }
 
 /* mobile */
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 617px) {
     .my_wrapper {
-        position: relative;
-        padding: 4vw auto 7vw;
+        margin: auto;
         color: #666;
-        /* background-color: rgba(253, 242, 217, 0.3); */
         list-style: none;
         -ms-overflow-style: none;
-        background: url('../public/tht_mypage_bg.png');
+        height: 1150px;
+        padding: 20vw 0;
     }
 
     #no_data {
         font-size: 30px;
-        font-size: #333;
+        color: #333;
     }
 
     /* ------------------ side bar / user information 시작 ------------------------------------ */
@@ -641,76 +647,106 @@
     .my_side_bar {
         margin: auto;
         padding: 1vw;
-        width: 70vw;
-        height: 60vw;
-        border: 10px solid rgba(244, 193, 65, 0.8);
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
-        background-color: rgba(255, 255, 255, 0.8);
+        width: 98vw;
+        height: 65vw;
+        border: 5px solid rgba(244, 193, 65, 0.8);
+        box-shadow: 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
         border-radius: 1vw;
-        position: absolute;
-        left: 15vw;
-        top: 18vw;
         overflow: hidden;
     }
 
     .my_info {
         border-bottom: 5px dotted #f4c141;
-        position: relative;
         display: flex;
         flex-direction: row;
         height: 65%;
     }
 
     .my_user_name {
-        margin: 10px auto;
+        margin: 3vw auto;
+        padding-bottom: 10px;
         text-align: center;
-        font-weight: 500;
+        font-weight: 400;
         font-size: 12px;
+    }
+
+    .my_pfimg_positioning {
+        width: 40vw;
+        height: 38vw;
+        display: flex;
+    }
+
+    .my_pfimg_positioning::after {
+        display: block;
+        width: 1px;
+        height: 17vw;
+        background: #ccc;
     }
 
     .my_profile_img {
-        width: 20vw;
-        height: 20vw;
+        width: 30vw;
+        height: 30vw;
         margin: auto;
         border-radius: 7%;
         overflow: hidden;
-        min-width: 15vw;
-        min-height: 15vw;
-        max-height: 15vw;
-        position: absolute;
-        left: 4vw;
-        top: 8vw;
     }
 
     .my_userInfo_container {
-        position: absolute;
-        left: 40%;
-        top: 20px;
+        width: 70vw;
+        padding-left: 5vw;
     }
 
-    input {
+    #email,
+    #username {
         font-size: 12px;
-        width: 20vw;
-        height: 5vw;
     }
 
-    .edit_user_info {
-        background: #fff;
-        width: 30vw;
-        overflow: scroll;
+    #email {
+        margin-bottom: 20px;
+    }
+
+    #email span,
+    #username span {
+        font-weight: 500;
+    }
+
+    #profile_img_uploader {
+        background-color: transparent;
+        border-bottom: 3px solid #fff;
+        font-size: 12px;
+        width: 200px;
+        height: 22px;
+        margin: 5px auto;
+    }
+
+    #my_form {
+        font-size: 12px;
+    }
+
+    #profile_img_uploader::file-selector-button {
+        background: rgb(255, 211, 17);
+        border: none;
+        border-radius: 5px;
+    }
+
+    #userName_input {
+        border: 3px solid #fff;
+    }
+
+    .user_btn {
+        padding-top: 10vw;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        left: 85vw;
     }
 
     .edit_my_profile_btn {
         background-color: transparent;
         border: none;
-        position: absolute;
-        right: 0vw;
     }
 
     .deleteBtn {
-        position: absolute;
-        top: 20px;
-        right: -95px;
         background-color: transparent;
         border: none;
     }
@@ -723,62 +759,17 @@
         cursor: pointer;
     }
 
-    #profile_img_uploader {
-        background-color: #fff;
-        border: none;
-        font-size: 12px;
-        width: 150px;
-        height: 22px;
-        margin-bottom: 5px;
-    }
-
-    #email,
-    #username {
-        font-size: 12px;
-    }
-
-    #email {
-        margin-bottom: 20px;
-    }
-
-    p {
-        color: #999;
-        margin-bottom: 1.5vw;
-    }
-
-    p span {
-        font-weight: 600;
-        color: #666;
-    }
-
-    .my_edit_form {
-        font-size: 12px;
-    }
-
-    .my_user_infoBody {
-        font-size: 12px;
-    }
-
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 45vw;
+        width: 320px;
         height: 20vw;
         margin: auto;
         text-align: center;
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
-        overflow: scroll;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    #my_alert::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
+        overflow-y: scroll;
+        padding: 10px 0;
     }
 
     #my_alert_title {
@@ -789,12 +780,18 @@
         line-height: 3vw;
     }
 
+    .alert_ul {
+        width: 320px;
+        text-align: center;
+    }
+
     .alert_list {
         font-size: 12px;
         color: #666;
         width: 100%;
-        height: 22px;
         line-height: 22px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
     }
 
     #no_alert {
@@ -804,18 +801,13 @@
     /* ------------------- mypost / myscrap 시작 --------------------------- */
 
     .my_Allpost_wrapper {
-        border: 10px solid rgba(244, 193, 65, 0.8);
-        background: rgba(255, 255, 253, 0.9);
-        width: 70vw;
-        height: 90vw;
-        margin: auto;
-        /* overflow: scroll; */
+        border: 5px solid rgba(244, 193, 65, 0.8);
+        width: 98vw;
+        height: 660px;
+        margin: 10px auto 300px;
         padding: 2vw;
         border-radius: 1.5vw;
-        box-shadow: inset 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
-        position: absolute;
-        left: 15vw;
-        top: 80vw;
+        box-shadow: 0.3vw 0.5vw 1vw rgba(100, 100, 99, 0.3);
     }
 
     .my_post_container,
@@ -826,7 +818,6 @@
         overflow-y: hidden;
         display: flex;
         flex-direction: row;
-        padding: auto;
     }
 
     .my_post_container {
@@ -836,10 +827,8 @@
     .empty {
         text-align: center;
         font-size: 1.5vw;
-        width: 15vw;
-        height: 3vw;
+
         line-height: 3vw;
-        background-color: #f4c141;
         margin: auto;
     }
 
@@ -855,27 +844,28 @@
     .my_post_item {
         margin: 1.3vw;
         height: 250px;
-        width: 200px;
+        width: 250px;
         display: block;
         background: rgba(244, 193, 65, 0.8);
-        border-radius: 1vw;
-        box-shadow: inset -6px -6px 1vw rgba(236, 233, 215, 0.7);
+        border-radius: 20px;
+        box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
         overflow: hidden;
         cursor: pointer;
+        flex-basis: 250px;
+        min-width: 250px;
+        margin-top: 20px;
     }
 
     @keyframes post_item {
         from {
             margin-left: 100%;
-            /* width: 300%; */
         }
 
         to {
             margin-left: 0%;
-            /* width: 100%; */
         }
     }
 
@@ -884,55 +874,58 @@
     }
 
     .my_post_item:hover {
-        box-shadow: rgba(153, 152, 132, 0.6) 0px 1vw 1vw;
-        border-radius: 20px;
-        transform: translate(-0.5vw, -0.5vw);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        overflow: hidden;
     }
 
     .my_post_item_inner {
         transition: all 0.15s;
-        height: 210px;
-        width: 210px;
+        height: 250px;
+        width: 250px;
     }
 
-    .my_post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-        border-radius: 20px;
-    }
-
-    .my_img_inner,
-    .my_header_image,
-    .my_best_item_header {
-        position: relative;
-        width: 210px;
+    .my_img_inner {
+        width: 250px;
         height: 180px;
-        font-size: 10px;
-    }
-
-    .my_post_category {
-        position: absolute;
-        left: 5px;
-        bottom: -60px;
     }
 
     .my_post_desc {
-        width: 210px;
-        padding: 5px;
+        margin-top: 10px;
+    }
+
+    .post_desc_title {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .my_post_desc_text {
+        font-size: 10px;
+        color: #666;
+        height: 15px;
+    }
+
+    .my_post_category {
+        margin-left: 15px;
+        position: relative;
+    }
+
+    .my_post_bot {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+    }
+
+    .my_post_desc_userinfo {
+        display: flex;
+        flex-direction: row;
+        width: 200px;
+        padding-left: 150px;
     }
 
     .my_post_author {
-        position: absolute;
-        left: -40px;
-        bottom: -22px;
-    }
-
-    .post_dislike_num {
-        left: -20px;
-    }
-
-    .my_post_title_font {
-        font-size: 14px;
-        font-weight: 500;
-        color: #333;
+        margin-right: 8px;
+        width: 30px;
+        font-size: 8px;
     }
 }

@@ -1,38 +1,34 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "client",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "acorn-dynamic-import": "^4.0.0",
+        "aos": "^3.0.0-beta.6",
+        "axios": "^0.21.4",
+        "cookie": "^0.4.1",
+        "cookie-parser": "^1.4.5",
+        "cropperjs": "^1.5.12",
+        "dotenv": "^10.0.0",
+        "dotenv-webpack": "^7.0.3",
+        "js-cookie": "^3.0.1",
+        "next": "^11.1.2",
+        "next-images": "^1.8.1",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-image-crop": "^9.0.4",
+        "react-scripts": "^4.0.3",
+        "react-web-editor": "^2.2.6"
+    },
+    "devDependencies": {
+        "eslint": "7.32.0",
+        "eslint-config-next": "11.1.2",
+        "webpack": "^5.54.0"
+    }
 }

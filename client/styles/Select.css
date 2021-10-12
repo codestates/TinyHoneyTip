@@ -1,0 +1,44 @@
+.select_container {
+    position: relative;
+    left: 850px;
+    top: 0;
+}
+.select {
+    width: 200px;
+    height: 40px;
+}
+@media screen and (max-width: 1440px) {
+    .select_container {
+        position: relative;
+        left: 60vw;
+        top: 0vw;
+    }
+    .select {
+        width: 15vw;
+        height: 3vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .select_container {
+        position: relative;
+        top: 0;
+        left: 48vw;
+    }
+    .select {
+        font-size: 1vw;
+        width: 14vw;
+        height: 4vw;
+    }
+}
+@media screen and (max-width: 425px) {
+    .select_container {
+        position: relative;
+        left: 45vw;
+        top: -0.5vw;
+    }
+    .select {
+        width: 15vw;
+        height: 5vw;
+    }
+}

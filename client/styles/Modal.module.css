@@ -1,0 +1,196 @@
+.Modal_back {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.signin_input {
+    border: 3px solid #fff;
+}
+.Modal {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    left: 0px;
+    top: 0px;
+    background: rgba(102, 102, 102, 0.5);
+}
+.Modal_container {
+    border-radius: 20px;
+    width: 320px;
+    background-color: rgba(253, 242, 217, 1);
+    border: 1px solid rgb(219, 219, 219);
+    display: flex;
+    flex-direction: column;
+}
+.Modal_signup {
+    overflow-y: auto;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    left: 0px;
+    top: 0px;
+    background: rgba(102, 102, 102, 0.5);
+}
+.close_btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    top: 10px;
+    left: 280px;
+    margin: 0px;
+    position: relative;
+    font-size: 20px;
+    z-index: 15;
+}
+.close_btn_up {
+    cursor: pointer;
+    background: none;
+    border: none;
+    top: 10px;
+    left: 280px;
+    margin: 0px;
+    position: relative;
+    font-size: 20px;
+    z-index: 15;
+}
+.Modal_logo {
+    box-sizing: border-box;
+    font-size: 2em;
+    padding-top: 1em;
+    margin-block-start: 0.6em;
+    margin-block-end: 0.6em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: rgba(244, 193, 65, 1);
+    font-family: Lobster, cursive;
+}
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: rgba(244, 193, 65, 1);
+    font-family: Lobster, cursive;
+}
+
+.label {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 10px;
+}
+.checkmsg {
+    margin-left: 10px;
+    position: absolute;
+    color: red;
+    width: 266px;
+    font-weight: 400;
+    font-size: 0.5vw;
+}
+.input_cont {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 15px;
+    margin: 15px;
+}
+.input_container {
+    padding: 10px 0px;
+    display: block;
+}
+.signin_input {
+    border-radius: 10px;
+    padding: 10px 0px;
+    box-sizing: border-box;
+    display: block;
+    width: 266px;
+    height: 32px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
+    margin: 3px;
+}
+.login_input::placeholder {
+    color: #999999;
+}
+.signin_line {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px;
+}
+.signin_btn {
+    background: rgba(244, 193, 65, 1);
+    color: black;
+    height: 40px;
+    border: none;
+    opacity: 1;
+    margin: 0.5em 1em;
+    padding: 0.25em 1em;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.kakao_btn {
+    background: #fee500;
+    color: #3a1d1d;
+    height: 40px;
+    border: none;
+    opacity: 1;
+    margin: 0.25em 1em;
+    padding: 0.25em 1em;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.kakaoLogo {
+    position: relative;
+    top: 0.3em;
+    height: 16px;
+    width: 16px;
+}
+
+.modal_img {
+    border-radius: 20px;
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+}
+.Signup_footer {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 0px;
+}
+.Convert_btn {
+    background: none;
+    color: black;
+    text-decoration: underline;
+    height: 25px;
+    border: none;
+}
+.Convert_btn:hover {
+    color: rgba(244, 193, 65, 1);
+    cursor: pointer;
+}

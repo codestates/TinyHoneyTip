@@ -123,7 +123,7 @@ export default function Content({ bestList, postList, weatherData }) {
                                             })?.length !== 0 ? (
                                                 post
                                                     ?.filter((el) => {
-                                                        return el.title.indexOf(input) > -1;
+                                                        return el?.title?.indexOf(input) > -1;
                                                     })
                                                     .map((list) => {
                                                         return (
@@ -245,7 +245,7 @@ export async function getServerSideProps() {
     });
 
     const url = 'https://api.openweathermap.org/data/2.5/';
-    const weatherUrl = `${url}weather?q=seoul&appid=${process.env.WEATHER_KEY}`;
+    const weatherUrl = `${url}weather?q=seoul&appid=5b86afa8feac9692dc376768c3b5ed09`;
     const data = await axios.get(weatherUrl);
 
     return {

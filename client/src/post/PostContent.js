@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-export default function UploadPostContent({ slide, postInfo, currentSlide, setCurrentSlide, croppedImage }) {
+export default function UploadPostContent({ slide, postInfo, currentSlide, setCurrentSlide }) {
     return (
         <div className="upload-post__post-area">
             <h1 className="upload-post__title">

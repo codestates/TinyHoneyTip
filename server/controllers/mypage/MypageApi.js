@@ -5,14 +5,12 @@ require('dotenv').config();
 
 module.exports = {
     getmypage: async (req, res) => {
-        console.log('쿠키', req);
         const accessToken = req.cookies.accessToken;
         try {
             if (!accessToken) {
                 res.status(404).json({ message: 'Bad Request' });
             } else {
                 const Token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-                console.log('마이페이지토큰', Token);
                 if (!Token) res.status(404).json({ message: 'Bad Request' });
                 else {
                     const myPost = await post_container.findAll({
@@ -30,36 +28,88 @@ module.exports = {
                         onePost.dataValues.like = await like.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
                         });
                         onePost.dataValues.dislike = await dislike.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
                         });
                         onePost.dataValues.scrap = await scrap.findAll({
                             where: { post_id: onePost.id },
                             attributes: ['user_id'],
-                            include: [
-                                {
-                                    model: User,
-                                    attributes: ['username'],
-                                },
-                            ],
                         });
                     }
 
-                    // console.log('마이포스트', myPost[0]);
+                    const alert = { like: [], dislike: [], scrap: [] };
+                    for (let onePost of myPost) {
+                        alert.like.push(
+                            await like.findAll({
+                                where: {
+                                    post_id: onePost.id,
+                                    createdAt: {
+                                        [Op.lt]: new Date(),
+                                        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                    },
+                                },
+                                attributes: ['user_id'],
+                                include: [
+                                    {
+                                        model: User,
+                                        attributes: ['username'],
+                                    },
+                                    {
+                                        model: post_container,
+                                        attributes: ['title'],
+                                    },
+                                ],
+                            }),
+                        );
+
+                        alert.dislike.push(
+                            await dislike.findAll({
+                                where: {
+                                    post_id: onePost.id,
+                                    createdAt: {
+                                        [Op.lt]: new Date(),
+                                        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                    },
+                                },
+                                attributes: ['user_id'],
+                                include: [
+                                    {
+                                        model: User,
+                                        attributes: ['username'],
+                                    },
+                                    {
+                                        model: post_container,
+                                        attributes: ['title'],
+                                    },
+                                ],
+                            }),
+                        );
+
+                        alert.scrap.push(
+                            await scrap.findAll({
+                                where: {
+                                    post_id: onePost.id,
+                                    createdAt: {
+                                        [Op.lt]: new Date(),
+                                        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000),
+                                    },
+                                },
+                                attributes: ['user_id'],
+                                include: [
+                                    {
+                                        model: User,
+                                        attributes: ['username'],
+                                    },
+                                    {
+                                        model: post_container,
+                                        attributes: ['title'],
+                                    },
+                                ],
+                            }),
+                        );
+                    }
 
                     const myScrap = await scrap.findAll({
                         where: { user_id: Token.id },
@@ -78,10 +128,7 @@ module.exports = {
                         ],
                     });
 
-                    // console.log(myScrap[0], '마이스크랩222');
-
                     for (let oneScrap of myScrap) {
-                        // console.log(oneScrap);
                         oneScrap.dataValues.like = await like.findAll({
                             where: { post_id: oneScrap.dataValues.post_id },
                             attributes: ['user_id'],
@@ -96,22 +143,19 @@ module.exports = {
                         });
                     }
 
-                    // ---------------------------------------- alert 시작 -------------------------------------------------------
-
-                    console.log('성공');
-
                     res.status(200).json({
                         message: 'ok',
                         data: {
                             myPost: myPost,
                             myScrap: myScrap,
+                            alert: alert,
                         },
                     });
                 }
             }
         } catch (err) {
-            console.log('캐치에러다', err);
-            res.status(400).json({ message: 'Bad Request', data: User });
+            console.log(err);
+            res.status(400).json({ message: 'Bad Request' });
         }
     },
 
@@ -124,6 +168,7 @@ module.exports = {
                 const token = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 if (!token) res.status(404).json({ message: 'No token' });
                 else {
+                    // console.log(req.file.location, req.body.username, token);
                     const username = req.body.username;
 
                     if (username && req.file.location) {

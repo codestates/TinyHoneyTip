@@ -7,7 +7,6 @@ import Router from 'next/router';
 export default function PostContent({ userInfo, post }) {
     const router = useRouter();
     const { id } = router.query;
-    console.log(post);
 
     const [currentSlide, setCurrentSlide] = useState(1);
     let didIL = () => {
@@ -185,7 +184,6 @@ export default function PostContent({ userInfo, post }) {
                                 : 'https://img.icons8.com/material-outlined/24/000000/like--v1.png'
                         }
                     />
-                    <span className="single-post-feeling-count">{post.like.length}</span>
                     <img
                         className="single-post__btn__img"
                         onClick={() => feelingHandler('dislike')}
@@ -196,7 +194,6 @@ export default function PostContent({ userInfo, post }) {
                                 : 'https://img.icons8.com/material-outlined/24/000000/dislike.png'
                         }
                     />
-                    <span className="single-post-feeling-count">{post.dislike.length}</span>
                     <img
                         className="single-post__btn__img"
                         onClick={() => feelingHandler('scrap')}
@@ -207,7 +204,6 @@ export default function PostContent({ userInfo, post }) {
                                 : 'https://img.icons8.com/material-outlined/24/000000/bookmark-ribbon--v1.png'
                         }
                     />
-                    <span className="single-post-feeling-count">{post.scrap.length}</span>
                 </div>
                 <p className="single-post__page">{`${currentSlide}/${post.posts.length}`}</p>
                 {post.user_id === userInfo?.id ? (

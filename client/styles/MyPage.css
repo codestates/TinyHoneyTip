@@ -2,6 +2,38 @@
     background-color: rgba(253, 242, 217, 0.5);
 }
 
+.my_post_container::-webkit-scrollbar,
+.my_scrap_container::-webkit-scrollbar,
+#my_alert::-webkit-scrollbar {
+    background-color: rgba(244, 193, 65, 0.4);
+    height: 7px;
+    width: 5px;
+    border-radius: 10px;
+    display: none;
+}
+
+.my_post_container:hover.my_post_container::-webkit-scrollbar,
+.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar,
+#my_alert:hover#my_alert::-webkit-scrollbar {
+    display: block;
+}
+
+.my_post_container::-webkit-scrollbar-thumb,
+.my_scrap_container::-webkit-scrollbar-thumb,
+#my_alert::-webkit-scrollbar-thumb {
+    background-color: rgba(244, 193, 65, 0.7);
+    border-radius: 10px;
+    display: none;
+    height: 7px;
+    width: 5px;
+}
+
+.my_post_container:hover.my_post_container::-webkit-scrollbar-thumb,
+.my_scrap_container:hover.my_scrap_container::-webkit-scrollbar-thumb,
+#my_alert:hover#my_alert::-webkit-scrollbar-thumb {
+    display: block;
+}
+
 /* pc */
 @media screen and (min-width: 1024px) {
     .my_wrapper {
@@ -15,7 +47,7 @@
 
     #no_data {
         font-size: 30px;
-        font-size: #333;
+        color: #333;
     }
 
     .sidebar_and_post {
@@ -68,7 +100,7 @@
         margin: 5px auto;
     }
 
-    input[type='file']::file-selector-button {
+    #profile_img_uploader::file-selector-button {
         background: rgb(255, 211, 17);
         border: 1px solid #fff;
         border-radius: 5px;
@@ -125,20 +157,6 @@
         padding: 1vw;
     }
 
-    .my_post_container::-webkit-scrollbar,
-    .my_scrap_container::-webkit-scrollbar,
-    #my_alert::-webkit-scrollbar {
-        /* 스크롤바 전체 */
-        display: none;
-    }
-
-    .my_post__post__text::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb,
-    #my_alert::-webkit-scrollbar-thumb {
-        /* 스크롤 막대 */
-        display: none;
-    }
-
     #my_alert_title {
         font-size: 14px;
         font-weight: 600;
@@ -153,6 +171,9 @@
         width: 100%;
         line-height: 22px;
         text-align: justify;
+        padding-bottom: 7px;
+        /* text-decoration: underline; */
+        border-bottom: 1px solid #ccc;
     }
 
     #no_alert {
@@ -163,7 +184,6 @@
 
     .my_Allpost_wrapper {
         border: 10px solid rgba(244, 193, 65, 0.8);
-
         width: 640px;
         height: 660px;
         padding: 10px;
@@ -182,18 +202,6 @@
         flex-wrap: nowrap;
     }
 
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 2px;
-        background: #f4c141;
-    }
-
-    .my_post_container::-webkit-scrollbar-track,
-    .my_scrap_container::-webkit-scrollbar-track {
-        width: 2px;
-        background: #fae8bb;
-    }
-
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
     }
@@ -201,8 +209,7 @@
     .empty {
         text-align: center;
         font-size: 1.5vw;
-        width: 15vw;
-        height: 3vw;
+
         line-height: 3vw;
         margin: auto;
     }
@@ -224,7 +231,6 @@
         background: rgba(244, 193, 65, 0.8);
         border-radius: 20px;
         box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
-
         font-size: 12px;
         animation-duration: 3s;
         animation-name: post_item;
@@ -262,12 +268,30 @@
         overflow: hidden;
     }
 
-    /* .my_post_item_inner:hover {
-        background-color: rgba(244, 193, 65, 1);
-    } */
+    .my_post_text {
+        top: 5px;
+        position: relative;
+        color: #666;
+        font-size: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 라인수 */
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        line-height: 15px;
+        height: 100%;
+        width: 100%;
+        font-weight: 400;
+    }
+
+    .my_post_desc_text {
+        height: 15px;
+    }
 
     .post_desc_title {
         font-size: 12px;
+        color: #333;
     }
 
     .my_post_category {
@@ -288,23 +312,21 @@
         padding-left: 150px;
     }
 
-    /* .my_post_author {
+    .my_post_author {
         margin-right: 8px;
-        width: 30px;
-    } */
+        width: 20px;
+        font-size: 8px;
+        min-width: 17px;
+    }
 }
 
 /* tablet */
 @media screen and (min-width: 618px) and (max-width: 1023px) {
-    .my_post_container::-webkit-scrollbar,
-    .my_scrap_container::-webkit-scrollbar,
     #my_alert::-webkit-scrollbar {
         /* 스크롤바 전체 */
         display: none;
     }
 
-    .my_post__post__text::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb,
     #my_alert::-webkit-scrollbar-thumb {
         /* 스크롤 막대 */
         display: none;
@@ -320,21 +342,7 @@
 
     #no_data {
         font-size: 30px;
-        font-size: #333;
-    }
-
-    .my_post_container::-webkit-scrollbar,
-    .my_scrap_container::-webkit-scrollbar,
-    #my_alert::-webkit-scrollbar {
-        /* 스크롤바 전체 */
-        display: none;
-    }
-
-    .my_post__post__text::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb,
-    #my_alert::-webkit-scrollbar-thumb {
-        /* 스크롤 막대 */
-        display: none;
+        color: #333;
     }
 
     /* ------------------ side bar / user information 시작 ------------------------------------ */
@@ -413,7 +421,7 @@
         margin: 5px auto;
     }
 
-    input[type='file']::file-selector-button {
+    #profile_img_uploader::file-selector-button {
         background: rgb(255, 211, 17);
         border: 1px solid #fff;
         border-radius: 5px;
@@ -454,16 +462,6 @@
         overflow: scroll;
     }
 
-    #my_alert::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    #my_alert::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
-    }
-
     #my_alert_title {
         font-size: 14px;
         font-weight: 500;
@@ -482,6 +480,10 @@
 
     #no_alert {
         font-size: 12px;
+    }
+
+    .alert_ul {
+        padding-bottom: 20px;
     }
 
     /* ------------------- mypost / myscrap 시작 --------------------------- */
@@ -509,18 +511,6 @@
         flex-direction: row;
     }
 
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    .my_scrap_containe::-webkit-scrollbar-track,
-    .my_post_container::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
-    }
-
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
     }
@@ -528,10 +518,8 @@
     .empty {
         text-align: center;
         font-size: 1.5vw;
-        width: 15vw;
-        height: 3vw;
+
         line-height: 3vw;
-        background-color: #f4c141;
         margin: auto;
     }
 
@@ -551,7 +539,6 @@
         display: block;
         background: rgba(244, 193, 65, 0.8);
         box-shadow: inset -6px -6px 5px rgba(255, 239, 146, 0.7);
-
         border-radius: 20px;
         font-size: 12px;
         animation-duration: 3s;
@@ -601,11 +588,13 @@
 
     .post_desc_title {
         font-size: 12px;
+        font-weight: 600;
     }
 
-    .post_desc_text {
+    .my_post_desc_text {
         font-size: 10px;
-        color: #999;
+        color: #666;
+        height: 15px;
     }
 
     .my_post_category {
@@ -625,35 +614,28 @@
         width: 200px;
         padding-left: 150px;
     }
+
+    .my_post_author {
+        margin-right: 8px;
+        width: 30px;
+        font-size: 8px;
+    }
 }
 
 /* mobile */
 @media screen and (max-width: 617px) {
-    .my_post_container::-webkit-scrollbar,
-    .my_scrap_container::-webkit-scrollbar,
-    #my_alert::-webkit-scrollbar {
-        /* 스크롤바 전체 */
-        display: none;
-    }
-
-    .my_post__post__text::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb,
-    #my_alert::-webkit-scrollbar-thumb {
-        /* 스크롤 막대 */
-        display: none;
-    }
     .my_wrapper {
         margin: auto;
         color: #666;
         list-style: none;
         -ms-overflow-style: none;
-        height: 1000px;
+        height: 1150px;
         padding: 20vw 0;
     }
 
     #no_data {
         font-size: 30px;
-        font-size: #333;
+        color: #333;
     }
 
     /* ------------------ side bar / user information 시작 ------------------------------------ */
@@ -737,7 +719,7 @@
         font-size: 12px;
     }
 
-    input[type='file']::file-selector-button {
+    #profile_img_uploader::file-selector-button {
         background: rgb(255, 211, 17);
         border: none;
         border-radius: 5px;
@@ -782,18 +764,8 @@
         text-align: center;
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
-        overflow: scroll;
+        overflow-y: scroll;
         padding: 10px 0;
-    }
-
-    #my_alert::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    #my_alert::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
     }
 
     #my_alert_title {
@@ -814,6 +786,8 @@
         color: #666;
         width: 100%;
         line-height: 22px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
     }
 
     #no_alert {
@@ -824,7 +798,6 @@
 
     .my_Allpost_wrapper {
         border: 5px solid rgba(244, 193, 65, 0.8);
-
         width: 98vw;
         height: 660px;
         margin: 10px auto 300px;
@@ -843,18 +816,6 @@
         flex-direction: row;
     }
 
-    .my_post_container::-webkit-scrollbar-thumb,
-    .my_scrap_container::-webkit-scrollbar-thumb {
-        width: 3px;
-        background: #f4c141;
-    }
-
-    .my_scrap_containe::-webkit-scrollbar-track,
-    .my_post_container::-webkit-scrollbar-track {
-        width: 3px;
-        background: #f7e4b4;
-    }
-
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
     }
@@ -862,10 +823,8 @@
     .empty {
         text-align: center;
         font-size: 1.5vw;
-        width: 15vw;
-        height: 3vw;
+
         line-height: 3vw;
-        background-color: #f4c141;
         margin: auto;
     }
 
@@ -933,11 +892,13 @@
 
     .post_desc_title {
         font-size: 12px;
+        font-weight: 500;
     }
 
-    .post_desc_text {
+    .my_post_desc_text {
         font-size: 10px;
-        color: #999;
+        color: #666;
+        height: 15px;
     }
 
     .my_post_category {
@@ -956,5 +917,11 @@
         flex-direction: row;
         width: 200px;
         padding-left: 150px;
+    }
+
+    .my_post_author {
+        margin-right: 8px;
+        width: 30px;
+        font-size: 8px;
     }
 }

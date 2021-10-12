@@ -189,3 +189,15 @@
         left: 100%;
     }
 }
+@media screen and (max-width: 1024px) {
+    .wave {
+        top: 50%;
+        left: 35%;
+    }
+}
+@media screen and (max-width: 425px) {
+    .wave {
+        top: 50%;
+        left: 10%;
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function ToolBar({
     slide,
@@ -7,7 +7,6 @@ export default function ToolBar({
     slideTextHandler,
     postInfoHandler,
     currentSlide,
-    setCurrentSlide,
     postInfo,
     submitHandler,
     submitName,

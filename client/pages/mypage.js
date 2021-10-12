@@ -3,77 +3,39 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import Router from 'next/router';
 
 export default function MyPage({ userInfo, setUserInfo }) {
     const apiUrl = `${process.env.NEXT_PUBLIC_URL}/mypage`;
     const [myPost, setMyPost] = useState([]);
     const [myScrap, setMyScrap] = useState([]);
-    const [alert, setAlert] = useState([]);
+    const [alert, setAlert] = useState({ like: [], dislike: [], scrap: [] });
     const [noAlert, setNoAlert] = useState(true);
     const router = useRouter;
 
     const getData = async () => {
-        const res = await axios
+        await axios
             .get(apiUrl, {
-                headers: { cookie: userInfo.accessToken, 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             })
             .then((res) => {
-                console.log('마이페이지', res.data);
                 setMyPost(res.data.data.myPost);
                 setMyScrap(res.data.data.myScrap);
 
-                let tmpAlert = alert.slice();
-                for (let el of myPost) {
-                    tmpAlert.push({
-                        title: el.title,
-                        like: el.like,
-                        dislike: el.dislike,
-                        scrap: el.scrap,
-                    });
+                const tempAlert = { like: [], dislike: [], scrap: [] };
+                for (let el of res.data.data.alert.like) {
+                    tempAlert.like.push(...el);
                 }
-                return tmpAlert;
-            })
-            .then((tmpAlert) => {
-                let filteredAlert = { like: [], dislike: [], scrap: [] };
-                tmpAlert.map((el) => {
-                    if (el.like.length > 0) {
-                        el.like.map((li) => {
-                            filteredAlert.like.push({
-                                title: el.title,
-                                username: li.User.username,
-                            });
-                        });
-                    }
-                    if (el.dislike.length > 0) {
-                        el.dislike.map((li) => {
-                            filteredAlert.dislike.push({
-                                title: el.title,
-                                username: li.User.username,
-                            });
-                        });
-                    }
-                    if (el.scrap.length > 0) {
-                        el.scrap.map((li) => {
-                            filteredAlert.scrap.push({
-                                title: el.title,
-                                username: li.User.username,
-                            });
-                        });
-                    }
-                });
-                return filteredAlert;
-            })
-            .then((filteredAlert) => {
-                if (
-                    filteredAlert.like.length === 0 &&
-                    filteredAlert.dislike.length === 0 &&
-                    filteredAlert.scrap.length === 0
-                ) {
-                } else {
-                    setNoAlert(false);
+                for (let el of res.data.data.alert.dislike) {
+                    tempAlert.dislike.push(...el);
                 }
-                setAlert(filteredAlert);
+                for (let el of res.data.data.alert.scrap) {
+                    tempAlert.scrap.push(...el);
+                }
+
+                setAlert(tempAlert);
+                if (tempAlert !== { like: [], dislike: [], scrap: [] }) setNoAlert(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -83,7 +45,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
     useEffect(() => {
         // if (!!userInfo.accessToken) {
         getData();
-        //}
+        // }
     }, [userInfo]);
     const [editBtn, setEditBtn] = useState(false);
     const [img, setImg] = useState(userInfo.profile_img);
@@ -118,7 +80,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log(res);
                 setUserInfo({
                     ...userInfo,
                     username: res.data.data.userInfo.username,
@@ -140,7 +101,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
     const userDelete = () => {
         axios.delete(`${process.env.NEXT_PUBLIC_URL}/user`, { withCredentials: true }).then((res) => {
             try {
-                console.log(res.data);
                 if (res.data.message === 'byebye') {
                     axios
                         .get(`${process.env.NEXT_PUBLIC_URL}/signout`, {
@@ -151,11 +111,11 @@ export default function MyPage({ userInfo, setUserInfo }) {
                         .then((res) => {
                             if (res.data.message !== 'byebye') {
                                 window.alert('탈퇴가 완료되었습니다.');
-                                router.push('/');
+                                sessionStorage.clear();
+                                router.push('/content');
                             }
                         });
                 } else {
-                    console.log(res);
                 }
             } catch (err) {
                 console.log(err);
@@ -165,7 +125,6 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
     return (
         <>
-            {/* {console.log('알러틑트', alert)} */}
             {myPost || myScrap ? (
                 <div className="my_wrapper">
                     <div className="sidebar_and_post">
@@ -255,7 +214,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         ? alert.like.map((el, idx) => {
                                               return (
                                                   <li className="alert_list" key={idx}>
-                                                      ✔️{el.title} 을 {el.username} 벌님이 💛를 눌렀습니다.
+                                                      ✔️{el?.post_container?.title} 을 {el?.User?.username} 벌님이 💛를
+                                                      눌렀습니다.
                                                   </li>
                                               );
                                           })
@@ -264,7 +224,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         ? alert.dislike.map((el, idx) => {
                                               return (
                                                   <li className="alert_list" key={idx}>
-                                                      ✔️{el.title} 을 {el.username} 벌님이 💔를 눌렀습니다.
+                                                      ✔️{el?.post_container?.title} 을 {el?.User?.username} 벌님이 💔를
+                                                      눌렀습니다.
                                                   </li>
                                               );
                                           })
@@ -273,7 +234,8 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                         ? alert.scrap.map((el, idx) => {
                                               return (
                                                   <li className="alert_list" key={idx}>
-                                                      ✔️{el.title} 을 {el.username} 벌님이 🗂를 눌렀습니다.
+                                                      ✔️{el?.post_container?.title} 을 {el?.User?.username} 벌님이 🗂를
+                                                      눌렀습니다.
                                                   </li>
                                               );
                                           })
@@ -288,13 +250,10 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                 <div className="my_post_container">
                                     {myPost.length > 0 ? (
                                         myPost.map((el) => {
-                                            console.log(el);
                                             return (
                                                 <Link href={`/post/${el?.id}`} key={el?.id}>
                                                     <div className="my_post_item" key={el?.id}>
                                                         <div className="my_post_item_inner" key={el?.id}>
-                                                            {/* <div className="my_best_item_header"> */}
-
                                                             <div className="my_img_container">
                                                                 <div className="my_img_inner">
                                                                     <Image
@@ -312,9 +271,9 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                         {el?.title}
                                                                     </div>
                                                                 </div>
-                                                                <div className="post_desc_text">
-                                                                    <div className="post_text">
-                                                                        <div>{el?.posts[0].content}</div>
+                                                                <div className="my_post_desc_text">
+                                                                    <div className="my_post_text">
+                                                                        <div>{el?.posts[0].content.slice(0, 70)}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="my_post_bot">
@@ -324,22 +283,21 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
                                                                     <div className="my_post_desc_userinfo">
                                                                         <div className="my_post_author post_like_num">
-                                                                            💛 &nbsp;{el?.like?.length}
+                                                                            💛&nbsp;{el?.like?.length}
                                                                         </div>
                                                                         <div className="my_post_author post_dislike_num">
-                                                                            💔 &nbsp;{el?.dislike?.length}
+                                                                            💔&nbsp;{el?.dislike?.length}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {/* </div> */}
                                                         </div>
                                                     </div>
                                                 </Link>
                                             );
                                         })
                                     ) : (
-                                        <h3 className="empty">my post is empty</h3>
+                                        <h3 className="empty">게시물을 작성해봐요!</h3>
                                     )}
                                 </div>
                             </div>
@@ -371,10 +329,13 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                             {el?.post_container?.title}
                                                                         </div>
                                                                     </div>
-                                                                    <div className="post_desc_text">
-                                                                        <div className="post_text">
+                                                                    <div className="my_post_desc_text">
+                                                                        <div className="my_post_text">
                                                                             <p>
-                                                                                {el?.post_container.posts[0]?.content}
+                                                                                {el?.post_container.posts[0]?.content.slice(
+                                                                                    0,
+                                                                                    70,
+                                                                                )}
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -385,13 +346,13 @@ export default function MyPage({ userInfo, setUserInfo }) {
 
                                                                         <div className="my_post_desc_userinfo">
                                                                             <div className="my_post_author post_like_num">
-                                                                                💛
+                                                                                💛&nbsp;
                                                                                 {el?.like?.length
                                                                                     ? el?.like?.length
                                                                                     : 0}
                                                                             </div>
                                                                             <div className="my_post_author post_dislike_num">
-                                                                                💔
+                                                                                💔&nbsp;
                                                                                 {el?.dislike?.length
                                                                                     ? el?.dislike?.length
                                                                                     : 0}
@@ -406,7 +367,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                             );
                                         })
                                     ) : (
-                                        <h3 className="empty">my scrap is empty</h3>
+                                        <h3 className="empty">꿀팁들을 스크랩해보세요!</h3>
                                     )}
                                 </div>
                             </div>

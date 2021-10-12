@@ -16,20 +16,12 @@ function ImageCropper({ imageToCrop, onImageCropped }) {
 
     async function cropImage(crop) {
         if (imageRef && crop.width && crop.height) {
-            const croppedImage = await getCroppedImage(
-                imageRef,
-                crop,
-                'croppedImage.jpeg', // destination filename
-            );
-
-            // calling the props function to expose
-            // croppedImage to the parent component
+            const croppedImage = await getCroppedImage(imageRef, crop, 'croppedImage.jpeg');
             onImageCropped(croppedImage);
         }
     }
 
     function getCroppedImage(sourceImage, cropConfig, fileName) {
-        // creating the cropped image from the source image
         const canvas = document.createElement('canvas');
         const scaleX = sourceImage.naturalWidth / sourceImage.width;
         const scaleY = sourceImage.naturalHeight / sourceImage.height;
@@ -51,14 +43,12 @@ function ImageCropper({ imageToCrop, onImageCropped }) {
 
         return new Promise((resolve, reject) => {
             canvas.toBlob((blob) => {
-                // returning an error
                 if (!blob) {
                     reject(new Error('Canvas is empty'));
                     return;
                 }
 
                 blob.name = fileName;
-                // creating a Object URL representing the Blob object given
 
                 resolve(new File([blob], blob.name));
             }, 'image/jpeg');
@@ -73,7 +63,7 @@ function ImageCropper({ imageToCrop, onImageCropped }) {
             onImageLoaded={(imageRef) => setImageRef(imageRef)}
             onComplete={(cropConfig) => cropImage(cropConfig)}
             onChange={(cropConfig) => setCropConfig(cropConfig)}
-            crossorigin="anonymous" // to avoid CORS-related problems
+            crossorigin="anonymous"
         />
     );
 }

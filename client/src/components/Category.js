@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Category({ setPost, init }) {
     const [isClick, setClick] = useState(false);
@@ -9,8 +9,8 @@ export default function Category({ setPost, init }) {
             setPost(init);
             return;
         } else {
-            const filteredData = init.filter((el) => {
-                return e.target.innerText.indexOf(el.category) > -1;
+            const filteredData = init?.filter((el) => {
+                return e.target.innerText.indexOf(el?.category) > -1;
             });
             setPost(filteredData);
         }

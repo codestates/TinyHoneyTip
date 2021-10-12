@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 
@@ -40,6 +40,7 @@ export default function Header({ userInfo, setUserInfo, loginHandler, socialHand
                 headers: {
                     authorization: userInfo.accessToken,
                 },
+                withCredentials: true,
             })
             .catch((error) => {});
         logoutHandler();

@@ -1,15 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Cropper from '../components/Cropper';
 
-export default function ImageEditModal({
-    currentSlide,
-    slide,
-    setSlide,
-    modalHandler,
-    croppedImage,
-    setCroppedImage,
-    slideTextHandler,
-}) {
+export default function ImageEditModal({ currentSlide, slide, setSlide, modalHandler, croppedImage, setCroppedImage }) {
     const [imageToCrop, setImageToCrop] = useState(undefined);
     const onUploadFile = (e) => {
         if (e.target.files && e.target.files.length > 0) {

@@ -762,13 +762,14 @@
     /* -------------------- alert 시작 ---------------------- */
 
     #my_alert {
-        width: 320px;
+        width: 100%;
         height: 20vw;
         margin: auto;
         text-align: center;
         bottom: 1.5vw;
         border-radius: 0 0 1.5vw 1.5vw;
         overflow-y: scroll;
+        overflow-x: hidden;
         padding: 10px 0;
     }
 
@@ -781,7 +782,8 @@
     }
 
     .alert_ul {
-        width: 320px;
+        width: 290px;
+        padding: 2px 7px;
         text-align: center;
     }
 
@@ -791,6 +793,7 @@
         width: 100%;
         line-height: 22px;
         text-align: center;
+        height: 100%;
         border-bottom: 1px solid #ccc;
     }
 
@@ -822,6 +825,10 @@
 
     .my_post_container {
         border-bottom: 5px dotted rgba(244, 193, 65, 0.8);
+    }
+
+    .my_scrap_container {
+        height: 280px;
     }
 
     .empty {

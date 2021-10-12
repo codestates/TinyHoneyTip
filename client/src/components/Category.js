@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Category({ setPost, init }) {
     const [isClick, setClick] = useState(false);

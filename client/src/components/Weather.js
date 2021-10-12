@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
 export default function Weather({ weatherData }) {
@@ -10,15 +10,15 @@ export default function Weather({ weatherData }) {
         const url = 'https://api.openweathermap.org/data/2.5/';
         if (e.key === 'Enter') {
             await axios
-                .get(`${url}weather?q=${city.toLowerCase()}&appid=${process.env.WEATHER_KEY}`)
+                .get(`${url}weather?q=${city?.toLowerCase()}&appid=5b86afa8feac9692dc376768c3b5ed09`)
                 .then((res) => {
                     setWeather(res.data);
                     setCity('');
                 })
-                .catch((err) => window.alert('도시 이름이 없습니다.'));
+                .catch((err) => window.alert('도시 이름을 확인하세요.'));
         }
     }
-    const weatherIcon = 'http://openweathermap.org/img/w/' + weather.weather[0].icon + '.png';
+    const weatherIcon = 'http://openweathermap.org/img/w/' + weather?.weather[0].icon + '.png';
 
     const dateBuilder = (d) => {
         let months = [
@@ -76,17 +76,17 @@ export default function Weather({ weatherData }) {
                             onKeyPress={search}
                         />
                     </div>
-                    {typeof weather.main !== 'undefined' ? (
+                    {typeof weather?.main !== 'undefined' ? (
                         <div>
                             <div className="location">
                                 <div className="location_container">
-                                    {weather.name}, {weather.sys.country}
+                                    {weather?.name}, {weather?.sys.country}
                                 </div>
                                 <div className="date">{dateBuilder(new Date())}</div>
                             </div>
                             <div className="weather_box">
-                                <div className="temp">{Math.round(weather.main.temp - 273)}°C</div>
-                                <div className="weather">{weather.weather[0].main}</div>
+                                <div className="temp">{Math.round(weather?.main.temp - 273)}°C</div>
+                                <div className="weather">{weather?.weather[0].main}</div>
                             </div>
                         </div>
                     ) : (

@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Router from 'next/router';
+import Head from 'next/head';
 
 import UploadPostContent from '../../src/post/PostContent';
 import ToolBar from '../../src/post/ToolBar';
+import ImageEditModal from '../../src/post/ImageEditModal';
 
 export default function PostUpload({ userInfo }) {
-    useEffect(() => {
-        if (!userInfo.isLogin) {
-            Router.push('/content');
-        }
-    });
-
-    const [slide, setSlide] = useState([{ img: '', imgFile: '', content: '' }]);
+    const [croppedImage, setCroppedImage] = useState(undefined);
+    const [slide, setSlide] = useState([{ img: '', imgFile: '/postDefaultImage.jpg', content: '' }]);
 
     const [cannotSubmitMessage, setCannotSubmitMessage] = useState(false);
 
@@ -23,10 +20,13 @@ export default function PostUpload({ userInfo }) {
 
     const [currentSlide, setCurrentSlide] = useState(1);
 
-    // console.log(`currentSlide : ${currentSlide}`);
-    // console.log(`slide : ${slide}`);
+    const [modalOpened, setModalOpened] = useState(false);
 
-    const slideTextHandler = (index, key) => (e) => {
+    const modalHandler = () => {
+        setModalOpened(!modalOpened);
+    };
+
+    const slideTextHandler = (index, key, imgFile) => (e) => {
         setCannotSubmitMessage(false);
         if (key === 'content') {
             let editedContent = slide.map((el, idx) => {
@@ -38,25 +38,18 @@ export default function PostUpload({ userInfo }) {
             });
             setSlide(editedContent);
         } else if (key === 'image') {
-            e.preventDefault();
-            let reader = new FileReader();
-            let file = e.target.files[0];
-
-            reader.onloadend = () => {
-                let editedContent = slide.map((el, idx) => {
-                    if (idx === index) {
-                        return { ...el, img: reader.result, imgFile: file };
-                    } else {
-                        return el;
-                    }
-                });
-                setSlide(editedContent);
-            };
-            reader.readAsDataURL(file);
+            let editedContent = slide.map((el, idx) => {
+                if (idx === index) {
+                    return { ...el, img: '', imgFile: { imgFile } };
+                } else {
+                    return el;
+                }
+            });
+            setSlide(editedContent);
         } else if (key === 'deleteImage') {
             let editedContent = slide.map((el, idx) => {
                 if (idx === index) {
-                    return { ...el, img: '', imgFile: '' };
+                    return { ...el, img: '', imgFile: '/postDefaultImage.jpg' };
                 } else {
                     return el;
                 }
@@ -78,38 +71,14 @@ export default function PostUpload({ userInfo }) {
     };
 
     const addSlideHandler = async () => {
-        let newPage = { img: '', imgFile: '', content: '' };
+        let newPage = { img: '', imgFile: '/postDefaultImage.jpg', content: '' };
         await setSlide(slide.concat(newPage));
         document.getElementById(`pos${slide.length + 1}`).checked = true;
         setCurrentSlide(slide.length + 1);
     };
 
-    // const setFormData = (formData, data, parentKey) => {
-    //     if (!(formData instanceof FormData)) return;
-    //     if (!(data instanceof Object)) return;
-
-    //     Object.keys(data).forEach((key) => {
-    //         const val = data[key];
-    //         if (parentKey) key = `${parentKey}[${key}]`;
-    //         if (val instanceof Object && !Array.isArray(val)) {
-    //             return setFormData(formData, val, key);
-    //         }
-    //         if (Array.isArray(val)) {
-    //             val.forEach((v, idx) => {
-    //                 if (v instanceof Object) {
-    //                     setFormData(formData, v, `${key}[${idx}]`);
-    //                 } else {
-    //                     formData.append(`${key}[${idx}]`, v);
-    //                 }
-    //             });
-    //         } else {
-    //             formData.append(key, val);
-    //         }
-    //     });
-    // };
-
     const postUploadHandler = () => {
-        if (postInfo.title.length === 0 || postInfo.category === '카테고리') {
+        if (postInfo.title.length === 0 || postInfo.category === '카테고리' || !userInfo.isLogin) {
             setCannotSubmitMessage(true);
             return;
         }
@@ -132,39 +101,41 @@ export default function PostUpload({ userInfo }) {
         formData.append('category', data.category);
         data.post_page.map((el, idx) => {
             formData.append(`post_page[${idx}]['id']`, data.post_page[idx].id);
-            formData.append(`post_page[${idx}]['img']`, data.post_page[idx].img);
+            if (data.post_page[idx].img.length === 0 || data.post_page[idx].img === '/postDefaultImage.jpg') {
+                formData.append(`post_page[${idx}]['image']`, false);
+                formData.append(`post_page_img`, undefined);
+            } else {
+                formData.append(`post_page[${idx}]['image']`, true);
+                formData.append(`post_page_img`, data.post_page[idx].img);
+            }
             formData.append(`post_page[${idx}]['content']`, data.post_page[idx].content);
             return el;
         });
-        // setFormData(formData, data);
 
-        // const arrQueryString = [];
-        // for (let pair of formData.entries()) {
-        //     console.log(`${pair[0]} = ${pair[1]}`);
-        //     arrQueryString.push(`${pair[0]} = ${pair[1]}`);
-        // }
-        // console.log(`query string= ${arrQueryString.join('&')}`);
+        for (let key of formData.entries()) {
+        }
+
         axios
             .post(apiUrl, formData, {
                 headers: {
                     Cookie: `accessToken=${userInfo.accessToken}`,
                     'content-type': 'multipart/form-data',
-                    // 'Accept-Encoding': 'gzip, deflate, br',
-                    Connection: 'keep-alive',
                 },
                 withCredentials: true,
             })
             .then((res) => {
-                Router.push('/content');
+                Router.push('/post/' + res.data.post_id);
             })
-            .catch((error) => {
-                console.log(error);
-            });
+            .catch((error) => {});
     };
 
     return (
         <div className="post-upload-page">
+            <Head>
+                <title>New Post | Tiny Honey Tip</title>
+            </Head>
             <UploadPostContent
+                croppedImage={croppedImage}
                 slide={slide}
                 postInfo={postInfo}
                 currentSlide={currentSlide}
@@ -182,7 +153,21 @@ export default function PostUpload({ userInfo }) {
                 submitHandler={postUploadHandler}
                 cannotSubmitMessage={cannotSubmitMessage}
                 submitName="업로드"
+                modalHandler={modalHandler}
             />
+            {modalOpened ? (
+                <ImageEditModal
+                    croppedImage={croppedImage}
+                    setCroppedImage={setCroppedImage}
+                    currentSlide={currentSlide}
+                    slide={slide}
+                    setSlide={setSlide}
+                    modalHandler={modalHandler}
+                    slideTextHandler={slideTextHandler}
+                />
+            ) : (
+                ''
+            )}
         </div>
     );
 }

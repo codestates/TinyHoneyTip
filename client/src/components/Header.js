@@ -7,13 +7,12 @@ import Signin from '../signin/Signin';
 import Signup from '../signup/Signup';
 import Alert from './AlertBox';
 
-export default function Header({ userInfo, setUserInfo, loginHandler, logoutHandler }) {
+export default function Header({ userInfo, setUserInfo, loginHandler, socialHandler, logoutHandler }) {
     const [isUpClick, setIsUpClick] = useState(false);
     const [isInClick, setIsInClick] = useState(false);
     const [isOk, setIsOk] = useState(false);
     const [message, setMessage] = useState('');
     const [menuClicked, setMenuClicked] = useState(false);
-    // 새로고침시 로그아웃되는 문제 발생시 수정
 
     const openUpModal = () => {
         setIsUpClick(true);
@@ -41,17 +40,16 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
                 headers: {
                     authorization: userInfo.accessToken,
                 },
+                withCredentials: true,
             })
-            .catch((error) => {
-                console.log('logout error 쿠키 삭제 실패');
-            });
+            .catch((error) => {});
         logoutHandler();
         setIsUpClick(false);
     };
 
     return (
         <div className="header">
-            <Link href="/content" passHref>
+            <Link href="/" passHref>
                 <div className="header__logo">
                     <Image src="/tht_logo.png" layout="fill" alt="Tiny Honey Tip" />
                 </div>
@@ -66,6 +64,9 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
             </div>
             {userInfo && userInfo.isLogin ? (
                 <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
+                    <Link href="/content" passHref>
+                        <a className="header__btn">Content</a>
+                    </Link>
                     <Link href="/post/new" passHref>
                         <a className="header__btn">New Post</a>
                     </Link>
@@ -78,24 +79,21 @@ export default function Header({ userInfo, setUserInfo, loginHandler, logoutHand
                 </div>
             ) : (
                 <div className={menuClicked ? 'header__btns' : 'header__btns header__btns__closed'}>
+                    <Link href="/content" passHref>
+                        <a className="header__btn">Content</a>
+                    </Link>
                     <a onClick={openInModal} className="header__btn">
                         New Post
                     </a>
                     <Signin
-                        message={message}
-                        setMessage={setMessage}
-                        isOk={isOk}
-                        setIsOk={setIsOk}
-                        isInClick={isInClick}
-                        setIsInClick={setIsInClick}
-                        userInfo={userInfo}
-                        setUserInfo={setUserInfo}
                         loginHandler={loginHandler}
-                        openUpModal={openUpModal}
+                        isInClick={isInClick}
                         openInModal={openInModal}
-                        closeUpModal={closeUpModal}
+                        openUpModal={openUpModal}
                         closeInModal={closeInModal}
-                        okHandler={okHandler}
+                        setIsOk={setIsOk}
+                        setMessage={setMessage}
+                        socialHandler={socialHandler}
                     />
                     <Signup
                         message={message}

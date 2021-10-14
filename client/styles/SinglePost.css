@@ -2,10 +2,10 @@
 
 .single-post {
     display: flex;
-    width: 100%;
-    min-height: 100vh;
+    width: 100vw;
+    min-height: 65vh;
     align-items: center;
-    background-color: rgba(253, 242, 217, 1);
+    background-color: rgba(253, 242, 217, 0.5);
 }
 
 .single-post__post-area {
@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 70px;
 }
 
 .single-post__post {
@@ -47,13 +48,13 @@
 
 .single-post__post li {
     position: relative;
-    background-color: rgba(242, 186, 44, 0.7);
 }
 
 .single-post__post__pic {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0.8;
 }
 
 .single-post__post__text {
@@ -63,6 +64,26 @@
     top: 0;
     left: 0;
     white-space: pre-wrap;
+    word-break: break-all;
+    overflow: auto;
+}
+.single-post__post__text__back {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    height: auto;
+    width: auto;
+}
+.single-post__post__text::-webkit-scrollbar {
+    /* 스크롤바 전체 */
+    background-color: rgba(244, 193, 65, 0.4);
+    width: 12px;
+    border-radius: 30px;
+}
+
+.single-post__post__text::-webkit-scrollbar-thumb {
+    /* 스크롤 막대 */
+    background-color: rgba(244, 193, 65, 0.4);
+    border-radius: 30px;
 }
 
 .single-post__post__previous-page-btn,
@@ -89,6 +110,11 @@
     cursor: pointer;
 }
 
+.single-post__btns__feeling {
+    display: flex;
+    align-items: center;
+}
+
 .single-post__comment-area {
     display: flex;
     flex-direction: column;
@@ -108,6 +134,21 @@
 .single-post__comments {
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    height: 400px;
+}
+
+.single-post__comments::-webkit-scrollbar {
+    /* 스크롤바 전체 */
+    background-color: rgba(244, 193, 65, 0.4);
+    width: 12px;
+    border-radius: 30px;
+}
+
+.single-post__comments::-webkit-scrollbar-thumb {
+    /* 스크롤 막대 */
+    background-color: rgba(244, 193, 65, 0.4);
+    border-radius: 30px;
 }
 
 .single-comment {
@@ -153,6 +194,8 @@
 @media screen and (max-width: 767px) {
     .single-post {
         flex-direction: column;
+        padding-top: 30px;
+        padding-bottom: 30px;
     }
 
     .single-post__post-area {
@@ -168,13 +211,13 @@
     }
 
     .single-post__post {
-        width: 75vw;
+        width: 78vw;
         max-width: 470px;
         margin-bottom: 10px;
     }
 
     .single-post__post li {
-        height: 75vw;
+        height: 78vw;
         max-height: 470px;
     }
 
@@ -199,14 +242,17 @@
     }
 
     .single-post__btns {
-        width: 75vw;
+        width: 78vw;
         max-width: 470px;
     }
 
     .single-post__btns__feeling img {
-        margin-right: 3px;
         width: 24px;
         height: 24px;
+    }
+
+    .single-post__btns__feeling {
+        gap: 3px;
     }
 
     .single-post__btns p {
@@ -294,6 +340,8 @@
 @media screen and (min-width: 768px) {
     .single-post {
         flex-direction: column;
+        padding-top: 40px;
+        padding-bottom: 40px;
     }
 
     .single-post__post-area {
@@ -301,15 +349,15 @@
     }
 
     .single-post__title {
-        width: 520px;
+        width: 510px;
         font-size: 20px;
-        line-height: 18px;
+        line-height: 24px;
         margin-bottom: 15px;
     }
 
     .single-post__post {
         width: 470px;
-        margin-bottom: 10px;
+        margin-bottom: 13px;
     }
 
     .single-post__post li {
@@ -317,9 +365,9 @@
     }
 
     .single-post__post__text {
-        padding: 25px;
-        font-size: 19px;
-        line-height: 24px;
+        padding: 30px;
+        font-size: 22px;
+        line-height: 25px;
     }
 
     .single-post__post__previous-page-btn,
@@ -342,9 +390,12 @@
     }
 
     .single-post__btns__feeling img {
-        margin-right: 3px;
         width: 24px;
         height: 24px;
+    }
+
+    .single-post__btns__feeling {
+        gap: 3px;
     }
 
     .single-post__btns p {
@@ -431,9 +482,26 @@
 @media screen and (min-width: 1200px) {
     .single-post {
         flex-direction: row;
-        min-height: 80vh;
-        gap: 10vw;
+        padding: 70px 0;
         justify-content: center;
+        gap: 120px;
+    }
+
+    .single-post__post-area {
+        padding: 40px;
+    }
+
+    .single-post__title {
+        width: 510px;
+        font-size: 22px;
+        line-height: 25px;
+        margin-bottom: 17px;
+    }
+
+    .single-post__post__text {
+        padding: 30px;
+        font-size: 24px;
+        line-height: 27px;
     }
 
     .single-post__comments {
@@ -471,9 +539,12 @@
     }
 
     .single-post__btns__feeling img {
-        margin-right: 5px;
         width: 27px;
         height: 27px;
+    }
+
+    .single-post__btns__feeling {
+        gap: 5px;
     }
 
     .single-post__btns__post:first-child {

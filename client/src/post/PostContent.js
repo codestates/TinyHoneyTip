@@ -8,6 +8,7 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
                 <span>[{postInfo.category.length === 0 ? '카테고리' : postInfo.category}]</span>
                 {postInfo.title.length === 0 ? '제목을 입력해주세요.' : postInfo.title}
             </h1>
+
             <div className="upload-post__post">
                 {slide.map((el, idx) => {
                     return (
@@ -24,8 +25,19 @@ export default function UploadPostContent({ slide, postInfo, currentSlide, setCu
                     {slide.map((el, idx) => {
                         return (
                             <li key={idx} style={{ width: `calc(100% / ${slide.length})` }}>
-                                <img className="upload-post__post__pic" src={el.img} />
-                                <pre className="upload-post__post__text">{el.content}</pre>
+                                <img
+                                    className="upload-post__post__pic"
+                                    src={
+                                        el.imgFile
+                                            ? typeof el.imgFile === 'object'
+                                                ? URL.createObjectURL(el.imgFile)
+                                                : el.imgFile
+                                            : '/postDefaultImage.jpg'
+                                    }
+                                />
+                                <pre className="upload-post__post__text">
+                                    <div className="upload-post__post__text__back">{el.content}</div>
+                                </pre>
                             </li>
                         );
                     })}

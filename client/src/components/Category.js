@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Category({ setPost, init }) {
     const [isClick, setClick] = useState(false);
-    const categories = ['🐝 전체', '💪 건강', '🏋️‍♀️ 운동', '💡 생활', '🐾 동물', '💸 쇼핑', '☠️휴지통'];
+    const categories = ['🐝 전체', '🎬 취미', '🍗 음식', '💪 건강', '💡 생활', '🐾 동물', '💸 쇼핑', '⭐️ 기타'];
 
     const categoryHandler = (e) => {
         if (e.target.innerText.indexOf('전체') > -1) {
             setPost(init);
             return;
         } else {
-            const filteredData = init.filter((el) => {
-                return e.target.innerText.indexOf(el.category) > -1;
+            const filteredData = init?.filter((el) => {
+                return e.target.innerText.indexOf(el?.category) > -1;
             });
             setPost(filteredData);
         }

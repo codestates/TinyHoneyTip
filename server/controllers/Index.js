@@ -9,36 +9,49 @@ module.exports = {
     user: async (req, res) => {
         const accessToken = req.cookies.accessToken;
         const userinfo = await jwt.verify(accessToken, process.env.ACCESS_SECRET);
-        if (userinfo) {
-            User.destroy({ where: { email: userinfo.email } });
-            res.status(200).json({ message: 'byebye' });
-        } else {
-            res.status(500).json({ message: 'error!!' });
+        try {
+            if (userinfo) {
+                await User.destroy({ where: { email: userinfo.email } }).then(
+                    res.clearCookie('accessToken').status(200).json({ message: 'byebye' }),
+                );
+            } else {
+                res.status(500).json({ message: 'no token!!' });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'error!!' });
         }
     },
     signin: async (req, res) => {
         const { email, password } = req.body;
-        const findemail = await User.findOne({
-            where: { email: email },
-        });
-        const finduser = await User.findOne({
-            where: { email: email, password: password },
-        });
-        if (findemail && !finduser) {
-            res.status(400).json({ message: 'rewrite password' });
-        } else if (!findemail && !finduser) {
-            res.status(400).json({ message: 'rewrite email' });
-        } else {
-            delete finduser.dataValues.password;
-            console.log(finduser);
-            const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
+        try {
+            const findemail = await User.findOne({
+                where: { email: email },
+            });
+            const finduser = await User.findOne({
+                where: { email: email, password: password },
+                attributes: ['id', 'email', 'profile_img', 'username'],
+            });
+            if (findemail && !finduser) {
+                res.status(400).json({ message: 'rewrite password' });
+            } else if (!findemail && !finduser) {
+                res.status(400).json({ message: 'rewrite email' });
+            } else {
+                const accessToken = jwt.sign(finduser.dataValues, process.env.ACCESS_SECRET);
 
-            // res.cookie('accessToken', accessToken, {
-            //     sameSite: 'none',
-            //     secure: true,
-            //     httpOnly: true,
-            // });
-            res.status(200).json({ message: 'login complete', data: { accessToken: accessToken, userInfo: finduser } });
+                res.cookie('accessToken', accessToken, {
+                    sameSite: 'none',
+                    secure: true,
+                    httpOnly: true,
+                });
+                res.status(200).json({
+                    message: 'login complete',
+                    data: { accessToken: accessToken, userInfo: finduser },
+                });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({ message: 'Bad request' });
         }
     },
     signup: async (req, res) => {
@@ -51,14 +64,16 @@ module.exports = {
                 where: { username: username },
             });
             if (emailCheck) {
-                res.status(400).json({ message: 'already email exist' });
+                res.status(200).json({ message: 'already email exist' });
             } else if (usernameCheck) {
-                res.status(400).json({ message: 'already username exist' });
+                res.status(200).json({ message: 'already username exist' });
             } else {
                 await User.create({
                     email,
                     password,
                     username,
+                    profile_img:
+                        'https://cdn.discordapp.com/attachments/884717967307321407/893317307156275280/729d9643bda34c71.png',
                 });
                 res.status(200).json({ message: 'ok' });
             }

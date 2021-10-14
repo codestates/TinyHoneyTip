@@ -36,9 +36,6 @@ export default function Comments({ userInfo, post }) {
                     {
                         headers: {
                             Cookie: `accessToken=${userInfo.accessToken}`,
-                            'Content-type': 'application/x-www-form-urlencoded',
-                            'Accept-Encoding': 'gzip, deflate, br',
-                            Connection: 'keep-alive',
                         },
                         withCredentials: true,
                     },
@@ -46,7 +43,11 @@ export default function Comments({ userInfo, post }) {
                 .then((res) => {
                     setCommentList([
                         ...commentList,
-                        { userName: userInfo.username, user_id: userInfo.id, txt: commentInput },
+                        {
+                            User: { username: userInfo.username, profile_img: userInfo.profile_img },
+                            user_id: userInfo.id,
+                            txt: commentInput,
+                        },
                     ]);
                     let commentForm = document.getElementById('commentInput');
                     commentForm.value = '';
@@ -56,17 +57,15 @@ export default function Comments({ userInfo, post }) {
                         behavior: 'smooth',
                     });
                 })
-                .catch((error) => {
-                    console.log(error);
-                });
+                .catch((error) => {});
         }
     };
 
     return (
         <div className="single-post__comment-area">
             <div className="single-post__profile">
-                <img className="single-post__profile__img" src={post.writerInfo.profile_img} />
-                <h1 className="single-post__profile__username">{post.writerInfo.username}</h1>
+                <img className="single-post__profile__img" src={post.User.profile_img} />
+                <h1 className="single-post__profile__username">{post.User.username}</h1>
             </div>
             <div className="single-post__comments" id="single-post__comments">
                 {commentList.map((el, idx) => {
@@ -87,8 +86,8 @@ export default function Comments({ userInfo, post }) {
                     id="commentInput"
                     type="text"
                     onChange={handleInput}
-                    placeholder={userInfo.isLogin ? '댓글을 입력해주세요.' : '로그인해 주세요.'}
-                    disabled={userInfo.isLogin ? '' : 'disabled'}
+                    placeholder={userInfo?.isLogin ? '댓글을 입력해주세요.' : '로그인해 주세요.'}
+                    disabled={userInfo?.isLogin ? '' : 'disabled'}
                     onKeyPress={(e) => {
                         if (e.key === 'Enter') {
                             commentSubmit();
@@ -99,7 +98,7 @@ export default function Comments({ userInfo, post }) {
                 <button
                     className="single-post__comment-input__submit"
                     onClick={commentSubmit}
-                    disabled={userInfo.isLogin ? '' : 'disabled'}>
+                    disabled={userInfo?.isLogin ? '' : 'disabled'}>
                     등록
                 </button>
             </div>

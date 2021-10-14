@@ -1,90 +1,43 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
-export default function Home() {
-    const sectionCount = 4;
+import { userReview } from '../src/assets/userReview';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-    let init = function () {};
+export default function Home() {
+    const sectionCount = 5;
     useEffect(() => {
-        init = function () {
-            window.onmousewheel = function (e) {
-                // console.dir(e);
-                const section1offset =
-                    document.getElementById(`section1`).offsetTop +
-                    document.getElementById(`section1`).offsetParent.offsetTop;
-                const section2offset =
-                    document.getElementById(`section2`).offsetTop +
-                    document.getElementById(`section2`).offsetParent.offsetTop;
-                const section3offset =
-                    document.getElementById(`section3`).offsetTop +
-                    document.getElementById(`section3`).offsetParent.offsetTop;
-                const section4offset =
-                    document.getElementById(`section4`).offsetTop +
-                    document.getElementById(`section4`).offsetParent.offsetTop;
-                const currentScrollTop = document.querySelector('html').scrollTop;
-                let page = 1;
-                if (currentScrollTop < section2offset) {
-                    page = 1;
-                } else if (currentScrollTop < section3offset) {
-                    page = 2;
-                } else if (currentScrollTop < section4offset) {
-                    page = 3;
-                } else {
-                    page = 4;
-                }
-                if (e.wheelDelta === -120) {
-                    // console.log('wheel down');
-                    if (page === sectionCount) {
-                    } else {
-                        page++;
-                        let nextSection = document.getElementById(`section${page}`).offsetTop;
-                        nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
-                        window.scrollTo(0, nextSection);
-                    }
-                } else {
-                    // console.log('wheel up');
-                    if (page === 1) {
-                    } else {
-                        page--;
-                        let nextSection = document.getElementById(`section${page}`).offsetTop;
-                        nextSection += document.getElementById(`section${page}`).offsetParent.offsetTop;
-                        window.scrollTo(0, nextSection);
-                    }
-                }
-            };
-        };
-        init();
+        AOS.init({});
     }, []);
 
     return (
-        <>
+        <div id="landingPage">
             <Head>
                 <title>Welcome | Tiny Honey Tip</title>
             </Head>
             <div className="landing">
                 <div className="landing__sections">
                     <section className="landing__section" id="section1">
-                        <div className="landing__section1__text">
-                            <h1 className="landing__section1__title">Tiny Honey Tip</h1>
-                            <h2 className="landing__section1__p">
-                                당신의 작고 소중한 꿀팁을 <br />
-                                <br />
-                                공유하고
-                                <br />
-                                <br /> 새로운 꿀팁을 얻으세요!
-                            </h2>
-                            <Link href="/content" passHref>
-                                <button className="landing__start-btn">바로 시작하기</button>
-                            </Link>
-                        </div>
-                        <div className="landing__section1__pic-div">
-                            <Image
-                                className="landing__section1__pic"
-                                src="/honeycomb.png"
-                                layout="fill"
-                                alt="honeycomb"
-                            />
+                        <div className="landing__section__inner">
+                            <div
+                                className="landing__section__text"
+                                data-aos="fade-right"
+                                data-aos-duration="3000"
+                                data-aos-once="false">
+                                <h1 className="landing__section__title">Tiny Honey Tip</h1>
+                                <h2 className="landing__section__p">
+                                    당신의 작고 소중한 꿀팁을 <br />
+                                    <br />
+                                    공유하고
+                                    <br />
+                                    <br /> 새로운 꿀팁을 얻으세요!
+                                </h2>
+                                <Link href="/content" passHref>
+                                    <button className="landing__start-btn">바로 시작하기</button>
+                                </Link>
+                            </div>
                         </div>
                         <a
                             onClick={() => {
@@ -96,30 +49,22 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section2">
-                        <div className="landing__section1__text">
-                            <h2 className="landing__section1__p">
-                                일상에서 꼭 필요한 <br />
-                                <br />
-                                각종 사소한 꿀팁을 <br />
-                                <br />
-                                시간 낭비없이 본론만 얻으세요!
-                            </h2>
-                        </div>
-                        <div className="landing__section2__slide">
-                            <ul style={{ width: `calc(100% * 4)` }}>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                            </ul>
+                        <div className="landing__section__inner">
+                            <div className="landing__section__text">
+                                <h2 className="landing__section__p">
+                                    일상에서 꼭 필요한 <br />
+                                    <br />
+                                    각종 사소한 꿀팁을 <br />
+                                    <br />
+                                    시간 낭비없이 본론만 얻으세요!
+                                </h2>
+                            </div>
+                            <div
+                                className="landing__section__pic-div__section2"
+                                data-aos="fade-left"
+                                data-aos-duration="3000">
+                                <Image className="landing__section__pic" src="/newTip.png" layout="fill" alt="newTip" />
+                            </div>
                         </div>
                         <a
                             onClick={() => {
@@ -131,34 +76,25 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section3">
-                        <div className="landing__section1__text">
-                            <h2 className="landing__section1__p">뭐시기</h2>
-                        </div>
-                        <div className="landing__section3__slide">
-                            <input type="radio" name="section3-pos" id="section-pos1" />
-                            <input type="radio" name="section3-pos" id="section-pos2" />
-                            <input type="radio" name="section3-pos" id="section-pos3" />
-                            <input type="radio" name="section3-pos" id="section-pos4" />
-                            <ul style={{ width: `calc(100% * 4)` }}>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                                <li style={{ width: `calc(100% / 4)` }}>
-                                    <Image src="/honeycomb.png" layout="fill" alt="honeycomb" />
-                                </li>
-                            </ul>
-                            <p className="section3__bullet">
-                                <label htmlFor="section-pos1">1</label>
-                                <label htmlFor="section-pos2">2</label>
-                                <label htmlFor="section-pos3">3</label>
-                                <label htmlFor="section-pos4">4</label>
-                            </p>
+                        <div className="landing__section__inner">
+                            <div
+                                className="landing__section__pic-div__section3"
+                                data-aos="fade-right"
+                                data-aos-duration="3000">
+                                <Image
+                                    className="landing__section__pic"
+                                    src="/communicating.png"
+                                    layout="fill"
+                                    alt="communicating"
+                                />
+                            </div>
+                            <div className="landing__section__text">
+                                <h2 className="landing__section__p">
+                                    당신만의 꿀팁을 <br />
+                                    <br />
+                                    다른 사람들과 공유해보세요.
+                                </h2>
+                            </div>
                         </div>
                         <a
                             onClick={() => {
@@ -170,17 +106,81 @@ export default function Home() {
                         </a>
                     </section>
                     <section className="landing__section" id="section4">
-                        <div className="landing__section1__text">
-                            <h1 className="landing__section1__title">Tiny Honey Tip</h1>
-                            <h2 className="landing__section1__p">
-                                혹시 알아요? <br />
-                                <br />
-                                대박 HoneyTip 기다리고 있을지...!
-                            </h2>
+                        <div className="landing__section__inner">
+                            <div className="landing__section__text">
+                                <h2 className="landing__section__p">
+                                    당신의 꿀팁들을 <br />
+                                    <br />
+                                    스크랩하여 모아보세요.
+                                </h2>
+                            </div>
+                            <div
+                                className="landing__section__pic-div__section4"
+                                data-aos="fade-left"
+                                data-aos-duration="3000">
+                                <Image
+                                    className="landing__section__pic"
+                                    src="/Uploading.png"
+                                    layout="fill"
+                                    alt="Uploading"
+                                />
+                            </div>
                         </div>
-                        <Link href="/content" passHref>
-                            <button className="landing__start-btn">시작하기</button>
-                        </Link>
+                        <a
+                            onClick={() => {
+                                let nextSection = document.getElementById('section5').offsetTop;
+                                nextSection += document.getElementById('section3').offsetParent.offsetTop;
+                                window.scrollTo(0, nextSection);
+                            }}>
+                            <div className="scroll-down"></div>
+                        </a>
+                    </section>
+                    <section className="landing__section landing__section5" id="section5">
+                        <div className="landing__section__inner__section5">
+                            <div className="landing__section__text__section5">
+                                <span>320</span> 명의 유저들이 Tiny Honey Tip을 이용하고 있습니다!
+                            </div>
+                            <div className="landing__section5__slide" data-aos="fade-up" data-aos-duration="3000">
+                                <ul>
+                                    {userReview?.map((el, idx) => {
+                                        return (
+                                            <li key={idx}>
+                                                <div className="landing-user-image">
+                                                    <Image src="/free-icon-bee.png" layout="fill" alt="bee user" />
+                                                </div>
+                                                <span className="landing-user-name">{el.username} 꿀벌님</span>
+                                                <span className="landing-user-review">{el.content}</span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                        <a
+                            onClick={() => {
+                                let nextSection = document.getElementById('section6').offsetTop;
+                                nextSection += document.getElementById('section4').offsetParent.offsetTop;
+                                window.scrollTo(0, nextSection);
+                            }}>
+                            <div className="scroll-down"></div>
+                        </a>
+                    </section>
+                    <section className="landing__section" id="section6">
+                        <div className="landing__section__inner">
+                            <div data-aos="fade-right" data-aos-duration="3000">
+                                <div className="landing__section__text">
+                                    <h1 className="landing__section__title">Tiny Honey Tip</h1>
+                                    <h2 className="landing__section__p">
+                                        혹시 알아요? <br />
+                                        <br />
+                                        대박 HoneyTip 기다리고 있을지...!
+                                    </h2>
+                                    <Link href="/content" passHref>
+                                        <button className="landing__start-btn">시작하기</button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     <a
                         className="top-btn"
@@ -195,9 +195,8 @@ export default function Home() {
                         />
                     </a>
                 </div>
-
                 <div className="scroll__down"></div>
             </div>
-        </>
+        </div>
     );
 }

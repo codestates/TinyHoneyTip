@@ -15,13 +15,13 @@ const {
     comment,
     deletecomment,
 } = require('./PostApi');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/ ' });
+const upload = require('../../multer');
+// const upload = multer({ dest: 'uploads/ ' });
 
 post.get('/', getpostlist);
-post.post('/', upload.single('image'), uploadpost);
+post.post('/', upload.array('post_page_img', 5), uploadpost);
 post.get('/:id', getpostdetail);
-post.patch('/:id', editpost);
+post.patch('/:id', upload.array('post_page_img', 5), editpost);
 post.delete('/:id', deletepost);
 post.get('/like/:id', like);
 post.delete('/like/:id', cancellike);

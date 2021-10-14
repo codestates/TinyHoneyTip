@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 
 import Head from 'next/head';
 
@@ -13,6 +14,12 @@ import '../styles/SinglePost.css';
 import '../styles/Content.css';
 import '../styles/NewPost.css';
 import '../styles/MyPage.css';
+import '../styles/contentPost.css';
+import '../styles/Search.css';
+import '../styles/Select.css';
+import '../styles/Alert.css';
+import '../styles/Loading.css';
+import '../styles/Weather.css';
 
 function MyApp({ Component, pageProps }) {
     const [userInfo, setUserInfo] = useState({
@@ -29,6 +36,19 @@ function MyApp({ Component, pageProps }) {
         setUserInfo({
             ...userInfo,
             isLogin: true,
+            isSocial: false,
+            id: data.userInfo.id,
+            email: data.userInfo.email,
+            accessToken: data.accessToken,
+            username: data.userInfo.username,
+            profile_img: data.userInfo.profile_img,
+        });
+    };
+
+    const socialHandler = (data) => {
+        setUserInfo({
+            ...userInfo,
+            isLogin: true,
             isSocial: true,
             id: data.userInfo.id,
             email: data.userInfo.email,
@@ -42,7 +62,7 @@ function MyApp({ Component, pageProps }) {
         setUserInfo({
             ...userInfo,
             isLogin: false,
-            isSocal: false,
+            isSocial: false,
             id: '',
             email: '',
             accessToken: '',
@@ -50,34 +70,30 @@ function MyApp({ Component, pageProps }) {
             profile_img: '',
         });
         sessionStorage.clear();
+        Router.push('/content');
     };
     useEffect(() => {
         setUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
     }, []);
+
     useEffect(() => {
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
         sessionStorage.setItem('accessToken', userInfo?.accessToken);
     });
 
-    // loading
-
     const router = useRouter();
     const [isPageLoading, setPageLoading] = useState(false);
     useEffect(() => {
         router.events.on('routeChangeStart', (url) => {
-            console.log('router is changing');
             setPageLoading(true);
-        }); //페이지 바뀌면 실행
+        });
         router.events.on('routeChangeComplete', (url) => {
-            console.log('router is complete');
             setPageLoading(false);
-        }); // 완료하면 실행
+        });
         router.events.on('routeChangeError', (url) => {
-            console.log('router is err');
             setPageLoading(false);
-        }); // 에러나면 실행
+        });
     }, [router]);
-    //
 
     return (
         <>
@@ -88,6 +104,7 @@ function MyApp({ Component, pageProps }) {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
                 loginHandler={loginHandler}
+                socialHandler={socialHandler}
                 logoutHandler={logoutHandler}
             />
             {isPageLoading && <Loading />}

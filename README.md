@@ -30,14 +30,16 @@
 - Position: Front-End
 - Stack: Node.js, Next js, express, html, css, react, javascript
 - Contributions<br />
- content page<br />
- signin, signup <br />
- select <br />
- category<br />
- search<br />
- loading<br />
- infinite scroll<br />
- image src making <br />
+ Content page<br />
+ Signin, signup <br />
+ Select <br />
+ Category<br />
+ Search<br />
+ Loading<br />
+ Infinite scroll<br />
+ Image src making <br />
+ Weather widget<br/>
+ Cropper <br />
 </div>
 </details>
 
@@ -49,8 +51,12 @@
 |--|--|
 - 팀원
 - Position: Full-stack
-- Stack:
-- Contributions
+- Stack: React, Next js, axios, html, css, javascript, node js, sequelize, RDS, mysql, express
+- Contributions<br />
+ mypage client<br />
+ mypage server<br />
+ server api<br />
+ database<br />
 </div>
 </details>
 
@@ -62,8 +68,13 @@
 |--|--|
 - 팀원
 - Position: Back-End
-- Stack:
-- Contributions
+- Stack: node.js, sequelize, mysql, aws, vercel, express, javascript
+- Contributions<br />
+ Server API<br />
+ Image upload<br />
+ Database<br />
+ Deploy<br />
+ Social login<br />
 </div>
 </details>
 
@@ -75,7 +86,7 @@
 |--|--|
 - 팀원
 - Position: Front-End
-- Stack: Node.js, Next js, express, html, css, react, javascript
+- Stack: React, Next js, axios, html, css, javascript
 - Contributions<br />
  landing page<br />
  header, footer<br />
@@ -87,8 +98,14 @@
 
 # stack
 
-<img src = 'https://camo.githubusercontent.com/077a39b772ead36dc27f4799d40e8c8bd26c3b725684cc76bdd6bbb45fe16f67/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f3838343333343837313931393539313436352f3838343731373237343235333130333130342f5765625f4170705f5265666572656e63655f4172636869746563747572652e706e673f77696474683d31373830266865696768743d31303536' width=550 height=440 />
+<img src = 'https://user-images.githubusercontent.com/82423405/136499279-16105abc-463e-42d3-a091-bd0b0514f453.png' width=580 height=440 />
 
 # more information
 
+[TinyHoneyTip](https://www.tiny-honey-tip.com/)
+<br/>
 [our wiki](https://github.com/codestates/TinyHoneyTip/wiki)
+<br/>
+[Client Repo]()
+<br/>
+[Server Repo]()

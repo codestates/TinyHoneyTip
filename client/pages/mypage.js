@@ -266,7 +266,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                 </div>
                                                             </div>
                                                             <div className="my_post_desc">
-                                                                <div className="post_desc_title">
+                                                                <div className="my_post_desc_title">
                                                                     <div className="my_post_title_font">
                                                                         {el?.title}
                                                                     </div>
@@ -324,7 +324,7 @@ export default function MyPage({ userInfo, setUserInfo }) {
                                                                 </div>
 
                                                                 <div className="my_post_desc">
-                                                                    <div className="post_desc_title">
+                                                                    <div className="my_post_desc_title">
                                                                         <div className="my_post_title_font">
                                                                             {el?.post_container?.title}
                                                                         </div>

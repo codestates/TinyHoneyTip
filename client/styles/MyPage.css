@@ -299,7 +299,7 @@
         padding: 0 5px;
     }
 
-    .post_desc_title {
+    .my_post_desc_title {
         font-size: 14px;
         padding: 2px 5px;
         font-weight: 600;
@@ -567,9 +567,12 @@
         margin-left: 1vw;
     }
 
-    .my_post_item:hover {
+    .my_post_item:hover .my_img_inner {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+
+    .my_img_container {
         overflow: hidden;
     }
 
@@ -589,7 +592,7 @@
         height: 180px;
     }
 
-    .post_desc_title {
+    .my_post_desc_title {
         font-size: 12px;
         font-weight: 600;
     }
@@ -880,9 +883,12 @@
         margin-left: 1vw;
     }
 
-    .my_post_item:hover {
+    .my_post_item:hover .my_img_inner {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+
+    .my_img_container {
         overflow: hidden;
     }
 
@@ -901,7 +907,7 @@
         margin-top: 10px;
     }
 
-    .post_desc_title {
+    .my_post_desc_title {
         font-size: 12px;
         font-weight: 500;
     }
